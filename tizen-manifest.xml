@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<manifest xmlns="http://tizen.org/ns/packages" api-version="2.3" package="org.tizen.tizen-fbreader" version="0.0.1">
+    <profile name="mobile"/>
+    <ui-application appid="org.tizen.tizen-fbreader" exec="tizen-fbreader" multiple="false" nodisplay="false" taskmanage="true" type="capp">
+        <label>tizen-fbreader</label>
+        <icon>FBReader-type1.png</icon>
+    </ui-application>
+</manifest>

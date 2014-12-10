@@ -1,0 +1,7 @@
+#delete
+#add
+bin/tizen-fbreader
+#modify
+author-signature.xml
+signature1.xml
+tizen-manifest.xml
