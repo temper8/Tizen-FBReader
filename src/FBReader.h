@@ -20,18 +20,12 @@
 #endif
 #define LOG_TAG "tizen-fbreader"
 
-#if !defined(PACKAGE)
-#define PACKAGE "org.tizen.tizen-fbreader"
-#endif
+#include "ZLApplication.h"
 
-class FBReader {
+class FBReader : public ZLApplication {
 public:
 	FBReader(const std::string &bookToOpen);
 	~FBReader();
-
-	Evas_Object *win;
-	Evas_Object *conform;
-	Evas_Object *label;
 
 	bool createApplication();
 
@@ -41,14 +35,11 @@ public:
 	static void app_resume(void *data);
 	static void app_terminate(void *data);
 
-	static void win_back_cb(void *data, Evas_Object *obj, void *event_info);
-
-	static void	ui_app_lang_changed(app_event_info_h event_info, void *user_data);
-	static void	ui_app_orient_changed(app_event_info_h event_info, void *user_data);
-	static void	ui_app_region_changed(app_event_info_h event_info, void *user_data);
-	static void	ui_app_low_battery(app_event_info_h event_info, void *user_data);
-	static void	ui_app_low_memory(app_event_info_h event_info, void *user_data);
-
+		static void	ui_app_lang_changed(app_event_info_h event_info, void *user_data);
+		static void	ui_app_orient_changed(app_event_info_h event_info, void *user_data);
+		static void	ui_app_region_changed(app_event_info_h event_info, void *user_data);
+		static void	ui_app_low_battery(app_event_info_h event_info, void *user_data);
+		static void	ui_app_low_memory(app_event_info_h event_info, void *user_data);
 
 };
 

@@ -2,17 +2,31 @@
 
 #include "ZLibrary.h"
 #include "Fbreader.h"
-static int my_argc;
-static char **my_argv;
+
+#include "ZLibraryImplementation.h"
+
 
 bool ZLibrary::init(int &argc, char **&argv) {
-//	gtk_init(&argc, &argv);
-	my_argc = argc;
-	my_argv = argv;
-return true;
+
+
+	ZLibraryImplementation::initLibrary();
+
+	if (ZLibraryImplementation::Instance == 0) {
+		return false;
+	}
+
+	ZLibraryImplementation::Instance->init(argc, argv);
+	return true;
 }
 
+//ZLPaintContext *ZLibrary::createContext() {
+//	return ZLibraryImplementation::Instance->createContext();
+//}
 
+void ZLibrary::run(ZLApplication *application) {
+	ZLibraryImplementation::Instance->run(application);
+}
+/*
 void ZLibrary::run(FBReader *fbr) {
 
 	ui_app_lifecycle_callback_s event_callback = {0,};
@@ -37,7 +51,7 @@ void ZLibrary::run(FBReader *fbr) {
 	}
 
 }
-
+*/
 void ZLibrary::shutdown() {
 
 }

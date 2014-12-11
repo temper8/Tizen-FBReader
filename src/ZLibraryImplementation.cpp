@@ -7,9 +7,11 @@
 
 #include "ZLibraryImplementation.h"
 
-ZLibraryImplementation::ZLibraryImplementation() {
-	// TODO Auto-generated constructor stub
 
+ZLibraryImplementation *ZLibraryImplementation::Instance = 0;
+
+ZLibraryImplementation::ZLibraryImplementation() {
+	Instance = this;
 }
 
 ZLibraryImplementation::~ZLibraryImplementation() {

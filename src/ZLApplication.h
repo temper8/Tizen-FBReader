@@ -7,6 +7,9 @@
 
 #ifndef ZLAPPLICATION_H_
 #define ZLAPPLICATION_H_
+
+#include <string>
+
 class ZLApplicationBase {
 
 protected:
@@ -16,22 +19,24 @@ protected:
 
 class ZLApplication : public ZLApplicationBase {
 
+protected:
+	ZLApplication(const std::string &name);
+	~ZLApplication();
+
 public:
 	static ZLApplication &Instance();
 	static void deleteInstance();
 
+
+	bool createApplication();
+
 private:
 	static ZLApplication *ourInstance;
 
-protected:
-	ZLApplication(const std::string &name);
 
-}
 
-class ZLApplication {
-public:
-	ZLApplication();
-	virtual ~ZLApplication();
 };
+
+
 
 #endif /* ZLAPPLICATION_H_ */

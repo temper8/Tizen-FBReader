@@ -16,6 +16,68 @@ ZLTizenLibraryImplementation::~ZLTizenLibraryImplementation() {
 	// TODO Auto-generated destructor stub
 }
 
-void ZLTizenLibraryImplementation::initLibrary() {
+void ZLibraryImplementation::initLibrary() {
 	new ZLTizenLibraryImplementation();
+}
+
+static int my_argc;
+static char **my_argv;
+
+void ZLTizenLibraryImplementation::init(int &argc, char **&argv){
+	my_argc = argc;
+	my_argv = argv;
+}
+
+ZLTizenApplicationWindow *ZLTizenLibraryImplementation::myWindow = NULL;
+
+bool ZLTizenLibraryImplementation::app_create(void *data){
+	ZLApplication *app = (ZLApplication*)data;
+	myWindow = new ZLTizenApplicationWindow(app);
+	app->createApplication();
+	return true;
+}
+
+
+void ZLTizenLibraryImplementation::app_control(app_control_h app_control, void *data)
+{
+	/* Handle the launch request. */
+}
+
+void ZLTizenLibraryImplementation::app_pause(void *data)
+{
+	/* Take necessary actions when application becomes invisible. */
+}
+
+void ZLTizenLibraryImplementation::app_resume(void *data)
+{
+	/* Take necessary actions when application becomes visible. */
+}
+
+void ZLTizenLibraryImplementation::app_terminate(void *data)
+{
+	/* Release all resources. */
+}
+
+void ZLTizenLibraryImplementation::run(ZLApplication *application) {
+	ui_app_lifecycle_callback_s event_callback = {0,};
+	app_event_handler_h handlers[5] = {NULL, };
+
+	event_callback.create = ZLTizenLibraryImplementation::app_create;
+	event_callback.terminate = ZLTizenLibraryImplementation::app_terminate;
+	event_callback.pause = ZLTizenLibraryImplementation::app_pause;
+	event_callback.resume = ZLTizenLibraryImplementation::app_resume;
+	event_callback.app_control = ZLTizenLibraryImplementation::app_control;
+
+//	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_BATTERY], APP_EVENT_LOW_BATTERY, FBReader::ui_app_low_battery, fbr);
+//	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_MEMORY], APP_EVENT_LOW_MEMORY, FBReader::ui_app_low_memory, fbr);
+//	ui_app_add_event_handler(&handlers[APP_EVENT_DEVICE_ORIENTATION_CHANGED], APP_EVENT_DEVICE_ORIENTATION_CHANGED, FBReader::ui_app_orient_changed, fbr);
+//	ui_app_add_event_handler(&handlers[APP_EVENT_LANGUAGE_CHANGED], APP_EVENT_LANGUAGE_CHANGED, FBReader::ui_app_lang_changed, fbr);
+//	ui_app_add_event_handler(&handlers[APP_EVENT_REGION_FORMAT_CHANGED], APP_EVENT_REGION_FORMAT_CHANGED, FBReader::ui_app_region_changed, fbr);
+//	ui_app_remove_event_handler(handlers[APP_EVENT_LOW_MEMORY]);
+
+	int ret = ui_app_main(my_argc, my_argv, &event_callback, application);
+	if (ret != APP_ERROR_NONE) {
+		dlog_print(DLOG_ERROR, LOG_TAG, "app_main() is failed. err = %d", ret);
+	}
+
 }

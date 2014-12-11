@@ -39,3 +39,9 @@ ZLApplication::ZLApplication(const std::string &name) : ZLApplicationBase(name)
 ZLApplication::~ZLApplication() {
 	ourInstance = 0;
 }
+
+bool ZLApplication::createApplication(){
+	//ZLDialogManager::Instance().createApplicationWindow(application);
+	//application->initWindow();
+	return true;
+}

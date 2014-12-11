@@ -22,13 +22,13 @@
 
 #include <string>
 
-class FBReader;
+class ZLApplication;
 
 class ZLibrary {
 
 public:
 	static bool init(int &argc, char **&argv);
-	static void run(FBReader *fbr);
+	static void run(ZLApplication *application);
 	static void shutdown();
 
 };
