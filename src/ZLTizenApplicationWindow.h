@@ -37,12 +37,6 @@ public:
 
 	static void win_back_cb(void *data, Evas_Object *obj, void *event_info);
 
-//	static void	ui_app_lang_changed(app_event_info_h event_info, void *user_data);
-//	static void	ui_app_orient_changed(app_event_info_h event_info, void *user_data);
-//	static void	ui_app_region_changed(app_event_info_h event_info, void *user_data);
-//	static void	ui_app_low_battery(app_event_info_h event_info, void *user_data);
-//	static void	ui_app_low_memory(app_event_info_h event_info, void *user_data);
-
 };
 
 #endif /* ZLTIZENAPPLICATIONWINDOW_H_ */

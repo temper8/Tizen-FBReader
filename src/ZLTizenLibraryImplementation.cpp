@@ -58,6 +58,40 @@ void ZLTizenLibraryImplementation::app_terminate(void *data)
 	/* Release all resources. */
 }
 
+
+void ZLTizenLibraryImplementation::ui_app_lang_changed(app_event_info_h event_info, void *user_data)
+{
+	/*APP_EVENT_LANGUAGE_CHANGED*/
+	char *locale = NULL;
+	system_settings_get_value_string(SYSTEM_SETTINGS_KEY_LOCALE_LANGUAGE, &locale);
+	elm_language_set(locale);
+	free(locale);
+	return;
+}
+
+void ZLTizenLibraryImplementation::ui_app_orient_changed(app_event_info_h event_info, void *user_data)
+{
+	/*APP_EVENT_DEVICE_ORIENTATION_CHANGED*/
+	return;
+}
+
+void ZLTizenLibraryImplementation::ui_app_region_changed(app_event_info_h event_info, void *user_data)
+{
+	/*APP_EVENT_REGION_FORMAT_CHANGED*/
+}
+
+void ZLTizenLibraryImplementation::ui_app_low_battery(app_event_info_h event_info, void *user_data)
+{
+	/*APP_EVENT_LOW_BATTERY*/
+}
+
+void ZLTizenLibraryImplementation::ui_app_low_memory(app_event_info_h event_info, void *user_data)
+{
+	/*APP_EVENT_LOW_MEMORY*/
+}
+
+
+
 void ZLTizenLibraryImplementation::run(ZLApplication *application) {
 	ui_app_lifecycle_callback_s event_callback = {0,};
 	app_event_handler_h handlers[5] = {NULL, };
@@ -68,12 +102,12 @@ void ZLTizenLibraryImplementation::run(ZLApplication *application) {
 	event_callback.resume = ZLTizenLibraryImplementation::app_resume;
 	event_callback.app_control = ZLTizenLibraryImplementation::app_control;
 
-//	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_BATTERY], APP_EVENT_LOW_BATTERY, FBReader::ui_app_low_battery, fbr);
-//	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_MEMORY], APP_EVENT_LOW_MEMORY, FBReader::ui_app_low_memory, fbr);
-//	ui_app_add_event_handler(&handlers[APP_EVENT_DEVICE_ORIENTATION_CHANGED], APP_EVENT_DEVICE_ORIENTATION_CHANGED, FBReader::ui_app_orient_changed, fbr);
-//	ui_app_add_event_handler(&handlers[APP_EVENT_LANGUAGE_CHANGED], APP_EVENT_LANGUAGE_CHANGED, FBReader::ui_app_lang_changed, fbr);
-//	ui_app_add_event_handler(&handlers[APP_EVENT_REGION_FORMAT_CHANGED], APP_EVENT_REGION_FORMAT_CHANGED, FBReader::ui_app_region_changed, fbr);
-//	ui_app_remove_event_handler(handlers[APP_EVENT_LOW_MEMORY]);
+	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_BATTERY], APP_EVENT_LOW_BATTERY, ZLTizenLibraryImplementation::ui_app_low_battery, application);
+	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_MEMORY], APP_EVENT_LOW_MEMORY, ZLTizenLibraryImplementation::ui_app_low_memory, application);
+	ui_app_add_event_handler(&handlers[APP_EVENT_DEVICE_ORIENTATION_CHANGED], APP_EVENT_DEVICE_ORIENTATION_CHANGED, ZLTizenLibraryImplementation::ui_app_orient_changed, application);
+	ui_app_add_event_handler(&handlers[APP_EVENT_LANGUAGE_CHANGED], APP_EVENT_LANGUAGE_CHANGED, ZLTizenLibraryImplementation::ui_app_lang_changed, application);
+	ui_app_add_event_handler(&handlers[APP_EVENT_REGION_FORMAT_CHANGED], APP_EVENT_REGION_FORMAT_CHANGED, ZLTizenLibraryImplementation::ui_app_region_changed, application);
+	ui_app_remove_event_handler(handlers[APP_EVENT_LOW_MEMORY]);
 
 	int ret = ui_app_main(my_argc, my_argv, &event_callback, application);
 	if (ret != APP_ERROR_NONE) {
