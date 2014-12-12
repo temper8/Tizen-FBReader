@@ -21,6 +21,26 @@ void ZLTizenApplicationWindow::win_back_cb(void *data, Evas_Object *obj, void *e
 	elm_win_lower(tw->win);
 }
 
+static Evas_Object* create_scroller(Evas_Object *parent)
+{
+	Evas_Object *scroller = elm_scroller_add(parent);
+	elm_object_style_set(scroller, "dialogue");
+	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
+	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF,ELM_SCROLLER_POLICY_AUTO);
+	//evas_object_show(scroller);
+
+	return scroller;
+}
+
+static Eina_Bool naviframe_pop_cb(void *data, Elm_Object_Item *it)
+{
+	Evas_Object *win = (Evas_Object *)data;
+
+	elm_win_lower(win);
+
+	return EINA_FALSE;
+}
+
 ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): ZLApplicationWindow(application),
 																				win(NULL), conform(NULL), label(NULL)
 {
@@ -44,12 +64,29 @@ ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): 
 	elm_win_resize_object_add(win, conform);
 	evas_object_show(conform);
 
+
+	/* Naviframe */
+	naviframe = elm_naviframe_add(conform);
+	eext_object_event_callback_add(naviframe, EEXT_CALLBACK_BACK, eext_naviframe_back_cb, this);
+	evas_object_size_hint_weight_set(naviframe, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	elm_object_content_set(conform, naviframe);
+	evas_object_show(naviframe);
+
+	Evas_Object *scroller = create_scroller(naviframe);
+
 	/* Label*/
-	label = elm_label_add(conform);
+	label = elm_label_add(scroller);
 	elm_object_text_set(label, "Hello EFL and FBReader!");
 	evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_object_content_set(conform, label);
+	elm_object_content_set(scroller, label);
 	evas_object_show(label);
+
+
+	Elm_Object_Item *nf_it =elm_naviframe_item_push(naviframe, "main navi", NULL, NULL, scroller, NULL);
+	//nf_it = elm_naviframe_item_push(ad->nf, "Layout Samples", NULL, NULL, main_list, NULL);
+	elm_naviframe_item_pop_cb_set(nf_it, naviframe_pop_cb, win);
+
+
 
 	/* Show window after base gui is set up */
 	evas_object_show(win);

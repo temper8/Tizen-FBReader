@@ -34,6 +34,7 @@ public:
 	Evas_Object *win;
 	Evas_Object *conform;
 	Evas_Object *label;
+	Evas_Object *naviframe;
 
 	static void win_back_cb(void *data, Evas_Object *obj, void *event_info);
 

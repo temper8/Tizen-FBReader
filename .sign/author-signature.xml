@@ -8,7 +8,7 @@
 </Reference>
 <Reference URI="bin%2Ftizen-fbreader">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>FUPA4l8atYwk2UtEh5rODhEXrdo1rERaXxVbVjnmTkI=</DigestValue>
+<DigestValue>anuAVS27qZC427AdDDOa1ymeZrOh+eZn/xM8RydXgMk=</DigestValue>
 </Reference>
 <Reference URI="shared%2Fres%2FFBReader-type1.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -31,9 +31,9 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-LsEvESHNPaRQa3YOiPSEnUfbhTZnIDys1TB8rQjb8XIL3u7LKT88FyBiejmUiBQ2dq4g3FASfQ1x
-glbxeahLcUBagChsqtpKmNOmXo3cWelQWMaW3PlwDyno+Qda3DH9GnYHHiX3ui/aFg4lb6oYwRoT
-G/av9JJfi2gmoAWDnvE=
+E5ty6kQ3vQTBrJp4M1l17paqCu0p0rSQFzxs7DCnYhuyBVkIKUCPDa3v2Izpwg14AQRW0r8bnO7G
+FwRaZvv/6T1Hx+Nbw0D+32aqoSoI8XCAHFIOI4fqazVjVZGc7PpC8RCBBbJ5QJO9Ao1bPi4wXPKx
+1mZMwplstyCUYp5qljI=
 </SignatureValue>
 <KeyInfo>
 <X509Data>
