@@ -8,10 +8,6 @@
 #include "ZLApplicationWindow.h"
 
 
-ZLApplicationWindow::~ZLApplicationWindow() {
-	// TODO Auto-generated destructor stub
-}
-
 ZLApplicationWindow *ZLApplicationWindow::ourInstance = 0;
 
 ZLApplicationWindow &ZLApplicationWindow::Instance() {
@@ -20,11 +16,11 @@ ZLApplicationWindow &ZLApplicationWindow::Instance() {
 
 ZLApplicationWindow::ZLApplicationWindow(ZLApplication *application) : myApplication(application) {
 	ourInstance = this;
-//	myApplication->myWindow = this;
+	myApplication->myWindow = this;
 }
 
 void ZLApplicationWindow::init() {
-//	myApplication->myViewWidget = createViewWidget();
+	myApplication->myViewWidget = createViewWidget();
 
 //	initToolbar(WINDOW_TOOLBAR);
 //	initToolbar(FULLSCREEN_TOOLBAR);

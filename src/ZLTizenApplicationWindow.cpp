@@ -6,6 +6,8 @@
  */
 
 #include "ZLTizenApplicationWindow.h"
+#include "ZLTizenViewWidget.h"
+#include "ZLView.h"
 
 static void win_delete_request_cb(void *data , Evas_Object *obj , void *event_info)
 {
@@ -58,3 +60,18 @@ ZLTizenApplicationWindow::~ZLTizenApplicationWindow() {
 	// TODO Auto-generated destructor stub
 }
 
+ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
+
+	ZLTizenViewWidget *viewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
+	return viewWidget;
+
+/*	ZLGtkViewWidget *viewWidget = new ZLGtkViewWidget(&application(), (ZLViewWidget::Angle)application().AngleStateOption.value());
+	gtk_container_add(GTK_CONTAINER(myVBox), viewWidget->area());
+	ZLGtkSignalUtil::connectSignal(GTK_OBJECT(viewWidget->area()), "expose_event", GTK_SIGNAL_FUNC(repaint), this);
+	ZLGtkSignalUtil::connectSignal(GTK_OBJECT(viewWidget->area()), "button_press_event", GTK_SIGNAL_FUNC(mousePressed), viewWidget);
+	ZLGtkSignalUtil::connectSignal(GTK_OBJECT(viewWidget->area()), "button_release_event", GTK_SIGNAL_FUNC(mouseReleased), viewWidget);
+	ZLGtkSignalUtil::connectSignal(GTK_OBJECT(viewWidget->area()), "motion_notify_event", GTK_SIGNAL_FUNC(mouseMoved), viewWidget);
+	gtk_widget_show_all(myVBox);
+	*/
+
+}

@@ -23,13 +23,18 @@
 #include <string>
 
 class ZLApplication;
+class ZLPaintContext;
 
 class ZLibrary {
 
 public:
 	static bool init(int &argc, char **&argv);
+
+	static ZLPaintContext *createContext();
+
 	static void run(ZLApplication *application);
 	static void shutdown();
+
 
 };
 

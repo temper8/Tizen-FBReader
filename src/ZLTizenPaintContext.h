@@ -8,7 +8,9 @@
 #ifndef ZLTIZENPAINTCONTEXT_H_
 #define ZLTIZENPAINTCONTEXT_H_
 
-class ZLTizenPaintContext {
+#include "ZLPaintContext.h"
+
+class ZLTizenPaintContext :  public ZLPaintContext {
 public:
 	ZLTizenPaintContext();
 	virtual ~ZLTizenPaintContext();

@@ -6,6 +6,7 @@
  */
 
 #include "ZLApplication.h"
+#include "ZLibrary.h"
 
 ZLApplicationBase::ZLApplicationBase(const std::string &name) {
 	// TODO Auto-generated constructor stub
@@ -43,5 +44,8 @@ ZLApplication::~ZLApplication() {
 bool ZLApplication::createApplication(){
 	//ZLDialogManager::Instance().createApplicationWindow(application);
 	//application->initWindow();
+
+	myContext = ZLibrary::createContext();
+
 	return true;
 }

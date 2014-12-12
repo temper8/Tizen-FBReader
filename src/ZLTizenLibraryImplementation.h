@@ -23,7 +23,7 @@ public:
 
 
 	void init(int &argc, char **&argv);
-//	ZLPaintContext *createContext();
+	ZLPaintContext *createContext();
 	void run(ZLApplication *application);
 
 	static ZLTizenApplicationWindow *myWindow;

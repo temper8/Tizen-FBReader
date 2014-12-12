@@ -6,6 +6,7 @@
  */
 
 #include "ZLTizenLibraryImplementation.h"
+#include "ZLTizenPaintContext.h"
 
 ZLTizenLibraryImplementation::ZLTizenLibraryImplementation() {
 	// TODO Auto-generated constructor stub
@@ -114,4 +115,9 @@ void ZLTizenLibraryImplementation::run(ZLApplication *application) {
 		dlog_print(DLOG_ERROR, LOG_TAG, "app_main() is failed. err = %d", ret);
 	}
 
+}
+
+
+ZLPaintContext *ZLTizenLibraryImplementation::createContext(){
+	return new ZLTizenPaintContext();
 }

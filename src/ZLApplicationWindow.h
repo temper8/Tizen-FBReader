@@ -11,6 +11,8 @@
 
 #include "ZLApplication.h"
 
+class ZLViewWidget;
+
 class ZLApplicationWindow {
 public:
 	static ZLApplicationWindow &Instance();
@@ -28,6 +30,15 @@ public:
 public:
 	ZLApplication &application() const;
 	void init();
+
+protected:
+	virtual ZLViewWidget *createViewWidget() = 0;
+
+
+friend class ZLApplication;
 };
+
+inline ZLApplicationWindow::~ZLApplicationWindow() {}
+inline ZLApplication &ZLApplicationWindow::application() const { return *myApplication; }
 
 #endif /* ZLAPPLICATIONWINDOW_H_ */

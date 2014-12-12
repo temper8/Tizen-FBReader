@@ -37,6 +37,9 @@ public:
 
 	static void win_back_cb(void *data, Evas_Object *obj, void *event_info);
 
+protected:
+	virtual ZLViewWidget *createViewWidget();
+
 };
 
 #endif /* ZLTIZENAPPLICATIONWINDOW_H_ */

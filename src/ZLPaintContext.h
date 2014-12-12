@@ -44,7 +44,7 @@ protected:
 
 public:
 	virtual ~ZLPaintContext();
-
+/*
 	virtual void clear(ZLColor color) = 0;
 
 	virtual void setFont(const std::string &family, int size, bool bold, bool italic) = 0;
@@ -81,7 +81,7 @@ public:
 
 protected:
 	virtual void fillFamiliesList(std::vector<std::string> &families) const = 0;
-
+*/
 private:
 	mutable std::vector<std::string> myFamilies;
 
