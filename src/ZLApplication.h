@@ -36,6 +36,10 @@ public:
 
 	bool createApplication();
 
+	shared_ptr<ZLPaintContext> context();
+	void initWindow();
+	void refreshWindow();
+
 private:
 	static ZLApplication *ourInstance;
 

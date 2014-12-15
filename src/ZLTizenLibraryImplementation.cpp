@@ -35,6 +35,7 @@ bool ZLTizenLibraryImplementation::app_create(void *data){
 	ZLApplication *app = (ZLApplication*)data;
 	myWindow = new ZLTizenApplicationWindow(app);
 	app->createApplication();
+	myWindow->init();
 	return true;
 }
 

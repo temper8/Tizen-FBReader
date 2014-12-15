@@ -72,6 +72,22 @@ ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): 
 	elm_object_content_set(conform, naviframe);
 	evas_object_show(naviframe);
 
+
+
+	/* Show window after base gui is set up */
+	evas_object_show(win);
+
+}
+
+ZLTizenApplicationWindow::~ZLTizenApplicationWindow() {
+	// TODO Auto-generated destructor stub
+}
+
+ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
+
+	ZLTizenViewWidget *viewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
+
+
 	Evas_Object *scroller = create_scroller(naviframe);
 
 	/* Label*/
@@ -87,19 +103,6 @@ ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): 
 	elm_naviframe_item_pop_cb_set(nf_it, naviframe_pop_cb, win);
 
 
-
-	/* Show window after base gui is set up */
-	evas_object_show(win);
-
-}
-
-ZLTizenApplicationWindow::~ZLTizenApplicationWindow() {
-	// TODO Auto-generated destructor stub
-}
-
-ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
-
-	ZLTizenViewWidget *viewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
 	return viewWidget;
 
 /*	ZLGtkViewWidget *viewWidget = new ZLGtkViewWidget(&application(), (ZLViewWidget::Angle)application().AngleStateOption.value());

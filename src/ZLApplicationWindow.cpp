@@ -26,3 +26,9 @@ void ZLApplicationWindow::init() {
 //	initToolbar(FULLSCREEN_TOOLBAR);
 //	initMenu();
 }
+
+void ZLApplicationWindow::refresh() {
+//	refreshToolbar(WINDOW_TOOLBAR);
+//	refreshToolbar(FULLSCREEN_TOOLBAR);
+//	processAllEvents();
+}

@@ -14,6 +14,8 @@ class TestView : public ZLView {
 public:
 	TestView(ZLPaintContext &context);
 	virtual ~TestView();
+
+	virtual void paint();
 };
 
 #endif /* TESTVIEW_H_ */

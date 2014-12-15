@@ -17,6 +17,9 @@ class ZLTizenViewWidget : public ZLViewWidget {
 public:
 	ZLTizenViewWidget(ZLApplication *application, ZLView::Angle initialAngle);
 	virtual ~ZLTizenViewWidget();
+
+	virtual void repaint();
+	ZLApplication *myApplication;
 };
 
 #endif /* ZLTIZENVIEWWIDGET_H_ */

@@ -33,7 +33,7 @@ public:
 
 protected:
 	virtual ZLViewWidget *createViewWidget() = 0;
-
+	void refresh();
 
 friend class ZLApplication;
 };

@@ -53,7 +53,7 @@ public:
 	ZLView(ZLPaintContext &context);
 	virtual ~ZLView();
 
-	virtual const std::string &caption() const = 0;
+//	virtual const std::string &caption() const = 0;
 	virtual void paint() = 0;
 	ZLPaintContext &context() const;
 

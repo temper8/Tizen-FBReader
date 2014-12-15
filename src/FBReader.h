@@ -29,8 +29,9 @@ public:
 
 	bool createApplication();
 
-
-
+	void initWindow();
+	void refreshWindow();
+	shared_ptr<ZLView> myBookTextView;
 };
 
 

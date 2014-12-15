@@ -52,7 +52,7 @@ private:
 	void correctDirection(ZLView::Direction &direction, bool &invert);
 */
 protected:
-//	virtual void repaint() = 0;
+	virtual void repaint() = 0;
 
 private:
 	shared_ptr<ZLView> myView;

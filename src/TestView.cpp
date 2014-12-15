@@ -16,3 +16,6 @@ TestView::~TestView() {
 	// TODO Auto-generated destructor stub
 }
 
+void TestView::paint() {
+
+}
