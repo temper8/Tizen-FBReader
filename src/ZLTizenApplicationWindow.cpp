@@ -9,6 +9,8 @@
 #include "ZLTizenViewWidget.h"
 #include "ZLView.h"
 
+
+
 static void win_delete_request_cb(void *data , Evas_Object *obj , void *event_info)
 {
 	ui_app_exit();
@@ -83,22 +85,45 @@ ZLTizenApplicationWindow::~ZLTizenApplicationWindow() {
 	// TODO Auto-generated destructor stub
 }
 
+
+static void image_resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
+{
+
+	ZLTizenViewWidget *viewWidget = (ZLTizenViewWidget*)data;
+	viewWidget->draw();
+}
+
+
 ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
 	ZLTizenViewWidget *viewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
 
 
-	Evas_Object *scroller = create_scroller(naviframe);
+	viewWidget->scroller = create_scroller(naviframe);
 
 	/* Label*/
-	label = elm_label_add(scroller);
+	label = elm_label_add(viewWidget->scroller);
 	elm_object_text_set(label, "Hello EFL and FBReader!");
 	evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_object_content_set(scroller, label);
+	elm_object_content_set(viewWidget->scroller, label);
 	evas_object_show(label);
 
 
-	Elm_Object_Item *nf_it =elm_naviframe_item_push(naviframe, "main navi", NULL, NULL, scroller, NULL);
+	Evas* canvas = evas_object_evas_get(viewWidget->scroller);
+
+	Evas_Object *img = evas_object_image_add(canvas);
+	evas_object_image_colorspace_set(img, EVAS_COLORSPACE_ARGB8888);
+	evas_object_event_callback_add(img, EVAS_CALLBACK_RESIZE, image_resize_cb, viewWidget);
+	evas_object_size_hint_weight_set(img, EVAS_HINT_FILL, 0.5);
+	evas_object_size_hint_align_set(img, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	elm_object_content_set(viewWidget->scroller, img);
+	evas_object_show(img);							// Make the given Evas object visible
+
+	viewWidget->image = img;
+
+
+
+	Elm_Object_Item *nf_it =elm_naviframe_item_push(naviframe, "main navi", NULL, NULL, viewWidget->scroller, NULL);
 	//nf_it = elm_naviframe_item_push(ad->nf, "Layout Samples", NULL, NULL, main_list, NULL);
 	elm_naviframe_item_pop_cb_set(nf_it, naviframe_pop_cb, win);
 

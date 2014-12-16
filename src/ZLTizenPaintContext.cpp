@@ -7,7 +7,7 @@
 
 #include "ZLTizenPaintContext.h"
 
-ZLTizenPaintContext::ZLTizenPaintContext() {
+ZLTizenPaintContext::ZLTizenPaintContext() : ZLPaintContext() {
 	// TODO Auto-generated constructor stub
 
 }

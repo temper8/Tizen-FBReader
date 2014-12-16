@@ -1,6 +1,9 @@
+#include "logger.h"
 
 #include "FBReader.h"
 #include "TestView.h"
+
+
 
 FBReader::FBReader(const std::string &bookToOpen): ZLApplication(bookToOpen)  {
 
@@ -12,9 +15,11 @@ FBReader::~FBReader() {
 
 
 bool FBReader::createApplication(){
+	DBG("FBR-createApp");
 
 	ZLApplication::createApplication();
 	myBookTextView = new TestView(*context());
+	setView(myBookTextView);
 
 return true;
 }

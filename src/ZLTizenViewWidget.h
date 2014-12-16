@@ -10,6 +10,8 @@
 
 #include "ZLViewWidget.h"
 #include "ZLView.h"
+#include <efl_extension.h>
+#include "ZLTizenPaintContext.h"
 
 class ZLApplication;
 
@@ -20,6 +22,13 @@ public:
 
 	virtual void repaint();
 	ZLApplication *myApplication;
+
+	//ZLTizenPaintContext *tizenContext;
+	Evas_Object *scroller;
+	Evas_Object *image;
+	void draw();
+	void updateImage();
+	void test_draw_on_cairo(Evas_Object *image);
 };
 
 #endif /* ZLTIZENVIEWWIDGET_H_ */

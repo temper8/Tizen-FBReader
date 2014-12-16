@@ -5,6 +5,8 @@
  *      Author: Alex
  */
 
+#include "logger.h"
+
 #include "ZLApplication.h"
 #include "ZLibrary.h"
 #include "ZLApplicationWindow.h"
@@ -49,6 +51,7 @@ shared_ptr<ZLPaintContext> ZLApplication::context() {
 
 
 bool ZLApplication::createApplication(){
+	DBG("ZLA-createApp");
 	//ZLDialogManager::Instance().createApplicationWindow(application);
 	//application->initWindow();
 
@@ -57,7 +60,23 @@ bool ZLApplication::createApplication(){
 	return true;
 }
 
+
+void ZLApplication::setView(shared_ptr<ZLView> view) {
+	if (view.isNull()) {
+		return;
+	}
+
+	if (!myViewWidget.isNull()) {
+		myViewWidget->setView(view);
+		//resetWindowCaption();
+		//refreshWindow();
+	} else {
+		myInitialView = view;
+	}
+}
+
 void ZLApplication::initWindow() {
+	DBG("ZLA-inintWindows");
 //	if (KeyboardControlOption.value()) {
 //		grabAllKeys(true);
 //	}

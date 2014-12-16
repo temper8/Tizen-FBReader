@@ -27,19 +27,19 @@ class ZLApplication : public ZLApplicationBase {
 
 protected:
 	ZLApplication(const std::string &name);
-	~ZLApplication();
+	virtual ~ZLApplication();
 
 public:
 	static ZLApplication &Instance();
 	static void deleteInstance();
 
 
-	bool createApplication();
+	virtual bool createApplication();
 
 	shared_ptr<ZLPaintContext> context();
 	void initWindow();
 	void refreshWindow();
-
+	void setView(shared_ptr<ZLView> view);
 private:
 	static ZLApplication *ourInstance;
 

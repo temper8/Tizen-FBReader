@@ -5,6 +5,8 @@
  *      Author: Alex
  */
 
+#include "logger.h"
+
 #include "ZLTizenLibraryImplementation.h"
 #include "ZLTizenPaintContext.h"
 
@@ -32,10 +34,12 @@ void ZLTizenLibraryImplementation::init(int &argc, char **&argv){
 ZLTizenApplicationWindow *ZLTizenLibraryImplementation::myWindow = NULL;
 
 bool ZLTizenLibraryImplementation::app_create(void *data){
+	DBG("ZLTiLibImp-app_create");
 	ZLApplication *app = (ZLApplication*)data;
 	myWindow = new ZLTizenApplicationWindow(app);
-	app->createApplication();
 	myWindow->init();
+	app->createApplication();
+
 	return true;
 }
 
