@@ -29,6 +29,7 @@ public:
 	void draw();
 	void updateImage();
 	void test_draw_on_cairo(Evas_Object *image);
+
 };
 
 #endif /* ZLTIZENVIEWWIDGET_H_ */

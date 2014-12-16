@@ -44,16 +44,16 @@ protected:
 
 public:
 	virtual ~ZLPaintContext();
-/*
+
 	virtual void clear(ZLColor color) = 0;
 
-	virtual void setFont(const std::string &family, int size, bool bold, bool italic) = 0;
+//	virtual void setFont(const std::string &family, int size, bool bold, bool italic) = 0;
 	virtual void setColor(ZLColor color, LineStyle style = SOLID_LINE) = 0;
-	virtual void setFillColor(ZLColor color, FillStyle style = SOLID_FILL) = 0;
+//	virtual void setFillColor(ZLColor color, FillStyle style = SOLID_FILL) = 0;
 
 	virtual int width() const = 0;
 	virtual int height() const = 0;
-	
+/*
 	virtual int stringWidth(const char *str, int len, bool rtl) const = 0;
 	virtual int spaceWidth() const = 0;
 	virtual int stringHeight() const = 0;
@@ -71,22 +71,22 @@ public:
 //	int imageHeight(const ZLImageData &image, int width, int height, ScalingType type) const;
 //	virtual void drawImage(int x, int y, const ZLImageData &image) = 0;
 //	virtual void drawImage(int x, int y, const ZLImageData &image, int width, int height, ScalingType type) = 0;
-
+*/
 	virtual void drawLine(int x0, int y0, int x1, int y1) = 0;
-	virtual void fillRectangle(int x0, int y0, int x1, int y1) = 0;
-	virtual void drawFilledCircle(int x, int y, int r) = 0;
+//	virtual void fillRectangle(int x0, int y0, int x1, int y1) = 0;
+//	virtual void drawFilledCircle(int x, int y, int r) = 0;
 
-	const std::vector<std::string> &fontFamilies() const;
-	virtual const std::string realFontFamilyName(std::string &fontFamily) const = 0;
+//	const std::vector<std::string> &fontFamilies() const;
+//	virtual const std::string realFontFamilyName(std::string &fontFamily) const = 0;
 
 protected:
-	virtual void fillFamiliesList(std::vector<std::string> &families) const = 0;
-*/
+//	virtual void fillFamiliesList(std::vector<std::string> &families) const = 0;
+
 private:
 	mutable std::vector<std::string> myFamilies;
 
 private:
-	ZLPaintContext(const ZLPaintContext&);
+//	ZLPaintContext(const ZLPaintContext&);
 	const ZLPaintContext &operator = (const ZLPaintContext&);
 
 friend class ZLMirroredPaintContext;
