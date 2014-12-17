@@ -23,7 +23,10 @@ void TestView::paint() {
 
 	context().clear(ZLColor(255, 255, 255));
 
+	int cx = 300;
+	int cy = 300;
     int h,w;
+
     h = context().height();
     w = context().width();
 
@@ -35,19 +38,42 @@ void TestView::paint() {
     context().setColor(ZLColor(127, 127, 127));
 	context().drawLine(10, 10, 200, 400);
 
-	//this->context().setColor(ZLColor(0, 255, 0));
-	//this->context().drawLine(10, 600, 200+ (Math::Rand() % (200)), 100+ (Math::Rand() % (200)));
+	context().setColor(ZLColor(0, 255, 0));
+	context().drawLine(500, 10, 10, 500);
 
-	//this->context().setFillColor(ZLColor(200, 0, 0));
-	//this->context().fillRectangle(CircleXY.x-50,CircleXY.y-50,CircleXY.x+50,CircleXY.y+50);
+	context().setFillColor(ZLColor(200, 0, 0));
+	context().fillRectangle(cx-60,cy-60, cx+60, cy+60);
 
-	//this->context().setFillColor(ZLColor(200, 200, 0));
-	//this->context().fillRectangle(CircleXY.x-25,CircleXY.y-25,CircleXY.x+75,CircleXY.y+75);
 
-	//this->context().setColor(ZLColor(0, 0, 0));
-	//this->context().drawFilledCircle(CircleXY.x,CircleXY.y,60);
 
-	//this->context().setColor(ZLColor(0, 0, 255));
-	//this->context().drawString(CircleXY.x-20,CircleXY.y-0,"TextРусский",10,0);
+	context().setFillColor(ZLColor(0, 0, 50));
+	context().drawFilledCircle(cx,cy,60);
+
+	context().setFillColor(ZLColor(200, 200, 0));
+	context().fillRectangle(cx-150, cy-150,cx-50,cy-50);
+
+	context().setFont("Sans",40, false,false);
+	context().setColor(ZLColor(0, 0, 255));
+	context().drawString(20,50,"Text Русский 40",10,0);
+
+	context().setFont("Sans",30, false, true);
+	context().setColor(ZLColor(0, 0, 255));
+	context().drawString(20,100,"Text Русский 30 italic",10,0);
+
+
+	context().setFont("Sans",30, true,false);
+	context().setColor(ZLColor(0, 255, 255));
+	context().drawString(20,150,"Text Русский 30 bold",10,0);
+
+	context().setFont("Sans",30, true, true);
+
+	context().setFillColor(ZLColor(00, 200, 100));
+	context().fillRectangle(20, 200 + context().descent(), 20 + context().stringWidth("Text Русский 30 bold italic", 27, 0) ,200 - context().stringHeight());
+
+	context().setFillColor(ZLColor(00, 200, 0));
+	context().fillRectangle(20, 200, 20 + context().stringWidth("Text Русский 30 bold italic", 27, 0) ,200 - context().stringHeight());
+
+	context().setColor(ZLColor(255, 255, 255));
+	context().drawString(20, 200,"Text Русский 30 bold italic",10,0);
 
 }

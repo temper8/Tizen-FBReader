@@ -18,23 +18,49 @@ public:
 	ZLTizenPaintContext();
 	virtual ~ZLTizenPaintContext();
 
-	void clear(ZLColor color);
 
-	//virtual void setFont(const std::string &family, int size, bool bold, bool italic) = 0;
-	void setColor(ZLColor color, LineStyle style = SOLID_LINE);
-	//virtual void setFillColor(ZLColor color, FillStyle style = SOLID_FILL) = 0;
 	int width() const;
 	int height() const;
-	void drawLine(int x0, int y0, int x1, int y1);
 
-    int myWidth;
-    int myHeight;
+	void clear(ZLColor color);
+
+	void setFont(const std::string &family, int size, bool bold, bool italic);
+	void setColor(ZLColor color, LineStyle style = SOLID_LINE);
+	void setFillColor(ZLColor color, FillStyle style = SOLID_FILL);
+
+	void drawLine(int x0, int y0, int x1, int y1);
+	void fillRectangle(int x0, int y0, int x1, int y1);
+	void drawFilledCircle(int x, int y, int r);
+
+	int stringWidth(const char *str, int len, bool rtl) const;
+	int spaceWidth() const;
+	int stringHeight() const;
+	int descent() const;
+	void drawString(int x, int y, const char *str, int len, bool rtl);
+
+
 
     cairo_t *cairo;
     cairo_surface_t *surface;
     Evas_Object *myImage;
     void init_cairo(Evas_Object *image);
     void flush_cairo();
+
+private:
+
+    int myWidth;
+    int myHeight;
+
+
+	ZLColor myFillColor;
+	ZLColor myPenColor;
+
+	std::vector<std::string> myFontFamilies;
+
+	mutable int myStringHeight;
+	mutable int mySpaceWidth;
+	int myDescent;
+
 };
 
 #endif /* ZLTIZENPAINTCONTEXT_H_ */

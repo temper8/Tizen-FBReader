@@ -48,13 +48,85 @@ void ZLTizenPaintContext::clear(ZLColor color){
 }
 
 void ZLTizenPaintContext::setColor(ZLColor color, LineStyle style){
-	 cairo_set_source_rgb(cairo, color.Red / 255.0, color.Green /255.0, color.Blue / 255.0);
+	myPenColor = color;
+
 }
-//virtual void setFillColor(ZLColor color, FillStyle style = SOLID_FILL) = 0;
+
+void ZLTizenPaintContext::setFillColor(ZLColor color, FillStyle style){
+	myFillColor = color;
+}
+
 void ZLTizenPaintContext::drawLine(int x0, int y0, int x1, int y1){
-	 cairo_set_source_rgb(cairo, 1.0,0.0,0.5);
+	 cairo_set_source_rgb(cairo, myPenColor.Red / 255.0, myPenColor.Green /255.0, myPenColor.Blue / 255.0);
+	 //cairo_set_source_rgb(cairo, 1.0,0.0,0.5);
 	 cairo_set_line_width(cairo, 1);
 	 cairo_move_to(cairo, x0, y0);
 	 cairo_line_to(cairo, x1, y1);
 	 cairo_stroke(cairo);
+}
+
+
+void ZLTizenPaintContext::fillRectangle(int x0, int y0, int x1, int y1){
+	 cairo_set_source_rgb(cairo, myFillColor.Red / 255.0, myFillColor.Green /255.0, myFillColor.Blue / 255.0);
+	 int x,y,w,h;
+	 if (x1>x0) { x = x0; w = x1-x0;}
+	 else { x = x1; w = x0-x1;}
+	 if (y1>y0) { y = y0; h = y1-y0;}
+	 	 else { y = y1; h = y0-y1;}
+	 cairo_rectangle (cairo, x, y, w, h);
+	 cairo_fill (cairo);
+}
+
+void ZLTizenPaintContext::drawFilledCircle(int x, int y, int r){
+	cairo_set_source_rgb(cairo, myFillColor.Red / 255.0, myFillColor.Green /255.0, myFillColor.Blue / 255.0);
+	//cairo_translate(cairo, x, y);
+	cairo_arc(cairo, x, y, r, 0, 2 * M_PI);
+	cairo_fill (cairo);
+	//cairo_stroke_preserve(cairo);
+}
+
+// ******************* FONT ***********
+
+void ZLTizenPaintContext::setFont(const std::string &family, int size, bool bold, bool italic){
+	cairo_select_font_face (cairo, "Sans",
+			italic?CAIRO_FONT_SLANT_OBLIQUE:CAIRO_FONT_SLANT_NORMAL,
+			bold?CAIRO_FONT_WEIGHT_BOLD:CAIRO_FONT_WEIGHT_NORMAL);
+
+	cairo_set_font_size (cairo, size);
+
+	cairo_text_extents_t extents;
+	cairo_text_extents (cairo, " ", &extents);
+
+
+	mySpaceWidth = extents.width;
+
+	cairo_font_extents_t font_extents;
+	cairo_font_extents (cairo, &font_extents);
+
+	myStringHeight = font_extents.height;
+	myDescent = font_extents.descent;
+}
+
+int ZLTizenPaintContext::stringWidth(const char *str, int len, bool rtl) const{
+	cairo_text_extents_t extents;
+	cairo_text_extents (cairo, str, &extents);
+	return extents.width;
+}
+
+int ZLTizenPaintContext::spaceWidth() const{
+	return mySpaceWidth;
+}
+
+int ZLTizenPaintContext::stringHeight() const{
+	return myStringHeight;
+}
+
+int ZLTizenPaintContext::descent() const{
+   return myDescent;
+}
+
+void ZLTizenPaintContext::drawString(int x, int y, const char *str, int len, bool rtl){
+	cairo_set_source_rgb(cairo, myPenColor.Red / 255.0, myPenColor.Green /255.0, myPenColor.Blue / 255.0);
+	cairo_move_to (cairo, x,y);
+	cairo_show_text (cairo, str);
 }

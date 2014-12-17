@@ -85,8 +85,6 @@ void ZLTizenViewWidget::test_draw_on_cairo(Evas_Object *image){
 	 evas_object_image_fill_set(image, 0, 0, w, h);
 
 
-	 tizenContext.myWidth = w;
-	 tizenContext.myHeight = h;
 
 	 cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, w, h);
 
@@ -125,14 +123,11 @@ void ZLTizenViewWidget::test_draw_on_cairo(Evas_Object *image){
 	 cairo_line_to(cairo, 210.0, 210.0);
 	 cairo_stroke(cairo);
 	 // flush
-
-
-}
-void ZLTizenViewWidget::updateImage(){
-	ZLTizenPaintContext &tizenContext = (ZLTizenPaintContext&)view()->context();
 	 evas_object_image_data_set(image, cairo_image_surface_get_data(tizenContext.surface));
-	 evas_object_image_data_update_add(image, 0, 0, tizenContext.myWidth, tizenContext.myHeight);
+	 evas_object_image_data_update_add(image, 0, 0, w, h);
+
 }
+
 
 void ZLTizenViewWidget::draw(){
 	DBG(" ZLTizenViewWidget::draw()");

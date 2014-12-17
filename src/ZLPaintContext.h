@@ -47,19 +47,19 @@ public:
 
 	virtual void clear(ZLColor color) = 0;
 
-//	virtual void setFont(const std::string &family, int size, bool bold, bool italic) = 0;
+	virtual void setFont(const std::string &family, int size, bool bold, bool italic) = 0;
 	virtual void setColor(ZLColor color, LineStyle style = SOLID_LINE) = 0;
-//	virtual void setFillColor(ZLColor color, FillStyle style = SOLID_FILL) = 0;
+	virtual void setFillColor(ZLColor color, FillStyle style = SOLID_FILL) = 0;
 
 	virtual int width() const = 0;
 	virtual int height() const = 0;
-/*
+
 	virtual int stringWidth(const char *str, int len, bool rtl) const = 0;
 	virtual int spaceWidth() const = 0;
 	virtual int stringHeight() const = 0;
 	virtual int descent() const = 0;
 	virtual void drawString(int x, int y, const char *str, int len, bool rtl) = 0;
-
+/*
 	enum ScalingType {
 		SCALE_FIT_TO_SIZE,
 		SCALE_REDUCE_SIZE
@@ -73,8 +73,8 @@ public:
 //	virtual void drawImage(int x, int y, const ZLImageData &image, int width, int height, ScalingType type) = 0;
 */
 	virtual void drawLine(int x0, int y0, int x1, int y1) = 0;
-//	virtual void fillRectangle(int x0, int y0, int x1, int y1) = 0;
-//	virtual void drawFilledCircle(int x, int y, int r) = 0;
+	virtual void fillRectangle(int x0, int y0, int x1, int y1) = 0;
+	virtual void drawFilledCircle(int x, int y, int r) = 0;
 
 //	const std::vector<std::string> &fontFamilies() const;
 //	virtual const std::string realFontFamilyName(std::string &fontFamily) const = 0;

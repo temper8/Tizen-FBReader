@@ -27,7 +27,7 @@ public:
 	Evas_Object *scroller;
 	Evas_Object *image;
 	void draw();
-	void updateImage();
+
 	void test_draw_on_cairo(Evas_Object *image);
 
 };
