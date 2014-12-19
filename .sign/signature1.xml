@@ -4,15 +4,11 @@
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>gL/YWBrdo8G5FjvCdqxRdO0KzzdppiZ9I+0M9WpEGCA=</DigestValue>
-</Reference>
-<Reference URI="bin%2Ffbreader">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>u9M1fKGaN3PX7cBqqQVhKzvmUlTpX/uu3DRJl1X+gpY=</DigestValue>
+<DigestValue>58KYQ7pXoXOroBIzUD4RfVofANmrBCpERkOqZTwaAZY=</DigestValue>
 </Reference>
 <Reference URI="bin%2Ftizen-fbreader">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>anuAVS27qZC427AdDDOa1ymeZrOh+eZn/xM8RydXgMk=</DigestValue>
+<DigestValue>T43d9SaSF3iOZ902W8mZkJeFm6Rzsr9WU0LVx7rKoYo=</DigestValue>
 </Reference>
 <Reference URI="shared%2Fres%2FFBReader-type1.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -35,9 +31,9 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-gLpFPUcdjdPgG/VKVYlqG0Jtq8DqPT5j52qM7mcpCJUgccjzrGsSRs2Hcnbg3nByA+fs9vPB27al
-jSmj6hdPQUbUZbrUJI8xuoAfIo2cu8T8nBa0MTPsRjDaiTa9IpRhucTEk5GuKkZ0hjUWlYbyVelH
-IE6P5OFtPO95LOkbx0U=
+KiyOETf39lOiJemqKCjOqXQkjV9clekkWoGnWsJVYAGS+ldyDX1ju85GhZI+eZnrDhOpqrKlx1w0
+cwrO81O2ZYWeTlYTz+NStJyw7sSOK5n7evAKxhVH4UgHEH5owyGcKInj/jZ9GzAmlDxICCJHyUXT
+OZeAZj0WFVz9PpWO05Y=
 </SignatureValue>
 <KeyInfo>
 <X509Data>

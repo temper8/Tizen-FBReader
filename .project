@@ -29,6 +29,13 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 		<nature>org.tizen.nativecore.apichecker.core.tizenCppNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>zlibrary/core/src/ZLApplication.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/zlibrary/core/include/ZLApplication.h</locationURI>
+		</link>
+	</linkedResources>
 	<filteredResources>
 		<filter>
 			<id>1418036124750</id>
