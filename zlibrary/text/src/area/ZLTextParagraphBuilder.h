@@ -23,7 +23,7 @@
 #include <vector>
 #include <string>
 
-#include <fribidi/fribidi.h>
+//#include <fribidi/fribidi.h>
 
 #include <ZLUnicodeUtil.h>
 
@@ -41,7 +41,7 @@ public:
 private:
 	void processTextEntry(const ZLTextEntry &textEntry);
 	void addWord(const char *ptr, int offset, int len);
-	void updateBidiLevel(FriBidiLevel bidiLevel);
+//	void updateBidiLevel(FriBidiLevel bidiLevel);
 	void insertRSElement();
 
 private:
@@ -56,12 +56,12 @@ private:
 
 	std::vector<char> myBreaksTable;
 
-	FriBidiCharType myBidiCharType;
+//	FriBidiCharType myBidiCharType;
 	ZLUnicodeUtil::Ucs4String myUcs4String;
-	std::vector<FriBidiLevel> myBidiLevels;
-	const FriBidiLevel myBaseBidiLevel;
-	FriBidiLevel myCurrentBidiLevel;
-	FriBidiLevel myLatestBidiLevel;
+//	std::vector<FriBidiLevel> myBidiLevels;
+//	const FriBidiLevel myBaseBidiLevel;
+//	FriBidiLevel myCurrentBidiLevel;
+//	FriBidiLevel myLatestBidiLevel;
 };
 
 #endif /* __ZLTEXTPARAGRAPHBUILDER_H__ */

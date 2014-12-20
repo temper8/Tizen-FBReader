@@ -24,7 +24,7 @@
 #include <ZLFile.h>
 
 #include "ZLLanguageList.h"
-#include <FBase.h>
+
 std::vector<std::string> ZLLanguageList::ourLanguageCodes;
 
 std::string ZLLanguageList::patternsDirectoryPath() {
@@ -39,7 +39,7 @@ const std::vector<std::string> &ZLLanguageList::languageCodes() {
 	if (ourLanguageCodes.empty()) {
 		std::set<std::string> codes;
 		codes.insert("zh");
-		AppLog("ZLLanguageList::languageCodes()");
+	//	AppLog("ZLLanguageList::languageCodes()");
 		shared_ptr<ZLDir> dir = ZLFile(patternsDirectoryPath()).directory(false);
 		if (!dir.isNull()) {
 			std::vector<std::string> fileNames;

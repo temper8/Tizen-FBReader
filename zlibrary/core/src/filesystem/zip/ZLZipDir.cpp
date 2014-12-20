@@ -19,7 +19,7 @@
 
 #include "ZLZip.h"
 #include "ZLZipHeader.h"
-#include "../ZLFile.h"
+#include <ZLFile.h>
 
 void ZLZipDir::collectFiles(std::vector<std::string> &names, bool) {
 	shared_ptr<ZLInputStream> stream = ZLFile(path()).inputStream();

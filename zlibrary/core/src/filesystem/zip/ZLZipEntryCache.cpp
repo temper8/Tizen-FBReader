@@ -19,7 +19,7 @@
 
 #include "ZLZip.h"
 #include "ZLZipHeader.h"
-#include <FBase.h>
+
 
 ZLZipEntryCache::Info::Info() : Offset(-1) {
 }

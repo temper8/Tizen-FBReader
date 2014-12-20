@@ -17,6 +17,7 @@
  * 02110-1301, USA.
  */
 
+#include <app.h>
 
 #include <ZLTimeManager.h>
 //#include <ZLDialogManager.h>
@@ -52,17 +53,19 @@ std::string ZLibrary::BaseDirectory;
 
 void ZLibrary::parseArguments(int &argc, char **&argv) {
 
-	Tizen::Base::ByteBuffer* bb;
-	Tizen::Base::String tizenStr = Tizen::App::App::GetInstance()->GetAppRootPath();
-	tizenStr = tizenStr + "res";
-	 bb = Tizen::Base::Utility::StringUtil::StringToUtf8N(tizenStr);
-	 AppLog( "GetAppRootPath %s",(char *)bb->GetPointer());
 //	 AppLog("AppRootPath %s", bb);
-	 BaseDirectory = std::string((char *)bb->GetPointer());
-	 AppLog( "BaseDirectory %s",ZLibrary::BaseDirectory.c_str());
+	 /// путь к ресурсам
+	 char *res_path = app_get_resource_path();
+		if (res_path) {
+			BaseDirectory = std::string(res_path);
+			delete res_path;
+		}
+
+
+//	 AppLog( "BaseDirectory %s",ZLibrary::BaseDirectory.c_str());
 	static const std::string LANGUAGE_OPTION = "-lang";
 	static const std::string LOGGER_OPTION = "-log";
-	AppLog("ZLibrary::parseArguments  while argc=%d ",argc);
+//	AppLog("ZLibrary::parseArguments  while argc=%d ",argc);
 	while ((argc > 2) && (argv[1] != 0) && (argv[2] != 0)) {
 		const std::string argument = argv[1];
 		if (LANGUAGE_OPTION == argument) {
@@ -90,29 +93,28 @@ void ZLibrary::parseArguments(int &argc, char **&argv) {
 	};
 
 	ourZLibraryDirectory = BaseDirectory + FileNameDelimiter + "zlibrary";
-	AppLog("ZLibraryDirectory = %s",ourZLibraryDirectory.c_str());
+//	AppLog("ZLibraryDirectory = %s",ourZLibraryDirectory.c_str());
 
 }
 
 void ZLibrary::shutdown() {
-	AppLog("ZLibrary::shutdown()");
-	ZLNetworkManager::deleteInstance();
-	ZLImageManager::deleteInstance();
-	AppLog("ZLImageManager::deleteInstance()");
+//	AppLog("ZLibrary::shutdown()");
+//	ZLNetworkManager::deleteInstance();
+//	ZLImageManager::deleteInstance();
+//	AppLog("ZLImageManager::deleteInstance()");
 	ZLCommunicationManager::deleteInstance();
-	ZLDialogManager::deleteInstance();
+//	ZLDialogManager::deleteInstance();
 	ZLFSManager::deleteInstance();
 
 	ZLTimeManager::deleteInstance();
-	AppLog("ZLTimeManager::deleteInstance()");
-	ZLConfigManager::deleteInstance();
-	AppLog("ZLConfigManager::deleteInstance()");
+//	ZLConfigManager::deleteInstance();
+//	AppLog("ZLConfigManager::deleteInstance()");
 
-	BooksDB::deleteInstance();
+//	BooksDB::deleteInstance();
 }
 
 std::string ZLibrary::replaceRegExps(const std::string &pattern) {
-	AppLog("ZLibrary::replaceRegExps pattern =%s",pattern.c_str());
+//ppLog("ZLibrary::replaceRegExps pattern =%s",pattern.c_str());
 	static const std::string NAME_PATTERN = "%APPLICATION_NAME%";
 	static const std::string LOWERCASENAME_PATTERN = "%application_name%";
 	std::string str = pattern;
@@ -125,12 +127,12 @@ std::string ZLibrary::replaceRegExps(const std::string &pattern) {
 	  str.erase(index, LOWERCASENAME_PATTERN.length());
 		str.insert(index, ZLUnicodeUtil::toLower(ourApplicationName));
 	}
-	AppLog("ZLibrary::replaceRegExps str =%s",str.c_str());
+//	AppLog("ZLibrary::replaceRegExps str =%s",str.c_str());
 	return str;
 }
 #define XMLCONFIGHOMEDIR 1
 void ZLibrary::initApplication(const std::string &name) {
-	AppLog("ZLibrary::initApplication %s",name.c_str() );
+//	AppLog("ZLibrary::initApplication %s",name.c_str() );
 
 	ourApplicationName = name;
 	ourImageDirectory = replaceRegExps("/IMAGEDIR");
@@ -138,19 +140,19 @@ void ZLibrary::initApplication(const std::string &name) {
 	ourApplicationImageDirectory = BaseDirectory + "/icons";
 	ourApplicationDirectory = BaseDirectory + FileNameDelimiter + ourApplicationName;
 
-	Tizen::Base::ByteBuffer* bb;
-	Tizen::Base::String tizenStr = Tizen::App::App::GetInstance()->GetAppDataPath();
-	tizenStr = tizenStr + name.c_str();
-	bb = Tizen::Base::Utility::StringUtil::StringToUtf8N(tizenStr);
-	AppLog( "WrDir %s",(char *)bb->GetPointer());
-	ourApplicationWritableDirectory = std::string((char *)bb->GetPointer());
-//	ourApplicationWritableDirectory =	"/opt/usr/media/FBReaderWrite" + FileNameDelimiter + name;
+
+	char *data_path = app_get_resource_path();
+		if (data_path) {
+			ourApplicationWritableDirectory = std::string(data_path);
+			delete data_path;
+		}
+
 
 	ourDefaultFilesPathPrefix = ourApplicationDirectory + FileNameDelimiter + "default" + FileNameDelimiter;
-	AppLog("ZLibrary ourApplicationWritableDirectory =%s",ourApplicationWritableDirectory.c_str());
-	AppLog("ZLibrary ourApplicationDirectory =%s",ourApplicationDirectory.c_str());
-	AppLog("ZLibrary ourApplicationImageDirectory =%s",ourApplicationImageDirectory.c_str());
-	AppLog("ZLibrary ourImageDirectory =%s",ourImageDirectory.c_str());
+//	AppLog("ZLibrary ourApplicationWritableDirectory =%s",ourApplicationWritableDirectory.c_str());
+//	AppLog("ZLibrary ourApplicationDirectory =%s",ourApplicationDirectory.c_str());
+//	AppLog("ZLibrary ourApplicationImageDirectory =%s",ourApplicationImageDirectory.c_str());
+//	AppLog("ZLibrary ourImageDirectory =%s",ourImageDirectory.c_str());
 }
 
 std::string ZLibrary::Language() {
@@ -160,7 +162,7 @@ std::string ZLibrary::Language() {
 			ourLocaleIsInitialized = true;
 		}
 	}
-	AppLog("ZLibrary ourLanguage =%s", ourLanguage.c_str());
+//	AppLog("ZLibrary ourLanguage =%s", ourLanguage.c_str());
 	if (ourLanguage.empty()) {
 		ourLanguage = "en";
 	}
@@ -173,7 +175,7 @@ std::string ZLibrary::Country() {
 		initLocale();
 		ourLocaleIsInitialized = true;
 	}
-	AppLog("ZLibrary ourCountry =%s", ourCountry.c_str());
+//	AppLog("ZLibrary ourCountry =%s", ourCountry.c_str());
 //	ourCountry = "ru";
 	return ourCountry;
 }

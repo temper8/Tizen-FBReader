@@ -29,7 +29,6 @@
 #include "tar/ZLTar.h"
 #include "bzip2/ZLBzip2InputStream.h"
 #include "ZLFSManager.h"
-#include <FBase.h>
 
 
 const ZLFile ZLFile::NO_FILE;
@@ -41,9 +40,9 @@ ZLFile::ZLFile() : myMimeTypeIsUpToDate(true), myInfoIsFilled(true) {
 
 ZLFile::ZLFile(const std::string &path, shared_ptr<ZLMimeType> mimeType) : myPath(path), myMimeType(mimeType), myMimeTypeIsUpToDate(*mimeType != *ZLMimeType::EMPTY), myInfoIsFilled(false) {
 
-	AppLog("ZLFile::ZLFile %s",path.c_str());
+//	AppLog("ZLFile::ZLFile %s",path.c_str());
 	ZLFSManager::Instance().normalize(myPath);
-	AppLog("ZLFile::ZLFile %s",myPath.c_str());
+//	AppLog("ZLFile::ZLFile %s",myPath.c_str());
 	{
 		size_t index = ZLFSManager::Instance().findLastFileNameDelimiter(myPath);
 		if (index < myPath.length() - 1) {
@@ -96,7 +95,7 @@ ZLFile::ZLFile(const std::string &path, shared_ptr<ZLMimeType> mimeType) : myPat
 		myExtension = ZLUnicodeUtil::toLower(myNameWithoutExtension.substr(index + 1));
 		myNameWithoutExtension = myNameWithoutExtension.substr(0, index);
 	}
-	AppLog("ZLFile::ZLFile end ");
+//	AppLog("ZLFile::ZLFile end ");
 }
 
 shared_ptr<ZLInputStream> ZLFile::envelopeCompressedStream(shared_ptr<ZLInputStream> &base) const {
@@ -114,20 +113,20 @@ shared_ptr<ZLInputStream> ZLFile::envelopeCompressedStream(shared_ptr<ZLInputStr
 #include <iostream>
 
 shared_ptr<ZLInputStream> ZLFile::inputStream() const {
-	AppLog("ZLFile::inputStream()");
+//	AppLog("ZLFile::inputStream()");
 	shared_ptr<ZLInputStream> stream;
 	
 	int index = ZLFSManager::Instance().findArchiveFileNameDelimiter(myPath);
 	if (index == -1) {
 		stream = ourPlainStreamCache[myPath];
-		AppLog("ourPlainStreamCache  size = %d",ourPlainStreamCache.size());
+//		AppLog("ourPlainStreamCache  size = %d",ourPlainStreamCache.size());
 
-		AppLog("ourPlainStreamCache %s",myPath.c_str());
+//		AppLog("ourPlainStreamCache %s",myPath.c_str());
 		if (stream.isNull()) {
 			if (isDirectory()) {
 				return 0;
 			}
-			AppLog("createPlainInputStream");
+//			AppLog("createPlainInputStream");
 			//std::cerr << "Create stream " << myPath << std::endl;
 			stream = ZLFSManager::Instance().createPlainInputStream(myPath);
 			//AppLog("createPlainInputStream 1");
@@ -136,11 +135,11 @@ shared_ptr<ZLInputStream> ZLFile::inputStream() const {
 			ourPlainStreamCache[myPath] = stream;
 		}
 		else {
-			AppLog("Stream был в кэше");
+//			AppLog("Stream был в кэше");
 		}
 	} else {
 		ZLFile baseFile(myPath.substr(0, index));
-		AppLog("baseFile %s",myPath.c_str());
+//		AppLog("baseFile %s",myPath.c_str());
 		shared_ptr<ZLInputStream> base = baseFile.inputStream();
 		base->printDataMap();
 		if (!base.isNull()) {
@@ -273,7 +272,7 @@ bool ZLFile::isDirectory() const {
 }
 
 shared_ptr<ZLMimeType> ZLFile::mimeType() const {
-	AppLog("ZLFile::mimeType()");
+//	AppLog("ZLFile::mimeType()");
 	if (!myMimeTypeIsUpToDate) {
 		myMimeType = ZLFSManager::Instance().mimeType(myPath);
 		myMimeTypeIsUpToDate = true;

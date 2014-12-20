@@ -18,10 +18,10 @@
  */
 
 #include "ZLInputStream.h"
-#include <FBase.h>
+
 
 ZLInputStreamDecorator::ZLInputStreamDecorator(shared_ptr<ZLInputStream> decoratee) : myBaseStream(decoratee), myBaseOffset(0) {
-	AppLog("ZLInputStreamDecorator::ZLInputStreamDecorator");
+//	AppLog("ZLInputStreamDecorator::ZLInputStreamDecorator");
 	myBaseStream->decoratorsCounter++;
 	static const std::string zipEntryMapKey = "zipEntryMap";
 	shared_ptr<ZLUserData> data = decoratee->getUserData(zipEntryMapKey);

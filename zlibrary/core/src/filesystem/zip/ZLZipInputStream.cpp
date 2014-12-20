@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  */
-#include <FBase.h>
+
 #include <algorithm>
 
 #include "ZLZip.h"
@@ -32,7 +32,7 @@ ZLZipInputStream::~ZLZipInputStream() {
 }
 
 bool ZLZipInputStream::open() {
-	AppLog("ZLZipInputStream::open();");
+//	AppLog("ZLZipInputStream::open();");
 //	myBaseStream->printDataMap();
 	close();
 //	AppLog("ZLZipInputStream::open() 1");
@@ -88,12 +88,12 @@ size_t ZLZipInputStream::read(char *buffer, size_t maxSize) {
 }
 
 void ZLZipInputStream::close() {
-	AppLog(" ZLZipInputStream::close()");
+//	AppLog(" ZLZipInputStream::close()");
 	if (myDecompressor) delete myDecompressor;
 	myDecompressor = 0;
-	AppLog(" myDecompressor = 0;");
+//	AppLog(" myDecompressor = 0;");
 	if (!myBaseStream.isNull()) {
-		AppLog(" ZLZipInputStream::close() 2");
+//		AppLog(" ZLZipInputStream::close() 2");
 		myBaseStream->close();
 	}
 }

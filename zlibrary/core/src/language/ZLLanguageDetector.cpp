@@ -29,13 +29,12 @@
 #include "ZLStatistics.h"
 #include "ZLCharSequence.h"
 
-#include <FBase.h>
 
 ZLLanguageDetector::LanguageInfo::LanguageInfo(const std::string &language, const std::string &encoding) : Language(language), Encoding(encoding) {
 }
 
 ZLLanguageDetector::ZLLanguageDetector() {
-	AppLog("ZLLanguageDetector::ZLLanguageDetector()");
+//	AppLog("ZLLanguageDetector::ZLLanguageDetector()");
 	const ZLFile patternsArchive(ZLLanguageList::patternsDirectoryPath());
 	shared_ptr<ZLInputStream> lock = patternsArchive.inputStream();
 	shared_ptr<ZLDir> dir = patternsArchive.directory(false);

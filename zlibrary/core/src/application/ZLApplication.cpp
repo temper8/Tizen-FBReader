@@ -17,18 +17,19 @@
  * 02110-1301, USA.
  */
 
-#include <FBase.h>
+
+#include "logger.h"
+
 
 #include <ZLibrary.h>
 
 #include "ZLApplication.h"
 #include "ZLApplicationWindow.h"
 #include "ZLKeyBindings.h"
-#include "ZLToolbar.h"
-#include "ZLMenu.h"
-#include "ZLPopupData.h"
+//#include "ZLToolbar.h"
+//#include "ZLMenu.h"
+//#include "ZLPopupData.h"
 #include "ZLView.h"
-#include "GView.h"
 #include "ZLViewWidget.h"
 #include "ZLPaintContext.h"
 
@@ -68,17 +69,10 @@ ZLApplication::ZLApplication(const std::string &name) : ZLApplicationBase(name),
 	ConfigAutoSaveTimeoutOption(ZLCategoryKey::CONFIG, CONFIG, TIMEOUT, 1, 6000, 30),
 	KeyDelayOption(ZLCategoryKey::CONFIG, "Options", "KeyDelay", 0, 5000, 250)
 	{
-	AppLog("Create ZLApplication");
+//	AppLog("Create ZLApplication");
 	ourInstance = this;
-	AppLog("ZLibrary::createContext()");
+//	AppLog("ZLibrary::createContext()");
 //	myContext = ZLibrary::createContext();
-
-
-
-//	AppLog("new GView(*context())");
-//	myInitialView = new GView(*context());
-
-
 
 	myPresentWindowHandler = new PresentWindowHandler();
 	ZLCommunicationManager::Instance().registerHandler("present", myPresentWindowHandler);
@@ -86,7 +80,7 @@ ZLApplication::ZLApplication(const std::string &name) : ZLApplicationBase(name),
 //	createToolbar(ZLApplicationWindow::WINDOW_TOOLBAR);
 //	createToolbar(ZLApplicationWindow::FULLSCREEN_TOOLBAR);
 //	createMenubar();
-	AppLog("создали ZLApplication");
+//	AppLog("создали ZLApplication");
 }
 
 bool ZLApplication::createApplication(){
@@ -112,12 +106,12 @@ ZLApplication::~ZLApplication() {
 }
 
 void ZLApplication::initWindow() {
-	AppLog("ZLApplication::initWindow");
-	if (KeyboardControlOption.value()) {
+//	AppLog("ZLApplication::initWindow");
+/*	if (KeyboardControlOption.value()) {
 		grabAllKeys(true);
 	}
 	myWindow->init();
-	setView(myInitialView);
+	setView(myInitialView);*/
 }
 
 bool ZLApplication::closeView() {
@@ -139,18 +133,18 @@ void ZLApplication::addAction(const std::string &actionId, shared_ptr<Action> ac
 }
 
 void ZLApplication::setView(shared_ptr<ZLView> view) {
-	AppLog("ZLApplication::setView");
+//	AppLog("ZLApplication::setView");
 	if (view.isNull()) {
 		return;
 	}
-	AppLog("ZLApplication::setView qq");
+//	AppLog("ZLApplication::setView qq");
 	if (!myViewWidget.isNull()) {
-		AppLog("ZLApplication::setView ww");
+//		AppLog("ZLApplication::setView ww");
 		myViewWidget->setView(view);
 		resetWindowCaption();
 		refreshWindow();
 	} else {
-		AppLog("ZLApplication::setView ee");
+//		AppLog("ZLApplication::setView ee");
 		myInitialView = view;
 	}
 }
@@ -160,29 +154,29 @@ shared_ptr<ZLView> ZLApplication::currentView() const {
 }
 
 void ZLApplication::refreshWindow() {
-	AppLog("ZLApplication::refreshWindow");
+//	AppLog("ZLApplication::refreshWindow");
 
 	if (!myViewWidget.isNull()) {
-		AppLog("Orientation %d", myViewWidget->rotation());
-		AppLog("AngleStateOption %d", AngleStateOption.value());
-		AppLog("myViewWidget->repaint()");
+//		AppLog("Orientation %d", myViewWidget->rotation());
+//		AppLog("AngleStateOption %d", AngleStateOption.value());
+//		AppLog("myViewWidget->repaint()");
 		myViewWidget->repaint();
 	}
 	if (!myWindow.isNull()) {
-		AppLog("myWindow->refresh();");
+//		AppLog("myWindow->refresh();");
 		myWindow->refresh();
 	}
 }
 
 void ZLApplication::presentWindow() {
 	if (!myWindow.isNull()) {
-		myWindow->present();
+//		myWindow->present();
 	}
 }
 
 void ZLApplication::Action::checkAndRun() {
 	if (isEnabled()) {
-		AppLog("Action isEnabled()");
+//		AppLog("Action isEnabled()");
 		run();
 	}
 }
@@ -246,7 +240,7 @@ bool ZLApplication::isActionEnabled(const std::string &actionId) const {
 void ZLApplication::doAction(const std::string &actionId) {
 	shared_ptr<Action> _action = action(actionId);
 	if (!_action.isNull()) {
-		AppLog("ZLApplication::doAction %s",actionId.c_str());
+//		AppLog("ZLApplication::doAction %s",actionId.c_str());
 		_action->checkAndRun();
 	}
 }

@@ -29,7 +29,7 @@
 
 #include <shared_ptr.h>
 
-#include "../ZLInputStream.h"
+#include <ZLInputStream.h>
 
 class ZLBzip2InputStream : public ZLInputStream {
 

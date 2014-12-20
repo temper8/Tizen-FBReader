@@ -35,12 +35,12 @@ public:
 	virtual ~ZLViewWidget();
 	void setView(shared_ptr<ZLView> view);
 	shared_ptr<ZLView> view() const;
-/*
-	virtual void trackStylus(bool track) = 0;
+
+//	virtual void trackStylus(bool track) = 0;
 
 	void rotate(ZLView::Angle rotation);
 	ZLView::Angle rotation() const;
-
+/*
 	virtual void setScrollbarEnabled(ZLView::Direction direction, bool enabled) = 0;
 	virtual void setScrollbarPlacement(ZLView::Direction direction, bool standard) = 0;
 	virtual void setScrollbarParameters(ZLView::Direction direction, size_t full, size_t from, size_t to) = 0;

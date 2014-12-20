@@ -59,13 +59,13 @@ void ZLKeyBindingsReader::startElementHandler(const char *tag, const char **attr
 static const std::string KeymapFile = "keymap.xml";
 
 void ZLKeyBindingsReader::readBindings() {
-	AppLog("readBindings %s %s ",ZLibrary::DefaultFilesPathPrefix().c_str(),KeymapFile.c_str());
+//	AppLog("readBindings %s %s ",ZLibrary::DefaultFilesPathPrefix().c_str(),KeymapFile.c_str());
 
 	readDocument(ZLFile(ZLibrary::DefaultFilesPathPrefix() + KeymapFile));
 }
 
 ZLKeyBindings::ZLKeyBindings(const std::string &name) : myName(name) {
-	AppLog("ZLKeyBindings %s",name.c_str());
+//	AppLog("ZLKeyBindings %s",name.c_str());
 	loadDefaultBindings();
 	loadCustomBindings();
 	myIsChanged = false;

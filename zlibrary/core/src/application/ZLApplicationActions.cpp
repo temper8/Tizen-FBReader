@@ -18,8 +18,8 @@
  */
 
 #include "ZLApplication.h"
-#include "../view/ZLView.h"
-#include "../view/ZLViewWidget.h"
+#include <ZLView.h>
+#include <ZLViewWidget.h>
 
 bool ZLApplication::RotationAction::isVisible() const {
 

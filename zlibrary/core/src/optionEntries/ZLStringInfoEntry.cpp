@@ -19,7 +19,7 @@
 
 #include <ZLStringUtil.h>
 
-#include "ZLStringInfoEntry.h"
+#include <optionEntries\ZLStringInfoEntry.h>
 
 ZLStringInfoEntry::ZLStringInfoEntry(const std::string &value) : myValue(value) {
 	setActive(false);

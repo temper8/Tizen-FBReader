@@ -22,8 +22,8 @@
 
 #include <shared_ptr.h>
 
-#include "../ZLInputStream.h"
-#include "../ZLDir.h"
+#include <ZLInputStream.h>
+#include <ZLDir.h>
 
 class ZLTarInputStream : public ZLInputStream {
 

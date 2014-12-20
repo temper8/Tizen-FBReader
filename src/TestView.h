@@ -14,7 +14,7 @@ class TestView : public ZLView {
 public:
 	TestView(ZLPaintContext &context);
 	virtual ~TestView();
-
+	const std::string &caption() const;
 	virtual void paint();
 };
 

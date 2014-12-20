@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2010 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2008-2010 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,28 +17,27 @@
  * 02110-1301, USA.
  */
 
-#ifndef __ZLENCODINGCONVERTERPROVIDER_H__
-#define __ZLENCODINGCONVERTERPROVIDER_H__
+#ifndef __ZLPOPUPDATA_H__
+#define __ZLPOPUPDATA_H__
 
 #include <string>
 
-#include <shared_ptr.h>
+#include <ZLResource.h>
 
-class ZLEncodingConverter;
-
-class ZLEncodingConverterProvider {
-
-protected:
-	ZLEncodingConverterProvider();
+class ZLPopupData {
 
 public:
-	virtual ~ZLEncodingConverterProvider();
-	virtual bool providesConverter(const std::string &encoding) = 0;
-	virtual shared_ptr<ZLEncodingConverter> createConverter(const std::string &encoding) = 0;
+	virtual ~ZLPopupData();
 
-private:
-	ZLEncodingConverterProvider(const ZLEncodingConverterProvider&);
-	const ZLEncodingConverterProvider &operator = (const ZLEncodingConverterProvider&);
+	virtual size_t id() const = 0;
+	virtual size_t count() const = 0;
+	virtual const std::string text(size_t index) = 0;
+	virtual void run(size_t index) = 0;
+
+	static const ZLResource &resource(const std::string &actionId);
 };
 
-#endif /* __ZLENCODINGCONVERTERPROVIDER_H__ */
+inline ZLPopupData::~ZLPopupData() {
+}
+
+#endif /* __ZLPOPUPDATA_H__ */

@@ -18,6 +18,10 @@ TestView::~TestView() {
 	// TODO Auto-generated destructor stub
 }
 
+const std::string &TestView::caption() const {
+ return std::string("TestView");
+}
+
 void TestView::paint() {
 	//ReadImage();
 
