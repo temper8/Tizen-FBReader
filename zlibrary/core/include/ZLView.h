@@ -26,12 +26,12 @@
 
 #include "ZLColor.h"
 
-// #include <ZLTypeId.h>
+#include <ZLTypeId.h>
 
 class ZLViewWidget;
 class ZLPaintContext;
 
-class ZLView { //: public ZLObjectWithRTTI {
+class ZLView : public ZLObjectWithRTTI {
 
 public:
 	enum Angle {
@@ -47,7 +47,7 @@ public:
 	};
 
 protected:
-//	static const ZLTypeId TYPE_ID;
+	static const ZLTypeId TYPE_ID;
 
 public:
 	ZLView(ZLPaintContext &context);
@@ -65,10 +65,10 @@ public:
 	virtual bool onStylusMove(int x, int y);
 	virtual bool onStylusMovePressed(int x, int y);
 	virtual bool onFingerTap(int x, int y);
-
+*/
 protected:
 	const ZLTypeId &typeId() const;
-
+/*
 	virtual ZLColor backgroundColor() const = 0;
 
 	void setScrollbarEnabled(Direction direction, bool enabled);
