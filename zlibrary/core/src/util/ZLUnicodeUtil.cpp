@@ -25,7 +25,7 @@
 #include <ZLXMLReader.h>
 
 #include "ZLUnicodeUtil.h"
-#include <FBase.h>
+
 struct ZLUnicodeData {
 	enum SymbolType {
 		LETTER_LOWERCASE,

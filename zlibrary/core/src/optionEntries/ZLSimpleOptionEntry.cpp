@@ -17,7 +17,7 @@
  * 02110-1301, USA.
  */
 
-#include "ZLSimpleOptionEntry.h"
+#include <optionEntries/ZLSimpleOptionEntry.h>
 
 ZLSimpleStringOptionEntry::ZLSimpleStringOptionEntry(ZLStringOption &option) : myOption(option) {
 }

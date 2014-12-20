@@ -130,3 +130,12 @@ void ZLTizenPaintContext::drawString(int x, int y, const char *str, int len, boo
 	cairo_move_to (cairo, x,y);
 	cairo_show_text (cairo, str);
 }
+
+const std::string ZLTizenPaintContext::realFontFamilyName(std::string &fontFamily) const {
+	return "Sans";
+}
+
+void ZLTizenPaintContext::fillFamiliesList(std::vector<std::string> &families) const {
+
+
+}

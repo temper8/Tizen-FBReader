@@ -20,7 +20,13 @@
 #ifndef __ZLXMLREADERINTERNAL_H__
 #define __ZLXMLREADERINTERNAL_H__
 
-#include <expat.h>
+//#include <expat.h>
+//#include "FXml.h"
+
+#include <libxml/parser.h>
+
+//using namespace Tizen::Xml;
+//#include "xmlstring.h"
 
 #include <set>
 
@@ -29,22 +35,28 @@ class ZLXMLReader;
 class ZLXMLReaderInternal {
 
 private:
-	static void fStartElementHandler(void *userData, const char *name, const char **attributes);
-	static void fEndElementHandler(void *userData, const char *name);
-	static void fCharacterDataHandler(void *userData, const char *text, int len);
+//	static void fStartElementHandler(void *userData, const char *name, const char **attributes);
+//	static void fEndElementHandler(void *userData, const char *name);
+//	static void fCharacterDataHandler(void *userData, const char *text, int len);
 
 public:
 	ZLXMLReaderInternal(ZLXMLReader &reader, const char *encoding);
 	~ZLXMLReaderInternal();
 	void init(const char *encoding = 0);
 	bool parseBuffer(const char *buffer, size_t len);
-
+    void createPushParserCtxt(const char *buffer);
+    void freePushParserCtxt(const char *buffer);
 private:
 	ZLXMLReader &myReader;
-	XML_Parser myParser;
+	xmlSAXHandler _MySaxhandler;
+	xmlParserCtxtPtr ctxt;
+	//XML_Parser myParser;
 	bool myInitialized;
-
+	//static ZLEncodingConverterInfoPtr encodingInfo;
+	ZLEncodingConverterInfoPtr encodingInfo;
+	shared_ptr<ZLEncodingConverter> converter;
 	std::set<shared_ptr<ZLInputStream> > myDTDStreamLocks;
+	static int	fxmlCharEncodingInputFunc(unsigned char * out, int * outlen, const unsigned char * in,  int * inlen);
 };
 
 #endif /* __ZLXMLREADERINTERNAL_H__ */

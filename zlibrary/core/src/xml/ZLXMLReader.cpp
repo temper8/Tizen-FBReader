@@ -32,6 +32,13 @@
 
 #include "expat/ZLXMLReaderInternal.h"
 
+//static const size_t BUFFER_SIZE = 1024;
+//static const size_t BUFFER_SIZE = 2048;
+//static const size_t BUFFER_SIZE = 4096;
+//static const size_t BUFFER_SIZE = 8192*16;
+static const size_t BUFFER_SIZE = 16384;
+//static const size_t BUFFER_SIZE = 32768;
+
 class ZLXMLReaderHandler : public ZLAsynchronousInputStream::Handler {
 
 public:
@@ -57,13 +64,25 @@ void ZLXMLReaderHandler::shutdown() {
 }
 
 bool ZLXMLReaderHandler::handleBuffer(const char *data, size_t len) {
+//	AppLog(" ZLXMLReader::handleBuffer   %d", len);
 	return myReader.readFromBuffer(data, len);
+	//myReader.myInternalReader->parseBuffer(data, len);
+/*	size_t length, start = 0, BUFFER_SIZE = 512;
+	do {
+		length = len - start;
+		if (length>BUFFER_SIZE) length=BUFFER_SIZE;
+		AppLog(" handleBuffer length = %d", length);
+		myReader.myInternalReader->parseBuffer(data + start, length);
+		start += length;
+
+	} while ((start < len) && !myReader.myInterrupted);
+	AppLog(" ZLXMLReader::handleBuffer end");
+	return true;*/
 }
 
 
 
 
-static const size_t BUFFER_SIZE = 2048;
 
 void ZLXMLReader::startElementHandler(const char*, const char**) {
 }
@@ -81,14 +100,20 @@ const std::map<std::string,std::string> &ZLXMLReader::namespaces() const {
 	return *myNamespaces.back();
 }
 
-ZLXMLReader::ZLXMLReader(const char *encoding) {
+ZLXMLReader::ZLXMLReader(const char *encoding): myParserBuffer(0) {
+//	AppLog("create ZLXMLReader");
 	myInternalReader = new ZLXMLReaderInternal(*this, encoding);
-	myParserBuffer = new char[BUFFER_SIZE];
+
 }
 
 ZLXMLReader::~ZLXMLReader() {
-	delete[] myParserBuffer;
+//	AppLog("delete ZLXMLReader");
+	if 	(myParserBuffer !=0 ) delete[] myParserBuffer;
 	delete myInternalReader;
+}
+
+void ZLXMLReader::afterReadDocument(){
+//	AppLog("#######  afterReadDocument");
 }
 
 bool ZLXMLReader::readDocument(const ZLFile &file) {
@@ -96,32 +121,64 @@ bool ZLXMLReader::readDocument(const ZLFile &file) {
 }
 
 bool ZLXMLReader::readDocument(shared_ptr<ZLInputStream> stream) {
+//	AppLog("#######  ZLXMLReader::readDocument");
 	if (stream.isNull() || !stream->open()) {
+//		AppLog(" ZLXMLReader::readDocument return false;");
 		return false;
 	}
-
+//	AppLog(" ZLXMLReader::readDocument 1");
 	bool useWindows1252 = false;
-	stream->read(myParserBuffer, 256);
-	std::string stringBuffer(myParserBuffer, 256);
-	stream->seek(0, true);
+	char *encoding = 0;
+	if 	(myParserBuffer ==0 ) myParserBuffer = new char[BUFFER_SIZE];
+	stream->read(myParserBuffer, 4);
+//	AppLog(" ZLXMLReader::readDocument 2");
+	//std::string stringBuffer(myParserBuffer, 256);
+//	stream->seek(0, true);
+//	AppLog(" ZLXMLReader::readDocument 3");
+	/*
+	std::string stringBuffer(512,' ');
+	stringBuffer.assign(myParserBuffer, 256);
+	//	AppLog(" ZLXMLReader::readDocument stringBuffer =%s",stringBuffer.c_str());
+	//AppLog(" ZLXMLReader::readDocument 4");
 	int index = stringBuffer.find('>');
+
 	if (index > 0) {
 		stringBuffer = ZLUnicodeUtil::toLower(stringBuffer.substr(0, index));
 		int index = stringBuffer.find("\"iso-8859-1\"");
 		if (index > 0) {
 			useWindows1252 = true;
+			encoding ="windows-1252";
+		}
+		index = stringBuffer.find("\"windows-1251\"");
+		if (index > 0) {
+			//useWindows1252 = true;
+			encoding ="windows-1251";
+		}
+		index = stringBuffer.find("\"koi8-r\"");
+		if (index > 0) {
+			//useWindows1252 = true;
+			encoding ="KOI8-R";
 		}
 	}
-	initialize(useWindows1252 ? "windows-1252" : 0);
 
+	//initialize(useWindows1252 ? "windows-1252" : 0);
+	if (encoding != 0) {AppLog("init encoding %s",encoding);}
+	*/
+//	AppLog("initialize(encoding);");
+
+	initialize(encoding);
 	size_t length;
+//	AppLog("before do");
 	do {
 		length = stream->read(myParserBuffer, BUFFER_SIZE);
+		//AppLog(" ZLXMLReader::readDocument length = %d", length);
 		if (!readFromBuffer(myParserBuffer, length)) {
+//			AppLog(" ZLXMLReader::readDocument break");
 			break;
 		}
-	} while ((length == BUFFER_SIZE) && !myInterrupted);
 
+	} while ((length == BUFFER_SIZE) && !myInterrupted);
+//	AppLog("after while");
 	stream->close();
 
 	shutdown();
@@ -130,16 +187,19 @@ bool ZLXMLReader::readDocument(shared_ptr<ZLInputStream> stream) {
 }
 
 void ZLXMLReader::initialize(const char *encoding) {
+	myInternalReader->createPushParserCtxt(myParserBuffer);
 	myInternalReader->init(encoding);
 	myInterrupted = false;
 	myNamespaces.push_back(new std::map<std::string, std::string>());
 }
 
 void ZLXMLReader::shutdown() {
+	myInternalReader->freePushParserCtxt(myParserBuffer);
 	myNamespaces.clear();
 }
 
 bool ZLXMLReader::readFromBuffer(const char *data, size_t len) {
+//	AppLog(" ZLXMLReader::readFromBuffer");
 	return myInternalReader->parseBuffer(data, len);
 }
 
@@ -206,8 +266,11 @@ const char *ZLXMLReader::attributeValue(const char **xmlattributes, const Attrib
 }
 
 bool ZLXMLReader::readDocument(shared_ptr<ZLAsynchronousInputStream> stream) {
+//	AppLog("#######  readDocument ZLAsynchronousInputStream");
 	ZLXMLReaderHandler handler(*this);
-	return stream->processInput(handler);
+	bool result = stream->processInput(handler);
+	afterReadDocument();
+	return result;
 }
 
 const std::string &ZLXMLReader::errorMessage() const {

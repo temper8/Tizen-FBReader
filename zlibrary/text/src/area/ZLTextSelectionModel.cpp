@@ -161,7 +161,7 @@ ZLTextSelectionModel::ExtensionResult ZLTextSelectionModel::extendTo(int x, int 
 		clearData();
 		myRangeVectorIsUpToDate = false;
 		myRanges.clear();
-		copySelectionToClipboard(ZLDialogManager::CLIPBOARD_SELECTION);
+//		copySelectionToClipboard(ZLDialogManager::CLIPBOARD_SELECTION);
 		result = BOUND_CHANGED;
 	}
 
@@ -373,7 +373,7 @@ void ZLTextSelectionModel::update() {
 	}
 	myIsValid = true;
 	setBound(mySecondBound, myStoredX, myStoredY);
-	copySelectionToClipboard(ZLDialogManager::CLIPBOARD_SELECTION);
+//	copySelectionToClipboard(ZLDialogManager::CLIPBOARD_SELECTION);
 	myTextIsUpToDate = false;
 	clearData();
 	myRangeVectorIsUpToDate = false;
@@ -425,9 +425,9 @@ void ZLTextSelectionModel::createData() const {
 					break;
 				}
 				case ZLTextElement::IMAGE_ELEMENT:
-					if (myImage.isNull()) {
-						myImage = ((const ZLTextImageElement&)element).image();
-					}
+				//	if (myImage.isNull()) {
+				//		myImage = ((const ZLTextImageElement&)element).image();
+				//	}
 					break;
 				case ZLTextElement::HSPACE_ELEMENT:
 				case ZLTextElement::NB_HSPACE_ELEMENT:
@@ -441,7 +441,7 @@ void ZLTextSelectionModel::createData() const {
 		if ((cursor == end) && !cursor.isEndOfParagraph() && myImage.isNull()) {
 			const ZLTextElement &element = cursor.element();
 			if (element.kind() == ZLTextElement::IMAGE_ELEMENT) {
-				myImage = ((const ZLTextImageElement&)element).image();
+			//	myImage = ((const ZLTextImageElement&)element).image();
 			}
 		}
 
@@ -521,7 +521,7 @@ bool ZLTextSelectionModel::selectWord(int x, int y) {
 	myTextIsUpToDate = false;
 	myRangeVectorIsUpToDate = false;
 
-	copySelectionToClipboard(ZLDialogManager::CLIPBOARD_SELECTION);
+//	copySelectionToClipboard(ZLDialogManager::CLIPBOARD_SELECTION);
 
 	return true;
 }
@@ -545,9 +545,9 @@ void ZLTextSelectionModel::extendWordSelectionToParagraph() {
 	myTextIsUpToDate = false;
 	myRangeVectorIsUpToDate = false;
 
-	copySelectionToClipboard(ZLDialogManager::CLIPBOARD_SELECTION);
+//	copySelectionToClipboard(ZLDialogManager::CLIPBOARD_SELECTION);
 }
-
+/*
 void ZLTextSelectionModel::copySelectionToClipboard(ZLDialogManager::ClipboardType type) const {
 	if (ZLDialogManager::Instance().isClipboardSupported(type)) {
 		createData();
@@ -558,3 +558,4 @@ void ZLTextSelectionModel::copySelectionToClipboard(ZLDialogManager::ClipboardTy
 		}
 	}
 }
+*/

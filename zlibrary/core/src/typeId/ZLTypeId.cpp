@@ -17,18 +17,18 @@
  * 02110-1301, USA.
  */
 
-#include <FBase.h>
+
 
 #include "ZLTypeId.h"
 
 const ZLTypeId ZLObjectWithRTTI::TYPE_ID;
 
 ZLTypeId::ZLTypeId() {
-	AppLog("ZLTypeId::ZLTypeId()");
+//	AppLog("ZLTypeId::ZLTypeId()");
 }
 
 ZLTypeId::ZLTypeId(const ZLTypeId &base) {
-	AppLog("ZLTypeId::ZLTypeId(const ZLTypeId &base)");
+//	AppLog("ZLTypeId::ZLTypeId(const ZLTypeId &base)");
 	myBase = &base;
 
 }

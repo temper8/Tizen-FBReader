@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  */
-#include <FBase.h>
+
 #include "ZLTextAreaController.h"
 #include "ZLTextArea.h"
 #include "ZLTextAreaStyle.h"
@@ -30,11 +30,11 @@ ZLTextAreaController::~ZLTextAreaController() {
 
 void ZLTextAreaController::setModel(shared_ptr<ZLTextModel> model) {
 	myArea.setModel(model);
-	AppLog("myPaintState = myArea.isEmpty()?");
+//	AppLog("myPaintState = myArea.isEmpty()?");
 	myPaintState = myArea.isEmpty() ? NOTHING_TO_PAINT : START_IS_KNOWN;
 	switch (myPaintState) {
-	case NOTHING_TO_PAINT: AppLog("myPaintState = NOTHING_TO_PAINT"); break;
-	case START_IS_KNOWN: AppLog("myPaintState = START_IS_KNOWN"); break;
+//	case NOTHING_TO_PAINT: AppLog("myPaintState = NOTHING_TO_PAINT"); break;
+//	case START_IS_KNOWN: AppLog("myPaintState = START_IS_KNOWN"); break;
 	}
 
 }
@@ -82,7 +82,7 @@ ZLTextWordCursor ZLTextAreaController::findStart(const ZLTextWordCursor &end, Si
 
 ZLTextWordCursor ZLTextAreaController::buildInfos(const ZLTextWordCursor &start) {
 	myArea.myLineInfos.clear();
-	AppLog("ZLTextAreaController::buildInfos");
+//	AppLog("ZLTextAreaController::buildInfos");
 	ZLTextWordCursor cursor = start;
 	int textHeight = myArea.height();
 	int counter = 0;
@@ -102,8 +102,8 @@ ZLTextWordCursor ZLTextAreaController::buildInfos(const ZLTextWordCursor &start)
 		{
 			info = myArea.processTextLine(style, info->End, paragraphEnd);
 			textHeight -= info->Height + info->Descent;
-			AppLog("info->Height = %d info->Descent = %d", info->Height, info->Descent);
-			AppLog("textHeight =%d counter = %d", textHeight, counter);
+//			AppLog("info->Height = %d info->Descent = %d", info->Height, info->Descent);
+//			AppLog("textHeight =%d counter = %d", textHeight, counter);
 			if ((textHeight < 0) && (counter > 0)) {
 				break;
 			}

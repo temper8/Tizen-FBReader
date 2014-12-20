@@ -16,12 +16,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  */
-#include <FBase.h>
+
 #include <algorithm>
 
 #include <linebreak.h>
 
-#include <ZLImage.h>
+//#include <ZLImage.h>
 
 #include <ZLTextParagraph.h>
 
@@ -79,38 +79,38 @@ void ZLTextParagraphCursor::Builder::fill() {
 	for (ZLTextParagraph::Iterator it = myParagraph; !it.isEnd(); it.next()) {
 		switch (it.entryKind()) {
 			case ZLTextParagraphEntry::STYLE_ENTRY:
-				AppLog("entryKind STYLE_ENTRY");
+			//	AppLog("entryKind STYLE_ENTRY");
 				myElements.push_back(new ZLTextStyleElement(it.entry()));
 				break;
 			case ZLTextParagraphEntry::FIXED_HSPACE_ENTRY:
-				AppLog("entryKind FIXED_HSPACE_ENTRY");
+			//	AppLog("entryKind FIXED_HSPACE_ENTRY");
 				myElements.push_back(new ZLTextFixedHSpaceElement(((ZLTextFixedHSpaceEntry&)*it.entry()).length()));
 				break;
 			case ZLTextParagraphEntry::CONTROL_ENTRY:
 			case ZLTextParagraphEntry::HYPERLINK_CONTROL_ENTRY:
-				AppLog("entryKind HYPERLINK_CONTROL_ENTRY");
+			//	AppLog("entryKind HYPERLINK_CONTROL_ENTRY");
 				myElements.push_back(ZLTextElementPool::Pool.getControlElement(it.entry()));
 				break;
 			case ZLTextParagraphEntry::IMAGE_ENTRY:
 			{
-				AppLog("entryKind IMAGE_ENTRY");
+			//	AppLog("entryKind IMAGE_ENTRY");
 				ImageEntry &imageEntry = (ImageEntry&)*it.entry();
 				shared_ptr<const ZLImage> image = imageEntry.image();
 				if (!image.isNull()) {
-					AppLog("!image.isNull()");
-					shared_ptr<ZLImageData> data = ZLImageManager::Instance().imageData(*image);
-					if (!data.isNull()) {
-						myElements.push_back(new ZLTextImageElement(imageEntry.id(), data));
-					}
+				//	AppLog("!image.isNull()");
+				//	shared_ptr<ZLImageData> data = ZLImageManager::Instance().imageData(*image);
+				//	if (!data.isNull()) {
+					//	myElements.push_back(new ZLTextImageElement(imageEntry.id(), data));
+				//	}
 				}
 				break;
 			}
 			case ZLTextParagraphEntry::TEXT_ENTRY:
-				AppLog("entryKind TEXT_ENTRY");
+			//	AppLog("entryKind TEXT_ENTRY");
 				processTextEntry((const ZLTextEntry&)*it.entry());
 				break;
 			case ZLTextParagraphEntry::RESET_BIDI_ENTRY:
-				AppLog("entryKind RESET_BIDI_ENTRY");
+			//	AppLog("entryKind RESET_BIDI_ENTRY");
 				updateBidiLevel(myBaseBidiLevel);
 				myLatestBidiLevel = myBaseBidiLevel;
 				break;
@@ -122,7 +122,7 @@ void ZLTextParagraphCursor::Builder::fill() {
 
 void ZLTextParagraphCursor::Builder::processTextEntry(const ZLTextEntry &textEntry) {
 	const size_t dataLength = textEntry.dataLength();
-	AppLog("dataLength %d", dataLength);
+//	AppLog("dataLength %d", dataLength);
 	if (dataLength == 0) {
 		return;
 	}
@@ -131,7 +131,7 @@ void ZLTextParagraphCursor::Builder::processTextEntry(const ZLTextEntry &textEnt
 	ZLUnicodeUtil::utf8ToUcs4(myUcs4String, textEntry.data(), dataLength);
 	int len = myUcs4String.size();
 	myUcs4String.push_back(0);
-	AppLog("myBidiLevels.clear()");
+//	AppLog("myBidiLevels.clear()");
 /*	myBidiLevels.clear();
 	myBidiLevels.assign(len + 1, 0);
 	int firstNonSpace = 0;

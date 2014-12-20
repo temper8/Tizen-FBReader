@@ -38,13 +38,16 @@ public:
 	int descent() const;
 	void drawString(int x, int y, const char *str, int len, bool rtl);
 
-
+	const std::string realFontFamilyName(std::string &fontFamily) const;
 
     cairo_t *cairo;
     cairo_surface_t *surface;
     Evas_Object *myImage;
     void init_cairo(Evas_Object *image);
     void flush_cairo();
+
+protected:
+    void fillFamiliesList(std::vector<std::string> &families) const;
 
 private:
 

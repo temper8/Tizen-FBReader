@@ -28,7 +28,6 @@
 
 #include "ZLResource.h"
 
-#include <FBase.h>
 
 class ZLTreeResourcePtr;
 
@@ -105,7 +104,7 @@ const ZLResource &ZLResource::resource(const std::string &key) {
 	ZLTreeResource::buildTree();
 	//AppLog("buildTree");
 	if (ZLTreeResource::ourRoot.isNull()) {
-		AppLog("return ZLMissingResource");
+	//	AppLog("return ZLMissingResource");
 		return ZLMissingResource::Instance();
 	}
 	//AppLog("return (*ZLTreeResource::ourRoot)");

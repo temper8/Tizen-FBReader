@@ -211,11 +211,11 @@ void ZLTextArea::drawTextLine(Style &style, const ZLTextLineInfo &info, int y, s
 				style.setTextStyle(it->Style, it->BidiLevel);
 				const int wx = it->XStart;
 				const int wy = it->YEnd - style.elementDescent(element) - style.textStyle()->verticalShift();
-				context().drawImage(
+	/*			context().drawImage(
 					hOffset() + wx, vOffset() + wy,
 					*((const ZLTextImageElement&)element).image(),
 					width(), height(), ZLPaintContext::SCALE_REDUCE_SIZE
-				);
+				);*/
 				break;
 			}
 			default:

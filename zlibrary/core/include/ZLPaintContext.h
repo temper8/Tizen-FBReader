@@ -76,11 +76,11 @@ public:
 	virtual void fillRectangle(int x0, int y0, int x1, int y1) = 0;
 	virtual void drawFilledCircle(int x, int y, int r) = 0;
 
-//	const std::vector<std::string> &fontFamilies() const;
-//	virtual const std::string realFontFamilyName(std::string &fontFamily) const = 0;
+	const std::vector<std::string> &fontFamilies() const;
+	virtual const std::string realFontFamilyName(std::string &fontFamily) const = 0;
 
 protected:
-//	virtual void fillFamiliesList(std::vector<std::string> &families) const = 0;
+	virtual void fillFamiliesList(std::vector<std::string> &families) const = 0;
 
 private:
 	mutable std::vector<std::string> myFamilies;

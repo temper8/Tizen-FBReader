@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  */
-#include <FBase.h>
+//#include <FBase.h>
 #include <algorithm>
 
 #include <ZLMirroredPaintContext.h>
@@ -40,26 +40,26 @@ int ZLTextArea::realX(int x) const {
 
 void ZLTextArea::setModel(shared_ptr<ZLTextModel> model) {
 	clear();
-	AppLog("ZLTextArea::setModel");
+//	AppLog("ZLTextArea::setModel");
 	if (model.isNull() || model->paragraphsNumber() == 0) {
 		myModel = 0;
-		AppLog("myModel = 0;");
+//		AppLog("myModel = 0;");
 		return;
 	}
-	AppLog("myModel = model;");
+//	AppLog("myModel = model;");
 	myModel = model;
 	if (model->isRtl()) {
-		AppLog("myMirroredContext = new");
+//		AppLog("myMirroredContext = new");
 		myMirroredContext = new ZLMirroredPaintContext(myContext);
 	} else {
-		AppLog("myMirroredContext.reset()");
+//		AppLog("myMirroredContext.reset()");
 		 myMirroredContext.reset();
 	}
 
-	AppLog(" ZLTextParagraphCursor::cursor");
+//	AppLog(" ZLTextParagraphCursor::cursor");
 	myStartCursor = ZLTextParagraphCursor::cursor(*model);
-	if (myStartCursor.isNull()) AppLog("myStartCursor = 0;");
-	AppLog("myEndCursor = 0;");
+//	if (myStartCursor.isNull()) AppLog("myStartCursor = 0;");
+//	AppLog("myEndCursor = 0;");
 	myEndCursor = 0;
 }
 
@@ -169,7 +169,7 @@ ZLTextSelectionModel &ZLTextArea::selectionModel() {
 }
 
 void ZLTextArea::paint() {
-	AppLog("ZLTextArea::paint()");
+//	AppLog("ZLTextArea::paint()");
 	myTextElementMap.clear();
 	myTreeNodeMap.clear();
 

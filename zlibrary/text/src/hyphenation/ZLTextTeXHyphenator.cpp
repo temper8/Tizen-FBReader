@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  */
-#include <FBase.h>
+
 #include <algorithm>
 #include <vector>
 
@@ -155,7 +155,7 @@ void ZLTextTeXHyphenator::load(const std::string &language) {
 	myLanguage = language;
 	
 	unload();
-	AppLog("ZLTextHyphenationReader.readDocument");
+//	AppLog("ZLTextHyphenationReader.readDocument");
 	//TODO загрузка ZLTextHyphenationReader
 	ZLTextHyphenationReader(this).readDocument(ZLFile(
 		PatternZip() + ":" + language + POSTFIX

@@ -17,7 +17,6 @@
  * 02110-1301, USA.
  */
 
-#include <FBase.h>
 
 #include <cstdlib>
 #include <cstdio>
@@ -62,12 +61,12 @@ const std::string &ZLOption::getDefaultConfigValue() const {
 }
 
 void ZLOption::createInstance() {
-	AppLog(" ZLOption::createInstance()");
+//	AppLog(" ZLOption::createInstance()");
 	ourConfig = ZLConfigManager::Instance().createConfig();
 }
 
 void ZLOption::deleteInstance() {
-	AppLog(" ZLOption::deleteInstance()");
+//	AppLog(" ZLOption::deleteInstance()");
 	delete ourConfig;
 	ourConfig = 0;
 }
