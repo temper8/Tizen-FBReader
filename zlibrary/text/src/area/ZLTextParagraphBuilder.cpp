@@ -19,7 +19,7 @@
 
 #include <algorithm>
 
-#include <linebreak.h>
+//#include <linebreak.h>
 
 //#include <ZLImage.h>
 
@@ -46,8 +46,8 @@ ZLTextParagraphCursor::Builder::Builder(ZLTextParagraphCursor &cursor) :
 
 	static bool lineBreakInitialized = false;
 	if (!lineBreakInitialized) {
-		init_linebreak();
-		lineBreakInitialized = true;
+	//	init_linebreak();
+	//	lineBreakInitialized = true;
 	}
 }
 /*
@@ -159,7 +159,7 @@ void ZLTextParagraphCursor::Builder::processTextEntry(const ZLTextEntry &textEnt
 	const char *start = textEntry.data();
 	const char *end = start + dataLength;
 //	AppLog("set_linebreaks_utf8 start %s", start);
-	set_linebreaks_utf8((const utf8_t*)start, dataLength, myLanguage.c_str(), &myBreaksTable[0]);
+//	set_linebreaks_utf8((const utf8_t*)start, dataLength, myLanguage.c_str(), &myBreaksTable[0]);
 
 	ZLUnicodeUtil::Ucs4Char ch = 0, previousCh;
 	enum { NO_SPACE, SPACE, NON_BREAKABLE_SPACE } spaceState = NO_SPACE;
@@ -185,9 +185,10 @@ void ZLTextParagraphCursor::Builder::processTextEntry(const ZLTextEntry &textEnt
 		} else {
 			switch (spaceState) {
 				case SPACE:
-					if ((myBreaksTable[ptr - start - 1] == LINEBREAK_NOBREAK) || (previousCh == '-')) {
-						myElements.push_back(ZLTextElementPool::Pool.NBHSpaceElement);
-					} else {
+					//if ((myBreaksTable[ptr - start - 1] == LINEBREAK_NOBREAK) || (previousCh == '-')) {
+					//	myElements.push_back(ZLTextElementPool::Pool.NBHSpaceElement);
+					//} else
+					{
 						myElements.push_back(ZLTextElementPool::Pool.HSpaceElement);
 					}
 					wordStart = ptr;
@@ -197,10 +198,12 @@ void ZLTextParagraphCursor::Builder::processTextEntry(const ZLTextEntry &textEnt
 					wordStart = ptr;
 					break;
 				case NO_SPACE:
-					if ((ptr > start) &&
-							((((myBreaksTable[ptr - start - 1] != LINEBREAK_NOBREAK) && (previousCh != '-')) && (ptr != wordStart))
+					if ((ptr > start) //&&
+							//((((myBreaksTable[ptr - start - 1] != LINEBREAK_NOBREAK) && (previousCh != '-')) && (ptr != wordStart))
 								//	||	 (myBidiLevels[index - 1] != myBidiLevels[index])
-									)) {
+									//))
+							)
+		{
 						addWord(wordStart, myOffset + (wordStart - start), ptr - wordStart);
 						wordStart = ptr;
 					}

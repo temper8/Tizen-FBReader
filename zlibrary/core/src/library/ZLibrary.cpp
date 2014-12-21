@@ -27,6 +27,7 @@
 #include <ZLLogger.h>
 
 #include "ZLibrary.h"
+#include "ZLibraryImplementation.h"
 
 #include "../filesystem/ZLFSManager.h"
 
@@ -34,6 +35,34 @@
 
 //#include "../../../../FBreader/src/database/booksdb/BooksDB.h"
 //#include "../network/ZLNetworkManager.h"
+
+const std::string ZLibrary::FileNameDelimiter("/");
+const std::string ZLibrary::PathDelimiter(":");
+const std::string ZLibrary::EndOfLine("\n");
+
+void ZLibrary::initLocale() {
+	/*
+	LocaleManager localeManager;
+	localeManager.Construct();
+
+	// Gets the system locale information.
+	Locale  systemLocale = localeManager.GetSystemLocale();
+	LanguageCode langCode = systemLocale.GetLanguageCode();
+	switch (langCode) {
+			case LANGUAGE_ENG :
+				ourLanguage = "en";
+				break;
+			case LANGUAGE_FIN :
+				ourLanguage = "fi";
+				break;
+			case LANGUAGE_RUS :
+				ourLanguage = "ru";
+				break;
+	}
+	*/
+}
+
+
 
 bool ZLibrary::ourLocaleIsInitialized = false;
 std::string ZLibrary::ourLanguage;
@@ -178,4 +207,27 @@ std::string ZLibrary::Country() {
 //	AppLog("ZLibrary ourCountry =%s", ourCountry.c_str());
 //	ourCountry = "ru";
 	return ourCountry;
+}
+
+
+
+bool ZLibrary::init(int &argc, char **&argv) {
+
+
+	ZLibraryImplementation::initLibrary();
+
+	if (ZLibraryImplementation::Instance == 0) {
+		return false;
+	}
+
+	ZLibraryImplementation::Instance->init(argc, argv);
+	return true;
+}
+
+ZLPaintContext *ZLibrary::createContext() {
+	return ZLibraryImplementation::Instance->createContext();
+}
+
+void ZLibrary::run(ZLApplication *application) {
+	ZLibraryImplementation::Instance->run(application);
 }

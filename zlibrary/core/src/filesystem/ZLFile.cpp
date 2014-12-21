@@ -27,7 +27,7 @@
 #include "ZLOutputStream.h"
 #include "zip/ZLZip.h"
 #include "tar/ZLTar.h"
-#include "bzip2/ZLBzip2InputStream.h"
+//#include "bzip2/ZLBzip2InputStream.h"
 #include "ZLFSManager.h"
 
 
@@ -103,9 +103,9 @@ shared_ptr<ZLInputStream> ZLFile::envelopeCompressedStream(shared_ptr<ZLInputStr
 		if (myArchiveType & GZIP) {
 			return new ZLGzipInputStream(base);
 		}
-		if (myArchiveType & BZIP2) {
-			return new ZLBzip2InputStream(base);
-		}
+		//if (myArchiveType & BZIP2) {
+		//	return new ZLBzip2InputStream(base);
+		//}
 	}
 	return base;
 }

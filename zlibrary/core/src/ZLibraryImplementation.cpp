@@ -10,6 +10,7 @@
 
 ZLibraryImplementation *ZLibraryImplementation::Instance = 0;
 
+
 ZLibraryImplementation::ZLibraryImplementation() {
 	Instance = this;
 }

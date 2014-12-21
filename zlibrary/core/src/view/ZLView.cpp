@@ -20,13 +20,13 @@
 #include "ZLView.h"
 #include "ZLViewWidget.h"
 #include "ZLPaintContext.h"
-/*
+
 const ZLTypeId ZLView::TYPE_ID(ZLObjectWithRTTI::TYPE_ID);
 
 const ZLTypeId &ZLView::typeId() const {
 	return TYPE_ID;
 }
-*/
+
 ZLView::ZLView(ZLPaintContext &context) : myViewWidget(0), myContext(context) {
 }
 
@@ -233,17 +233,17 @@ void ZLView::onScrollbarStep(Direction, int) {
 
 void ZLView::onScrollbarPageStep(Direction, int) {
 }
-
+*/
 void ZLViewWidget::rotate(ZLView::Angle rotation) {
 	myRotation = rotation;
 	if (myView != 0) {
-		myView->updateScrollbarState();
-		myView->updateScrollbarPlacement();
-		myView->updateScrollbarParameters();
+		//myView->updateScrollbarState();
+		//myView->updateScrollbarPlacement();
+		//myView->updateScrollbarParameters();
 	}
 }
 
 ZLView::Angle ZLViewWidget::rotation() const {
 	return myRotation;
 }
-*/
+
