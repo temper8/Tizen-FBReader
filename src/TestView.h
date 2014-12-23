@@ -16,6 +16,13 @@ public:
 	virtual ~TestView();
 	const std::string &caption() const;
 	virtual void paint();
+
+public:
+	static const ZLTypeId TYPE_ID;
+
+private:
+	const ZLTypeId &typeId() const;
+
 };
 
 #endif /* TESTVIEW_H_ */

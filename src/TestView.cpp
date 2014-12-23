@@ -9,6 +9,13 @@
 
 #include "ZLPaintContext.h"
 
+const ZLTypeId TestView::TYPE_ID(ZLView::TYPE_ID);
+
+const ZLTypeId &TestView::typeId() const {
+	return TYPE_ID;
+}
+
+
 TestView::TestView(ZLPaintContext &context) : ZLView(context) {
 	// TODO Auto-generated constructor stub
 
@@ -18,8 +25,10 @@ TestView::~TestView() {
 	// TODO Auto-generated destructor stub
 }
 
+const std::string capt("TestView");
+
 const std::string &TestView::caption() const {
- return std::string("TestView");
+ return capt;
 }
 
 void TestView::paint() {

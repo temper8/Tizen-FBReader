@@ -9,6 +9,14 @@
 
 #include "ZLTizenLibraryImplementation.h"
 #include "ZLTizenPaintContext.h"
+#include <Zlibrary.h>
+
+//#include "../image/ZLbadaImageManager.h"
+//#include "../../../../core/src/unix/iconv/IConvEncodingConverter.h"
+//#include "../../core/src/unix/xmlconfig/XMLConfig.h"
+//#include "../../../../core/src/unix/curl/ZLCurlNetworkManager.h"
+//#include "../network/ZLbadaNetworkManager.h"
+
 
 ZLTizenLibraryImplementation::ZLTizenLibraryImplementation() {
 	// TODO Auto-generated constructor stub
@@ -29,6 +37,43 @@ static char **my_argv;
 void ZLTizenLibraryImplementation::init(int &argc, char **&argv){
 	my_argc = argc;
 	my_argv = argv;
+
+	DBG("ZLTizenLibraryImplementation::init");
+	ZLibrary::parseArguments(argc, argv);
+	DBG("ZLibrary::parseArguments");
+//	pArgs = new ArrayList();
+//	pArgs->Construct();
+	for (int i = 0; i < argc; i++)
+	{
+	//	pArgs->Add(*(new String(argv[i])));
+		DBG("pArgs %d - %s",i, argv[i]);
+	}
+
+//	XMLConfigManager::createInstance();
+	DBG("XMLConfigManager::createInstance();");
+
+	//ZLbadaTimeManager::createInstance();
+	DBG("ZLbadaTimeManager::createInstance();");
+
+	//ZLbadaFSManager::createInstance();
+	DBG("ZLbadaFSManager::createInstance();");
+
+	//ZLbadaDialogManager::createInstance();
+	DBG("ZLbadaDialogManager::createInstance();");
+
+	//ZLUnixCommunicationManager::createInstance();
+	DBG("ZLUnixCommunicationManager::createInstance();");
+
+	//ZLbadaImageManager::createInstance();
+	DBG("ZLbadaImageManager::createInstance();");
+
+	//ZLEncodingCollection::Instance().registerProvider(new IConvEncodingConverterProvider());
+	DBG("ZLEncodingCollection::Instance().registerProvider");
+
+	//ZLbadaNetworkManager::createInstance();
+	DBG("ZLbadaNetworkManager::Instance()");
+
+//	ZLKeyUtil::setKeyNamesFileName("keynames.xml");
 }
 
 ZLTizenApplicationWindow *ZLTizenLibraryImplementation::myWindow = NULL;

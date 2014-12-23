@@ -69,6 +69,7 @@ ZLApplication::ZLApplication(const std::string &name) : ZLApplicationBase(name),
 	ConfigAutoSaveTimeoutOption(ZLCategoryKey::CONFIG, CONFIG, TIMEOUT, 1, 6000, 30),
 	KeyDelayOption(ZLCategoryKey::CONFIG, "Options", "KeyDelay", 0, 5000, 250)
 	{
+	DBG("Create ZLApplication");
 //	AppLog("Create ZLApplication");
 	ourInstance = this;
 //	AppLog("ZLibrary::createContext()");

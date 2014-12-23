@@ -19,6 +19,9 @@
 
 #include <app.h>
 
+#include "logger.h"
+
+
 #include <ZLTimeManager.h>
 //#include <ZLDialogManager.h>
 //#include <ZLImageManager.h>
@@ -213,6 +216,7 @@ std::string ZLibrary::Country() {
 
 bool ZLibrary::init(int &argc, char **&argv) {
 
+	DBG("ZLib-init");
 
 	ZLibraryImplementation::initLibrary();
 
@@ -221,6 +225,7 @@ bool ZLibrary::init(int &argc, char **&argv) {
 	}
 
 	ZLibraryImplementation::Instance->init(argc, argv);
+	DBG("ZLib-init end");
 	return true;
 }
 
@@ -229,5 +234,6 @@ ZLPaintContext *ZLibrary::createContext() {
 }
 
 void ZLibrary::run(ZLApplication *application) {
+	DBG("ZLib-run");
 	ZLibraryImplementation::Instance->run(application);
 }

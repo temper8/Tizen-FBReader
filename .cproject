@@ -21,7 +21,7 @@
 					<folderInfo id="org.tizen.nativecore.config.sbi.gcc45.app.debug.1077706805." name="/" resourcePath="">
 						<toolChain id="org.tizen.nativecore.toolchain.sbi.gcc45.app.debug.683069301" name="Tizen Native Toolchain" nonInternalBuilderId="org.tizen.nativecore.target.sbi.gnu.builder" superClass="org.tizen.nativecore.toolchain.sbi.gcc45.app.debug">
 							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF" id="org.tizen.nativeide.target.sbi.gnu.platform.base.217873731" osList="linux,win32" superClass="org.tizen.nativeide.target.sbi.gnu.platform.base"/>
-							<builder arguments="--eval=&quot;SHELL=cmd&quot; -r" buildPath="${workspace_loc:/Tizen-FBreader}/Debug" enableAutoBuild="true" id="org.tizen.nativecore.target.sbi.gnu.builder.2070194627" name="Tizen Application Builder" superClass="org.tizen.nativecore.target.sbi.gnu.builder"/>
+							<builder arguments="--eval=&quot;SHELL=cmd&quot; -r" buildPath="${workspace_loc:/Tizen-FBreader}/Debug" enableAutoBuild="true" id="org.tizen.nativecore.target.sbi.gnu.builder.56466673" keepEnvironmentInBuildfile="false" name="Tizen Application Builder" superClass="org.tizen.nativecore.target.sbi.gnu.builder"/>
 							<tool id="org.tizen.nativecore.tool.sbi.gnu.archiver.1543823922" name="Archiver" superClass="org.tizen.nativecore.tool.sbi.gnu.archiver"/>
 							<tool command="clang++.exe" id="org.tizen.nativecore.tool.sbi.gnu.cpp.compiler.295083420" name="C++ Compiler" superClass="org.tizen.nativecore.tool.sbi.gnu.cpp.compiler">
 								<option id="gnu.cpp.compiler.option.optimization.level.1095655318" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
