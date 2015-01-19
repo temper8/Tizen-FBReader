@@ -9,7 +9,7 @@
 
 #include "ZLTizenLibraryImplementation.h"
 #include "ZLTizenPaintContext.h"
-#include <Zlibrary.h>
+#include <ZLibrary.h>
 
 //#include "../image/ZLbadaImageManager.h"
 //#include "../../../../core/src/unix/iconv/IConvEncodingConverter.h"

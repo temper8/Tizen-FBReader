@@ -19,7 +19,7 @@
 
 #include <ZLPaintContext.h>
 
-#include <OptionEntries\ZLFontFamilyOptionEntry.h>
+#include <optionEntries/ZLFontFamilyOptionEntry.h>
 
 ZLFontFamilyOptionEntry::ZLFontFamilyOptionEntry(ZLStringOption &option, const ZLPaintContext &context) : myOption(option), myContext(context) {
 	std::string value = option.value();
