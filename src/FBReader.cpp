@@ -6,7 +6,7 @@
 
 
 FBReader::FBReader(const std::string &bookToOpen): ZLApplication(bookToOpen)  {
-
+	DBG("FBR-FBReader");
 }
 
 FBReader::~FBReader() {

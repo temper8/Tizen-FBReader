@@ -66,7 +66,7 @@ protected:
 
 	//virtual void close() = 0;
 
-	virtual void setCaption(const std::string &caption) {};
+	void setCaption(const std::string &caption) {};
 
 	//virtual void grabAllKeys(bool grab) = 0;
 

@@ -162,9 +162,11 @@ std::string ZLibrary::replaceRegExps(const std::string &pattern) {
 //	AppLog("ZLibrary::replaceRegExps str =%s",str.c_str());
 	return str;
 }
+
 #define XMLCONFIGHOMEDIR 1
+
 void ZLibrary::initApplication(const std::string &name) {
-//	AppLog("ZLibrary::initApplication %s",name.c_str() );
+	DBG("ZLibrary::initApplication %s",name.c_str() );
 
 	ourApplicationName = name;
 	ourImageDirectory = replaceRegExps("/IMAGEDIR");
@@ -181,10 +183,10 @@ void ZLibrary::initApplication(const std::string &name) {
 
 
 	ourDefaultFilesPathPrefix = ourApplicationDirectory + FileNameDelimiter + "default" + FileNameDelimiter;
-//	AppLog("ZLibrary ourApplicationWritableDirectory =%s",ourApplicationWritableDirectory.c_str());
-//	AppLog("ZLibrary ourApplicationDirectory =%s",ourApplicationDirectory.c_str());
-//	AppLog("ZLibrary ourApplicationImageDirectory =%s",ourApplicationImageDirectory.c_str());
-//	AppLog("ZLibrary ourImageDirectory =%s",ourImageDirectory.c_str());
+	DBG("ZLibrary ourApplicationWritableDirectory =%s",ourApplicationWritableDirectory.c_str());
+	DBG("ZLibrary ourApplicationDirectory =%s",ourApplicationDirectory.c_str());
+	DBG("ZLibrary ourApplicationImageDirectory =%s",ourApplicationImageDirectory.c_str());
+	DBG("ZLibrary ourImageDirectory =%s",ourImageDirectory.c_str());
 }
 
 std::string ZLibrary::Language() {

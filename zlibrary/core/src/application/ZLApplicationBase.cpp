@@ -25,6 +25,8 @@
 
 #include "ZLApplication.h"
 
+#include "logger.h"
+
 class ConfigSaverRunnable : public ZLRunnable {
 
 public:
@@ -34,11 +36,11 @@ public:
 };
 
 ZLApplicationBase::ZLApplicationBase(const std::string &name) {
-//	AppLog("Create ZLApplicationBase");
+	DBG("Create ZLApplicationBase");
 	ZLibrary::initApplication(name);
-//	AppLog("ZLibrary::initApplication ");
+	DBG("ZLibrary::initApplication ");
 	ZLOption::createInstance();
-//	AppLog("ZLOption::createInstance() ");
+	DBG("ZLOption::createInstance() ");
 }
 
 ZLApplicationBase::~ZLApplicationBase() {

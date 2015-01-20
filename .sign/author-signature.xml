@@ -4,7 +4,7 @@
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
 <Reference URI="bin%2Ftizen-fbreader">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>R5pH8D/FqQ5ToA4Sb6b7RTp96ZEel7kpt6lCNknPl7Y=</DigestValue>
+<DigestValue>f0CWbVqrhViv5jZMTKxb6o9FF6rVcOmcond6QlNGm+U=</DigestValue>
 </Reference>
 <Reference URI="shared%2Fres%2FFBReader-type1.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -27,9 +27,9 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-UcVNwQjLV1lKYdfceV5Mdc1f3LgxQo3FJzKUdfvye6W9G2Qm81/kVTNJkq6p8Gj9zZdQM79TQeUs
-+wkJtVmue+WCb9sWIut5bVs8sO5eXUPnCWKTkEF3YvLVrgMdbPdDw5aBgYMI8FgOCogG9MRvQZOx
-ngTx1IG3u599jsZ+WuE=
+cb70Sqt6d2olCB355gkMVuwxhwlSlu98qGyl9OslHSp72tXKmeqeZI9mpVqT4ulaRh0Sf0Oil3N+
+iREfKM4xCfgS8NJmjfhQrbKVadjrWU3MLGMZ/hEMPlQzX+RnsDZE8dKGNttSgLXvBdFgAZd7SlI+
+zk+XSXJZhgR76+EnF9k=
 </SignatureValue>
 <KeyInfo>
 <X509Data>

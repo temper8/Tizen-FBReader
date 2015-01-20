@@ -17,6 +17,7 @@
  * 02110-1301, USA.
  */
 
+#include "logger.h"
 
 #include <cstdlib>
 #include <cstdio>
@@ -31,10 +32,12 @@
 ZLConfig *ZLOption::ourConfig = 0;
 
 void ZLOption::unsetConfigValue() const {
+	DBG("unsetConfigValue");
 	ourConfig->unsetValue(myGroupName, myOptionName);
 }
 
 void ZLOption::setConfigValue(const std::string &value) const {
+	DBG("setConfigValue %s", value.c_str());
 	if (myCategory != ZLCategoryKey::EMPTY) { 
 		ourConfig->setValue(myGroupName, myOptionName, value, myCategory.Name);
 	}
@@ -61,7 +64,7 @@ const std::string &ZLOption::getDefaultConfigValue() const {
 }
 
 void ZLOption::createInstance() {
-//	AppLog(" ZLOption::createInstance()");
+	DBG(" ZLOption::createInstance()");
 	ourConfig = ZLConfigManager::Instance().createConfig();
 }
 
@@ -305,6 +308,8 @@ const std::string &ZLStringOption::value() const {
 }
 
 void ZLStringOption::setValue(const std::string &value) {
+	DBG("setValue %s", value.c_str());
+
 	if (myIsSynchronized && (myValue == value)) {
 		return;
 	}

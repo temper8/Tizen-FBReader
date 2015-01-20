@@ -13,7 +13,7 @@
 
 //#include "../image/ZLbadaImageManager.h"
 //#include "../../../../core/src/unix/iconv/IConvEncodingConverter.h"
-//#include "../../core/src/unix/xmlconfig/XMLConfig.h"
+#include "../../core/src/unix/xmlconfig/XMLConfig.h"
 //#include "../../../../core/src/unix/curl/ZLCurlNetworkManager.h"
 //#include "../network/ZLbadaNetworkManager.h"
 
@@ -49,7 +49,7 @@ void ZLTizenLibraryImplementation::init(int &argc, char **&argv){
 		DBG("pArgs %d - %s",i, argv[i]);
 	}
 
-//	XMLConfigManager::createInstance();
+	XMLConfigManager::createInstance();
 	DBG("XMLConfigManager::createInstance();");
 
 	//ZLbadaTimeManager::createInstance();
