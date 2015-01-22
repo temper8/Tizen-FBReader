@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<group name="Options">
+		<option name="BookPath" value="/opt/storage/sdcard/Books:/opt/usr/media/Books:/opt/usr/media/Others"/>
+		<option name="DownloadDirectory" value="/opt/usr/media/Downloads"/>
+	</group>
+	<group name="TapScrolling">
+		<option name="Enabled" value="true"/>
+	</group>
+</config>

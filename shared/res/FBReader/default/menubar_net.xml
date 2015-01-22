@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menubar>
+	<item id="showLibrary"/>
+	<item id="toc"/>
+	<item id="bookInfo"/>
+	<item id="preferences"/>
+	<item id="day-night"/>
+	<item id="quit"/>
+	<item id="showNetLibrary"/>
+	<item id="increaseFont"/>
+	<item id="decreaseFont"/>
+</menubar>

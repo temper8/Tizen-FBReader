@@ -30,6 +30,7 @@
 //#include "bzip2/ZLBzip2InputStream.h"
 #include "ZLFSManager.h"
 
+#include "logger.h"
 
 const ZLFile ZLFile::NO_FILE;
 
@@ -40,9 +41,9 @@ ZLFile::ZLFile() : myMimeTypeIsUpToDate(true), myInfoIsFilled(true) {
 
 ZLFile::ZLFile(const std::string &path, shared_ptr<ZLMimeType> mimeType) : myPath(path), myMimeType(mimeType), myMimeTypeIsUpToDate(*mimeType != *ZLMimeType::EMPTY), myInfoIsFilled(false) {
 
-//	AppLog("ZLFile::ZLFile %s",path.c_str());
-	ZLFSManager::Instance().normalize(myPath);
-//	AppLog("ZLFile::ZLFile %s",myPath.c_str());
+	DBG("ZLFile::ZLFile %s",path.c_str());
+	//ZLFSManager::Instance().normalize(myPath);
+	//DBG("ZLFile::ZLFile %s",myPath.c_str());
 	{
 		size_t index = ZLFSManager::Instance().findLastFileNameDelimiter(myPath);
 		if (index < myPath.length() - 1) {
@@ -52,18 +53,18 @@ ZLFile::ZLFile(const std::string &path, shared_ptr<ZLMimeType> mimeType) : myPat
 		}
 	}
 	myNameWithoutExtension = myNameWithExtension;
-	//AppLog("myNameWithoutExtension = %s",myNameWithoutExtension.c_str());
+	//DBG("myNameWithoutExtension = %s",myNameWithoutExtension.c_str());
 	std::map<std::string,ArchiveType> &forcedFiles = ZLFSManager::Instance().myForcedFiles;
-	//AppLog("00");
+	//DBG("00");
 	std::map<std::string,ArchiveType>::iterator it = forcedFiles.find(myPath);
-	//AppLog("01");
+	//DBG("01");
 	if (it != forcedFiles.end()) {
-		//AppLog("02");
+		//DBG("02");
 		myArchiveType = it->second;
 	} else {
-		//AppLog("03");
+		//DBG("03");
 		myArchiveType = NONE;
-		//AppLog("03a");
+		//DBG("03a");
 		//std::string lowerCaseName = myNameWithoutExtension;//ZLUnicodeUtil::toLower(myNameWithoutExtension);
 		std::string lowerCaseName = ZLUnicodeUtil::toLower(myNameWithoutExtension);
 
@@ -89,7 +90,7 @@ ZLFile::ZLFile(const std::string &path, shared_ptr<ZLMimeType> mimeType) : myPat
 			//AppLog("05");
 		}
 	}
-	//AppLog("int index");
+	//DBG("int index");
 	int index = myNameWithoutExtension.rfind('.');
 	if (index > 0) {
 		myExtension = ZLUnicodeUtil::toLower(myNameWithoutExtension.substr(index + 1));

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menubar>
+	<item id="showLibrary"/>
+	<item id="showRecent"/>
+	<item id="showNetLibrary"/>
+	<item id="toc"/>
+	<item id="preferences"/>
+	<item id="bookInfo"/>
+</menubar>

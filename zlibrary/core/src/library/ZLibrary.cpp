@@ -87,7 +87,7 @@ void ZLibrary::parseArguments(int &argc, char **&argv) {
 
 //	 AppLog("AppRootPath %s", bb);
 	 /// путь к ресурсам
-	 char *res_path = app_get_resource_path();
+	 char *res_path = app_get_shared_resource_path();
 		if (res_path) {
 			BaseDirectory = std::string(res_path);
 			delete res_path;
@@ -124,7 +124,8 @@ void ZLibrary::parseArguments(int &argc, char **&argv) {
 		argv += 2;
 	};
 
-	ourZLibraryDirectory = BaseDirectory + FileNameDelimiter + "zlibrary";
+	//ourZLibraryDirectory = BaseDirectory + FileNameDelimiter + "zlibrary";
+	ourZLibraryDirectory = BaseDirectory + "zlibrary";
 //	AppLog("ZLibraryDirectory = %s",ourZLibraryDirectory.c_str());
 
 }
@@ -172,7 +173,8 @@ void ZLibrary::initApplication(const std::string &name) {
 	ourImageDirectory = replaceRegExps("/IMAGEDIR");
 	//ourApplicationImageDirectory = replaceRegExps("/Res/icons");
 	ourApplicationImageDirectory = BaseDirectory + "/icons";
-	ourApplicationDirectory = BaseDirectory + FileNameDelimiter + ourApplicationName;
+	//ourApplicationDirectory = BaseDirectory + FileNameDelimiter + "FBReader";//ourApplicationName;
+	ourApplicationDirectory = BaseDirectory + "FBReader";//ourApplicationName;
 
 
 	char *data_path = app_get_resource_path();

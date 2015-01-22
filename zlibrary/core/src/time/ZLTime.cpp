@@ -20,8 +20,10 @@
 #include "ZLTime.h"
 #include "ZLTimeManager.h"
 
+#include "logger.h"
+
 ZLTime::ZLTime() {
-	//AppLog("ZLTime::ZLTime()" );
+	DBG("ZLTime::ZLTime()" );
 	*this = ZLTimeManager::Instance().currentTime();
 }
 

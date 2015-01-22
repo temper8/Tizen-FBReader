@@ -54,7 +54,7 @@ const std::string &ZLOption::getConfigValue() const {
 }
 
 const std::string &ZLOption::getDefaultConfigValue(const std::string &defaultValue) const {
-//	AppLog("getDefaultConfigValue %s",defaultValue.c_str());
+	DBG("getDefaultConfigValue %s",defaultValue.c_str());
 
 	return ourConfig->getDefaultValue(myGroupName, myOptionName, defaultValue);
 }
@@ -69,7 +69,7 @@ void ZLOption::createInstance() {
 }
 
 void ZLOption::deleteInstance() {
-//	AppLog(" ZLOption::deleteInstance()");
+	DBG(" ZLOption::deleteInstance()");
 	delete ourConfig;
 	ourConfig = 0;
 }
@@ -122,7 +122,7 @@ bool ZLOption::isAutoSavingSupported() {
 }
 
 ZLOption::ZLOption(const ZLCategoryKey &category, const std::string &groupName, const std::string &optionName) : myCategory(category), myGroupName(groupName), myOptionName(optionName), myIsSynchronized(false) {
-//	AppLog("ZLOption %s %s %s",category.Name.c_str(),groupName.c_str(), optionName.c_str());
+	DBG("ZLOption %s %s %s",category.Name.c_str(),groupName.c_str(), optionName.c_str());
 }
 
 ZLOption::~ZLOption() {
@@ -147,6 +147,7 @@ bool ZLBooleanOption::value() const {
 }
 
 void ZLBooleanOption::setValue(bool value) {
+
 	if (myIsSynchronized && (myValue == value)) {
 		return;
 	}
@@ -247,6 +248,7 @@ long ZLIntegerRangeOption::value() const {
 }
 
 void ZLIntegerRangeOption::setValue(long value) {
+	DBG("setValue %d", value);
 	value = std::max(std::min(myMaxValue, value), myMinValue);
 	if (myIsSynchronized && (myValue == value)) {
 		return;

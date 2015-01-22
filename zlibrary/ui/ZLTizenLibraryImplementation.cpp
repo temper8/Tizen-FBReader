@@ -10,6 +10,8 @@
 #include "ZLTizenLibraryImplementation.h"
 #include "ZLTizenPaintContext.h"
 #include <ZLibrary.h>
+#include "ZLTizenFSManager.h"
+#include "time/ZLTizenTime.h"
 
 //#include "../image/ZLbadaImageManager.h"
 //#include "../../../../core/src/unix/iconv/IConvEncodingConverter.h"
@@ -52,11 +54,11 @@ void ZLTizenLibraryImplementation::init(int &argc, char **&argv){
 	XMLConfigManager::createInstance();
 	DBG("XMLConfigManager::createInstance();");
 
-	//ZLbadaTimeManager::createInstance();
+	ZLTizenTimeManager::createInstance();
 	DBG("ZLbadaTimeManager::createInstance();");
 
-	//ZLbadaFSManager::createInstance();
-	DBG("ZLbadaFSManager::createInstance();");
+	ZLTizenFSManager::createInstance();
+	DBG("ZLTizenFSManager::createInstance();");
 
 	//ZLbadaDialogManager::createInstance();
 	DBG("ZLbadaDialogManager::createInstance();");

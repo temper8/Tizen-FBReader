@@ -25,8 +25,9 @@
 #include "XMLConfigDelta.h"
 
 void XMLConfigManager::createInstance() {
-	ourInstance = new XMLConfigManager();
 	DBG("new XMLConfigManager() ");
+	ourInstance = new XMLConfigManager();
+	DBG("created XMLConfigManager() ");
 }
 
 XMLConfigManager::XMLConfigManager() {

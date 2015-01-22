@@ -5,4 +5,7 @@
         <label>tizen-fbreader</label>
         <icon>FBReader-type1.png</icon>
     </ui-application>
+    <privileges>
+        <privilege>http://tizen.org/privilege/systemsettings</privilege>
+    </privileges>
 </manifest>
