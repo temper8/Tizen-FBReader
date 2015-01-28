@@ -19,9 +19,9 @@
 
 #include <algorithm>
 
-//#include <linebreak.h>
+#include "../linebreak/linebreak.h"
 
-//#include <ZLImage.h>
+#include <ZLImage.h>
 
 #include <ZLTextParagraph.h>
 
@@ -29,12 +29,12 @@
 #include "ZLTextWord.h"
 #include "ZLTextParagraphBuilder.h"
 
+
 ZLTextParagraphCursor::Builder::Builder(ZLTextParagraphCursor &cursor) :
 	myParagraph(*cursor.myModel[cursor.myIndex]),
 	myElements(cursor.myElements),
-	myLanguage(cursor.myModel.language())
-
-	//myBaseBidiLevel(cursor.myModel.isRtl() ? 1 : 0)
+	myLanguage(cursor.myModel.language()),
+	myBaseBidiLevel(cursor.myModel.isRtl() ? 1 : 0)
 	{
 	const int paragraphIndex = cursor.myIndex;
 	const std::vector<ZLTextMark> &marks = cursor.myModel.marks();
@@ -46,11 +46,11 @@ ZLTextParagraphCursor::Builder::Builder(ZLTextParagraphCursor &cursor) :
 
 	static bool lineBreakInitialized = false;
 	if (!lineBreakInitialized) {
-	//	init_linebreak();
-	//	lineBreakInitialized = true;
+		init_linebreak();
+		lineBreakInitialized = true;
 	}
 }
-/*
+
 void ZLTextParagraphCursor::Builder::updateBidiLevel(FriBidiLevel bidiLevel) {
 	while (myCurrentBidiLevel > bidiLevel) {
 		--myCurrentBidiLevel;
@@ -61,10 +61,10 @@ void ZLTextParagraphCursor::Builder::updateBidiLevel(FriBidiLevel bidiLevel) {
 		myElements.push_back(ZLTextElementPool::Pool.StartReversedSequenceElement);
 	}
 }
-*/
+
 void ZLTextParagraphCursor::Builder::addWord(const char *ptr, int offset, int len) {
-	//ZLTextWord *word = ZLTextElementPool::Pool.getWord(ptr, len, offset, myCurrentBidiLevel);
-	ZLTextWord *word = ZLTextElementPool::Pool.getWord(ptr, len, offset, 0);
+	ZLTextWord *word = ZLTextElementPool::Pool.getWord(ptr, len, offset, myCurrentBidiLevel);
+	//ZLTextWord *word = ZLTextElementPool::Pool.getWord(ptr, len, offset, 0);
 	for (std::vector<ZLTextMark>::const_iterator mit = myFirstMark; mit != myLastMark; ++mit) {
 		ZLTextMark mark = *mit;
 		if ((mark.Offset < offset + len) && (mark.Offset + mark.Length > offset)) {
@@ -75,9 +75,9 @@ void ZLTextParagraphCursor::Builder::addWord(const char *ptr, int offset, int le
 }
 
 void ZLTextParagraphCursor::Builder::fill() {
-//	myBidiCharType = (myBaseBidiLevel == 1) ? FRIBIDI_TYPE_RTL : FRIBIDI_TYPE_LTR;
-//	myCurrentBidiLevel = myBaseBidiLevel;
-//	myLatestBidiLevel = myBaseBidiLevel;
+	myBidiCharType = (myBaseBidiLevel == 1) ? FRIBIDI_TYPE_RTL : FRIBIDI_TYPE_LTR;
+	myCurrentBidiLevel = myBaseBidiLevel;
+	myLatestBidiLevel = myBaseBidiLevel;
 
 	for (ZLTextParagraph::Iterator it = myParagraph; !it.isEnd(); it.next()) {
 		switch (it.entryKind()) {
@@ -114,13 +114,13 @@ void ZLTextParagraphCursor::Builder::fill() {
 				break;
 			case ZLTextParagraphEntry::RESET_BIDI_ENTRY:
 			//	AppLog("entryKind RESET_BIDI_ENTRY");
-//				updateBidiLevel(myBaseBidiLevel);
-//				myLatestBidiLevel = myBaseBidiLevel;
+				updateBidiLevel(myBaseBidiLevel);
+				myLatestBidiLevel = myBaseBidiLevel;
 				break;
 		}
 	}
 
-//	updateBidiLevel(myBaseBidiLevel);
+	updateBidiLevel(myBaseBidiLevel);
 }
 
 void ZLTextParagraphCursor::Builder::processTextEntry(const ZLTextEntry &textEntry) {
@@ -159,7 +159,7 @@ void ZLTextParagraphCursor::Builder::processTextEntry(const ZLTextEntry &textEnt
 	const char *start = textEntry.data();
 	const char *end = start + dataLength;
 //	AppLog("set_linebreaks_utf8 start %s", start);
-//	set_linebreaks_utf8((const utf8_t*)start, dataLength, myLanguage.c_str(), &myBreaksTable[0]);
+	set_linebreaks_utf8((const utf8_t*)start, dataLength, myLanguage.c_str(), &myBreaksTable[0]);
 
 	ZLUnicodeUtil::Ucs4Char ch = 0, previousCh;
 	enum { NO_SPACE, SPACE, NON_BREAKABLE_SPACE } spaceState = NO_SPACE;
@@ -185,9 +185,9 @@ void ZLTextParagraphCursor::Builder::processTextEntry(const ZLTextEntry &textEnt
 		} else {
 			switch (spaceState) {
 				case SPACE:
-					//if ((myBreaksTable[ptr - start - 1] == LINEBREAK_NOBREAK) || (previousCh == '-')) {
-					//	myElements.push_back(ZLTextElementPool::Pool.NBHSpaceElement);
-					//} else
+					if ((myBreaksTable[ptr - start - 1] == LINEBREAK_NOBREAK) || (previousCh == '-')) {
+						myElements.push_back(ZLTextElementPool::Pool.NBHSpaceElement);
+					} else
 					{
 						myElements.push_back(ZLTextElementPool::Pool.HSpaceElement);
 					}
@@ -198,10 +198,10 @@ void ZLTextParagraphCursor::Builder::processTextEntry(const ZLTextEntry &textEnt
 					wordStart = ptr;
 					break;
 				case NO_SPACE:
-					if ((ptr > start) //&&
-							//((((myBreaksTable[ptr - start - 1] != LINEBREAK_NOBREAK) && (previousCh != '-')) && (ptr != wordStart))
+					if ((ptr > start) &&
+							((((myBreaksTable[ptr - start - 1] != LINEBREAK_NOBREAK) && (previousCh != '-')) && (ptr != wordStart))
 								//	||	 (myBidiLevels[index - 1] != myBidiLevels[index])
-									//))
+									)
 							)
 		{
 						addWord(wordStart, myOffset + (wordStart - start), ptr - wordStart);
@@ -211,7 +211,7 @@ void ZLTextParagraphCursor::Builder::processTextEntry(const ZLTextEntry &textEnt
 			}
 			spaceState = NO_SPACE;
 		}
-		//updateBidiLevel(myBidiLevels[index]);
+	//	updateBidiLevel(myBidiLevels[index]);
 	}
 	switch (spaceState) {
 		case SPACE:

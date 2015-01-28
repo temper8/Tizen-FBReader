@@ -117,7 +117,7 @@ static void fStartElementHandler(void *userData, const xmlChar *name, const xmlC
 		else
 		{
 			const char* c[1];
-			*c=0;DBG("c=0");
+			*c=0;//DBG("c=0");
 			fStartElementHandler2(userData, (const char*)name, c);
 		}
 }
