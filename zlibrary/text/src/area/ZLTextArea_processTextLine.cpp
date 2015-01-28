@@ -17,6 +17,8 @@
  * 02110-1301, USA.
  */
 
+#include "logger.h"
+
 #include <algorithm>
 
 #include <ZLUnicodeUtil.h>
@@ -62,8 +64,9 @@ void ZLTextPartialInfo::setTo(ZLTextLineInfo &lineInfo) const {
 }
 
 ZLTextLineInfoPtr ZLTextArea::processTextLine(Style &style, const ZLTextWordCursor &start, const ZLTextWordCursor &end) {
-	const bool useHyphenator =
-		ZLTextStyleCollection::Instance().AutoHyphenationOption.value();
+	DBG("ZLTextArea::processTextLine ");
+	const bool useHyphenator = false;
+	//	ZLTextStyleCollection::Instance().AutoHyphenationOption.value();
 
 	ZLTextLineInfoPtr infoPtr = new ZLTextLineInfo(start, style.textStyle(), style.bidiLevel());
 
@@ -120,6 +123,7 @@ ZLTextLineInfoPtr ZLTextArea::processTextLine(Style &style, const ZLTextWordCurs
 	unsigned char storedBidiLevel = style.bidiLevel();
 
 	const int fontSize = style.textStyle()->fontSize();
+	DBG("fontSize %d", fontSize);
 	// TODO: change metrics at font change
 	const ZLTextStyleEntry::Metrics metrics(fontSize, fontSize / 2, width(), height());
 	info.StartIndent = style.textStyle()->lineStartIndent(metrics, isRtl());

@@ -17,6 +17,8 @@
  * 02110-1301, USA.
  */
 
+#include "logger.h"
+
 #include <algorithm>
 
 #include <ZLApplication.h>
@@ -28,7 +30,7 @@
 #include "ZLTextView.h"
 #include "ZLTextSelectionScroller.h"
 #include "ZLTextPositionIndicator.h"
-#include "../area/ZLTextSelectionModel.h"
+#include <ZLTextSelectionModel.h>
 #include "../area/ZLTextLineInfo.h"
 #include <ZLTextParagraphCursor.h>
 #include <ZLTextWord.h>
@@ -60,7 +62,7 @@ void ZLTextView::clear() {
 }
 
 void ZLTextView::setModel(shared_ptr<ZLTextModel> model) {
-//	AppLog("ZLTextView::setModel");
+	DBG("ZLTextView::setModel");
 	clear();
 //	AppLog("myTextAreaController.setModel");
 	myTextAreaController.setModel(model);
@@ -171,6 +173,7 @@ void ZLTextView::gotoMark(ZLTextMark mark) {
 }
 
 void ZLTextView::gotoParagraph(int num, bool end) {
+	DBG("gotoParagraph %d",num);
 	shared_ptr<ZLTextModel> model = textArea().model();
 	if (model.isNull()) {
 		return;
@@ -227,6 +230,7 @@ void ZLTextView::gotoParagraph(int num, bool end) {
 }
 
 void ZLTextView::gotoPosition(int paragraphIndex, int elementIndex, int charIndex) {
+	DBG("gotoPosition");
 	gotoParagraph(paragraphIndex, false);
 	const ZLTextWordCursor &startCursor = textArea().startCursor();
 	if (!startCursor.isNull() && 
@@ -661,6 +665,7 @@ void ZLTextView::scrollPage(bool forward, ZLTextAreaController::ScrollingMode mo
 }
 
 void ZLTextView::preparePaintInfo() {
+	DBG("ZLTextView::preparePaintInfo");
 	size_t newWidth = 
 		std::max(context().width() - leftMargin() - rightMargin(), 1);
 	int viewHeight = context().height() - topMargin() - bottomMargin();
@@ -669,13 +674,16 @@ void ZLTextView::preparePaintInfo() {
 		viewHeight -= indicatorInfo->height() + indicatorInfo->offset();
 	}
 	size_t newHeight = std::max(viewHeight, 1);
-//	AppLog("newWidth %d newHeight=%d",newWidth,newHeight);
+	DBG("newWidth %d newHeight=%d",newWidth,newHeight);
 	if (newWidth != myTextAreaController.area().width() || newHeight != myTextAreaController.area().height()) {
+		DBG("setSize");
 		myTextAreaController.area().setSize(newWidth, newHeight);
+		DBG("rebuildPaintInfo");
 		myTextAreaController.rebuildPaintInfo(false);
 	}
-
+	DBG("rebuildPaintInfo 2");
 	if (myTextAreaController.preparePaintInfo()) {
 		myDoUpdateScrollbar = true;
 	}
+	DBG("preparePaintInfo end");
 }

@@ -21,7 +21,7 @@
 
 #include "ZLTextSelectionScroller.h"
 #include "ZLTextView.h"
-#include "../area/ZLTextSelectionModel.h"
+#include <ZLTextSelectionModel.h>
 
 ZLTextSelectionScroller::ZLTextSelectionScroller(ZLTextView &view) : myView(view), myDirection(DONT_SCROLL) {
 }

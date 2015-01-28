@@ -22,7 +22,7 @@
 #include <ZLLanguageList.h>
 #include <ZLLanguageUtil.h>
 
-#include "ZLLanguageOptionEntry.h"
+#include <optionEntries/ZLLanguageOptionEntry.h>
 
 ZLAbstractLanguageOptionEntry::ZLAbstractLanguageOptionEntry(const std::string &initialCode, const std::vector<std::string> &languageCodes) {
 	for (std::vector<std::string>::const_iterator it = languageCodes.begin(); it != languageCodes.end(); ++it) {

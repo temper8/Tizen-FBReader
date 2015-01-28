@@ -42,8 +42,8 @@ ZLFile::ZLFile() : myMimeTypeIsUpToDate(true), myInfoIsFilled(true) {
 ZLFile::ZLFile(const std::string &path, shared_ptr<ZLMimeType> mimeType) : myPath(path), myMimeType(mimeType), myMimeTypeIsUpToDate(*mimeType != *ZLMimeType::EMPTY), myInfoIsFilled(false) {
 
 	DBG("ZLFile::ZLFile %s",path.c_str());
-	//ZLFSManager::Instance().normalize(myPath);
-	//DBG("ZLFile::ZLFile %s",myPath.c_str());
+	ZLFSManager::Instance().normalize(myPath);
+	DBG("ZLFile::ZLFile %s",myPath.c_str());
 	{
 		size_t index = ZLFSManager::Instance().findLastFileNameDelimiter(myPath);
 		if (index < myPath.length() - 1) {
@@ -53,22 +53,22 @@ ZLFile::ZLFile(const std::string &path, shared_ptr<ZLMimeType> mimeType) : myPat
 		}
 	}
 	myNameWithoutExtension = myNameWithExtension;
-	//DBG("myNameWithoutExtension = %s",myNameWithoutExtension.c_str());
+	DBG("myNameWithoutExtension = %s",myNameWithoutExtension.c_str());
 	std::map<std::string,ArchiveType> &forcedFiles = ZLFSManager::Instance().myForcedFiles;
-	//DBG("00");
+	DBG("00");
 	std::map<std::string,ArchiveType>::iterator it = forcedFiles.find(myPath);
-	//DBG("01");
+	DBG("01");
 	if (it != forcedFiles.end()) {
-		//DBG("02");
+		DBG("02");
 		myArchiveType = it->second;
 	} else {
-		//DBG("03");
+		DBG("03");
 		myArchiveType = NONE;
 		//DBG("03a");
-		//std::string lowerCaseName = myNameWithoutExtension;//ZLUnicodeUtil::toLower(myNameWithoutExtension);
-		std::string lowerCaseName = ZLUnicodeUtil::toLower(myNameWithoutExtension);
+		std::string lowerCaseName = myNameWithoutExtension;//ZLUnicodeUtil::toLower(myNameWithoutExtension);
+		//std::string lowerCaseName = ZLUnicodeUtil::toLower(myNameWithoutExtension);
 
-		//AppLog("04");
+		DBG("04");
 		if (ZLStringUtil::stringEndsWith(lowerCaseName, ".gz")) {
 			myNameWithoutExtension = myNameWithoutExtension.substr(0, myNameWithoutExtension.length() - 3);
 			lowerCaseName = lowerCaseName.substr(0, lowerCaseName.length() - 3);
@@ -87,16 +87,16 @@ ZLFile::ZLFile(const std::string &path, shared_ptr<ZLMimeType> mimeType) : myPat
 							 ZLStringUtil::stringEndsWith(lowerCaseName, ".ipk")) {
 			//myNameWithoutExtension = myNameWithoutExtension.substr(0, myNameWithoutExtension.length() - 3) + "tar";
 			myArchiveType = (ArchiveType)(myArchiveType | TAR | GZIP);
-			//AppLog("05");
+			DBG("05");
 		}
 	}
-	//DBG("int index");
+	DBG("int index");
 	int index = myNameWithoutExtension.rfind('.');
 	if (index > 0) {
-		myExtension = ZLUnicodeUtil::toLower(myNameWithoutExtension.substr(index + 1));
+		myExtension = myNameWithoutExtension.substr(index + 1);//ZLUnicodeUtil::toLower(myNameWithoutExtension.substr(index + 1));
 		myNameWithoutExtension = myNameWithoutExtension.substr(0, index);
 	}
-//	AppLog("ZLFile::ZLFile end ");
+	DBG("ZLFile::ZLFile end ");
 }
 
 shared_ptr<ZLInputStream> ZLFile::envelopeCompressedStream(shared_ptr<ZLInputStream> &base) const {
@@ -114,20 +114,20 @@ shared_ptr<ZLInputStream> ZLFile::envelopeCompressedStream(shared_ptr<ZLInputStr
 #include <iostream>
 
 shared_ptr<ZLInputStream> ZLFile::inputStream() const {
-//	AppLog("ZLFile::inputStream()");
+	DBG("ZLFile::inputStream()");
 	shared_ptr<ZLInputStream> stream;
 	
 	int index = ZLFSManager::Instance().findArchiveFileNameDelimiter(myPath);
 	if (index == -1) {
 		stream = ourPlainStreamCache[myPath];
-//		AppLog("ourPlainStreamCache  size = %d",ourPlainStreamCache.size());
+		DBG("ourPlainStreamCache  size = %d",ourPlainStreamCache.size());
 
-//		AppLog("ourPlainStreamCache %s",myPath.c_str());
+		DBG("ourPlainStreamCache %s",myPath.c_str());
 		if (stream.isNull()) {
 			if (isDirectory()) {
 				return 0;
 			}
-//			AppLog("createPlainInputStream");
+			DBG("createPlainInputStream");
 			//std::cerr << "Create stream " << myPath << std::endl;
 			stream = ZLFSManager::Instance().createPlainInputStream(myPath);
 			//AppLog("createPlainInputStream 1");
@@ -136,11 +136,11 @@ shared_ptr<ZLInputStream> ZLFile::inputStream() const {
 			ourPlainStreamCache[myPath] = stream;
 		}
 		else {
-//			AppLog("Stream был в кэше");
+			DBG("Stream был в кэше");
 		}
 	} else {
 		ZLFile baseFile(myPath.substr(0, index));
-//		AppLog("baseFile %s",myPath.c_str());
+		DBG("baseFile %s",myPath.c_str());
 		shared_ptr<ZLInputStream> base = baseFile.inputStream();
 		base->printDataMap();
 		if (!base.isNull()) {

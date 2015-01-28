@@ -20,7 +20,7 @@
 #include <ZLKeyBindings.h>
 #include <ZLApplication.h>
 
-#include "ZLSimpleKeyOptionEntry.h"
+#include "optionEntries/ZLSimpleKeyOptionEntry.h"
 
 void ZLSimpleKeyOptionEntry::CodeIndexBimap::insert(const std::string &code) {
 	IndexByCode[code] = CodeByIndex.size();

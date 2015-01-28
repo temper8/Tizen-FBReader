@@ -21,14 +21,17 @@
 #include "XMLConfig.h"
 #include "XMLConfigDelta.h"
 #include "AsciiEncoder.h"
-
+#include "logger.h"
 XMLConfigReader::XMLConfigReader(XMLConfig &config, const std::string &category) : myCategory(category), myConfig(config), myGroup(0) {
+	DBG("XMLConfigReader::XMLConfigReader");
+	//createInternalReader(this);
 }
 
 XMLConfigReader::~XMLConfigReader() {
 }
 
 void XMLConfigReader::startElementHandler(const char *tag, const char **attributes) {
+	DBG("XMLConfigReader::startElementHandler");
 	static const std::string GROUP = "group";
 	static const std::string OPTION = "option";
 	static const char *NAME = "name";

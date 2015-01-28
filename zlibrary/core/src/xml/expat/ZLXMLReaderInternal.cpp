@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  */
-
+#include "logger.h"
 #include <string.h>
 
 #include <ZLFile.h>
@@ -24,7 +24,7 @@
 #include <ZLEncodingConverter.h>
 
 #include "ZLXMLReaderInternal.h"
-#include "../ZLXMLReader.h"
+#include "ZLXMLReader.h"
 #include <stdlib.h>
 #include <libxml/xmlexports.h>
 
@@ -34,17 +34,21 @@
 //void fCharacterDataHandler(void *userData, const char *text, int len) {
 static void fCharacterDataHandler(void *userData,	const xmlChar *text, int len) {
 //	char buf[100];
-//	AppLog("ZLXMLReaderInternal::fCharacterDataHandler");
+//	DBG("ZLXMLReaderInternal::fCharacterDataHandler");
+//	DBG("fCharacterDataHandler len=%d",len);
+	size_t l;
+	l = len;
+
 	ZLXMLReader &reader = *(ZLXMLReader*)userData;
 	if (!reader.isInterrupted()) {
-		reader.characterDataHandler((const char*)text, len);
-
+		//DBG("fCharacterDataHandler l=%d",l);
+		reader.characterDataHandler((const char*)text, l);
 	//	if (len<50) {
 	//		memset(buf, 0, 99);
 	//	    strncpy(buf, (const char*)text, len);
 	//	AppLog("fCharacterDataHandler text=%s",buf);
 	//	}
-	//	AppLog("fCharacterDataHandler len = %d",len);
+	//DBG("fCharacterDataHandler end");
 	}
 }
 
@@ -52,66 +56,68 @@ static void fCharacterDataHandler(void *userData,	const xmlChar *text, int len) 
 //void ZLXMLReaderInternal::fStartElementHandler(void *userData, const char *name, const char **attributes) {
 //typedef void(* startElementSAXFunc)(void *ctx, const xmlChar *name, const xmlChar **atts)
 //void fStartElementHandler(void *userData, const char *name, const char **attributes) {
-static void fStartElementHandler2(void *userData, const char *name, const char **attributes) {
+void fStartElementHandler2(void *userData, const char *name, const char **attributes) {
 
-//	AppLog("fStartElementHandler2::name=%s",(const char*)name);
+//	DBG("fStartElementHandler2::name=%s",(const char*)name);
 //	if (*attributes!=0) 	AppLog("fStartElementHandler:: attr = %s::%s",(const char*)attributes[0],(const char*)attributes[1]);
 //	else {AppLog("A!=0"); return;}
-	ZLXMLReader &reader = *(ZLXMLReader*)userData;
+	ZLXMLReader *reader = (ZLXMLReader*)userData;
 	//AppLog("ZLXMLReader &reader");
-	if (!reader.isInterrupted()) {
-		//AppLog("!reader.isInterrupted()");
-		if (reader.processNamespaces()) {
+	if (!reader->isInterrupted()) {
+		//DBG("!reader.isInterrupted()");
+		if (reader->processNamespaces()) {
 			int count = 0;
-			//AppLog("int count = 0");
-			//AppLog("attr = %s::%s",(const char*)attributes[0],(const char*)attributes[1]);
+			//DBG("int count = 0");
+			//DBG("attr = %s::%s",(const char*)attributes[0],(const char*)attributes[1]);
 			for (const char **a = (const char**)attributes; (*a != 0) && (*(a + 1) != 0); a += 2) {
 				//AppLog("*a=%s",*a);
 				if (strncmp(*a, "xmlns:", 6) == 0) {
 					if (count == 0) {
-						reader.myNamespaces.push_back(
-							new std::map<std::string,std::string>(*reader.myNamespaces.back())
+						reader->myNamespaces.push_back(
+							new std::map<std::string,std::string>(*reader->myNamespaces.back())
 						);
 					}
 					++count;
 					const std::string id(*a + 6);
 					const std::string reference(*(a + 1));
-					(*reader.myNamespaces.back())[id] = reference;
+					(*reader->myNamespaces.back())[id] = reference;
 				}
 			}
 			if (count == 0) {
-				reader.myNamespaces.push_back(reader.myNamespaces.back());
+				reader->myNamespaces.push_back(reader->myNamespaces.back());
 			} else {
-				reader.namespaceListChangedHandler();
+				reader->namespaceListChangedHandler();
 			}
 		}
-	//	AppLog("reader.startElementHandler");
+		//DBG("reader.startElementHandler");
 		if (attributes!=0)
 		{
-	//		AppLog("reader.startElementHandler if ");
-			reader.startElementHandler((const char*)name, (const char**)attributes);
+		//	DBG("reader.startElementHandler if ");
+			reader->startElementHandler((const char*)name, (const char**)attributes);
+			//reader->endElementHandler((const char*)name);
 		}
 		else
 		{
-		//	AppLog("reader.startElementHandler if attributes==0 сюда не должен попадать");
+		//	DBG("reader.startElementHandler if attributes==0 сюда не должен попадать");
 			const char* c[1];
 			*c=0;
-			reader.startElementHandler((const char*)name, c);
+			reader->startElementHandler((const char*)name, c);
 		}
-	//	AppLog("reader.startElementHandler 2 ");
+		//DBG("reader.startElementHandler end ");
 
 	}
 }
 static void fStartElementHandler(void *userData, const xmlChar *name, const xmlChar **attributes){
-//	AppLog("fStartElementHandler  name = %s",(const char*)name);
+//	DBG("fStartElementHandler  name = %s",(const char*)name);
 
-	if (attributes!=0)		{
+	if (attributes!=0)
+	{
 			fStartElementHandler2(userData, (const char*)name, (const char**)attributes);
 	    }
 		else
 		{
 			const char* c[1];
-			*c=0;
+			*c=0;DBG("c=0");
 			fStartElementHandler2(userData, (const char*)name, c);
 		}
 }
@@ -119,7 +125,7 @@ static void fStartElementHandler(void *userData, const xmlChar *name, const xmlC
 //typedef void(* endElementSAXFunc)(void *ctx, const xmlChar *name)
 //void fEndElementHandler(void *userData, const char *name) {
 static void fEndElementHandler(void *userData, const xmlChar *name) {
-//	AppLog("fEndElementHandler name = %s",(const char*)name );
+	//DBG("fEndElementHandler name = %s",(const char*)name );
 	ZLXMLReader &reader = *(ZLXMLReader*)userData;
 	if (!reader.isInterrupted()) {
 	//	AppLog("reader.endElementHandler");
@@ -138,7 +144,7 @@ static void fEndElementHandler(void *userData, const xmlChar *name) {
 	}
 }
 
-static static xmlDocPtr ParseEntity;
+static xmlDocPtr ParseEntity;
 
 xmlEntityPtr fgetEntity(	void * 	user_data, 	const xmlChar * name){
 //	AppLog("fgetEntity %s",name );
@@ -417,7 +423,7 @@ bool ZLXMLReaderInternal::parseBuffer(const char *buffer, size_t len) {
 void ZLXMLReaderInternal::createPushParserCtxt(const char *buffer){
 //	AppLog("createPushParserCtxt");
 	//ctxt = xmlCreatePushParserCtxt(&MySaxhandler,  &myReader, buffer, 4, NULL);
-	ctxt = xmlCreatePushParserCtxt(&mySaxHandler,  &myReader, buffer, 4, NULL);
+	ctxt = xmlCreatePushParserCtxt(&mySaxHandler,  myReader, buffer, 4, NULL);
 	if (ctxt == NULL) {
 //			AppLog("xmlCreatePushParserCtxt контекст создать не удалось");
 	     return;
@@ -433,7 +439,7 @@ void ZLXMLReaderInternal::freePushParserCtxt(const char *buffer){
     //ctxt = 0;
     xmlFreeParserCtxt(ctxt);
 }
-ZLXMLReaderInternal::ZLXMLReaderInternal(ZLXMLReader &reader, const char *encoding) : myReader(reader) {
+ZLXMLReaderInternal::ZLXMLReaderInternal(ZLXMLReader* reader, const char *encoding) : myReader(reader) {
 //	AppLog("XML_ParserCreate");
 	/*
 	MySaxhandler.startElement = fStartElementHandler;

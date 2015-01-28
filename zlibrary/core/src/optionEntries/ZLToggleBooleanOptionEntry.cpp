@@ -17,7 +17,7 @@
  * 02110-1301, USA.
  */
 
-#include "ZLToggleBooleanOptionEntry.h"
+#include <optionEntries/ZLToggleBooleanOptionEntry.h>
 
 ZLToggleBooleanOptionEntry::ZLToggleBooleanOptionEntry(ZLBooleanOption &option) : ZLSimpleBooleanOptionEntry(option) {
 }

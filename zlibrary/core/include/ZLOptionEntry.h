@@ -25,7 +25,7 @@
 
 #include <ZLOptions.h>
 //#include <ZLImageManager.h>
-//#include <ZLImage.h>
+#include <ZLImage.h>
 #include <ZLRunnable.h>
 //#include <ZLTreeTitledNode.h>
 class ZLOptionView;
@@ -247,6 +247,7 @@ class ZLPathOptionEntry : public ZLTextOptionEntry {
 
 public:
 	ZLPathOptionEntry(ZLStringOption &option);
+
 	ZLOptionKind kind() const;
 	const std::string &initialValue() const;
 	void onAccept(const std::string &value);
@@ -254,7 +255,7 @@ public:
 private:
 	ZLStringOption &myOption;
 };
-/*
+
 class ZLPictureOptionEntry : public ZLOptionEntry {
 
 public:
@@ -298,7 +299,7 @@ protected:
        shared_ptr<ZLImage> myImage;
 
 };
-*/
+
 
 inline ZLOptionEntry::ZLOptionEntry() : myView(0), myIsVisible(true), myIsActive(true) {}
 inline ZLOptionEntry::~ZLOptionEntry() {}
@@ -358,7 +359,7 @@ inline ZLPathOptionEntry::ZLPathOptionEntry(ZLStringOption &option): myOption(op
 inline ZLOptionEntry::ZLOptionKind ZLPathOptionEntry::kind() const { return PATH; }
 inline const std::string &ZLPathOptionEntry::initialValue() const { return myOption.value(); }
 inline void ZLPathOptionEntry::onAccept(const std::string &value) {	myOption.setValue(value); }
-/*
+
 inline ZLButtonOptionEntry::ZLButtonOptionEntry(shared_ptr<ZLRunnableWithKey> action): myAction(action) { }
 inline ZLOptionEntry::ZLOptionKind ZLButtonOptionEntry::kind() const { return BUTTON; }
 inline const shared_ptr<ZLRunnableWithKey> ZLButtonOptionEntry::action() const { return myAction; }
@@ -367,12 +368,12 @@ inline ZLOptionEntry::ZLOptionKind ZLPictureOptionEntry::kind() const { return P
 inline const shared_ptr<ZLImage> ZLPictureOptionEntry::image() const { return myImage; }
 
 inline ZLPictureOptionEntry::ZLPictureOptionEntry(shared_ptr<ZLImage> image, const std::vector<shared_ptr<ZLRunnableWithKey> > &actions ): myImage(image),	myActions(actions){	}
-inline ZLPictureOptionEntry::ZLPictureOptionEntry(): myImage(null), myActions(bookActions){	}
+inline ZLPictureOptionEntry::ZLPictureOptionEntry(): myImage(NULL), myActions(bookActions){	}
 
 inline ZLOptionEntry::ZLOptionKind ZLMenuOptionEntry::kind() const { return MENU; }
 inline ZLMenuOptionEntry::ZLMenuOptionEntry(const std::vector<shared_ptr<ZLRunnableWithKey> > &actions ): 	myActions(actions){	}
 inline ZLMenuOptionEntry::ZLMenuOptionEntry(): myActions(menuActions){	}
 //inline ZLMenuOptionEntry::ZLMenuOptionEntry(): myActions(0){	}
-*/
+
 
 #endif /* __ZLOPTIONENTRY_H__ */

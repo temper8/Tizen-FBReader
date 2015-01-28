@@ -121,6 +121,7 @@ XMLConfig::~XMLConfig() {
 	}
 }
 
+
 XMLConfigGroup *XMLConfig::getGroup(const std::string &name, bool createUnexisting) {
 	std::map<std::string,XMLConfigGroup*>::const_iterator it = myGroups.find(name);
 	if (it != myGroups.end()) {

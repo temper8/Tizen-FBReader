@@ -20,7 +20,7 @@
 #include <vector>
 #include <map>
 
-#include "ZLColorOptionBuilder.h"
+#include "optionEntries/ZLColorOptionBuilder.h"
 
 class ZLColorOptionsData {
 

@@ -34,20 +34,20 @@ class ZLXMLReader;
 
 class ZLXMLReaderInternal {
 
-private:
+public:
 //	static void fStartElementHandler(void *userData, const char *name, const char **attributes);
 //	static void fEndElementHandler(void *userData, const char *name);
-//	static void fCharacterDataHandler(void *userData, const char *text, int len);
+	static void fCharacterDataHandler(void *userData, const xmlChar *text, int len);
 
 public:
-	ZLXMLReaderInternal(ZLXMLReader &reader, const char *encoding);
+	ZLXMLReaderInternal(ZLXMLReader* reader, const char *encoding);
 	~ZLXMLReaderInternal();
 	void init(const char *encoding = 0);
 	bool parseBuffer(const char *buffer, size_t len);
     void createPushParserCtxt(const char *buffer);
     void freePushParserCtxt(const char *buffer);
 private:
-	ZLXMLReader &myReader;
+	ZLXMLReader* myReader;
 	xmlSAXHandler _MySaxhandler;
 	xmlParserCtxtPtr ctxt;
 	//XML_Parser myParser;

@@ -32,12 +32,12 @@
 ZLConfig *ZLOption::ourConfig = 0;
 
 void ZLOption::unsetConfigValue() const {
-	DBG("unsetConfigValue");
+//	DBG("unsetConfigValue");
 	ourConfig->unsetValue(myGroupName, myOptionName);
 }
 
 void ZLOption::setConfigValue(const std::string &value) const {
-	DBG("setConfigValue %s", value.c_str());
+//	DBG("setConfigValue %s", value.c_str());
 	if (myCategory != ZLCategoryKey::EMPTY) { 
 		ourConfig->setValue(myGroupName, myOptionName, value, myCategory.Name);
 	}
@@ -54,7 +54,7 @@ const std::string &ZLOption::getConfigValue() const {
 }
 
 const std::string &ZLOption::getDefaultConfigValue(const std::string &defaultValue) const {
-	DBG("getDefaultConfigValue %s",defaultValue.c_str());
+//	DBG("getDefaultConfigValue %s",defaultValue.c_str());
 
 	return ourConfig->getDefaultValue(myGroupName, myOptionName, defaultValue);
 }
@@ -64,12 +64,12 @@ const std::string &ZLOption::getDefaultConfigValue() const {
 }
 
 void ZLOption::createInstance() {
-	DBG(" ZLOption::createInstance()");
+//	DBG(" ZLOption::createInstance()");
 	ourConfig = ZLConfigManager::Instance().createConfig();
 }
 
 void ZLOption::deleteInstance() {
-	DBG(" ZLOption::deleteInstance()");
+//	DBG(" ZLOption::deleteInstance()");
 	delete ourConfig;
 	ourConfig = 0;
 }
@@ -122,7 +122,7 @@ bool ZLOption::isAutoSavingSupported() {
 }
 
 ZLOption::ZLOption(const ZLCategoryKey &category, const std::string &groupName, const std::string &optionName) : myCategory(category), myGroupName(groupName), myOptionName(optionName), myIsSynchronized(false) {
-	DBG("ZLOption %s %s %s",category.Name.c_str(),groupName.c_str(), optionName.c_str());
+//	DBG("ZLOption %s %s %s",category.Name.c_str(),groupName.c_str(), optionName.c_str());
 }
 
 ZLOption::~ZLOption() {

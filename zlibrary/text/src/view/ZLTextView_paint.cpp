@@ -17,6 +17,8 @@
  * 02110-1301, USA.
  */
 
+#include "logger.h"
+
 #include <algorithm>
 
 #include "ZLTextView.h"
@@ -24,27 +26,27 @@
 
 void ZLTextView::paint() {
 //	context().clear(backgroundColor());
-//	AppLog("ZLTextView::paint()");
+	DBG("ZLTextView::paint()");
     context().clear(ZLColor(255, 0, 255));
 
 // Тестовый крест
-//	context().setColor(ZLColor(127, 127, 127));
-//	context().drawLine(10, 10, 200 , 400);
+	context().setColor(ZLColor(127, 127, 127));
+	context().drawLine(10, 10, 200 , 400);
 
-//	context().setColor(ZLColor(0, 255, 0));
-//	context().drawLine(10, 600, 200 , 100);
+	context().setColor(ZLColor(0, 255, 0));
+	context().drawLine(10, 600, 200 , 100);
 
 	myTextAreaController.area().setOffsets(
 		textArea().isRtl() ? rightMargin() : leftMargin(), topMargin()
 	);
 
 	preparePaintInfo();
-
+	DBG("textArea()");
 	if (textArea().isEmpty()) {
-	//	AppLog("правда  textArea().isEmpty()");
+		DBG("правда  textArea().isEmpty()");
 		return;
 	}
-//	AppLog("myTextAreaController.area().paint();");
+	DBG("myTextAreaController.area().paint();");
 	myTextAreaController.area().paint();
 
 	shared_ptr<ZLTextPositionIndicatorInfo> indicatorInfo = this->indicatorInfo();

@@ -17,6 +17,8 @@
  * 02110-1301, USA.
  */
 
+#include "logger.h"
+
 #include <string.h>
 
 #include <algorithm>
@@ -34,9 +36,9 @@
 
 //static const size_t BUFFER_SIZE = 1024;
 //static const size_t BUFFER_SIZE = 2048;
-//static const size_t BUFFER_SIZE = 4096;
+static const size_t BUFFER_SIZE = 4096;
 //static const size_t BUFFER_SIZE = 8192*16;
-static const size_t BUFFER_SIZE = 16384;
+//static const size_t BUFFER_SIZE = 16384;
 //static const size_t BUFFER_SIZE = 32768;
 
 class ZLXMLReaderHandler : public ZLAsynchronousInputStream::Handler {
@@ -81,14 +83,16 @@ bool ZLXMLReaderHandler::handleBuffer(const char *data, size_t len) {
 }
 
 
+void ZLXMLReader::endElementHandler(const char*) {
+//	DBG("ZLXMLReader::endElementHandler");
+}
 
 
 
 void ZLXMLReader::startElementHandler(const char*, const char**) {
+//	DBG("ZLXMLReader::startElementHandler");
 }
 
-void ZLXMLReader::endElementHandler(const char*) {
-}
 
 void ZLXMLReader::characterDataHandler(const char*, size_t) {
 }
@@ -100,12 +104,16 @@ const std::map<std::string,std::string> &ZLXMLReader::namespaces() const {
 	return *myNamespaces.back();
 }
 
-ZLXMLReader::ZLXMLReader(const char *encoding): myParserBuffer(0) {
-//	AppLog("create ZLXMLReader");
-	myInternalReader = new ZLXMLReaderInternal(*this, encoding);
+ZLXMLReader::ZLXMLReader(const char *encoding): myParserBuffer(0),myInternalReader(0),myInterrupted(false) {
+//	DBG("create ZLXMLReader");
+	myInternalReader = new ZLXMLReaderInternal(this, encoding);
 
 }
-
+/*
+void ZLXMLReader::createInternalReader(ZLXMLReader* reader){
+	DBG("createInternalReader");
+	myInternalReader = new ZLXMLReaderInternal(reader, NULL);
+}*/
 ZLXMLReader::~ZLXMLReader() {
 //	AppLog("delete ZLXMLReader");
 	if 	(myParserBuffer !=0 ) delete[] myParserBuffer;
@@ -121,7 +129,7 @@ bool ZLXMLReader::readDocument(const ZLFile &file) {
 }
 
 bool ZLXMLReader::readDocument(shared_ptr<ZLInputStream> stream) {
-//	AppLog("#######  ZLXMLReader::readDocument");
+	DBG("#######  ZLXMLReader::readDocument");
 	if (stream.isNull() || !stream->open()) {
 //		AppLog(" ZLXMLReader::readDocument return false;");
 		return false;
@@ -204,6 +212,7 @@ bool ZLXMLReader::readFromBuffer(const char *data, size_t len) {
 }
 
 bool ZLXMLReader::processNamespaces() const {
+//	DBG("ZLXMLReader::processNamespaces()");
 	return false;
 }
 
