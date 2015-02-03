@@ -36,13 +36,10 @@ static void fCharacterDataHandler(void *userData,	const xmlChar *text, int len) 
 //	char buf[100];
 //	DBG("ZLXMLReaderInternal::fCharacterDataHandler");
 //	DBG("fCharacterDataHandler len=%d",len);
-	size_t l;
-	l = len;
-
 	ZLXMLReader &reader = *(ZLXMLReader*)userData;
 	if (!reader.isInterrupted()) {
 		//DBG("fCharacterDataHandler l=%d",l);
-		reader.characterDataHandler((const char*)text, l);
+		reader.characterDataHandler((const char*)text, len);
 	//	if (len<50) {
 	//		memset(buf, 0, 99);
 	//	    strncpy(buf, (const char*)text, len);

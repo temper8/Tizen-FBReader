@@ -38,6 +38,10 @@ public:
 
 	static void win_back_cb(void *data, Evas_Object *obj, void *event_info);
 
+	void prevPage();
+	void nextPage();
+	void mouseDown(int x, int y);
+
 protected:
 	virtual ZLViewWidget *createViewWidget();
 
@@ -75,6 +79,7 @@ protected:
 
 	// TODO: change to pure virtual (?)
 	//virtual void setHyperlinkCursor(bool) {}
+
 
 	void setVisualParameter(const std::string &id, const std::string &value) {};
 	void setParameterValueList(const std::string &id, const std::vector<std::string> &values) {};

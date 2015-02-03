@@ -17,6 +17,7 @@
  * 02110-1301, USA.
  */
 
+#include "logger.h"
 #include <ZLTextView.h>
 #include <ZLBlockTreeView.h>
 
@@ -43,6 +44,7 @@ bool ScrollingAction::useKeyDelay() const {
 }
 
 void ScrollingAction::run() {
+	DBG("ScrollingAction");
 	FBReader &fbreader = FBReader::Instance();
 	shared_ptr<ZLView> view = fbreader.currentView();
 	int delay = fbreader.myLastScrollingTime.millisecondsTo(ZLTime());
@@ -50,14 +52,14 @@ void ScrollingAction::run() {
 		// ||(delay >= 0 && delay < scrollingDelay())) {
 		return;
 	}
-	/*
-	if (view->isInstanceOf(ZLTextView::TYPE_ID)) {
+
+	if (view->isInstanceOf(ZLTextView::TYPE_ID)) {	DBG("is ZLTextView::TYPE_ID");
 		((ZLTextView&)*view).scrollPage(myForward, myTextScrollingMode, textOptionValue());
 		FBReader::Instance().refreshWindow();
-	} else if (view->isInstanceOf(ZLBlockTreeView::TYPE_ID)) {
-		((ZLBlockTreeView&)*view).scroll(myBlockScrollingMode, !myForward);
-	}
-	*/
+	}// else if (view->isInstanceOf(ZLBlockTreeView::TYPE_ID)) {
+	//	((ZLBlockTreeView&)*view).scroll(myBlockScrollingMode, !myForward);
+	//}
+
 	fbreader.myLastScrollingTime = ZLTime();
 }
 

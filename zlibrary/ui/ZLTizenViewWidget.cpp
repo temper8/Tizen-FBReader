@@ -32,7 +32,8 @@ ZLTizenViewWidget::~ZLTizenViewWidget() {
 
 
 void ZLTizenViewWidget::repaint(){
-
+	DBG("ZLTizenViewWidget::repaint");
+	draw();
 }
 
 

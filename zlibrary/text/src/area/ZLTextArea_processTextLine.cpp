@@ -65,8 +65,8 @@ void ZLTextPartialInfo::setTo(ZLTextLineInfo &lineInfo) const {
 
 ZLTextLineInfoPtr ZLTextArea::processTextLine(Style &style, const ZLTextWordCursor &start, const ZLTextWordCursor &end) {
 	DBG("ZLTextArea::processTextLine ");
-	const bool useHyphenator = false;
-	//	ZLTextStyleCollection::Instance().AutoHyphenationOption.value();
+	const bool useHyphenator =
+		ZLTextStyleCollection::Instance().AutoHyphenationOption.value();
 
 	ZLTextLineInfoPtr infoPtr = new ZLTextLineInfo(start, style.textStyle(), style.bidiLevel());
 

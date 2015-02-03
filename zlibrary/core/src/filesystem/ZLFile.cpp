@@ -43,7 +43,7 @@ ZLFile::ZLFile(const std::string &path, shared_ptr<ZLMimeType> mimeType) : myPat
 
 	DBG("ZLFile::ZLFile %s",path.c_str());
 	ZLFSManager::Instance().normalize(myPath);
-	DBG("ZLFile::ZLFile %s",myPath.c_str());
+	//DBG("ZLFile::ZLFile %s",myPath.c_str());
 	{
 		size_t index = ZLFSManager::Instance().findLastFileNameDelimiter(myPath);
 		if (index < myPath.length() - 1) {
@@ -55,20 +55,20 @@ ZLFile::ZLFile(const std::string &path, shared_ptr<ZLMimeType> mimeType) : myPat
 	myNameWithoutExtension = myNameWithExtension;
 	DBG("myNameWithoutExtension = %s",myNameWithoutExtension.c_str());
 	std::map<std::string,ArchiveType> &forcedFiles = ZLFSManager::Instance().myForcedFiles;
-	DBG("00");
+	//DBG("00");
 	std::map<std::string,ArchiveType>::iterator it = forcedFiles.find(myPath);
-	DBG("01");
+	//DBG("01");
 	if (it != forcedFiles.end()) {
-		DBG("02");
+		//DBG("02");
 		myArchiveType = it->second;
 	} else {
-		DBG("03");
+		//DBG("03");
 		myArchiveType = NONE;
 		//DBG("03a");
 		std::string lowerCaseName = myNameWithoutExtension;//ZLUnicodeUtil::toLower(myNameWithoutExtension);
 		//std::string lowerCaseName = ZLUnicodeUtil::toLower(myNameWithoutExtension);
 
-		DBG("04");
+		//DBG("04");
 		if (ZLStringUtil::stringEndsWith(lowerCaseName, ".gz")) {
 			myNameWithoutExtension = myNameWithoutExtension.substr(0, myNameWithoutExtension.length() - 3);
 			lowerCaseName = lowerCaseName.substr(0, lowerCaseName.length() - 3);
@@ -87,16 +87,16 @@ ZLFile::ZLFile(const std::string &path, shared_ptr<ZLMimeType> mimeType) : myPat
 							 ZLStringUtil::stringEndsWith(lowerCaseName, ".ipk")) {
 			//myNameWithoutExtension = myNameWithoutExtension.substr(0, myNameWithoutExtension.length() - 3) + "tar";
 			myArchiveType = (ArchiveType)(myArchiveType | TAR | GZIP);
-			DBG("05");
+		//	DBG("05");
 		}
 	}
-	DBG("int index");
+//	DBG("int index");
 	int index = myNameWithoutExtension.rfind('.');
 	if (index > 0) {
 		myExtension = myNameWithoutExtension.substr(index + 1);//ZLUnicodeUtil::toLower(myNameWithoutExtension.substr(index + 1));
 		myNameWithoutExtension = myNameWithoutExtension.substr(0, index);
 	}
-	DBG("ZLFile::ZLFile end ");
+//	DBG("ZLFile::ZLFile end ");
 }
 
 shared_ptr<ZLInputStream> ZLFile::envelopeCompressedStream(shared_ptr<ZLInputStream> &base) const {

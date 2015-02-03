@@ -7,9 +7,16 @@
 
 #include "ZLTizenPaintContext.h"
 
+#include "eina_unicode.h"
+#include "logger.h"
+
+#include <libxml/xmlexports.h>
+
+#include <libxml/parser.h>
+
 ZLTizenPaintContext::ZLTizenPaintContext() : ZLPaintContext() {
 	// TODO Auto-generated constructor stub
-
+	mySpaceWidth = -1;
 }
 
 ZLTizenPaintContext::~ZLTizenPaintContext() {
@@ -97,27 +104,39 @@ void ZLTizenPaintContext::setFont(const std::string &family, int size, bool bold
 	cairo_text_extents_t extents;
 	cairo_text_extents (cairo, " ", &extents);
 
-
-	mySpaceWidth = extents.width;
-
 	cairo_font_extents_t font_extents;
 	cairo_font_extents (cairo, &font_extents);
 
 	myStringHeight = font_extents.height;
 	myDescent = font_extents.descent;
+	mySpaceWidth = -1;//font_extents.max_x_advance;
 }
 
 int ZLTizenPaintContext::stringWidth(const char *str, int len, bool rtl) const{
+	DBG("stringWidth len = %d str =%s",len, str);
+
+	xmlChar *utf8 = xmlUTF8Strndup((xmlChar *)str,len);
+
+	DBG("utf8 str=%s", utf8);
 	cairo_text_extents_t extents;
-	cairo_text_extents (cairo, str, &extents);
+	cairo_text_extents (cairo, (char* )utf8, &extents);
+	delete utf8;
 	return extents.width;
 }
 
 int ZLTizenPaintContext::spaceWidth() const{
+	DBG("spaceWidth");
+	if (mySpaceWidth == -1) {
+		cairo_text_extents_t extents;
+		cairo_text_extents (cairo, "s", &extents);
+		mySpaceWidth = extents.width;
+		DBG("spaceWidth %d",mySpaceWidth);
+	}
 	return mySpaceWidth;
 }
 
 int ZLTizenPaintContext::stringHeight() const{
+	DBG("myStringHeight %d", myStringHeight);
 	return myStringHeight;
 }
 
@@ -128,7 +147,10 @@ int ZLTizenPaintContext::descent() const{
 void ZLTizenPaintContext::drawString(int x, int y, const char *str, int len, bool rtl){
 	cairo_set_source_rgb(cairo, myPenColor.Red / 255.0, myPenColor.Green /255.0, myPenColor.Blue / 255.0);
 	cairo_move_to (cairo, x,y);
-	cairo_show_text (cairo, str);
+
+	xmlChar *utf8 = xmlUTF8Strndup((xmlChar *) str, len);
+	cairo_show_text (cairo, (char*)utf8);
+	delete utf8;
 }
 
 const std::string ZLTizenPaintContext::realFontFamilyName(std::string &fontFamily) const {

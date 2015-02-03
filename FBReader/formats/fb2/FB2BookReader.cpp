@@ -44,13 +44,7 @@ FB2BookReader::FB2BookReader(BookModel &model) : myModelReader(model) {
 }
 
 void FB2BookReader::characterDataHandler(const char *text, size_t len) {
-	int l = len;
 //	DBG("FB2BookReader::characterDataHandler len=%zd", len);
-	//char buf[100];
-	//memset(buf, 0, 99);
-	//strncpy(buf, (const char*)text, 20);
-	//DBG("FB2BookReader::CharacterDataHandler text=%s",buf);
-//	if (len>0) DBG("len>0");
 	if ((len > 0) && (myProcessingImage || myModelReader.paragraphIsOpen())) {
 		std::string str(text, len);
 		if (myProcessingImage) {
@@ -235,7 +229,7 @@ void FB2BookReader::startElementHandler(int tag, const char **xmlattributes) {
 }
 
 void FB2BookReader::endElementHandler(int tag) {
-	DBG("FB2BookReader::endElementHandler tag %d",tag);
+//	DBG("FB2BookReader::endElementHandler tag %d",tag);
 	switch (tag) {
 		case _PP:
 			myModelReader.endParagraph();

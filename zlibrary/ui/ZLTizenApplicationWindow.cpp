@@ -5,10 +5,12 @@
  *      Author: Alex
  */
 
+#include "logger.h"
 #include "ZLTizenApplicationWindow.h"
 #include "ZLTizenViewWidget.h"
 #include "ZLView.h"
-
+#include "../../FBReader/fbreader/FBReader.h"
+#include "../../FBReader/fbreader/FBReaderActions.h"
 
 
 static void win_delete_request_cb(void *data , Evas_Object *obj , void *event_info)
@@ -43,6 +45,28 @@ static Eina_Bool naviframe_pop_cb(void *data, Elm_Object_Item *it)
 	return EINA_FALSE;
 }
 
+static void nf_more_cb(void *data, Evas_Object *obj, void *event_info)
+{
+ DBG("nf_more_cb");
+}
+
+void ZLTizenApplicationWindow::mouseDown(int x,int y){
+if (x<200) prevPage();
+else nextPage();
+}
+
+void ZLTizenApplicationWindow::prevPage(){
+	 DBG("PrevPage");
+	 FBReader &fbreader = FBReader::Instance();
+	 fbreader.doAction(ActionCode::PAGE_SCROLL_BACKWARD);
+}
+
+void ZLTizenApplicationWindow::nextPage(){
+	 DBG("NextPage");
+	 FBReader &fbreader = FBReader::Instance();
+	 fbreader.doAction(ActionCode::PAGE_SCROLL_FORWARD);
+}
+
 ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): ZLApplicationWindow(application),
 																				win(NULL), conform(NULL), label(NULL)
 {
@@ -57,6 +81,7 @@ ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): 
 
 	evas_object_smart_callback_add(win, "delete,request", win_delete_request_cb, NULL);
 	eext_object_event_callback_add(win, EEXT_CALLBACK_BACK, ZLTizenApplicationWindow::win_back_cb, this);
+	eext_object_event_callback_add(win, EEXT_CALLBACK_MORE, nf_more_cb, this);
 
 	/* Conformant */
 	conform = elm_conformant_add(win);
@@ -69,7 +94,8 @@ ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): 
 
 	/* Naviframe */
 	naviframe = elm_naviframe_add(conform);
-	eext_object_event_callback_add(naviframe, EEXT_CALLBACK_BACK, eext_naviframe_back_cb, this);
+	//eext_object_event_callback_add(naviframe, EEXT_CALLBACK_BACK, eext_naviframe_back_cb, this);
+	//eext_object_event_callback_add(naviframe, EEXT_CALLBACK_MORE, nf_more_cb, this);
 	evas_object_size_hint_weight_set(naviframe, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	elm_object_content_set(conform, naviframe);
 	evas_object_show(naviframe);
@@ -93,6 +119,29 @@ static void image_resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_i
 	viewWidget->draw();
 }
 
+static void
+_render_flush_cb(void *data, // evas event EVAS_CALLBACK_RENDER_FLUSH_PRE callback function.
+                     Evas *e,
+                     void *event_info)
+{
+   dlog_print(DLOG_DEBUG, LOG_TAG, "Canvas is about to flush its rendering pipeline!");
+}
+
+static void
+_on_mousedown(void *data, // evas object event EVAS_CALLBACK_MOUSE_DOWN callback function.
+                 Evas *evas,
+                 Evas_Object *o,
+                 void *event_info)
+{
+
+   Evas_Event_Mouse_Down *ev;
+
+   ev = (Evas_Event_Mouse_Down *)event_info;
+   dlog_print(DLOG_DEBUG, LOG_TAG, "We've got mouse_down x=%d y=%d",ev->output.x, ev->output.y);
+   ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
+   app->mouseDown(ev->output.x, ev->output.y);
+}
+
 
 ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
@@ -109,6 +158,10 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	evas_object_show(label);
 
 
+	// Adds a callback function to a given canvas event.
+//	evas_event_callback_add(viewWidget->scroller, EVAS_CALLBACK_RENDER_FLUSH_PRE, _render_flush_cb, NULL);
+
+
 	Evas* canvas = evas_object_evas_get(viewWidget->scroller);
 
 	Evas_Object *img = evas_object_image_add(canvas);
@@ -121,6 +174,8 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
 	viewWidget->image = img;
 
+	// Add a callback function to a given Evas object event.
+	evas_object_event_callback_add(img, EVAS_CALLBACK_MOUSE_DOWN, _on_mousedown, NULL);
 
 
 	Elm_Object_Item *nf_it =elm_naviframe_item_push(naviframe, "main navi", NULL, NULL, viewWidget->scroller, NULL);

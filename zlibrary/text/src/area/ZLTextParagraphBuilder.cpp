@@ -29,6 +29,7 @@
 #include "ZLTextWord.h"
 #include "ZLTextParagraphBuilder.h"
 
+#include "logger.h"
 
 ZLTextParagraphCursor::Builder::Builder(ZLTextParagraphCursor &cursor) :
 	myParagraph(*cursor.myModel[cursor.myIndex]),
@@ -63,8 +64,8 @@ void ZLTextParagraphCursor::Builder::updateBidiLevel(FriBidiLevel bidiLevel) {
 }
 
 void ZLTextParagraphCursor::Builder::addWord(const char *ptr, int offset, int len) {
-	ZLTextWord *word = ZLTextElementPool::Pool.getWord(ptr, len, offset, myCurrentBidiLevel);
-	//ZLTextWord *word = ZLTextElementPool::Pool.getWord(ptr, len, offset, 0);
+	//ZLTextWord *word = ZLTextElementPool::Pool.getWord(ptr, len, offset, myCurrentBidiLevel);
+	ZLTextWord *word = ZLTextElementPool::Pool.getWord(ptr, len, offset, 0);
 	for (std::vector<ZLTextMark>::const_iterator mit = myFirstMark; mit != myLastMark; ++mit) {
 		ZLTextMark mark = *mit;
 		if ((mark.Offset < offset + len) && (mark.Offset + mark.Length > offset)) {
@@ -96,7 +97,7 @@ void ZLTextParagraphCursor::Builder::fill() {
 				break;
 			case ZLTextParagraphEntry::IMAGE_ENTRY:
 			{
-			//	AppLog("entryKind IMAGE_ENTRY");
+				DBG("entryKind IMAGE_ENTRY");
 				ImageEntry &imageEntry = (ImageEntry&)*it.entry();
 				shared_ptr<const ZLImage> image = imageEntry.image();
 				if (!image.isNull()) {
@@ -120,7 +121,7 @@ void ZLTextParagraphCursor::Builder::fill() {
 		}
 	}
 
-	updateBidiLevel(myBaseBidiLevel);
+//	updateBidiLevel(myBaseBidiLevel);
 }
 
 void ZLTextParagraphCursor::Builder::processTextEntry(const ZLTextEntry &textEntry) {
@@ -158,7 +159,7 @@ void ZLTextParagraphCursor::Builder::processTextEntry(const ZLTextEntry &textEnt
 	myBreaksTable.assign(dataLength, 0);
 	const char *start = textEntry.data();
 	const char *end = start + dataLength;
-//	AppLog("set_linebreaks_utf8 start %s", start);
+	DBG("set_linebreaks_utf8 start %s", start);
 	set_linebreaks_utf8((const utf8_t*)start, dataLength, myLanguage.c_str(), &myBreaksTable[0]);
 
 	ZLUnicodeUtil::Ucs4Char ch = 0, previousCh;

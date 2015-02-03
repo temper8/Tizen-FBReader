@@ -84,7 +84,7 @@ int FB2Reader::tag(const char *name) {
 }
 
 bool FB2Reader::processNamespaces() const {
-	DBG("FB2Reader::processNamespaces()");
+//	DBG("FB2Reader::processNamespaces()");
 	return true;
 }
 

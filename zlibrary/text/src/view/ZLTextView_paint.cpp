@@ -30,11 +30,11 @@ void ZLTextView::paint() {
     context().clear(ZLColor(255, 0, 255));
 
 // Тестовый крест
-	context().setColor(ZLColor(127, 127, 127));
-	context().drawLine(10, 10, 200 , 400);
+//	context().setColor(ZLColor(127, 127, 127));
+//	context().drawLine(10, 10, 200 , 400);
 
-	context().setColor(ZLColor(0, 255, 0));
-	context().drawLine(10, 600, 200 , 100);
+//	context().setColor(ZLColor(0, 255, 0));
+//	context().drawLine(10, 600, 200 , 100);
 
 	myTextAreaController.area().setOffsets(
 		textArea().isRtl() ? rightMargin() : leftMargin(), topMargin()
