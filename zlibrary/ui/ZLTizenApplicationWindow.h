@@ -15,6 +15,8 @@
 #include <efl_extension.h>
 #include <dlog.h>
 
+#include "../../core/src/application/ZLMenu.h"
+
 #ifdef  LOG_TAG
 #undef  LOG_TAG
 #endif
@@ -35,6 +37,8 @@ public:
 	Evas_Object *conform;
 	Evas_Object *label;
 	Evas_Object *naviframe;
+	Evas_Object *popup;
+	Evas_Object *drawer_panel;
 
 	static void win_back_cb(void *data, Evas_Object *obj, void *event_info);
 
@@ -49,8 +53,22 @@ private:
 	void initToolbar(ToolbarType type);
 
 protected:
+	class MenuBuilder : public ZLMenuVisitor {
+
+	public:
+		MenuBuilder(ZLTizenApplicationWindow &window);
+
+	private:
+		void processSubmenuBeforeItems(ZLMenubar::Submenu &submenu);
+		void processSubmenuAfterItems(ZLMenubar::Submenu &submenu);
+		void processItem(ZLMenubar::PlainItem &item);
+		void processSepartor(ZLMenubar::Separator &separator);
+
+	private:
+		ZLTizenApplicationWindow &myWindow;
+	};
 	// TODO: change to pure virtual
-	virtual void initMenu() {};
+	virtual void initMenu();
 /*
 	ToolbarType type(const ZLToolbar::Item &item) const;
 	bool hasFullscreenToolbar() const;
@@ -85,7 +103,7 @@ protected:
 	void setParameterValueList(const std::string &id, const std::vector<std::string> &values) {};
 	const std::string &visualParameter(const std::string &id) {return "test";};
 
-
+	friend class MenuBuilder;
 };
 
 #endif /* ZLTIZENAPPLICATIONWINDOW_H_ */

@@ -26,6 +26,8 @@
 #include <shared_ptr.h>
 #include <ZLResource.h>
 
+class ZLApplication;
+
 class ZLMenu {
 
 public:

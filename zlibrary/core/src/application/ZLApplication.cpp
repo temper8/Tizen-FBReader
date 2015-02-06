@@ -80,7 +80,7 @@ ZLApplication::ZLApplication(const std::string &name) : ZLApplicationBase(name),
 
 //	createToolbar(ZLApplicationWindow::WINDOW_TOOLBAR);
 //	createToolbar(ZLApplicationWindow::FULLSCREEN_TOOLBAR);
-//	createMenubar();
+	createMenubar();
 //	AppLog("создали ZLApplication");
 }
 

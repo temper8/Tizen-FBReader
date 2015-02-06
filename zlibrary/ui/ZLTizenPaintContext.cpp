@@ -113,11 +113,11 @@ void ZLTizenPaintContext::setFont(const std::string &family, int size, bool bold
 }
 
 int ZLTizenPaintContext::stringWidth(const char *str, int len, bool rtl) const{
-	DBG("stringWidth len = %d str =%s",len, str);
+//	DBG("stringWidth len = %d str =%s",len, str);
 
 	xmlChar *utf8 = xmlUTF8Strndup((xmlChar *)str,len);
 
-	DBG("utf8 str=%s", utf8);
+//	DBG("utf8 str=%s", utf8);
 	cairo_text_extents_t extents;
 	cairo_text_extents (cairo, (char* )utf8, &extents);
 	delete utf8;
@@ -125,18 +125,18 @@ int ZLTizenPaintContext::stringWidth(const char *str, int len, bool rtl) const{
 }
 
 int ZLTizenPaintContext::spaceWidth() const{
-	DBG("spaceWidth");
+//	DBG("spaceWidth");
 	if (mySpaceWidth == -1) {
 		cairo_text_extents_t extents;
 		cairo_text_extents (cairo, "s", &extents);
 		mySpaceWidth = extents.width;
-		DBG("spaceWidth %d",mySpaceWidth);
+	//	DBG("spaceWidth %d",mySpaceWidth);
 	}
 	return mySpaceWidth;
 }
 
 int ZLTizenPaintContext::stringHeight() const{
-	DBG("myStringHeight %d", myStringHeight);
+//	DBG("myStringHeight %d", myStringHeight);
 	return myStringHeight;
 }
 

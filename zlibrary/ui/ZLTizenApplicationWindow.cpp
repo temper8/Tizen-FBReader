@@ -12,6 +12,48 @@
 #include "../../FBReader/fbreader/FBReader.h"
 #include "../../FBReader/fbreader/FBReaderActions.h"
 
+void ZLTizenApplicationWindow::initMenu() {
+	DBG("ZLbadaApplicationWindow::initMenu() ");
+	MenuBuilder(*this).processMenu(application());
+}
+
+ZLTizenApplicationWindow::MenuBuilder::MenuBuilder(ZLTizenApplicationWindow &window) : myWindow(window) {
+	//myMenuStack.push(myWindow.myMenu);
+}
+
+void ZLTizenApplicationWindow::MenuBuilder::processSubmenuBeforeItems(ZLMenubar::Submenu &submenu) {
+	DBG("ZLbadaApplicationWindow:::MenuBuilder::processSubmenuBeforeItems ");
+
+}
+
+void ZLTizenApplicationWindow::MenuBuilder::processSubmenuAfterItems(ZLMenubar::Submenu&) {
+	//myMenuStack.pop();
+}
+
+void ZLTizenApplicationWindow::MenuBuilder::processItem(ZLMenubar::PlainItem &item) {
+	DBG("MenuBuilder::processItem actionId=%s name=%s",item.actionId().c_str(),item.name().c_str());
+	const std::string &id = item.actionId();
+	const std::string &name = item.name();
+
+	//shared_ptr<ZLApplication::Action> action = myWindow.application().action(id);
+	//myWindow.myViewWidget->mybadaForm->AddMenuItem(name, id);
+
+	//__pOptionMenu->AddItem(item.name().c_str(),200);
+	//__pOptionMenu->AddItem("Библиотека",ID_OPTIONMENU_ITEM1);
+
+	/*GtkWidget *gtkItem = gtk_button_new_with_label(item.name().c_str());
+
+	if (!action.isNull()) {
+		ZLGtkSignalUtil::connectSignalAfter(GTK_OBJECT(gtkItem), "clicked", G_CALLBACK(menuActionSlot), &*action);
+	}
+	myWindow.myMenuItems[id] = gtkItem;
+	hildon_app_menu_append(myWindow.myMenu, GTK_BUTTON(gtkItem));
+	gtk_widget_show_all(GTK_WIDGET(gtkItem));*/
+}
+
+void ZLTizenApplicationWindow::MenuBuilder::processSepartor(ZLMenubar::Separator&) {
+}
+
 
 static void win_delete_request_cb(void *data , Evas_Object *obj , void *event_info)
 {
@@ -24,16 +66,51 @@ void ZLTizenApplicationWindow::win_back_cb(void *data, Evas_Object *obj, void *e
 	/* Let window go to hide state. */
 	elm_win_lower(tw->win);
 }
+static void
+anim_stop_cb(void *data, Evas_Object *obj, void *event_info)
+{
+/*	appdata_s *ad = data;
+	Elm_Object_Item *item;
+	int index, page = 0;
 
-static Evas_Object* create_scroller(Evas_Object *parent)
+	elm_scroller_current_page_get(ad->scroller, &page, NULL);
+
+	item = elm_toolbar_first_item_get(ad->tabbar);
+
+	for (index = 0; index < page; index++) {
+		item = elm_toolbar_item_next_get(item);
+	}
+	elm_toolbar_item_selected_set(item, EINA_TRUE);
+	*/
+}
+
+static Evas_Object* create_scroller(Evas_Object *parent, ZLTizenApplicationWindow *tw)
 {
 	Evas_Object *scroller = elm_scroller_add(parent);
 	elm_object_style_set(scroller, "dialogue");
-	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF,ELM_SCROLLER_POLICY_AUTO);
-	//evas_object_show(scroller);
+//	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
+	//elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF,ELM_SCROLLER_POLICY_AUTO);
+
+	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_ON, ELM_SCROLLER_POLICY_OFF);
+	elm_scroller_page_size_set(scroller, 0, 0);
+	elm_scroller_page_scroll_limit_set(scroller, 1, 0);
+	elm_scroller_single_direction_set(scroller, ELM_SCROLLER_SINGLE_DIRECTION_HARD);
+	evas_object_smart_callback_add(scroller, "scroll,anim,stop", anim_stop_cb, tw);
+
+	evas_object_show(scroller);
 
 	return scroller;
+}
+
+static Evas_Object *
+create_drawer_layout(Evas_Object *parent)
+{
+	Evas_Object *layout;
+	layout = elm_layout_add(parent);
+	elm_layout_theme_set(layout, "layout", "drawer", "panel");
+	evas_object_show(layout);
+
+	return layout;
 }
 
 static Eina_Bool naviframe_pop_cb(void *data, Elm_Object_Item *it)
@@ -45,9 +122,150 @@ static Eina_Bool naviframe_pop_cb(void *data, Elm_Object_Item *it)
 	return EINA_FALSE;
 }
 
+static void move_menu_popup(Evas_Object *parent, Evas_Object *obj)
+{
+	Evas_Coord w, h;
+	int pos = -1;
+
+	elm_win_screen_size_get(parent, NULL, NULL, &w, &h);
+	pos = elm_win_rotation_get(parent);
+
+	switch (pos) {
+		case 0:
+		case 180:
+			evas_object_move(obj, 0, h);
+			break;
+		case 90:
+			evas_object_move(obj, 0, w);
+			break;
+		case 270:
+			evas_object_move(obj, h, w);
+			break;
+	}
+}
+
+static void popup_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	 ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
+	 /*
+	appdata_s *ad = (appdata_s *)data;
+	Evas_Object *label;
+	Elm_Object_Item *nf_it = elm_naviframe_top_item_get(ad->nf);
+	const char *text = elm_object_item_text_get((Elm_Object_Item *) event_info);
+	const char *title = elm_object_item_text_get(nf_it);
+
+	evas_object_del(ad->popup);
+	ad->popup = NULL;
+
+	if (text && !strcmp(text, "Second View")) {
+		if (title && strcmp(title, text)) {
+
+			label = create_label(ad->nf, "Second View");
+			elm_naviframe_item_push(ad->nf, "Second View", NULL, NULL, label, NULL);
+		}
+	} else if (text && !strcmp(text, "Settings")) {
+		if (title && strcmp(title, text)) {
+			elm_naviframe_item_pop(ad->nf);
+		}
+	}*/
+}
+
+static void
+dismissed_popup_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
+	evas_object_del(obj);
+	tw->popup = NULL;
+}
+static Evas_Object *
+create_bg(Evas_Object *parent)
+{
+	Evas_Object *rect;
+	rect = evas_object_rectangle_add(evas_object_evas_get(parent));
+	evas_object_color_set(rect, 0, 0, 0, 0);
+	evas_object_show(rect);
+
+	return rect;
+}
+
+static void
+drawer_back_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	elm_panel_hidden_set(obj, EINA_TRUE);
+}
+
+
+static void
+panel_scroll_cb(void *data, Evas_Object *obj, void *event_info)
+{
+//	DBG("panel_scroll_cb");
+	Elm_Panel_Scroll_Info *ev = (Elm_Panel_Scroll_Info *)event_info;
+	Evas_Object *bg = (Evas_Object *)data;
+	int col = 127 * ev->rel_x;
+
+	evas_object_color_set(bg, 0, 0, 0, col);
+}
+
+static Evas_Object * create_menu_popup(ZLTizenApplicationWindow *tw)
+{
+	Evas_Object *popup;
+
+	popup = elm_ctxpopup_add(tw->win);
+	elm_object_style_set(popup, "more/default");
+	elm_ctxpopup_auto_hide_disabled_set(popup, EINA_TRUE);
+	evas_object_smart_callback_add(popup, "dismissed", dismissed_popup_cb, tw);
+
+	elm_ctxpopup_item_append(popup, "Settings", NULL, popup_cb, tw);
+	elm_ctxpopup_item_append(popup, "Second View", NULL, popup_cb, tw);
+
+	move_menu_popup(tw->win, popup);
+	evas_object_show(popup);
+
+	return popup;
+}
+
+static Evas_Object * create_panel(Evas_Object *parent)
+{
+	Evas_Object *panel, *list;
+	int i;
+	char buf[64];
+
+	/* Panel */
+	panel = elm_panel_add(parent);
+	elm_panel_scrollable_set(panel, EINA_TRUE);
+
+	/* Default is visible, hide the content in default. */
+	elm_panel_hidden_set(panel, EINA_TRUE);
+	elm_panel_orient_set(panel, ELM_PANEL_ORIENT_LEFT);
+	evas_object_show(panel);
+
+	/* Panel content */
+	list = elm_list_add(panel);
+	evas_object_size_hint_weight_set(list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(list, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	for (i = 0; i < 20; i++) {
+		sprintf(buf, "элемент %d", i);
+		elm_list_item_append(list, buf, NULL, NULL, NULL, NULL);
+	}
+
+	evas_object_show(list);
+
+	elm_object_content_set(panel, list);
+
+	return panel;
+}
+
 static void nf_more_cb(void *data, Evas_Object *obj, void *event_info)
 {
  DBG("nf_more_cb");
+ ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
+
+	if (!tw->popup)
+		tw->popup = create_menu_popup(tw);
+	else {
+		evas_object_del(tw->popup);
+		tw->popup = NULL;
+	}
 }
 
 void ZLTizenApplicationWindow::mouseDown(int x,int y){
@@ -68,7 +286,7 @@ void ZLTizenApplicationWindow::nextPage(){
 }
 
 ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): ZLApplicationWindow(application),
-																				win(NULL), conform(NULL), label(NULL)
+																				win(NULL), conform(NULL), label(NULL), popup(NULL)
 {
 	// TODO Auto-generated constructor stub
 	win = elm_win_util_standard_add(PACKAGE, PACKAGE);
@@ -99,6 +317,7 @@ ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): 
 	evas_object_size_hint_weight_set(naviframe, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	elm_object_content_set(conform, naviframe);
 	evas_object_show(naviframe);
+
 
 
 
@@ -142,13 +361,35 @@ _on_mousedown(void *data, // evas object event EVAS_CALLBACK_MOUSE_DOWN callback
    app->mouseDown(ev->output.x, ev->output.y);
 }
 
+static void
+btn_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	DBG("btn_cb");
+	ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
+	if (!elm_object_disabled_get(tw->drawer_panel)){
+		DBG("elm_panel_toggle");
+		elm_panel_toggle(tw->drawer_panel);
+	}
+}
 
 ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
+	Evas_Object *layout, *box;
+
 	ZLTizenViewWidget *viewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
 
+	layout = create_drawer_layout(naviframe);
 
-	viewWidget->scroller = create_scroller(naviframe);
+	/* Box */
+	box = elm_box_add(layout);
+	evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(box, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	elm_object_part_content_set(layout, "elm.swallow.content", box);
+
+	viewWidget->scroller = create_scroller(box, this);
+	evas_object_size_hint_weight_set(viewWidget->scroller, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(viewWidget->scroller, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	elm_box_pack_end(box, viewWidget->scroller);
 
 	/* Label*/
 	label = elm_label_add(viewWidget->scroller);
@@ -160,7 +401,10 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
 	// Adds a callback function to a given canvas event.
 //	evas_event_callback_add(viewWidget->scroller, EVAS_CALLBACK_RENDER_FLUSH_PRE, _render_flush_cb, NULL);
-
+	//Elm_Object_Item *nf_it =elm_naviframe_item_push(naviframe, "main navi", NULL, NULL, viewWidget->scroller, NULL);
+	Elm_Object_Item *nf_it = elm_naviframe_item_push(naviframe, "main navi", NULL, NULL, layout, NULL);
+	//nf_it = elm_naviframe_item_push(ad->nf, "Layout Samples", NULL, NULL, main_list, NULL);
+	elm_naviframe_item_pop_cb_set(nf_it, naviframe_pop_cb, win);
 
 	Evas* canvas = evas_object_evas_get(viewWidget->scroller);
 
@@ -177,11 +421,30 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	// Add a callback function to a given Evas object event.
 	evas_object_event_callback_add(img, EVAS_CALLBACK_MOUSE_DOWN, _on_mousedown, NULL);
 
+	/* Drawer bg */
+	Evas_Object *bg = create_bg(layout);
+	elm_object_part_content_set(layout, "elm.swallow.bg", bg);
 
-	Elm_Object_Item *nf_it =elm_naviframe_item_push(naviframe, "main navi", NULL, NULL, viewWidget->scroller, NULL);
-	//nf_it = elm_naviframe_item_push(ad->nf, "Layout Samples", NULL, NULL, main_list, NULL);
-	elm_naviframe_item_pop_cb_set(nf_it, naviframe_pop_cb, win);
+	/* create_panel */
+	drawer_panel = create_panel(layout);
+	//eext_object_event_callback_add(drawer, EEXT_CALLBACK_BACK, drawer_back_cb, ad);
+	eext_object_event_callback_add(drawer_panel, EEXT_CALLBACK_BACK, drawer_back_cb, this);
+	evas_object_smart_callback_add(drawer_panel, "scroll", panel_scroll_cb, bg);
+	elm_object_part_content_set(layout, "elm.swallow.right", drawer_panel);
 
+	/* Drawers Button */
+	//btn = create_drawers_btn(ad->nf, btn_cb, drawer);
+	Evas_Object *btn = elm_button_add(naviframe);
+	if (btn) {
+		elm_object_style_set(btn, "naviframe/drawers");
+		evas_object_smart_callback_add(btn, "clicked", btn_cb, this);
+		}
+
+
+	elm_object_item_part_content_set(nf_it, "title_right_btn", btn);
+
+	/* Show window after base gui is set up */
+	evas_object_show(win);
 
 	return viewWidget;
 

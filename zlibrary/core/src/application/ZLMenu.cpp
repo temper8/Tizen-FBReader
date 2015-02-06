@@ -25,6 +25,8 @@
 #include "ZLApplication.h"
 #include "ZLMenu.h"
 
+#include "logger.h"
+
 class ZLMenubarCreator : public ZLXMLReader {
 
 public:
@@ -136,18 +138,19 @@ ZLMenuVisitor::~ZLMenuVisitor() {
 }
 
 void ZLMenuVisitor::processMenu(ZLApplication &application) {
+	DBG("ZLMenuVisitor::processMenu 1");
 	if (!application.myMenubar.isNull()) {
 		processMenu(*application.myMenubar);
 	}
 }
 
 void ZLMenuVisitor::processMenu(ZLMenu &menu) {
-//	AppLog("ZLMenuVisitor::processMenu ");
+	DBG("ZLMenuVisitor::processMenu 2");
 	const ZLMenu::ItemVector &items = menu.items();
 	for (ZLMenu::ItemVector::const_iterator it = items.begin(); it != items.end(); ++it) {
 		switch ((*it)->type()) {
 			case ZLMenu::Item::ITEM:
-//				AppLog("ZLMenuVisitor::processItem ");
+				DBG("ZLMenuVisitor::processItem ");
 				processItem((ZLMenubar::PlainItem&)**it);
 				break;
 			case ZLMenu::Item::SUBMENU:
