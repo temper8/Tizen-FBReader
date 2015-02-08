@@ -57,6 +57,7 @@
 #include "../libraryTree/LibraryTreeNodes.h"
 #include "../bookmodel/TOCTreeNodes.h"
 
+#include "logger.h"
 
 ModeDependentAction::ModeDependentAction(int visibleInModes) : myVisibleInModes(visibleInModes) {
 }
@@ -352,8 +353,11 @@ void ChangeFontSizeAction::run() {
 	FBReader &fbreader = FBReader::Instance();
 	ZLIntegerRangeOption &option = FBTextStyle::Instance().FontSizeOption;
 	option.setValue(option.value() + myDelta);
+	DBG("ChangeFontSizeAction 1 ");
 	fbreader.clearTextCaches();
+	DBG("ChangeFontSizeAction 2 ");
 	fbreader.refreshWindow();
+	DBG("ChangeFontSizeAction 3 ");
 }
 
 bool OpenPreviousBookAction::isVisible() const {

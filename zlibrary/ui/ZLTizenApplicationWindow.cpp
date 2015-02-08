@@ -37,18 +37,22 @@ void ZLTizenApplicationWindow::MenuBuilder::processItem(ZLMenubar::PlainItem &it
 
 	//shared_ptr<ZLApplication::Action> action = myWindow.application().action(id);
 	//myWindow.myViewWidget->mybadaForm->AddMenuItem(name, id);
+	myWindow.AddMenuItem(name, id);
 
-	//__pOptionMenu->AddItem(item.name().c_str(),200);
-	//__pOptionMenu->AddItem("Библиотека",ID_OPTIONMENU_ITEM1);
+}
 
-	/*GtkWidget *gtkItem = gtk_button_new_with_label(item.name().c_str());
+void ZLTizenApplicationWindow::onMenuItemSelected(void *data, Evas_Object *obj, void *event_info){
+	std::string *id = (std::string *)data;
+	DBG("selected item %s", id->c_str());
+	FBReader &fbreader = FBReader::Instance();
+	fbreader.doAction(*id);
 
-	if (!action.isNull()) {
-		ZLGtkSignalUtil::connectSignalAfter(GTK_OBJECT(gtkItem), "clicked", G_CALLBACK(menuActionSlot), &*action);
-	}
-	myWindow.myMenuItems[id] = gtkItem;
-	hildon_app_menu_append(myWindow.myMenu, GTK_BUTTON(gtkItem));
-	gtk_widget_show_all(GTK_WIDGET(gtkItem));*/
+}
+
+void ZLTizenApplicationWindow::AddMenuItem(const std::string &name, const  std::string &id){
+
+	elm_list_item_append(menuList, name.c_str(), NULL, NULL, onMenuItemSelected, &id);
+
 }
 
 void ZLTizenApplicationWindow::MenuBuilder::processSepartor(ZLMenubar::Separator&) {
@@ -224,9 +228,9 @@ static Evas_Object * create_menu_popup(ZLTizenApplicationWindow *tw)
 	return popup;
 }
 
-static Evas_Object * create_panel(Evas_Object *parent)
+Evas_Object * ZLTizenApplicationWindow::createDrawerPanel(Evas_Object *parent)
 {
-	Evas_Object *panel, *list;
+	Evas_Object *panel;
 	int i;
 	char buf[64];
 
@@ -240,17 +244,17 @@ static Evas_Object * create_panel(Evas_Object *parent)
 	evas_object_show(panel);
 
 	/* Panel content */
-	list = elm_list_add(panel);
-	evas_object_size_hint_weight_set(list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(list, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	for (i = 0; i < 20; i++) {
+	menuList = elm_list_add(panel);
+	evas_object_size_hint_weight_set(menuList, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(menuList, EVAS_HINT_FILL, EVAS_HINT_FILL);
+/*	for (i = 0; i < 5; i++) {
 		sprintf(buf, "элемент %d", i);
-		elm_list_item_append(list, buf, NULL, NULL, NULL, NULL);
+		elm_list_item_append(menuList, buf, NULL, NULL, NULL, NULL);
 	}
+*/
+	evas_object_show(menuList);
 
-	evas_object_show(list);
-
-	elm_object_content_set(panel, list);
+	elm_object_content_set(panel, menuList);
 
 	return panel;
 }
@@ -317,9 +321,6 @@ ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): 
 	evas_object_size_hint_weight_set(naviframe, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	elm_object_content_set(conform, naviframe);
 	evas_object_show(naviframe);
-
-
-
 
 	/* Show window after base gui is set up */
 	evas_object_show(win);
@@ -426,7 +427,7 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	elm_object_part_content_set(layout, "elm.swallow.bg", bg);
 
 	/* create_panel */
-	drawer_panel = create_panel(layout);
+	drawer_panel = createDrawerPanel(layout);
 	//eext_object_event_callback_add(drawer, EEXT_CALLBACK_BACK, drawer_back_cb, ad);
 	eext_object_event_callback_add(drawer_panel, EEXT_CALLBACK_BACK, drawer_back_cb, this);
 	evas_object_smart_callback_add(drawer_panel, "scroll", panel_scroll_cb, bg);
@@ -447,14 +448,5 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	evas_object_show(win);
 
 	return viewWidget;
-
-/*	ZLGtkViewWidget *viewWidget = new ZLGtkViewWidget(&application(), (ZLViewWidget::Angle)application().AngleStateOption.value());
-	gtk_container_add(GTK_CONTAINER(myVBox), viewWidget->area());
-	ZLGtkSignalUtil::connectSignal(GTK_OBJECT(viewWidget->area()), "expose_event", GTK_SIGNAL_FUNC(repaint), this);
-	ZLGtkSignalUtil::connectSignal(GTK_OBJECT(viewWidget->area()), "button_press_event", GTK_SIGNAL_FUNC(mousePressed), viewWidget);
-	ZLGtkSignalUtil::connectSignal(GTK_OBJECT(viewWidget->area()), "button_release_event", GTK_SIGNAL_FUNC(mouseReleased), viewWidget);
-	ZLGtkSignalUtil::connectSignal(GTK_OBJECT(viewWidget->area()), "motion_notify_event", GTK_SIGNAL_FUNC(mouseMoved), viewWidget);
-	gtk_widget_show_all(myVBox);
-	*/
 
 }

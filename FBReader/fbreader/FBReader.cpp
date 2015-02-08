@@ -617,8 +617,8 @@ void FBReader::dragFiles(const std::vector<std::string> &filePaths) {
 
 void FBReader::clearTextCaches() {
 	((ZLTextView&)*myBookTextView).clearCaches();
-	((ZLTextView&)*myFootnoteView).clearCaches();
-	((ZLTextView&)*myContentsView).clearCaches();
+//	((ZLTextView&)*myFootnoteView).clearCaches();
+//	((ZLTextView&)*myContentsView).clearCaches();
 }
 
 shared_ptr<ZLKeyBindings> FBReader::keyBindings() {

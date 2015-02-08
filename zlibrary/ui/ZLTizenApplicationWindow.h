@@ -39,9 +39,13 @@ public:
 	Evas_Object *naviframe;
 	Evas_Object *popup;
 	Evas_Object *drawer_panel;
+	Evas_Object *menuList;
 
 	static void win_back_cb(void *data, Evas_Object *obj, void *event_info);
+	Evas_Object * createDrawerPanel(Evas_Object *parent);
+	static void onMenuItemSelected(void *data, Evas_Object *obj, void *event_info);
 
+	void AddMenuItem(const std::string &name, const  std::string &id);
 	void prevPage();
 	void nextPage();
 	void mouseDown(int x, int y);
