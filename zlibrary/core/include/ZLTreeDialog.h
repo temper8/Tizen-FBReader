@@ -20,7 +20,7 @@ protected:
 	bool showIcons;
 
 private:
-	virtual bool exitThread() = 0;
+	//virtual bool exitThread() = 0;
 
 public:
 	virtual ~ZLTreeDialog();

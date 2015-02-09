@@ -141,7 +141,7 @@ void BookOpenAction::run() {
 SimpleBookPreviewDialog::SimpleBookPreviewDialog(shared_ptr<Book> book) : myBook(book)  {
 	// TODO Auto-generated constructor stub
 //	myDialog = ZLDialogManager::Instance().createOptionsDialog(ZLResourceKey("InfoDialog"), new BookReadAction(myBook));
-	myDialog = ZLDialogManager::Instance().createOptionsDialog(ZLResourceKey("InfoDialog"), 0, false);
+	myDialog = ZLDialogManager::Instance().createOptionsDialog(ZLResourceKey("InfoDialog"), 0);
 
 //	myDialog->setMenuEntry( new BookMenuEntry(book));
 	ZLDialogContent &commonTab = myDialog->createTab(ZLResourceKey("Cover"));
@@ -200,7 +200,7 @@ SimpleBookPreviewDialog::~SimpleBookPreviewDialog() {
 BookPreviewDialog::BookPreviewDialog(shared_ptr<Book> book) : myBook(book)  {
 	// TODO Auto-generated constructor stub
 //	myDialog = ZLDialogManager::Instance().createOptionsDialog(ZLResourceKey("InfoDialog"), new BookReadAction(myBook));
-	myDialog = ZLDialogManager::Instance().createOptionsDialog(ZLResourceKey("InfoDialog"), 0, true);
+	myDialog = ZLDialogManager::Instance().createOptionsDialog(ZLResourceKey("InfoDialog"), 0);
 
 	myDialog->setMenuEntry( new BookMenuEntry(book));
 	ZLDialogContent &commonTab = myDialog->createTab(ZLResourceKey("Cover"));

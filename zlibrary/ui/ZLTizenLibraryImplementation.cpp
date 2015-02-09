@@ -12,6 +12,7 @@
 #include <ZLibrary.h>
 #include "ZLTizenFSManager.h"
 #include "time/ZLTizenTime.h"
+#include "dialogs/ZLTizenDialogManager.h"
 
 //#include "../image/ZLbadaImageManager.h"
 //#include "../../../../core/src/unix/iconv/IConvEncodingConverter.h"
@@ -60,7 +61,7 @@ void ZLTizenLibraryImplementation::init(int &argc, char **&argv){
 	ZLTizenFSManager::createInstance();
 	DBG("ZLTizenFSManager::createInstance();");
 
-	//ZLbadaDialogManager::createInstance();
+	ZLTizenDialogManager::createInstance();
 	DBG("ZLbadaDialogManager::createInstance();");
 
 	//ZLUnixCommunicationManager::createInstance();

@@ -50,6 +50,7 @@ public:
 	void nextPage();
 	void mouseDown(int x, int y);
 
+
 protected:
 	virtual ZLViewWidget *createViewWidget();
 

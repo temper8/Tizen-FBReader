@@ -183,9 +183,6 @@ shared_ptr<ZLImage> ColorOptionsDialogNode::extractCoverImage() const {
 	return FBNode::defaultCoverImage("booktree-folder.png");
 }
 
-
-
-
 std::string LibraryOptionsDialogNode::title() const {
         //TODO add not-toolbar resource for this node
        // return "Library Options";//ZLResource::resource("toolbar")["addBook"]["label"].value();

@@ -14,7 +14,7 @@ OpenFileDialogAction::OpenFileDialogAction() {
 }
 
 void OpenFileDialogAction::run() {
-	ZLDialogManager::Instance().startOpenFileDialog();
+//	ZLDialogManager::Instance().startOpenFileDialog();
 	//if (ReadingOptionsDialog().dialog().run()) {
 		// TODO: select current node (?) again
 		//FBReader::Instance().refreshWindow();
