@@ -28,6 +28,8 @@
 
 #include "ZLApplicationWindow.h"
 
+class ZLTreeDialog;
+
 class ZLTizenApplicationWindow : public ZLApplicationWindow {
 public:
 	ZLTizenApplicationWindow(ZLApplication *application);
@@ -50,6 +52,9 @@ public:
 	void nextPage();
 	void mouseDown(int x, int y);
 
+	void createTestDialog();
+	shared_ptr<ZLTreeDialog> createTizenTreeDialog(const ZLResource &resource);
+	shared_ptr<ZLTreeDialog> myTreeDialog;
 
 protected:
 	virtual ZLViewWidget *createViewWidget();

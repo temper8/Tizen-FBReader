@@ -9,6 +9,7 @@
 #define ZLTIZENTREEDIALOG_H_
 
 #include <ZLTreeDialog.h>
+#include <Elementary.h>
 
 class ZLTizenTreeDialog: public ZLTreeDialog {
 public:
@@ -23,6 +24,7 @@ public:
 	virtual void run();
 
 	virtual void onUpdated();
+
 public:
 
 	virtual bool back();
@@ -31,6 +33,10 @@ public:
 	virtual void treadTerminator();
 	//virtual void setShowIcons(bool value) {};
 	//virtual bool exitThread();
+public:
+	void updateContent();
+	Evas_Object *listItems;
+	int ItemCount;
 };
 
 #endif /* ZLTIZENTREEDIALOG_H_ */

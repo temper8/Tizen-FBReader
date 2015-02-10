@@ -26,7 +26,7 @@ public:
 	ZLPaintContext *createContext();
 	void run(ZLApplication *application);
 
-	static ZLTizenApplicationWindow *myWindow;
+	//static ZLTizenApplicationWindow *myWindow;
 
 	static bool	app_create(void *data);
 	static void	app_control(app_control_h app_control, void *data);

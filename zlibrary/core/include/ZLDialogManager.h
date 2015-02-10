@@ -37,6 +37,7 @@ class ZLTreeHandler;
 class ZLApplication;
 class ZLImageData;
 class ZLProgressDialog;
+class ZLApplicationWindow;
 
 class ZLDialogManager {
 
@@ -72,7 +73,7 @@ protected:
 	virtual ~ZLDialogManager();
 
 public:
-	virtual void createApplicationWindow(ZLApplication *application) const = 0;
+	virtual ZLApplicationWindow* createApplicationWindow(ZLApplication *application) const = 0;
 
 	virtual shared_ptr<ZLDialog> createDialog(const ZLResourceKey &key) const = 0;
 	virtual shared_ptr<ZLOptionsDialog> createOptionsDialog(const ZLResourceKey &key, shared_ptr<ZLRunnable> applyAction = 0) const = 0;

@@ -79,13 +79,14 @@ void ZLTizenLibraryImplementation::init(int &argc, char **&argv){
 //	ZLKeyUtil::setKeyNamesFileName("keynames.xml");
 }
 
-ZLTizenApplicationWindow *ZLTizenLibraryImplementation::myWindow = NULL;
+//ZLTizenApplicationWindow *ZLTizenLibraryImplementation::myWindow = NULL;
 
 bool ZLTizenLibraryImplementation::app_create(void *data){
 	DBG("ZLTiLibImp-app_create");
 	ZLApplication *app = (ZLApplication*)data;
-	myWindow = new ZLTizenApplicationWindow(app);
-	myWindow->init();
+	//myWindow = new ZLTizenApplicationWindow(app);
+	ZLApplicationWindow* appWindow = ZLDialogManager::Instance().createApplicationWindow(app);
+	appWindow->init();
 	app->createApplication();
 	app->initWindow();
 	return true;

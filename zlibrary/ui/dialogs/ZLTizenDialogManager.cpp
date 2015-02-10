@@ -32,8 +32,9 @@ shared_ptr<ZLDialog> ZLTizenDialogManager::createDialog(const ZLResourceKey &key
 
 
 
-void ZLTizenDialogManager::createApplicationWindow(ZLApplication *application) const {
-//	myApplicationWindow = new ZLbadaApplicationWindow(application);
+ZLApplicationWindow* ZLTizenDialogManager::createApplicationWindow(ZLApplication *application) const {
+	myApplicationWindow = new ZLTizenApplicationWindow(application);
+	return (ZLApplicationWindow*)myApplicationWindow;
 }
 
 
@@ -119,23 +120,18 @@ shared_ptr<ZLProgressDialog> ZLTizenDialogManager::createProgressDialog(const ZL
 	return NULL;//new ZLbadaProgressDialog(key);
 }
 
-
-
-
-
-
 shared_ptr<ZLTreeDialog> ZLTizenDialogManager::createTreeDialog(const ZLResourceKey &key) const {
 	DBG("ZLbadaDialogManager::createTreeDialog");
 
 	//myTreeDialog = new ZLbadaTreeDialog(resource()[key]);
 	//return myTreeDialog;
 
-	shared_ptr<ZLTreeDialog> b = (ZLTreeDialog*) new ZLTizenTreeDialog(resource()[key]);
+//	shared_ptr<ZLTreeDialog> b = (ZLTreeDialog*) new ZLTizenTreeDialog(resource()[key]);
 	//Frame *pFrame = Application::GetInstance()->GetAppFrame()->GetFrame();
 	//TreeViewForm* d = (TreeViewForm*)pFrame->GetCurrentForm();
 	//d->__myTreeDialog = b;
-   return b;
-
+  // return b;
+	return myApplicationWindow->createTizenTreeDialog(resource()[key]);
 }
 
 //shared_ptr<ZLTreeDialog> ZLbadaDialogManager::myTreeDialog = 0;

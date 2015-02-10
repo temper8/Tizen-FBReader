@@ -23,7 +23,7 @@ private:
 	ZLTizenDialogManager();
 	virtual ~ZLTizenDialogManager();
 public:
-	void createApplicationWindow(ZLApplication *application) const ;
+	ZLApplicationWindow* createApplicationWindow(ZLApplication *application) const ;
 
 	shared_ptr<ZLDialog> createDialog(const ZLResourceKey &key) const;
 	shared_ptr<ZLOptionsDialog> createOptionsDialog(const ZLResourceKey &key, shared_ptr<ZLRunnable> applyAction) const;

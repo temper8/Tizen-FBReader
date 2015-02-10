@@ -12,6 +12,8 @@
 #include "../../FBReader/fbreader/FBReader.h"
 #include "../../FBReader/fbreader/FBReaderActions.h"
 
+#include "dialogs/ZLTizenTreeDialog.h"
+
 void ZLTizenApplicationWindow::initMenu() {
 	DBG("ZLbadaApplicationWindow::initMenu() ");
 	MenuBuilder(*this).processMenu(application());
@@ -42,6 +44,7 @@ void ZLTizenApplicationWindow::MenuBuilder::processItem(ZLMenubar::PlainItem &it
 }
 
 void ZLTizenApplicationWindow::onMenuItemSelected(void *data, Evas_Object *obj, void *event_info){
+//	elm_panel_hidden_set(drawer_panel, EINA_TRUE);
 	std::string *id = (std::string *)data;
 	DBG("selected item %s", id->c_str());
 	FBReader &fbreader = FBReader::Instance();
@@ -66,6 +69,7 @@ static void win_delete_request_cb(void *data , Evas_Object *obj , void *event_in
 
 void ZLTizenApplicationWindow::win_back_cb(void *data, Evas_Object *obj, void *event_info)
 {
+	DBG("win_back_cb");
 	ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
 	/* Let window go to hide state. */
 	elm_win_lower(tw->win);
@@ -119,6 +123,7 @@ create_drawer_layout(Evas_Object *parent)
 
 static Eina_Bool naviframe_pop_cb(void *data, Elm_Object_Item *it)
 {
+	DBG("naviframe_pop_cb");
 	Evas_Object *win = (Evas_Object *)data;
 
 	elm_win_lower(win);
@@ -192,15 +197,13 @@ create_bg(Evas_Object *parent)
 	return rect;
 }
 
-static void
-drawer_back_cb(void *data, Evas_Object *obj, void *event_info)
+static void drawer_back_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	elm_panel_hidden_set(obj, EINA_TRUE);
 }
 
 
-static void
-panel_scroll_cb(void *data, Evas_Object *obj, void *event_info)
+static void panel_scroll_cb(void *data, Evas_Object *obj, void *event_info)
 {
 //	DBG("panel_scroll_cb");
 	Elm_Panel_Scroll_Info *ev = (Elm_Panel_Scroll_Info *)event_info;
@@ -259,17 +262,21 @@ Evas_Object * ZLTizenApplicationWindow::createDrawerPanel(Evas_Object *parent)
 	return panel;
 }
 
+// menu button event
+
 static void nf_more_cb(void *data, Evas_Object *obj, void *event_info)
 {
- DBG("nf_more_cb");
+ DBG("menu button event");
  ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
-
+ tw->createTestDialog();
+ /*
 	if (!tw->popup)
 		tw->popup = create_menu_popup(tw);
 	else {
 		evas_object_del(tw->popup);
 		tw->popup = NULL;
 	}
+	*/
 }
 
 void ZLTizenApplicationWindow::mouseDown(int x,int y){
@@ -289,6 +296,13 @@ void ZLTizenApplicationWindow::nextPage(){
 	 fbreader.doAction(ActionCode::PAGE_SCROLL_FORWARD);
 }
 
+static void
+naviframe_back_cb(void *data, Evas_Object *obj, void *event_info)
+{
+DBG("naviframe_back_cb");
+  elm_naviframe_item_pop(obj);
+}
+
 ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): ZLApplicationWindow(application),
 																				win(NULL), conform(NULL), label(NULL), popup(NULL)
 {
@@ -301,9 +315,9 @@ ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): 
 		elm_win_wm_rotation_available_rotations_set(win, (const int *)(&rots), 4);
 	}
 
-	evas_object_smart_callback_add(win, "delete,request", win_delete_request_cb, NULL);
-	eext_object_event_callback_add(win, EEXT_CALLBACK_BACK, ZLTizenApplicationWindow::win_back_cb, this);
-	eext_object_event_callback_add(win, EEXT_CALLBACK_MORE, nf_more_cb, this);
+//	evas_object_smart_callback_add(win, "delete,request", win_delete_request_cb, NULL);
+//	eext_object_event_callback_add(win, EEXT_CALLBACK_BACK, ZLTizenApplicationWindow::win_back_cb, this);
+//	eext_object_event_callback_add(win, EEXT_CALLBACK_MORE, nf_more_cb, this);
 
 	/* Conformant */
 	conform = elm_conformant_add(win);
@@ -316,8 +330,8 @@ ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): 
 
 	/* Naviframe */
 	naviframe = elm_naviframe_add(conform);
-	//eext_object_event_callback_add(naviframe, EEXT_CALLBACK_BACK, eext_naviframe_back_cb, this);
-	//eext_object_event_callback_add(naviframe, EEXT_CALLBACK_MORE, nf_more_cb, this);
+	eext_object_event_callback_add(naviframe, EEXT_CALLBACK_BACK, naviframe_back_cb, this);
+	eext_object_event_callback_add(naviframe, EEXT_CALLBACK_MORE, nf_more_cb, this);
 	evas_object_size_hint_weight_set(naviframe, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	elm_object_content_set(conform, naviframe);
 	evas_object_show(naviframe);
@@ -371,6 +385,66 @@ btn_cb(void *data, Evas_Object *obj, void *event_info)
 		DBG("elm_panel_toggle");
 		elm_panel_toggle(tw->drawer_panel);
 	}
+}
+
+void ZLTizenApplicationWindow::createTestDialog(){
+	DBG("createTizenTreeDialog");
+	Evas_Object *layout, *box;
+	layout = create_drawer_layout(naviframe);
+		DBG("create_drawer_layout");
+		/* Box */
+		box = elm_box_add(layout);
+		evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(box, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		elm_object_part_content_set(layout, "elm.swallow.content", box);
+		Elm_Object_Item *nf_it = elm_naviframe_item_push(naviframe, "tree dialog", NULL, NULL, layout, NULL);
+}
+
+static Eina_Bool tree_dialog_pop_cb(void *data, Elm_Object_Item *it)
+{
+	DBG("tree_dialog_pop_cb");
+	ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
+	tw->myTreeDialog = NULL;
+//	 elm_naviframe_item_pop(it);
+	return EINA_TRUE;//EINA_FALSE;
+}
+
+shared_ptr<ZLTreeDialog> ZLTizenApplicationWindow::createTizenTreeDialog(const ZLResource &resource){
+	DBG("createTizenTreeDialog");
+
+	ZLTizenTreeDialog* tizenTreeDialog = new ZLTizenTreeDialog(resource);
+
+	const char *list_items[] = {
+		"default",
+		"default_style",
+		"double_label",
+		"end_icon",
+		"full",
+		"group_index",
+		"one_icon",
+		"message",
+		NULL
+	};
+
+	Evas_Object *list;
+	Evas_Object *nf = naviframe;
+	int i;
+
+	tizenTreeDialog->listItems = elm_list_add(nf);
+	elm_list_mode_set(tizenTreeDialog->listItems, ELM_LIST_COMPRESS);
+
+
+	Elm_Object_Item *nf_it = elm_naviframe_item_push(naviframe, "tree dialog", NULL, NULL, 	tizenTreeDialog->listItems, NULL);
+	elm_naviframe_item_pop_cb_set(nf_it, tree_dialog_pop_cb, this);
+
+	shared_ptr<ZLTreeDialog> myTreeDialog = (ZLTreeDialog*) tizenTreeDialog;
+
+//	for (i = 0; list_items[i]; i++) {
+//		elm_list_item_append(list, list_items[i], NULL, NULL, NULL, nf);
+//	}
+
+//	elm_list_go(tizenTreeDialog->listItems);
+	return myTreeDialog;
 }
 
 ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
@@ -429,7 +503,7 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	/* create_panel */
 	drawer_panel = createDrawerPanel(layout);
 	//eext_object_event_callback_add(drawer, EEXT_CALLBACK_BACK, drawer_back_cb, ad);
-	eext_object_event_callback_add(drawer_panel, EEXT_CALLBACK_BACK, drawer_back_cb, this);
+//	eext_object_event_callback_add(drawer_panel, EEXT_CALLBACK_BACK, drawer_back_cb, this);
 	evas_object_smart_callback_add(drawer_panel, "scroll", panel_scroll_cb, bg);
 	elm_object_part_content_set(layout, "elm.swallow.right", drawer_panel);
 
