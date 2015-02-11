@@ -37,20 +37,14 @@ ZLApplicationWindow* ZLTizenDialogManager::createApplicationWindow(ZLApplication
 	return (ZLApplicationWindow*)myApplicationWindow;
 }
 
+shared_ptr<ZLTreeDialog> ZLTizenDialogManager::createTreeDialog(const ZLResourceKey &key) const {
+	DBG("ZLTizenDialogManager::createTreeDialog");
+	return myApplicationWindow->createTizenTreeDialog(resource()[key]);
+}
 
 shared_ptr<ZLOptionsDialog> ZLTizenDialogManager::createOptionsDialog(const ZLResourceKey &key, shared_ptr<ZLRunnable> applyAction) const {
 	DBG("ZLbadaDialogManager::createOptionsDialog");
-	//ZLbadaOptionsDialog* b= new ZLbadaOptionsDialog(myApplicationWindow->viewWidget().mybadaForm,resource()[key], applyAction, showApplyButton);
-	//mybadaOptionsDialog =new ZLbadaOptionsDialog(myApplicationWindow->viewWidget().mybadaForm,resource()[key], applyAction, showApplyButton);
-	shared_ptr<ZLOptionsDialog> b = new ZLTizenOptionsDialog(myApplicationWindow, resource()[key], applyAction);
-
-//	Frame *pFrame = Application::GetInstance()->GetAppFrame()->GetFrame();
-//	TizenDialogForm* d = (TizenDialogForm*)pFrame->GetCurrentForm();
-//	d->__badaOptionsDialog = b;
-
-
-	//b->myDialogForm = myApplicationWindow->viewWidget().mybadaForm->CreateDalogForm();
-	return b;//new ZLbadaOptionsDialog(myApplicationWindow->viewWidget().mybadaForm,resource()[key], applyAction, showApplyButton);
+	return myApplicationWindow->createTizenOptionsDialog(resource()[key], applyAction);
 }
 
 
@@ -120,19 +114,6 @@ shared_ptr<ZLProgressDialog> ZLTizenDialogManager::createProgressDialog(const ZL
 	return NULL;//new ZLbadaProgressDialog(key);
 }
 
-shared_ptr<ZLTreeDialog> ZLTizenDialogManager::createTreeDialog(const ZLResourceKey &key) const {
-	DBG("ZLbadaDialogManager::createTreeDialog");
-
-	//myTreeDialog = new ZLbadaTreeDialog(resource()[key]);
-	//return myTreeDialog;
-
-//	shared_ptr<ZLTreeDialog> b = (ZLTreeDialog*) new ZLTizenTreeDialog(resource()[key]);
-	//Frame *pFrame = Application::GetInstance()->GetAppFrame()->GetFrame();
-	//TreeViewForm* d = (TreeViewForm*)pFrame->GetCurrentForm();
-	//d->__myTreeDialog = b;
-  // return b;
-	return myApplicationWindow->createTizenTreeDialog(resource()[key]);
-}
 
 //shared_ptr<ZLTreeDialog> ZLbadaDialogManager::myTreeDialog = 0;
 

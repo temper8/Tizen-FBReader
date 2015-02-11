@@ -126,18 +126,14 @@ static char* gl_text_get_cb(void *data, Evas_Object *obj, const char *part) {
 //	DBG("gl_text_get_cb %s", part);
 	item_data *id = (item_data *)data;
 //	DBG("id->index %d", id->index);
+	ZLTreeTitledNode* node = (ZLTreeTitledNode*) id->node;//->children().at(id->index);
+	if (node == NULL) DBG(" node = NULL");
 	if (!strcmp(part, "elm.text")) {
-						return strdup(id->title);
+						return strdup(node->title().c_str());
 			}
 	else {
-		return strdup(id->subtitle);
+		return strdup(node->subtitle().c_str());
 	}
-/*	ZLTreeTitledNode* node = (ZLTreeTitledNode*) id->node;//->children().at(id->index);
-	if (node == NULL) DBG(" node = NULL");
-	std::string title = node->title();
-	DBG("title %s",title.c_str());
-/*	std::string subtitle = node->subtitle();
- return strdup(title.c_str());*/
 
 }
 static void gl_selected_cb(void *data, Evas_Object *obj, void *event_info)
@@ -147,11 +143,35 @@ static void gl_selected_cb(void *data, Evas_Object *obj, void *event_info)
 	Elm_Object_Item *it = (Elm_Object_Item *)event_info;
 	item_data *id = (item_data *) elm_object_item_data_get(it);
 	DBG("%d", id->index);
-	ZLTreeNode* node = myTreeDialog->myCurrentNode->children().at(id->index);
+	ZLTreeTitledNode* node = (ZLTreeTitledNode*)myTreeDialog->myCurrentNode->children().at(id->index);
 	DBG("treenode");
     int actionsCount = node->actions().size();
 	DBG("node->actions().size %d", actionsCount);
 	/* Unhighlight item */
+	switch (actionsCount){
+
+			case  0: if (node->needAuthenticationDialog()) {
+							DBG("showAuthenticationForm()");
+						}
+					else
+						{
+					 	DBG("Node is  %s ",node->title().c_str());
+						node->beforeExpandNode();
+						myTreeDialog->enter(node);
+					 	DBG("exit enter");
+						};
+					 break;
+
+			default:
+
+				      std::string actionName = node->actions()[0]->key().Name;
+				      DBG("action name %s",actionName.c_str());
+				    //  if (actionName == "gotoParagraph") pPreviousForm->SendUserEvent(0, null);
+					//  myTreeDialog->treadTerminator();
+				      node->actions()[0]->run();
+					  break;
+			}
+
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 }
 
@@ -198,16 +218,10 @@ void ZLTizenTreeDialog::updateContent(){
 	int i;
 	Elm_Object_Item *it;
 	for (i = 0; i<ItemCount; i++) {
-		ZLTreeTitledNode* node = (ZLTreeTitledNode*) myCurrentNode->children().at(i);
-		//std::string title = node->title();
-		//std::string subtitle = node->subtitle();
-		//DBG("title %s",title.c_str());
 		DBG("i %d",i);
 		item_data *id = new item_data();
 		id->index = i;
-		//id->node = myCurrentNode->children().at(i);
-		id->title = strdup(node->title().c_str());
-		id->subtitle = strdup(node->subtitle().c_str());
+		id->node = myCurrentNode->children().at(i);
 		it = elm_genlist_item_append(itemsList,					/* genlist object */
 									itc,						/* item class */
 									id,							/* item class user data */

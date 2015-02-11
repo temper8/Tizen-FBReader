@@ -9,6 +9,7 @@
 #define ZLTIZENOPTIONSDIALOG_H_
 
 #include <ZLOptionsDialog.h>
+#include <Elementary.h>
 
 class ZLTizenApplicationWindow;
 
@@ -30,7 +31,8 @@ protected:
 	virtual const std::string &selectedTabKey() const;
 	virtual void selectTab(const ZLResourceKey &key);
 	virtual bool runInternal();
-
+public:
+	void createOptionsDialogObject(Evas_Object *nf);
 };
 
 #endif /* ZLTIZENOPTIONSDIALOG_H_ */

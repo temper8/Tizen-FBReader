@@ -13,6 +13,7 @@
 #include "../../FBReader/fbreader/FBReaderActions.h"
 
 #include "dialogs/ZLTizenTreeDialog.h"
+#include "dialogs/ZLTizenOptionsDialog.h"
 
 void ZLTizenApplicationWindow::initMenu() {
 	DBG("ZLbadaApplicationWindow::initMenu() ");
@@ -400,12 +401,17 @@ void ZLTizenApplicationWindow::createTestDialog(){
 		Elm_Object_Item *nf_it = elm_naviframe_item_push(naviframe, "tree dialog", NULL, NULL, layout, NULL);
 }
 
+shared_ptr<ZLOptionsDialog> ZLTizenApplicationWindow::createTizenOptionsDialog(const ZLResource &resource, shared_ptr<ZLRunnable> applyAction){
+	DBG("createTizenOptionsDialog");
+	ZLTizenOptionsDialog* tizenOptionsDialog = new ZLTizenOptionsDialog(this, resource, applyAction);
+	myOptionsDialog = (ZLOptionsDialog*) tizenOptionsDialog;
+	tizenOptionsDialog->createOptionsDialogObject(naviframe);
+	return  myOptionsDialog;
+}
 
 shared_ptr<ZLTreeDialog> ZLTizenApplicationWindow::createTizenTreeDialog(const ZLResource &resource){
 	DBG("createTizenTreeDialog");
-
 	ZLTizenTreeDialog* tizenTreeDialog = new ZLTizenTreeDialog(resource);
-	//shared_ptr<ZLTreeDialog> r = (ZLTreeDialog*) tizenTreeDialog;
 	myTreeDialog = (ZLTreeDialog*) tizenTreeDialog;
 	tizenTreeDialog->myWindows = this;
 	tizenTreeDialog->createItemsList(naviframe);

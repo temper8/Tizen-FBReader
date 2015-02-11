@@ -29,6 +29,8 @@
 #include "ZLApplicationWindow.h"
 
 class ZLTreeDialog;
+class ZLOptionsDialog;
+class ZLRunnable;
 
 class ZLTizenApplicationWindow : public ZLApplicationWindow {
 public:
@@ -54,7 +56,9 @@ public:
 
 	void createTestDialog();
 	shared_ptr<ZLTreeDialog> createTizenTreeDialog(const ZLResource &resource);
+	shared_ptr<ZLOptionsDialog> createTizenOptionsDialog(const ZLResource &resource, shared_ptr<ZLRunnable> applyAction);
 	shared_ptr<ZLTreeDialog> myTreeDialog;
+	shared_ptr<ZLOptionsDialog> myOptionsDialog;
 
 protected:
 	virtual ZLViewWidget *createViewWidget();
