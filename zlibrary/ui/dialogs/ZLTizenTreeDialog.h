@@ -11,6 +11,7 @@
 #include <ZLTreeDialog.h>
 #include <Elementary.h>
 
+class ZLTizenApplicationWindow;
 class ZLTizenTreeDialog: public ZLTreeDialog {
 public:
 	ZLTizenTreeDialog(const ZLResource &resource);
@@ -34,9 +35,11 @@ public:
 	//virtual void setShowIcons(bool value) {};
 	//virtual bool exitThread();
 public:
+	void createItemsList(Evas_Object *nf);
 	void updateContent();
-	Evas_Object *listItems;
+	Evas_Object *itemsList;
 	int ItemCount;
+	ZLTizenApplicationWindow* myWindows;
 };
 
 #endif /* ZLTIZENTREEDIALOG_H_ */

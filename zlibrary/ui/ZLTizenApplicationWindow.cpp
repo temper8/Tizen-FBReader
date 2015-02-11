@@ -400,51 +400,16 @@ void ZLTizenApplicationWindow::createTestDialog(){
 		Elm_Object_Item *nf_it = elm_naviframe_item_push(naviframe, "tree dialog", NULL, NULL, layout, NULL);
 }
 
-static Eina_Bool tree_dialog_pop_cb(void *data, Elm_Object_Item *it)
-{
-	DBG("tree_dialog_pop_cb");
-	ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
-	tw->myTreeDialog = NULL;
-//	 elm_naviframe_item_pop(it);
-	return EINA_TRUE;//EINA_FALSE;
-}
 
 shared_ptr<ZLTreeDialog> ZLTizenApplicationWindow::createTizenTreeDialog(const ZLResource &resource){
 	DBG("createTizenTreeDialog");
 
 	ZLTizenTreeDialog* tizenTreeDialog = new ZLTizenTreeDialog(resource);
-
-	const char *list_items[] = {
-		"default",
-		"default_style",
-		"double_label",
-		"end_icon",
-		"full",
-		"group_index",
-		"one_icon",
-		"message",
-		NULL
-	};
-
-	Evas_Object *list;
-	Evas_Object *nf = naviframe;
-	int i;
-
-	tizenTreeDialog->listItems = elm_list_add(nf);
-	elm_list_mode_set(tizenTreeDialog->listItems, ELM_LIST_COMPRESS);
-
-
-	Elm_Object_Item *nf_it = elm_naviframe_item_push(naviframe, "tree dialog", NULL, NULL, 	tizenTreeDialog->listItems, NULL);
-	elm_naviframe_item_pop_cb_set(nf_it, tree_dialog_pop_cb, this);
-
-	shared_ptr<ZLTreeDialog> myTreeDialog = (ZLTreeDialog*) tizenTreeDialog;
-
-//	for (i = 0; list_items[i]; i++) {
-//		elm_list_item_append(list, list_items[i], NULL, NULL, NULL, nf);
-//	}
-
-//	elm_list_go(tizenTreeDialog->listItems);
-	return myTreeDialog;
+	//shared_ptr<ZLTreeDialog> r = (ZLTreeDialog*) tizenTreeDialog;
+	myTreeDialog = (ZLTreeDialog*) tizenTreeDialog;
+	tizenTreeDialog->myWindows = this;
+	tizenTreeDialog->createItemsList(naviframe);
+	return  myTreeDialog;
 }
 
 ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
