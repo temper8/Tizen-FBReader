@@ -12,7 +12,10 @@
 #include "ZLTreeTitledNode.h"
 #include "../ZLTizenApplicationWindow.h"
 
+#include <tizen.h>
+
 #define ELM_ZLUI_EDJ "/opt/usr/apps/org.tizen.tizen-fbreader/shared/res/ui.edj"
+#define EDJ_FBREADER_FILE "edje/fbreader.edj"
 
 ZLTizenOptionsDialog::~ZLTizenOptionsDialog() {
 	// TODO Auto-generated destructor stub
@@ -44,14 +47,27 @@ static Evas_Object* create_scroller(Evas_Object *parent)
 
 	return scroller;
 }
+static void
+app_get_resource(const char *edj_file_in, char *edj_path_out, int edj_path_max)
+{
+	char *res_path = app_get_resource_path();
+	if (res_path) {
+		snprintf(edj_path_out, edj_path_max, "%s%s", res_path, edj_file_in);
+		free(res_path);
+	}
+}
 
 static Evas_Object*
 create_labels(Evas_Object *parent)
 {
+	char edj_path[PATH_MAX] = {0, };
 	Evas_Object *layout, *label, *label2, *label3, *label4, *label5;
 
+
 	layout = elm_layout_add(parent);
-	if (elm_layout_file_set(layout, ELM_ZLUI_EDJ, "label_layout") == 0) DBG("error set layout ");
+	app_get_resource(EDJ_FBREADER_FILE, edj_path, (int)PATH_MAX);
+	if (elm_layout_file_set(layout, edj_path, "label_layout") == 0) DBG("error set layout ");
+
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
 	label = elm_label_add(layout);
