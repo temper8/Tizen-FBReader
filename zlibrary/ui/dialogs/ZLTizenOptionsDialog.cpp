@@ -12,7 +12,6 @@
 #include "ZLTreeTitledNode.h"
 #include "../ZLTizenApplicationWindow.h"
 
-#include <tizen.h>
 
 #define ELM_ZLUI_EDJ "/opt/usr/apps/org.tizen.tizen-fbreader/shared/res/ui.edj"
 #define EDJ_FBREADER_FILE "edje/fbreader.edj"
@@ -72,11 +71,19 @@ create_labels(Evas_Object *parent)
 
 	label = elm_label_add(layout);
 	elm_object_part_content_set(layout, "label1", label);
-	elm_object_text_set(label, _("<align=left>left aligned label</align>"));
+	elm_object_text_set(label, _("<align=left><b>Title</b></align>"));
+	evas_object_color_set(label, 255, 0, 0, 255);
+	evas_object_move(label, 1, 1);
+	evas_object_resize(label, 300, 45);
+	elm_object_content_set(layout,label);
+	evas_object_show(label);
 
 	label2 = elm_label_add(layout);
 	elm_object_part_content_set(layout, "label2", label2);
-	elm_object_text_set(label2, _("<align=center>center aligned label<align>"));
+	elm_label_line_wrap_set(label2, ELM_WRAP_WORD);
+	elm_label_wrap_width_set(label2, 100);
+	elm_object_text_set(label2, _("<align=left>label changes line automatically if label wrap width is set and the text length is bigger than the width of the label</align>"));
+
 
 	label3 = elm_label_add(layout);
 	elm_object_part_content_set(layout, "label3", label3);
@@ -99,20 +106,23 @@ create_labels(Evas_Object *parent)
 
 void ZLTizenOptionsDialog::createOptionsDialogObject(Evas_Object *nf){
 	DBG("createOptionsDialogObject");
-	Evas_Object *scroller, *layout, *label;
-//	scroller = create_scroller(nf);
-	//elm_naviframe_item_push(nf, "Linebreakmodes", NULL, NULL, scroller, NULL);
-//	elm_naviframe_item_push(nf, "Normal Styles", NULL, NULL, scroller, NULL);
-	//layout = create_button_view(scroller);
 
-	scroller = create_scroller(nf);
-	elm_naviframe_item_push(nf, "Linebreakmodes", NULL, NULL, scroller, NULL);
+	app_get_resource(EDJ_FBREADER_FILE, edj_path, (int)PATH_MAX);
 
-	layout = create_labels(nf);
+	myScroller = create_scroller(nf);
+	elm_naviframe_item_push(nf, caption().c_str(), NULL, NULL, myScroller, NULL);
 
-	elm_object_content_set(scroller, layout);
+	myBox = elm_box_add(myScroller);
+	evas_object_size_hint_weight_set(myBox, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(myBox, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	elm_box_padding_set(myBox, 0, 5 * elm_config_scale_get());
+	evas_object_show(myBox);
 
+}
 
+void ZLTizenOptionsDialog::addEvasViewItem(Evas_Object* viewItem){
+	evas_object_show(viewItem);
+	elm_box_pack_end(myBox, viewItem);
 }
 
 ZLDialogContent &ZLTizenOptionsDialog::createTab(const ZLResourceKey &key){
@@ -129,10 +139,14 @@ ZLDialogContent* createTab2(const ZLResourceKey &key){
 }
 */
 bool ZLTizenOptionsDialog::run(){
+	Evas_Object * layout = create_labels(myBox);
+	evas_object_show(layout);
+	elm_box_pack_end(myBox, layout);
 
 	DBG("ZLTizenOptionsDialog::run()");
 //	myDialogForm->Update();
 //	myDialogForm->Invalidate(false);
+	elm_object_content_set(myScroller, myBox);
 
 	return true;
 }

@@ -6,6 +6,8 @@
  */
 
 #include "ZLTizenDialogContent.h"
+#include "optionView/ZLTizenOptionView.h"
+#include "optionView/TestTizenOptionView.h"
 #include "logger.h"
 
 ZLTizenDialogContent::	ZLTizenDialogContent(ZLTizenOptionsDialog *dialog, const ZLResource &resource): ZLDialogContent(resource), myTizenOptionsDialog(dialog) {
@@ -46,9 +48,9 @@ void ZLTizenDialogContent::createViewByEntry(const std::string &name, const std:
 	if (option == 0) {
 		return;
 	}
-/*	ZLTizenOptionView *view = 0;
+	ZLTizenOptionView *view = 0;
 	DBG("createViewByEntry switch");
-
+/*
 	switch (option->kind()) {
 		case ZLOptionEntry::BOOLEAN:
 			DBG("ZLOptionEntry::BOOLEAN:");
@@ -111,11 +113,11 @@ void ZLTizenDialogContent::createViewByEntry(const std::string &name, const std:
     		    view = new MenuView(name, tooltip, (ZLMenuOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
     		    break;	*/
 /*	}
-
+*/
 	if (view == 0) view = new TestTizenOptionView(name, tooltip, option, this, myRowCounter, fromColumn, toColumn);
 
 	if (view != 0) {
 		view->setVisible(option->isVisible());
 		addView(view);
-	}*/
+	}
 }

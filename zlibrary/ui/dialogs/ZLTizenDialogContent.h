@@ -28,10 +28,11 @@ public:
 	void close();
 
 	//ZLTizenOptionView* getView(int index) {return (ZLTizenOptionView*) ZLDialogContent::getView(index);}
+	ZLTizenOptionsDialog *myTizenOptionsDialog;
 
 private:
 	void createViewByEntry(const std::string &name, const std::string &tooltip, ZLOptionEntry *option, int fromColumn, int toColumn);
-	ZLTizenOptionsDialog *myTizenOptionsDialog;
+
 	int myRowCounter;
 };
 

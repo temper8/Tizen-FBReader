@@ -9,7 +9,10 @@
 #define ZLTIZENOPTIONSDIALOG_H_
 
 #include <ZLOptionsDialog.h>
+
 #include <Elementary.h>
+
+
 
 class ZLTizenApplicationWindow;
 
@@ -33,6 +36,10 @@ protected:
 	virtual bool runInternal();
 public:
 	void createOptionsDialogObject(Evas_Object *nf);
+	void addEvasViewItem(Evas_Object* viewItem);
+	Evas_Object *myScroller;
+	Evas_Object *myBox;
+	char edj_path[PATH_MAX] = {0, };
 };
 
 #endif /* ZLTIZENOPTIONSDIALOG_H_ */
