@@ -41,9 +41,9 @@ public:
 
 public:
 	virtual void setShowIcons(bool value) {}
-	virtual bool back() {}
+	virtual bool back() = 0;
 	virtual void updateNode(ZLTreeTitledNode &node, int index) = 0;
-	virtual bool enter(ZLTreeNode* node)=0;
+	virtual bool enter(ZLTreeNode* node) = 0;
     void update();
 	ZLTreeNode* myCurrentNode;
 	void loadCovers();

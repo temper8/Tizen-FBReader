@@ -14,7 +14,7 @@
 class ZLTizenApplicationWindow;
 class ZLTizenTreeDialog: public ZLTreeDialog {
 public:
-	ZLTizenTreeDialog(const ZLResource &resource);
+	ZLTizenTreeDialog(ZLTizenApplicationWindow* windows, const ZLResource &resource);
 	virtual ~ZLTizenTreeDialog();
 
 	virtual void onNodeBeginInsert(ZLTreeNode *parent, size_t index);
@@ -35,7 +35,7 @@ public:
 	//virtual void setShowIcons(bool value) {};
 	//virtual bool exitThread();
 public:
-	void createItemsList(Evas_Object *nf);
+	void createItemsList(const char* title);
 	void updateContent();
 	Evas_Object *itemsList;
 	int ItemCount;

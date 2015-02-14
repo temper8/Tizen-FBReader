@@ -411,10 +411,10 @@ shared_ptr<ZLOptionsDialog> ZLTizenApplicationWindow::createTizenOptionsDialog(c
 
 shared_ptr<ZLTreeDialog> ZLTizenApplicationWindow::createTizenTreeDialog(const ZLResource &resource){
 	DBG("createTizenTreeDialog");
-	ZLTizenTreeDialog* tizenTreeDialog = new ZLTizenTreeDialog(resource);
+	ZLTizenTreeDialog* tizenTreeDialog = new ZLTizenTreeDialog(this, resource);
 	myTreeDialog = (ZLTreeDialog*) tizenTreeDialog;
-	tizenTreeDialog->myWindows = this;
-	tizenTreeDialog->createItemsList(naviframe);
+	//tizenTreeDialog->myWindows = this;
+	//tizenTreeDialog->createItemsList(naviframe);
 	return  myTreeDialog;
 }
 

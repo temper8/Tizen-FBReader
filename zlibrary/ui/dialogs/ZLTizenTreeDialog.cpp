@@ -22,9 +22,11 @@ class item_data	{
 		ZLTreeNode *node;
 };
 
-ZLTizenTreeDialog::ZLTizenTreeDialog(const ZLResource &resource): ZLTreeDialog(resource) {
+ZLTizenTreeDialog::ZLTizenTreeDialog(ZLTizenApplicationWindow* windows, const ZLResource &resource): ZLTreeDialog(resource), myWindows(windows) {
 	// TODO Auto-generated constructor stub
-
+	const char *title = myResource["title"].value().c_str();
+	DBG("Dialog title %s", title);
+	createItemsList(title);
 }
 
 ZLTizenTreeDialog::~ZLTizenTreeDialog() {
@@ -75,6 +77,9 @@ bool ZLTizenTreeDialog::enter(ZLTreeNode* node) {
 	 node->requestChildren(0);
 	 if (node->children().size() > 0) {
 		 myCurrentNode = node;
+		 const char *title = ((ZLTreeTitledNode*)myCurrentNode)->title().c_str();
+		 DBG("enter node title %s", title);
+		 createItemsList(title);
 		 updateContent();
 	 }
 	  else DBG("Empty List!");
@@ -87,7 +92,11 @@ void ZLTizenTreeDialog::onUpdated(){
 
 bool ZLTizenTreeDialog::back() {
 	DBG("ZLbadaTreeDialog::back()");
-	 return true;
+	if (myCurrentNode == &rootNode()) {
+		return false;
+	}
+	myCurrentNode = myCurrentNode->parent();
+	return true;
 }
 
 void ZLTizenTreeDialog::treadTerminator(){
@@ -111,7 +120,7 @@ const char *list_items[] = {
 static Eina_Bool tree_dialog_pop_cb(void *data, Elm_Object_Item *it) {
 	DBG("tree_dialog_pop_cb");
 	ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
-	tw->myTreeDialog = 0;
+	if (!tw->myTreeDialog->back()) tw->myTreeDialog = 0;
 //	 elm_naviframe_item_pop(it);
 	return EINA_TRUE;//EINA_FALSE;
 }
@@ -181,9 +190,10 @@ static void gl_selected_cb(void *data, Evas_Object *obj, void *event_info)
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 }
 
-void ZLTizenTreeDialog::createItemsList(Evas_Object *nf){
+void ZLTizenTreeDialog::createItemsList(const char* title) {
 	/* Create genlist */
-	itemsList = elm_genlist_add(nf);
+
+	itemsList = elm_genlist_add(myWindows->naviframe);
 
 	/* Optimize your application with appropriate genlist block size. */
 	elm_genlist_block_count_set(itemsList, 14);
@@ -201,7 +211,7 @@ void ZLTizenTreeDialog::createItemsList(Evas_Object *nf){
 	evas_object_smart_callback_add(itemsList, "selected", gl_selected_cb, this);
 //	evas_object_smart_callback_add(genlist, "longpressed", gl_longpressed_cb, NULL);
 
-	Elm_Object_Item *nf_it = elm_naviframe_item_push(nf, "tree dialog", NULL, NULL,	itemsList, NULL);
+	Elm_Object_Item *nf_it = elm_naviframe_item_push(myWindows->naviframe, title, NULL, NULL,	itemsList, NULL);
 	elm_naviframe_item_pop_cb_set(nf_it, tree_dialog_pop_cb, myWindows);
 }
 
