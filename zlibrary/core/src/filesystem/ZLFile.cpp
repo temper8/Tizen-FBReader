@@ -167,7 +167,8 @@ shared_ptr<ZLOutputStream> ZLFile::outputStream(bool writeThrough) const {
 }
 
 shared_ptr<ZLDir> ZLFile::directory(bool createUnexisting) const {
-	if (exists()) {
+	DBG("ZLFile::directory");
+	if (exists()) {DBG("ZLFile::directory exist");
 		if (isDirectory()) {
 			return ZLFSManager::Instance().createPlainDirectory(myPath);
 		} else if (myArchiveType & ZIP) {
@@ -175,7 +176,7 @@ shared_ptr<ZLDir> ZLFile::directory(bool createUnexisting) const {
 		} else if (myArchiveType & TAR) {
 			return new ZLTarDir(myPath);
 		}
-	} else if (createUnexisting) {
+	} else if (createUnexisting) { DBG("ZLFile::directory create");
 		myInfoIsFilled = false;
 		return ZLFSManager::Instance().createNewDirectory(myPath);
 	}
@@ -183,6 +184,7 @@ shared_ptr<ZLDir> ZLFile::directory(bool createUnexisting) const {
 }
 
 void ZLFile::fillInfo() const {
+//	DBG("ZLFile::fillInfo()");
 	myInfoIsFilled = true;
 
 	int index = ZLFSManager::Instance().findArchiveFileNameDelimiter(myPath);

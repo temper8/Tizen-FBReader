@@ -19,6 +19,7 @@
 
 #include "ZLFSManager.h"
 #include "ZLDir.h"
+#include "logger.h"
 
 shared_ptr<ZLDir> ZLDir::root() {
 	return ZLFSManager::Instance().rootDirectory();
@@ -26,6 +27,7 @@ shared_ptr<ZLDir> ZLDir::root() {
 
 ZLDir::ZLDir(const std::string &path) : myPath(path) {
 	ZLFSManager::Instance().normalize(myPath);
+//	DBG("ZLDir");
 }
 
 ZLDir::~ZLDir() {

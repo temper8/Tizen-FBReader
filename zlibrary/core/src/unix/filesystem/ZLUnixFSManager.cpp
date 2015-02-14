@@ -17,10 +17,17 @@
  * 02110-1301, USA.
  */
 
-#include <sys/stat.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
+//#include <sys/stat.h>
+//#include <unistd.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+
+#include <sys/types.h>
+#include <dirent.h>
+#include <Ecore.h>
+#include <Eina.h>
+#include <Evas.h>
+#include <Elementary.h>
 
 #include <set>
 
@@ -30,6 +37,10 @@
 #include "ZLUnixFSDir.h"
 #include "ZLUnixFileInputStream.h"
 #include "ZLUnixFileOutputStream.h"
+
+
+
+#include "logger.h"
 
 static std::string getPwdDir() {
 	char *pwd = getenv("PWD");
@@ -42,10 +53,11 @@ static std::string getHomeDir() {
 }
 
 ZLFileInfo ZLUnixFSManager::fileInfo(const std::string &path) const {
+	//DBG("ZLUnixFSManager::fileInfo %s", path.c_str());
 	ZLFileInfo info;
 	struct stat fileStat;
-	info.Exists = stat(path.c_str(), &fileStat) == 0;
-	if (info.Exists) {
+	info.Exists = !(stat(path.c_str(), &fileStat) == -1);
+	if (info.Exists) {//DBG("ZLUnixFSManager::fileInfo info.Exists");
 		info.Size = fileStat.st_size;
 		info.IsDirectory = S_ISDIR(fileStat.st_mode);
 	}

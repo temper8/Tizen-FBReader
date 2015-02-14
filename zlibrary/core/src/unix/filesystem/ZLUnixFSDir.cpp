@@ -24,6 +24,8 @@
 #include "ZLUnixFSDir.h"
 #include "ZLUnixFSManager.h"
 
+#include "logger.h"
+
 void ZLUnixFSDir::collectSubDirs(std::vector<std::string> &names, bool includeSymlinks) {
 	DIR *dir = opendir(path().c_str());
 	if (dir != 0) {
@@ -51,6 +53,7 @@ void ZLUnixFSDir::collectSubDirs(std::vector<std::string> &names, bool includeSy
 }
 
 void ZLUnixFSDir::collectFiles(std::vector<std::string> &names, bool includeSymlinks) {
+//	DBG("collectFiles %s",path().c_str());
 	DIR *dir = opendir(path().c_str());
 	if (dir != 0) {
 		const std::string namePrefix = path() + delimiter();
@@ -59,6 +62,7 @@ void ZLUnixFSDir::collectFiles(std::vector<std::string> &names, bool includeSyml
 		std::string shortName;
 		while ((file = readdir(dir)) != 0) {
 			shortName = file->d_name;
+			//DBG("shortName %s",shortName.c_str());
 			if ((shortName == ".") || (shortName == "..")) {
 				continue;
 			}
