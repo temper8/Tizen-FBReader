@@ -64,10 +64,10 @@ void ZLTextArea::setModel(shared_ptr<ZLTextModel> model) {
 		 myMirroredContext.reset();
 	}
 
-	DBG(" ZLTextParagraphCursor::cursor");
+//	DBG(" ZLTextParagraphCursor::cursor");
 	myStartCursor = ZLTextParagraphCursor::cursor(*model);
 	if (myStartCursor.isNull()) DBG("myStartCursor = 0;");
-	DBG("myEndCursor = 0;");
+//	DBG("myEndCursor = 0;");
 	myEndCursor = 0;
 }
 

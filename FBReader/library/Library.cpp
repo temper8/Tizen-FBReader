@@ -38,8 +38,8 @@
 #include "../formats/FormatPlugin.h"
 
 #include "logger.h"
-//#include "../database/booksdb/BooksDBUtil.h"
-//#include "../database/booksdb/BooksDB.h"
+#include "../database/booksdb/BooksDBUtil.h"
+#include "../database/booksdb/BooksDB.h"
 
 shared_ptr<Library> Library::ourInstance;
 const size_t Library::MaxRecentListSize = 10;
@@ -60,7 +60,7 @@ Library::Library() :
     myWatcher(new Watcher(*this)),
 	myBuildMode(BUILD_ALL),
 	myRevision(0) {
-//	BooksDBUtil::getRecentBooks(myRecentBooks);
+	BooksDBUtil::getRecentBooks(myRecentBooks);
 }
 /*
 #include <ctime>
@@ -84,7 +84,7 @@ struct FunctionTimer
 };
 */
 void Library::collectBookFileNames(std::set<std::string> &bookFileNames, std::vector<shared_ptr<ZLInputStream> > &inputStreamCache) const {
-/*	DBG("Library::collectBookFileNames()");
+	DBG("Library::collectBookFileNames()");
 //	FunctionTimer timer(__PRETTY_FUNCTION__);
 	std::set<std::string> dirs;
 	DBG("collectDirNames");
@@ -141,7 +141,7 @@ void Library::collectBookFileNames(std::set<std::string> &bookFileNames, std::ve
 //				std::cerr.flush();
 			}
 		}
-	}*/
+	}
 }
 
 void Library::rebuildBookSet() const {
@@ -152,7 +152,7 @@ void Library::rebuildBookSet() const {
 	
 	std::map<std::string, shared_ptr<Book> > booksMap;
 	DBG("BooksDBUtil::getBooks(booksMap)");
-//	BooksDBUtil::getBooks(booksMap);
+	BooksDBUtil::getBooks(booksMap);
 
 	std::set<std::string> fileNamesSet;
 	std::vector<shared_ptr<ZLInputStream> > inputStreamCache;
@@ -166,7 +166,7 @@ void Library::rebuildBookSet() const {
 		//	std::cerr << "Check file \"" << (*it) << "\" ... ";
 		//	std::cerr.flush();
 		//	clock_t start = clock();
-//23			insertIntoBookSet(BooksDBUtil::getBook(*it));
+			insertIntoBookSet(BooksDBUtil::getBook(*it));
 		//	std::cerr << (double(clock() - start) * 1000. / CLOCKS_PER_SEC) << " ms" << std::endl;
 		//	std::cerr.flush();
 		} else {
@@ -178,12 +178,12 @@ void Library::rebuildBookSet() const {
 	// other books from our database
 	for (std::map<std::string, shared_ptr<Book> >::iterator jt = booksMap.begin(); jt != booksMap.end(); ++jt) {
 		shared_ptr<Book> book = jt->second;
-/*23		if (!book.isNull()) {
+		if (!book.isNull()) {
 			if (BooksDB::Instance().checkBookList(*book)) {
 				insertIntoBookSet(book);
 				myExternalBooks.insert(book);
 			}
-		}*/
+		}
 	}
 	
 	// help file
@@ -363,13 +363,13 @@ void Library::collectDirNames(std::set<std::string> &nameSet) const {
 }
 
 void Library::updateBook(shared_ptr<Book> book) {
-//	BooksDB::Instance().saveBook(book);
+	BooksDB::Instance().saveBook(book);
 	myBuildMode = (BuildMode)(myBuildMode | BUILD_UPDATE_BOOKS_INFO);
 }
 
 void Library::addBook(shared_ptr<Book> book) {
 	if (!book.isNull()) {
-//		BooksDB::Instance().saveBook(book);
+		BooksDB::Instance().saveBook(book);
 		insertIntoBookSet(book);
 		myBuildMode = (BuildMode)(myBuildMode | BUILD_UPDATE_BOOKS_INFO);
 	}
@@ -382,7 +382,7 @@ void Library::removeBook(shared_ptr<Book> book) {
 			myBooks.erase(it);
 			myBuildMode = (BuildMode)(myBuildMode | BUILD_UPDATE_BOOKS_INFO);
 		}
-//		BooksDB::Instance().deleteFromBookList(*book);
+		BooksDB::Instance().deleteFromBookList(*book);
 		bool recentListChanged = false;
 		for (BookList::iterator it = myRecentBooks.begin(); it != myRecentBooks.end();) {
 			if ((*it)->file() == book->file()) {
@@ -393,7 +393,7 @@ void Library::removeBook(shared_ptr<Book> book) {
 			}
 		}
 		if (recentListChanged) {
-//			BooksDB::Instance().saveRecentBooks(myRecentBooks);
+			BooksDB::Instance().saveRecentBooks(myRecentBooks);
 		}
 	}
 }
@@ -469,7 +469,7 @@ void Library::collectSeriesTitles(shared_ptr<Author> author, std::set<std::strin
 void Library::removeTag(shared_ptr<Tag> tag, bool includeSubTags) {
 	for (BookSet::const_iterator it = myBooks.begin(); it != myBooks.end(); ++it) {
 		if ((*it)->removeTag(tag, includeSubTags)) {
-//			BooksDB::Instance().saveTags(*it);
+			BooksDB::Instance().saveTags(*it);
 		}
 	}
 	myBuildMode = (BuildMode)(myBuildMode | BUILD_UPDATE_BOOKS_INFO);
@@ -479,7 +479,7 @@ void Library::renameTag(shared_ptr<Tag> from, shared_ptr<Tag> to, bool includeSu
 	if (to != from) {
 		synchronize();
 		for (BookSet::const_iterator it = myBooks.begin(); it != myBooks.end(); ++it) {
-//			BooksDBUtil::renameTag(*it, from, to, includeSubTags);
+			BooksDBUtil::renameTag(*it, from, to, includeSubTags);
 		}
 	}
 	myBuildMode = (BuildMode)(myBuildMode | BUILD_UPDATE_BOOKS_INFO);
@@ -489,7 +489,7 @@ void Library::cloneTag(shared_ptr<Tag> from, shared_ptr<Tag> to, bool includeSub
 	if (to != from) {
 		synchronize();
 		for (BookSet::const_iterator it = myBooks.begin(); it != myBooks.end(); ++it) {
-//			BooksDBUtil::cloneTag(*it, from, to, includeSubTags);
+			BooksDBUtil::cloneTag(*it, from, to, includeSubTags);
 		}
 	}
 	myBuildMode = (BuildMode)(myBuildMode | BUILD_UPDATE_BOOKS_INFO);
@@ -512,7 +512,7 @@ void Library::replaceAuthor(shared_ptr<Author> from, shared_ptr<Author> to) {
 	if (to != from) {
 		for (BookSet::const_iterator it = myBooks.begin(); it != myBooks.end(); ++it) {
 			if ((*it)->replaceAuthor(from, to)) {
-//				BooksDB::Instance().saveAuthors(*it);
+				BooksDB::Instance().saveAuthors(*it);
 			}
 		}
 		myBuildMode = (BuildMode)(myBuildMode | BUILD_UPDATE_BOOKS_INFO);
@@ -558,5 +558,5 @@ void Library::addBookToRecentList(shared_ptr<Book> book) {
 	if (myRecentBooks.size() > MaxRecentListSize) {
 		myRecentBooks.erase(myRecentBooks.begin() + MaxRecentListSize, myRecentBooks.end());
 	}
-//	BooksDB::Instance().saveRecentBooks(myRecentBooks);
+	BooksDB::Instance().saveRecentBooks(myRecentBooks);
 }

@@ -84,17 +84,17 @@ ZLTextWordCursor ZLTextAreaController::findStart(const ZLTextWordCursor &end, Si
 
 ZLTextWordCursor ZLTextAreaController::buildInfos(const ZLTextWordCursor &start) {
 	myArea.myLineInfos.clear();
-	DBG("ZLTextAreaController::buildInfos");
+//	DBG("ZLTextAreaController::buildInfos");
 	ZLTextWordCursor cursor = start;
 	int textHeight = myArea.height();
 	int counter = 0;
 	do {
-		DBG("do textHeight = %d counter = %d",  myArea.height(), counter);
+		//DBG("do textHeight = %d counter = %d",  myArea.height(), counter);
 		ZLTextWordCursor paragraphEnd = cursor;
 		paragraphEnd.moveToParagraphEnd();
 		ZLTextWordCursor paragraphStart = cursor;
 		paragraphStart.moveToParagraphStart();
-		DBG("paragraphStart = %d paragraphEnd = %d",  paragraphStart.elementIndex(), paragraphEnd.elementIndex());
+	//	DBG("paragraphStart = %d paragraphEnd = %d",  paragraphStart.elementIndex(), paragraphEnd.elementIndex());
 
 		ZLTextArea::Style style(myArea, myArea.myProperties.baseStyle());
 		style.applyControls(paragraphStart, cursor);
@@ -104,8 +104,8 @@ ZLTextWordCursor ZLTextAreaController::buildInfos(const ZLTextWordCursor &start)
 		{
 			info = myArea.processTextLine(style, info->End, paragraphEnd);
 			textHeight -= info->Height + info->Descent;
-			DBG("info->Height = %d info->Descent = %d", info->Height, info->Descent);
-			DBG("textHeight =%d counter = %d", textHeight, counter);
+		//	DBG("info->Height = %d info->Descent = %d", info->Height, info->Descent);
+		//	DBG("textHeight =%d counter = %d", textHeight, counter);
 			if ((textHeight < 0) && (counter > 0)) {
 				break;
 			}
@@ -231,7 +231,7 @@ ZLTextWordCursor ZLTextAreaController::findPercentFromStart(unsigned int percent
 }
 
 void ZLTextAreaController::rebuildPaintInfo(bool strong) {
-	DBG("ZLTextAreaController::rebuildPaintInfo");
+//	DBG("ZLTextAreaController::rebuildPaintInfo");
 	if (myPaintState == NOTHING_TO_PAINT) {
 		return;
 	}
@@ -261,13 +261,13 @@ void ZLTextAreaController::rebuildPaintInfo(bool strong) {
 }
 
 bool ZLTextAreaController::preparePaintInfo() {
-	DBG("ZLTextAreaController::preparePaintInfo");
+//	DBG("ZLTextAreaController::preparePaintInfo");
 	if ((myPaintState == NOTHING_TO_PAINT) || (myPaintState == READY)) {
 		return false;
 	}
 
 	myArea.myLineInfoCache.insert(myArea.myLineInfos.begin(), myArea.myLineInfos.end());
-	DBG("myPaintState %d",myPaintState);
+//	DBG("myPaintState %d",myPaintState);
 	switch (myPaintState) {
 		default:
 			break;
@@ -346,7 +346,7 @@ bool ZLTextAreaController::preparePaintInfo() {
 			}
 			break;
 		case START_IS_KNOWN:
-			DBG("START_IS_KNOWN");
+		//	DBG("START_IS_KNOWN");
 			myArea.myEndCursor = buildInfos(myArea.myStartCursor);
 			if (visiblePageIsEmpty()) {
 				ZLTextWordCursor startCursor = findLineFromStart(1);
@@ -365,7 +365,7 @@ bool ZLTextAreaController::preparePaintInfo() {
 			break;
 	}
 	myPaintState = READY;
-	DBG("ZLTextAreaController::preparePaintInfo end");
+//	DBG("ZLTextAreaController::preparePaintInfo end");
 	myArea.myLineInfoCache.clear();
 	return true;
 }

@@ -17,19 +17,26 @@ TestTizenOptionView::TestTizenOptionView(const std::string &name, const std::str
 }
 
 Evas_Object* TestTizenOptionView::createViewItem(Evas_Object *parent){
+	Evas_Object * label, *label2;
 	Evas_Object *layout = elm_layout_add(parent);
 
-	if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "label_layout") == 0)
+	if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "test_layout") == 0)
 			DBG("error set layout ");
 
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
-	Evas_Object * label = elm_label_add(layout);
-	elm_object_part_content_set(layout, "label1", label);
-	elm_object_text_set(label, _(name().c_str()));
-	//elm_object_text_set(label, _("<align=left><b>Title</b></align>"));
-	elm_object_content_set(layout,label);
-	evas_object_show(label);
+	label = elm_label_add(layout);
+	elm_object_part_content_set(layout, "title", label);
+	evas_object_move(label, 1, 1);
+	evas_object_resize(label, 300, 45);
+	elm_object_text_set(label, _("<align=left><b>TestTizenOptionView</b></align>"));
+//	evas_object_show(label);
+
+	label2 = elm_label_add(layout);
+	elm_object_part_content_set(layout, "text_string", label2);
+	elm_object_text_set(label2, _(name().c_str()));
+	elm_object_content_set(layout,label2);
+//	evas_object_show(label);
 
 	return layout;
 }

@@ -177,9 +177,9 @@ void ZLibrary::initApplication(const std::string &name) {
 	ourApplicationDirectory = BaseDirectory + "FBReader";//ourApplicationName;
 
 
-	char *data_path = app_get_resource_path();
+	char *data_path = app_get_data_path();
 		if (data_path) {
-			ourApplicationWritableDirectory = std::string(data_path);
+			ourApplicationWritableDirectory = std::string(data_path)+"write";
 			delete data_path;
 		}
 

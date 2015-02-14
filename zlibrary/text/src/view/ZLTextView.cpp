@@ -665,7 +665,7 @@ void ZLTextView::scrollPage(bool forward, ZLTextAreaController::ScrollingMode mo
 }
 
 void ZLTextView::preparePaintInfo() {
-	DBG("ZLTextView::preparePaintInfo");
+//	DBG("ZLTextView::preparePaintInfo");
 	size_t newWidth = 
 		std::max(context().width() - leftMargin() - rightMargin(), 1);
 	int viewHeight = context().height() - topMargin() - bottomMargin();
@@ -674,16 +674,16 @@ void ZLTextView::preparePaintInfo() {
 		viewHeight -= indicatorInfo->height() + indicatorInfo->offset();
 	}
 	size_t newHeight = std::max(viewHeight, 1);
-	DBG("newWidth %d newHeight=%d",newWidth,newHeight);
+//	DBG("newWidth %d newHeight=%d",newWidth,newHeight);
 	if (newWidth != myTextAreaController.area().width() || newHeight != myTextAreaController.area().height()) {
 		DBG("setSize");
 		myTextAreaController.area().setSize(newWidth, newHeight);
 		DBG("rebuildPaintInfo");
 		myTextAreaController.rebuildPaintInfo(false);
 	}
-	DBG("rebuildPaintInfo 2");
+//	DBG("rebuildPaintInfo 2");
 	if (myTextAreaController.preparePaintInfo()) {
 		myDoUpdateScrollbar = true;
 	}
-	DBG("preparePaintInfo end");
+//	DBG("preparePaintInfo end");
 }

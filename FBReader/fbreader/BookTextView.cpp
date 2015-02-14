@@ -35,7 +35,7 @@
 #include "../bookmodel/BookModel.h"
 #include "../external/ProgramCollection.h"
 
-//#include "../database/booksdb/BooksDB.h"
+#include "../database/booksdb/BooksDB.h"
 #include "../library/Book.h"
 
 class BookTextView::PositionIndicatorWithLabels : public PositionIndicator {
@@ -77,7 +77,7 @@ void BookTextView::readBookState(const Book &book) {
 		state.Character = ZLIntegerOption(ZLCategoryKey::STATE, LAST_STATE_GROUP, CHAR_OPTION_NAME, 0).value();
 	} else {
 		DBG("BooksDB::Instance().loadBookState");
-	//	BooksDB::Instance().loadBookState(book, state);
+		BooksDB::Instance().loadBookState(book, state);
 	}
 	state.Paragraph = state.Word = state.Character = 0;
 	gotoPosition(state.Paragraph, state.Word, state.Character);
@@ -88,7 +88,7 @@ int BookTextView::readStackPos(const Book &book) {
 	if (ZLBooleanOption(ZLCategoryKey::STATE, LAST_STATE_GROUP, STATE_VALID, false).value()) {
 		return ZLIntegerOption(ZLCategoryKey::STATE, LAST_STATE_GROUP, POSITION_IN_BUFFER, 0).value();
 	} else {
-	//	return BooksDB::Instance().loadStackPos(book);
+		return BooksDB::Instance().loadStackPos(book);
 	}
 }
 
@@ -101,8 +101,8 @@ void BookTextView::saveBookState(const Book &book) {
 	);
 	const int stackPos = ZLIntegerOption(ZLCategoryKey::STATE, LAST_STATE_GROUP, POSITION_IN_BUFFER, 0).value();
 
-//	BooksDB::Instance().setBookState(book, state);
-//	BooksDB::Instance().setStackPos(book, stackPos);
+	BooksDB::Instance().setBookState(book, state);
+	BooksDB::Instance().setStackPos(book, stackPos);
 
 	ZLIntegerOption(ZLCategoryKey::STATE, LAST_STATE_GROUP, PARAGRAPH_OPTION_NAME, 0).setValue(0);
 	ZLIntegerOption(ZLCategoryKey::STATE, LAST_STATE_GROUP, WORD_OPTION_NAME, 0).setValue(0);
@@ -124,7 +124,7 @@ void BookTextView::setModel(shared_ptr<ZLTextModel> model, shared_ptr<Book> book
 	readBookState(*book);
 	myPositionStack.clear();
 	myCurrentPointInStack = 0;
-//	BooksDB::Instance().loadBookStateStack(*book, myPositionStack);
+	BooksDB::Instance().loadBookStateStack(*book, myPositionStack);
 	myStackChanged = false;
 	if (myPositionStack.size() > 0) {
 		DBG("myPositionStack.size() > 0");
@@ -163,7 +163,7 @@ void BookTextView::saveState() {
 		ZLBooleanOption(ZLCategoryKey::STATE, LAST_STATE_GROUP, STATE_VALID, false).setValue(true);
 
 		if (myStackChanged) {
-//			BooksDB::Instance().saveBookStateStack(*myBook, myPositionStack);
+			BooksDB::Instance().saveBookStateStack(*myBook, myPositionStack);
 			myStackChanged = false;
 		}
 	}

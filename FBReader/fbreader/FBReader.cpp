@@ -55,7 +55,7 @@
 #include "../bookmodel/BookModel.h"
 #include "../formats/FormatPlugin.h"
 
-//#include "../database/booksdb/BooksDB.h"
+#include "../database/booksdb/BooksDB.h"
 #include "../database/booksdb/BooksDBUtil.h"
 #include "../library/Book.h"
 
@@ -230,16 +230,16 @@ void FBReader::initWindow() {
 
 		if (book.isNull()) {
 			DBG("book.isNull() пытаемся открыть последнюю книгу");
-		//	const BookList &books = Library::Instance().recentBooks();
-		//	if (!books.empty()) {
-		//		DBG("!books.empty()");
-		//		book = books[0];
-		//		DBG("book = books[0];");
-		//	}
+			const BookList &books = Library::Instance().recentBooks();
+			if (!books.empty()) {
+				DBG("!books.empty()");
+				book = books[0];
+				DBG("book = books[0];");
+			}
 		}
 		if (book.isNull()) {
 			DBG("book.isNull() хелп на каком-нибудь языке");
-//			book = BooksDBUtil::getBook(helpFileName(ZLibrary::Language()));
+			book = BooksDBUtil::getBook(helpFileName(ZLibrary::Language()));
 		}
 
 		if (book.isNull()) {
@@ -278,10 +278,10 @@ bool FBReader::createBook(const ZLFile &bookFile, shared_ptr<Book> &book) {
 				ZLStringUtil::printf(ZLDialogManager::dialogMessage(boxKey), error)
 			);
 		} else {
-		//	book = BooksDBUtil::getBook(bookFile.path());
+			book = BooksDBUtil::getBook(bookFile.path());
 			if (!book.isNull()) {
 				DBG("BooksDB::Instance().insertIntoBookList(*book)");
-			//		BooksDB::Instance().insertIntoBookList(*book);
+					BooksDB::Instance().insertIntoBookList(*book);
 			}
 		}
 		return true;
@@ -564,7 +564,7 @@ std::string FBReader::helpFileName(const std::string &language) const {
 
 
 shared_ptr<Book> FBReader::helpFile(const std::string &language) const {
-	return NULL;//BooksDBUtil::getBook(helpFileName(language));
+	return BooksDBUtil::getBook(helpFileName(language));
 }
 
 shared_ptr<Book> FBReader::helpFile() const {

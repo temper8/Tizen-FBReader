@@ -49,8 +49,8 @@
 #include "../bookmodel/BookModel.h"
 #include "../options/FBTextStyle.h"
 
-//#include "../database/booksdb/BooksDBUtil.h"
-//#include "../database/booksdb/BooksDB.h"
+#include "../database/booksdb/BooksDBUtil.h"
+#include "../database/booksdb/BooksDB.h"
 #include "../library/Library.h"
 #include "../library/Book.h"
 
@@ -136,28 +136,28 @@ void ShowOptionsDialogAction::run() {
 
 
 void ShowLibraryTreeAction::run() {
-//	AppLog("ShowLibraryTreeAction::run() ");
+	DBG("ShowLibraryTreeAction::run() ");
 	//TODO maybe use call LibraryView().showDialog here?
 	shared_ptr<ZLTreeDialog> dialog = ZLDialogManager::Instance().createTreeDialog(ZLResourceKey("LibraryTreeDialog"));
 	size_t index = 0;
-//	AppLog("ShowLibraryTreeAction::run() new AuthorTreeNode");
+	DBG("ShowLibraryTreeAction::run() new AuthorTreeNode");
 	dialog->rootNode().insert(new AuthorTreeNode, index++);
 
-//	AppLog("ShowLibraryTreeAction::run() new TagTreeNode");
+	DBG("ShowLibraryTreeAction::run() new TagTreeNode");
 	dialog->rootNode().insert(new TagTreeNode, index++);
 
-//	AppLog("ShowLibraryTreeAction::run() new TitleTreeNode");
+	DBG("ShowLibraryTreeAction::run() new TitleTreeNode");
     dialog->rootNode().insert(new TitleTreeNode, index++);
-//	AppLog("children().size() = %d ",dialog->rootNode().children().size());
+	DBG("children().size() = %d ",dialog->rootNode().children().size());
 
-//	AppLog("ShowLibraryTreeAction::run() new RecentBooksTreeNode");
+	DBG("ShowLibraryTreeAction::run() new RecentBooksTreeNode");
 	dialog->rootNode().insert(new RecentBooksTreeNode, index++);
 
-//	AppLog("ShowLibraryTreeAction::run()  new OpenFileSystemNode");
+	DBG("ShowLibraryTreeAction::run()  new OpenFileSystemNode");
 	dialog->rootNode().insert(new OpenFileSystemNode, index++);
-//	AppLog("children().size() = %d ",dialog->rootNode().children().size());
+	DBG("children().size() = %d ",dialog->rootNode().children().size());
 
-//	AppLog("dialog->run()");
+//	DBG("dialog->run()");
 	dialog->run();
 }
 

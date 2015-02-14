@@ -72,6 +72,12 @@ void ZLTizenTreeDialog::updateNode(ZLTreeTitledNode &node, int index){
 
 bool ZLTizenTreeDialog::enter(ZLTreeNode* node) {
 	 DBG("enter node");
+	 node->requestChildren(0);
+	 if (node->children().size() > 0) {
+		 myCurrentNode = node;
+		 updateContent();
+	 }
+	  else DBG("Empty List!");
 	 return true;
 }
 

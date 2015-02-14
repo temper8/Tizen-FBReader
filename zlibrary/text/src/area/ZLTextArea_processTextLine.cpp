@@ -34,7 +34,7 @@
 #include "ZLTextWord.h"
 
 struct ZLTextPartialInfo {
-	//ZLTextWordCursor Start;
+	//ZLTextWordCursor Start; set_linebr
 	//ZLTextWordCursor RealStart;
 	ZLTextWordCursor End;
 	bool IsVisible;
@@ -64,7 +64,7 @@ void ZLTextPartialInfo::setTo(ZLTextLineInfo &lineInfo) const {
 }
 
 ZLTextLineInfoPtr ZLTextArea::processTextLine(Style &style, const ZLTextWordCursor &start, const ZLTextWordCursor &end) {
-	DBG("ZLTextArea::processTextLine ");
+	//DBG("ZLTextArea::processTextLine ");
 	const bool useHyphenator =
 		ZLTextStyleCollection::Instance().AutoHyphenationOption.value();
 
@@ -123,7 +123,7 @@ ZLTextLineInfoPtr ZLTextArea::processTextLine(Style &style, const ZLTextWordCurs
 	unsigned char storedBidiLevel = style.bidiLevel();
 
 	const int fontSize = style.textStyle()->fontSize();
-	DBG("fontSize %d", fontSize);
+	//DBG("fontSize %d", fontSize);
 	// TODO: change metrics at font change
 	const ZLTextStyleEntry::Metrics metrics(fontSize, fontSize / 2, width(), height());
 	info.StartIndent = style.textStyle()->lineStartIndent(metrics, isRtl());
