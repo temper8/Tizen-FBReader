@@ -8,6 +8,7 @@
 #include "ZLTizenDialogContent.h"
 #include "optionView/ZLTizenOptionView.h"
 #include "optionView/TestTizenOptionView.h"
+#include "optionView/TizenTextOptionView.h"
 #include "optionView/TizenPictureView.h"
 #include "logger.h"
 
@@ -56,11 +57,11 @@ void ZLTizenDialogContent::createViewByEntry(const std::string &name, const std:
 	/*	case ZLOptionEntry::BOOLEAN:
 			DBG("ZLOptionEntry::BOOLEAN:");
 			view = new TizenBooleanOptionView(name, tooltip, (ZLBooleanOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
-			break;
+			break;*/
 		case ZLOptionEntry::STATIC:
 			DBG("ZLOptionEntry::STATIC:");
 			  view = new TizenTextOptionView(name, tooltip, (ZLStaticTextOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
-			break;*/
+			break;
     	case ZLOptionEntry::PICTURE:
 		    view = new TizenPictureView(name, tooltip, (ZLPictureOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
 		    break;
