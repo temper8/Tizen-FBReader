@@ -17,6 +17,12 @@ TizenPictureView::TizenPictureView(const std::string &name, const std::string &t
 	 myTab->myTizenOptionsDialog->addEvasViewItem(createViewItem(tab->myTizenOptionsDialog->myBox));
 }
 
+
+static void button_clicked(void *data, Evas_Object *btn, void *ev){
+	TizenPictureView* tv = (TizenPictureView*)data;
+	tv->myActions[1]->run();
+}
+
 Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 	Evas_Object *image, *label, *label2;
 	Evas_Object *button1, *button2, *button3, *button4;
@@ -66,7 +72,9 @@ Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 			//myBottonActions[actionsCount++]->SetAction(a);
 			std::string text = a->text(ZLResource::resource("networkView")["bookNode"]);
 			switch (i){
-			case	1:	elm_object_text_set(button1, _(text.c_str())); break;
+			case	1:	elm_object_text_set(button1, _(text.c_str()));
+						evas_object_smart_callback_add(button1, "clicked", button_clicked, this);
+						break;
 			case	2:	elm_object_text_set(button2, _(text.c_str())); break;
 			case	3:	elm_object_text_set(button3, _(text.c_str())); break;
 			case	4:	elm_object_text_set(button3, _(text.c_str())); break;

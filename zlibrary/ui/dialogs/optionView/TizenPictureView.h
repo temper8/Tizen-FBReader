@@ -14,14 +14,14 @@ class TizenPictureView: public ZLTizenOptionView {
 public:
 
 	TizenPictureView(const std::string &name, const std::string &tooltip, ZLPictureOptionEntry *option, ZLTizenDialogContent *tab, int row, int fromColumn, int toColumn);
-
+	const  std::vector<shared_ptr<ZLRunnableWithKey> > &myActions;
 protected:
 
 	virtual Evas_Object* createViewItem(Evas_Object *parent);
 	void _createItem();
 	void _onAccept() const;
 	shared_ptr<ZLImage> myImage;
-	const  std::vector<shared_ptr<ZLRunnableWithKey> > &myActions;
+
 //	Tizen::Graphics::Bitmap* makeCover(Tizen::Graphics::Bitmap* srcBmp);
 //	void createActionButtons(Tizen::Ui::Controls::TableViewItem* pItem);
 
