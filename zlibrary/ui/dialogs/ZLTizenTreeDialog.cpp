@@ -126,12 +126,12 @@ static Eina_Bool tree_dialog_pop_cb(void *data, Elm_Object_Item *it) {
 }
 
 static Evas_Object* gl_content_get_cb(void *data, Evas_Object *obj, const char *part) {
-	DBG("gl_content_get_cb");
+//	DBG("gl_content_get_cb");
 	return NULL;
 }
 
 static void gl_del_cb(void *data, Evas_Object *obj) {
-	DBG("gl_del_cb");
+//	DBG("gl_del_cb");
 	/* FIXME: Unrealized callback can be called after this. */
 	/* Accessing item_data_s can be dangerous on unrealized callback. */
 	//item_data_s *id = data;

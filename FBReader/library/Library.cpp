@@ -87,20 +87,20 @@ void Library::collectBookFileNames(std::set<std::string> &bookFileNames, std::ve
 	DBG("Library::collectBookFileNames()");
 //	FunctionTimer timer(__PRETTY_FUNCTION__);
 	std::set<std::string> dirs;
-	DBG("collectDirNames");
+	//DBG("collectDirNames");
 	collectDirNames(dirs);
 
 	while (!dirs.empty()) {
 		std::string dirname = *dirs.begin();
 		dirs.erase(dirs.begin());
-		DBG("dirname %s",dirname.c_str());
+		///DBG("dirname %s",dirname.c_str());
 		ZLFile dirfile(dirname);
 		std::vector<std::string> files;
 		bool inZip = false;
-		DBG("dirfile.directory");
+		//DBG("dirfile.directory");
 		shared_ptr<ZLDir> dir = dirfile.directory();
 		if (dir.isNull()) {
-			DBG("dir.isNull");
+			//DBG("dir.isNull");
 			continue;
 		}
 		
@@ -123,7 +123,7 @@ void Library::collectBookFileNames(std::set<std::string> &bookFileNames, std::ve
 			const bool collectBookWithoutMetaInfo = CollectAllBooksOption.value();
 			for (std::vector<std::string>::const_iterator jt = files.begin(); jt != files.end(); ++jt) {
 				const std::string fileName = (inZip) ? (*jt) : (dir->itemPath(*jt));
-				DBG("fileName %s",fileName.c_str());
+			//	DBG("fileName %s",fileName.c_str());
 				ZLFile file(fileName);
 //				std::cerr << "Check file \"" << fileName << "\" ... ";
 //				std::cerr.flush();
@@ -133,7 +133,7 @@ void Library::collectBookFileNames(std::set<std::string> &bookFileNames, std::ve
 				// TODO: zip -> any archive
 				} else if (file.extension() == "zip") {
 					if (myScanSubdirs || !inZip) {
-						DBG("myScanSubdirs fileName %s",fileName.c_str());
+					//	DBG("myScanSubdirs fileName %s",fileName.c_str());
 						dirs.insert(fileName);
 					}
 				}
@@ -145,18 +145,18 @@ void Library::collectBookFileNames(std::set<std::string> &bookFileNames, std::ve
 }
 
 void Library::rebuildBookSet() const {
-	DBG("Library::rebuildBookSet()");
+//	DBG("Library::rebuildBookSet()");
 //	FunctionTimer timer(__PRETTY_FUNCTION__);
 	myBooks.clear();
 	myExternalBooks.clear();
 	
 	std::map<std::string, shared_ptr<Book> > booksMap;
-	DBG("BooksDBUtil::getBooks(booksMap)");
+	//DBG("BooksDBUtil::getBooks(booksMap)");
 	BooksDBUtil::getBooks(booksMap);
 
 	std::set<std::string> fileNamesSet;
 	std::vector<shared_ptr<ZLInputStream> > inputStreamCache;
-	DBG("collectBookFileNames(fileNamesSet, inputStreamCache);");
+//	DBG("collectBookFileNames(fileNamesSet, inputStreamCache);");
 	collectBookFileNames(fileNamesSet, inputStreamCache);
 
 	// collect books from book path

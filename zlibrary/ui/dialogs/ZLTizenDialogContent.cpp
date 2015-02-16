@@ -8,6 +8,7 @@
 #include "ZLTizenDialogContent.h"
 #include "optionView/ZLTizenOptionView.h"
 #include "optionView/TestTizenOptionView.h"
+#include "optionView/TizenPictureView.h"
 #include "logger.h"
 
 ZLTizenDialogContent::	ZLTizenDialogContent(ZLTizenOptionsDialog *dialog, const ZLResource &resource): ZLDialogContent(resource), myTizenOptionsDialog(dialog) {
@@ -50,20 +51,20 @@ void ZLTizenDialogContent::createViewByEntry(const std::string &name, const std:
 	}
 	ZLTizenOptionView *view = 0;
 	DBG("createViewByEntry switch");
-/*
+
 	switch (option->kind()) {
-		case ZLOptionEntry::BOOLEAN:
+	/*	case ZLOptionEntry::BOOLEAN:
 			DBG("ZLOptionEntry::BOOLEAN:");
 			view = new TizenBooleanOptionView(name, tooltip, (ZLBooleanOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
 			break;
 		case ZLOptionEntry::STATIC:
 			DBG("ZLOptionEntry::STATIC:");
 			  view = new TizenTextOptionView(name, tooltip, (ZLStaticTextOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
-			break;
+			break;*/
     	case ZLOptionEntry::PICTURE:
 		    view = new TizenPictureView(name, tooltip, (ZLPictureOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
 		    break;
-		case ZLOptionEntry::SPIN:
+	/*	case ZLOptionEntry::SPIN:
 			DBG("ZLOptionEntry::SPIN:");
 			view = new TizenSpinOptionView(name, tooltip, (ZLSpinOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
 			break;
@@ -112,9 +113,10 @@ void ZLTizenDialogContent::createViewByEntry(const std::string &name, const std:
     		AppLog("ZLOptionEntry::MENU");
     		    view = new MenuView(name, tooltip, (ZLMenuOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
     		    break;	*/
-/*	}
-*/
-	if (view == 0) view = new TestTizenOptionView(name, tooltip, option, this, myRowCounter, fromColumn, toColumn);
+    	default :
+    		if (view == 0)	view = new TestTizenOptionView(name, tooltip, option, this, myRowCounter, fromColumn, toColumn);
+	}
+
 
 	if (view != 0) {
 		view->setVisible(option->isVisible());

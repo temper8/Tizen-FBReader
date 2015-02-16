@@ -14,7 +14,8 @@
 
 
 #define ELM_ZLUI_EDJ "/opt/usr/apps/org.tizen.tizen-fbreader/shared/res/ui.edj"
-#define EDJ_FBREADER_FILE "edje/fbreader.edj"
+//#define EDJ_FBREADER_FILE "edje/fbreader.edj"
+#define EDJ_FBREADER_FILE "edje/fbr.edj"
 
 ZLTizenOptionsDialog::~ZLTizenOptionsDialog() {
 	// TODO Auto-generated destructor stub
@@ -115,9 +116,13 @@ void ZLTizenOptionsDialog::createOptionsDialogObject(Evas_Object *nf){
 	myBox = elm_box_add(myScroller);
 	evas_object_size_hint_weight_set(myBox, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(myBox, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	elm_box_padding_set(myBox, 0, 5 * elm_config_scale_get());
+	elm_box_homogeneous_set(myBox, EINA_FALSE);
+	//elm_box_padding_set(myBox, 0, 5 * elm_config_scale_get());
 	evas_object_show(myBox);
 
+	//Evas_Object * layout = create_labels(myBox);
+	//evas_object_show(layout);
+	//elm_box_pack_end(myBox, layout);
 }
 
 void ZLTizenOptionsDialog::addEvasViewItem(Evas_Object* viewItem){
@@ -139,9 +144,9 @@ ZLDialogContent* createTab2(const ZLResourceKey &key){
 }
 */
 bool ZLTizenOptionsDialog::run(){
-	Evas_Object * layout = create_labels(myBox);
-	evas_object_show(layout);
-	elm_box_pack_end(myBox, layout);
+//	Evas_Object * layout = create_labels(myBox);
+//	evas_object_show(layout);
+//	elm_box_pack_end(myBox, layout);
 
 	DBG("ZLTizenOptionsDialog::run()");
 //	myDialogForm->Update();

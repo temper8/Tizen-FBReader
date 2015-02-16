@@ -10,10 +10,31 @@
 
 #include "logger.h"
 
+#define EDJ_FILE "/opt/usr/apps/org.tizen.tizen-fbreader/res/edje/alignment.edj"
+
 TestTizenOptionView::TestTizenOptionView(const std::string &name, const std::string &tooltip, ZLOptionEntry *option, ZLTizenDialogContent *tab, int row, int fromColumn, int toColumn) :
 										ZLTizenOptionView(name, tooltip, option, tab, row, fromColumn, toColumn) {
 	 DBG("TestTizenOptionView %s", name.c_str());
 	 myTab->myTizenOptionsDialog->addEvasViewItem(createViewItem(tab->myTizenOptionsDialog->myBox));
+//	 myTab->myTizenOptionsDialog->addEvasViewItem(createTestAlignment(tab->myTizenOptionsDialog->myBox));
+}
+
+Evas_Object* TestTizenOptionView::createTestAlignment(Evas_Object *parent){
+/* Base Layout */
+
+Evas_Object *layout = elm_layout_add(parent);
+if (elm_layout_file_set(layout, EDJ_FILE, "main") == 0) DBG("createTestAlignment error set layout ");
+evas_object_size_hint_min_set(layout, 400,400);
+//evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+//elm_object_content_set(parent, layout);
+Evas_Object *label = elm_label_add(layout);
+elm_object_part_content_set(layout, "button1", label);
+//evas_object_move(label, 1, 1);
+//	evas_object_resize(label, 300, 45);
+elm_object_text_set(label, _("<align=left><b>TestTizenOptionView</b></align>"));
+//	evas_object_show(label);
+
+return layout;
 }
 
 Evas_Object* TestTizenOptionView::createViewItem(Evas_Object *parent){
@@ -27,8 +48,8 @@ Evas_Object* TestTizenOptionView::createViewItem(Evas_Object *parent){
 
 	label = elm_label_add(layout);
 	elm_object_part_content_set(layout, "title", label);
-	evas_object_move(label, 1, 1);
-	evas_object_resize(label, 300, 45);
+	//evas_object_move(label, 1, 1);
+//	evas_object_resize(label, 300, 45);
 	elm_object_text_set(label, _("<align=left><b>TestTizenOptionView</b></align>"));
 //	evas_object_show(label);
 

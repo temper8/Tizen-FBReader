@@ -397,7 +397,8 @@ void ZLTizenApplicationWindow::createTestDialog(){
 		box = elm_box_add(layout);
 		evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 		evas_object_size_hint_align_set(box, EVAS_HINT_FILL, EVAS_HINT_FILL);
-		elm_object_part_content_set(layout, "elm.swallow.content", box);
+		elm_box_homogeneous_set(box, EINA_FALSE);
+	//	elm_object_part_content_set(layout, "elm.swallow.content", box);
 		Elm_Object_Item *nf_it = elm_naviframe_item_push(naviframe, "tree dialog", NULL, NULL, layout, NULL);
 }
 
