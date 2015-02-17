@@ -364,8 +364,8 @@ void FBReader::openBookInternal(shared_ptr<Book> book) {
 		//contentsView.setModel(myModel->contentsModel());
 		//contentsView.setCaption(book->title());
 		// отключение DB
-		//Library::Instance().addBook(book);
-		//Library::Instance().addBookToRecentList(book);
+		Library::Instance().addBook(book);
+		Library::Instance().addBookToRecentList(book);
 		((RecentBooksPopupData&)*myRecentBooksPopupData).updateId();
 		DBG("showBookTextView()");
 		showBookTextView();
