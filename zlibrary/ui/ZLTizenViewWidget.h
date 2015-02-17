@@ -26,6 +26,7 @@ public:
 	//ZLTizenPaintContext *tizenContext;
 	Evas_Object *scroller;
 	Evas_Object *image;
+	Elm_Object_Item *naviframe_item;
 	void draw();
 
 	void test_draw_on_cairo(Evas_Object *image);

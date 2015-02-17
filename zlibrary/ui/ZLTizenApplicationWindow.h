@@ -31,6 +31,7 @@
 class ZLTreeDialog;
 class ZLOptionsDialog;
 class ZLRunnable;
+class ZLTizenViewWidget;
 
 class ZLTizenApplicationWindow : public ZLApplicationWindow {
 public:
@@ -44,6 +45,7 @@ public:
 	Evas_Object *popup;
 	Evas_Object *drawer_panel;
 	Evas_Object *menuList;
+
 
 	static void win_back_cb(void *data, Evas_Object *obj, void *event_info);
 	Evas_Object * createDrawerPanel(Evas_Object *parent);
@@ -59,7 +61,7 @@ public:
 	shared_ptr<ZLOptionsDialog> createTizenOptionsDialog(const ZLResource &resource, shared_ptr<ZLRunnable> applyAction);
 	shared_ptr<ZLTreeDialog> myTreeDialog;
 	shared_ptr<ZLOptionsDialog> myOptionsDialog;
-
+	ZLTizenViewWidget* myTizenViewWidget;
 protected:
 	virtual ZLViewWidget *createViewWidget();
 

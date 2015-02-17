@@ -43,19 +43,29 @@ void ZLTizenApplicationWindow::MenuBuilder::processItem(ZLMenubar::PlainItem &it
 	myWindow.AddMenuItem(name, id);
 
 }
+typedef struct menu_data
+{
+	 const  std::string *id;
+	 ZLTizenApplicationWindow *windows;
+} menu_data_s;
 
 void ZLTizenApplicationWindow::onMenuItemSelected(void *data, Evas_Object *obj, void *event_info){
 //	elm_panel_hidden_set(drawer_panel, EINA_TRUE);
-	std::string *id = (std::string *)data;
-	DBG("selected item %s", id->c_str());
-	FBReader &fbreader = FBReader::Instance();
-	fbreader.doAction(*id);
 
+	//std::string *id = (std::string *)data;
+	menu_data_s *md = (menu_data_s *)data;
+
+	DBG("selected item %s", md->id->c_str());
+	FBReader &fbreader = FBReader::Instance();
+	fbreader.doAction(*(md->id));
+	elm_panel_hidden_set(md->windows->drawer_panel, EINA_TRUE);
 }
 
 void ZLTizenApplicationWindow::AddMenuItem(const std::string &name, const  std::string &id){
-
-	elm_list_item_append(menuList, name.c_str(), NULL, NULL, onMenuItemSelected, &id);
+	menu_data_s *md = (menu_data_s *)calloc(sizeof(menu_data_s), 1);
+	md->id = &id;
+	md->windows = this;
+	elm_list_item_append(menuList, name.c_str(), NULL, NULL, onMenuItemSelected, md);
 
 }
 
@@ -280,6 +290,15 @@ static void nf_more_cb(void *data, Evas_Object *obj, void *event_info)
 	*/
 }
 
+static void drawer_panel_Show(void *data, Evas_Object *obj, void *event_info)
+{
+	DBG("btn_cb");
+	ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
+	if (!elm_object_disabled_get(tw->drawer_panel)){
+		DBG("elm_panel_toggle");
+		elm_panel_toggle(tw->drawer_panel);
+	}
+}
 void ZLTizenApplicationWindow::mouseDown(int x,int y){
 if (x<200) prevPage();
 else nextPage();
@@ -297,15 +316,19 @@ void ZLTizenApplicationWindow::nextPage(){
 	 fbreader.doAction(ActionCode::PAGE_SCROLL_FORWARD);
 }
 
-static void
-naviframe_back_cb(void *data, Evas_Object *obj, void *event_info)
-{
-DBG("naviframe_back_cb");
-  elm_naviframe_item_pop(obj);
+static void naviframe_back_cb(void *data, Evas_Object *obj, void *event_info) {
+  DBG("naviframe_back_cb");
+  ZLTizenApplicationWindow* tw = (ZLTizenApplicationWindow*)data;
+  if (elm_panel_hidden_get(tw->drawer_panel) == EINA_TRUE){
+	  	  elm_naviframe_item_pop(obj);
+  	  }
+  else {
+	  elm_panel_hidden_set(tw->drawer_panel, EINA_TRUE);
+  }
 }
 
 ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): ZLApplicationWindow(application),
-																				win(NULL), conform(NULL), label(NULL), popup(NULL)
+																				win(NULL), conform(NULL), label(NULL), popup(NULL), myTizenViewWidget(NULL)
 {
 	// TODO Auto-generated constructor stub
 	win = elm_win_util_standard_add(PACKAGE, PACKAGE);
@@ -332,7 +355,7 @@ ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): 
 	/* Naviframe */
 	naviframe = elm_naviframe_add(conform);
 	eext_object_event_callback_add(naviframe, EEXT_CALLBACK_BACK, naviframe_back_cb, this);
-	eext_object_event_callback_add(naviframe, EEXT_CALLBACK_MORE, nf_more_cb, this);
+	eext_object_event_callback_add(naviframe, EEXT_CALLBACK_MORE, drawer_panel_Show, this);
 	evas_object_size_hint_weight_set(naviframe, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	elm_object_content_set(conform, naviframe);
 	evas_object_show(naviframe);
@@ -354,13 +377,6 @@ static void image_resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_i
 	viewWidget->draw();
 }
 
-static void
-_render_flush_cb(void *data, // evas event EVAS_CALLBACK_RENDER_FLUSH_PRE callback function.
-                     Evas *e,
-                     void *event_info)
-{
-   dlog_print(DLOG_DEBUG, LOG_TAG, "Canvas is about to flush its rendering pipeline!");
-}
 
 static void
 _on_mousedown(void *data, // evas object event EVAS_CALLBACK_MOUSE_DOWN callback function.
@@ -377,16 +393,7 @@ _on_mousedown(void *data, // evas object event EVAS_CALLBACK_MOUSE_DOWN callback
    app->mouseDown(ev->output.x, ev->output.y);
 }
 
-static void
-btn_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	DBG("btn_cb");
-	ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
-	if (!elm_object_disabled_get(tw->drawer_panel)){
-		DBG("elm_panel_toggle");
-		elm_panel_toggle(tw->drawer_panel);
-	}
-}
+
 
 void ZLTizenApplicationWindow::createTestDialog(){
 	DBG("createTizenTreeDialog");
@@ -399,7 +406,7 @@ void ZLTizenApplicationWindow::createTestDialog(){
 		evas_object_size_hint_align_set(box, EVAS_HINT_FILL, EVAS_HINT_FILL);
 		elm_box_homogeneous_set(box, EINA_FALSE);
 	//	elm_object_part_content_set(layout, "elm.swallow.content", box);
-		Elm_Object_Item *nf_it = elm_naviframe_item_push(naviframe, "tree dialog", NULL, NULL, layout, NULL);
+		Elm_Object_Item *nf_it = elm_naviframe_item_push(naviframe, "tree test dialog", NULL, NULL, layout, NULL);
 }
 
 shared_ptr<ZLOptionsDialog> ZLTizenApplicationWindow::createTizenOptionsDialog(const ZLResource &resource, shared_ptr<ZLRunnable> applyAction){
@@ -423,8 +430,8 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
 	Evas_Object *layout, *box;
 
-	ZLTizenViewWidget *viewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
-
+	//ZLTizenViewWidget *viewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
+	myTizenViewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
 	layout = create_drawer_layout(naviframe);
 
 	/* Box */
@@ -433,37 +440,37 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	evas_object_size_hint_align_set(box, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	elm_object_part_content_set(layout, "elm.swallow.content", box);
 
-	viewWidget->scroller = create_scroller(box, this);
-	evas_object_size_hint_weight_set(viewWidget->scroller, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(viewWidget->scroller, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	elm_box_pack_end(box, viewWidget->scroller);
+	myTizenViewWidget->scroller = create_scroller(box, this);
+	evas_object_size_hint_weight_set(myTizenViewWidget->scroller, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(myTizenViewWidget->scroller, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	elm_box_pack_end(box, myTizenViewWidget->scroller);
 
 	/* Label*/
-	label = elm_label_add(viewWidget->scroller);
+	label = elm_label_add(myTizenViewWidget->scroller);
 	elm_object_text_set(label, "Hello EFL and FBReader!");
 	evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_object_content_set(viewWidget->scroller, label);
+	elm_object_content_set(myTizenViewWidget->scroller, label);
 	evas_object_show(label);
 
 
 	// Adds a callback function to a given canvas event.
 //	evas_event_callback_add(viewWidget->scroller, EVAS_CALLBACK_RENDER_FLUSH_PRE, _render_flush_cb, NULL);
 	//Elm_Object_Item *nf_it =elm_naviframe_item_push(naviframe, "main navi", NULL, NULL, viewWidget->scroller, NULL);
-	Elm_Object_Item *nf_it = elm_naviframe_item_push(naviframe, "main navi", NULL, NULL, layout, NULL);
+	myTizenViewWidget->naviframe_item = elm_naviframe_item_push(naviframe, "FBReader", NULL, NULL, layout, NULL);
 	//nf_it = elm_naviframe_item_push(ad->nf, "Layout Samples", NULL, NULL, main_list, NULL);
-	elm_naviframe_item_pop_cb_set(nf_it, naviframe_pop_cb, win);
+	elm_naviframe_item_pop_cb_set(myTizenViewWidget->naviframe_item, naviframe_pop_cb, win);
 
-	Evas* canvas = evas_object_evas_get(viewWidget->scroller);
+	Evas* canvas = evas_object_evas_get(myTizenViewWidget->scroller);
 
 	Evas_Object *img = evas_object_image_add(canvas);
 	evas_object_image_colorspace_set(img, EVAS_COLORSPACE_ARGB8888);
-	evas_object_event_callback_add(img, EVAS_CALLBACK_RESIZE, image_resize_cb, viewWidget);
+	evas_object_event_callback_add(img, EVAS_CALLBACK_RESIZE, image_resize_cb, myTizenViewWidget);
 	evas_object_size_hint_weight_set(img, EVAS_HINT_FILL, 0.5);
 	evas_object_size_hint_align_set(img, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	elm_object_content_set(viewWidget->scroller, img);
+	elm_object_content_set(myTizenViewWidget->scroller, img);
 	evas_object_show(img);							// Make the given Evas object visible
 
-	viewWidget->image = img;
+	myTizenViewWidget->image = img;
 
 	// Add a callback function to a given Evas object event.
 	evas_object_event_callback_add(img, EVAS_CALLBACK_MOUSE_DOWN, _on_mousedown, NULL);
@@ -484,15 +491,15 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	Evas_Object *btn = elm_button_add(naviframe);
 	if (btn) {
 		elm_object_style_set(btn, "naviframe/drawers");
-		evas_object_smart_callback_add(btn, "clicked", btn_cb, this);
+		evas_object_smart_callback_add(btn, "clicked", drawer_panel_Show, this);
 		}
 
 
-	elm_object_item_part_content_set(nf_it, "title_right_btn", btn);
+	elm_object_item_part_content_set(myTizenViewWidget->naviframe_item, "title_right_btn", btn);
 
 	/* Show window after base gui is set up */
 	evas_object_show(win);
 
-	return viewWidget;
+	return myTizenViewWidget;
 
 }

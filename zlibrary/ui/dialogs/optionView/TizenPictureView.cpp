@@ -7,7 +7,8 @@
 
 #include "TizenPictureView.h"
 #include "../ZLTizenOptionsDialog.h"
-
+#include "../../ZLTizenApplicationWindow.h"
+#include "../../ZLTizenViewWidget.h"
 #include "logger.h"
 
 TizenPictureView::TizenPictureView(const std::string &name, const std::string &tooltip, ZLPictureOptionEntry *option, ZLTizenDialogContent *tab, int row, int fromColumn, int toColumn) :
@@ -21,6 +22,8 @@ TizenPictureView::TizenPictureView(const std::string &name, const std::string &t
 static void button_clicked(void *data, Evas_Object *btn, void *ev){
 	TizenPictureView* tv = (TizenPictureView*)data;
 	tv->myActions[1]->run();
+	ZLTizenViewWidget* v = (ZLTizenViewWidget*)tv->myTab->myTizenOptionsDialog->myWindows->myTizenViewWidget;
+	 elm_naviframe_item_promote(v->naviframe_item);
 }
 
 Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
