@@ -25,7 +25,7 @@ Evas_Object* TizenTextOptionView::createViewItem(Evas_Object *parent){
 	Evas_Object * label, *label2;
 	Evas_Object *layout = elm_layout_add(parent);
 
-	if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "test_layout") == 0)
+	if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "textOptionView_layout") == 0)
 			DBG("error set layout ");
 
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -34,15 +34,20 @@ Evas_Object* TizenTextOptionView::createViewItem(Evas_Object *parent){
 	elm_object_part_content_set(layout, "title", label);
 	//evas_object_move(label, 1, 1);
 //	evas_object_resize(label, 300, 45);
-	elm_object_text_set(label, _(name().c_str()));
+	std::string titleText = "<font_size=35><color=#000000FF>" + name() + "</color></font_size>";
+	elm_object_text_set(label, _(titleText.c_str()));
+	//elm_object_part_text_set(label, "textOptionView_layout.title",_(name().c_str()));
+	//elm_object_part_text_set(label, "title_text", _("one"));
 //	evas_object_show(label);
 
 	label2 = elm_label_add(layout);
-	elm_object_part_content_set(layout, "text_string", label2);
+	elm_object_part_content_set(layout, "text", label2);
+	elm_label_line_wrap_set(label2, ELM_WRAP_MIXED);
+	elm_label_wrap_width_set(label2, 100);
 
 	std::string text = ((ZLStaticTextOptionEntry&)*myOption).initialValue();
 	elm_object_text_set(label2, _(text.c_str()));
-	elm_object_content_set(layout,label2);
+//	elm_object_content_set(layout,label2);
 //	evas_object_show(label);
 
 	return layout;
