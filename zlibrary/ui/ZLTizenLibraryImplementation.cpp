@@ -15,7 +15,7 @@
 #include "dialogs/ZLTizenDialogManager.h"
 
 //#include "../image/ZLbadaImageManager.h"
-//#include "../../../../core/src/unix/iconv/IConvEncodingConverter.h"
+#include "../../core/src/unix/iconv/IConvEncodingConverter.h"
 #include "../../core/src/unix/xmlconfig/XMLConfig.h"
 //#include "../../../../core/src/unix/curl/ZLCurlNetworkManager.h"
 //#include "../network/ZLbadaNetworkManager.h"
@@ -70,7 +70,7 @@ void ZLTizenLibraryImplementation::init(int &argc, char **&argv){
 	//ZLbadaImageManager::createInstance();
 	DBG("ZLbadaImageManager::createInstance();");
 
-	//ZLEncodingCollection::Instance().registerProvider(new IConvEncodingConverterProvider());
+	ZLEncodingCollection::Instance().registerProvider(new IConvEncodingConverterProvider());
 	DBG("ZLEncodingCollection::Instance().registerProvider");
 
 	//ZLbadaNetworkManager::createInstance();
