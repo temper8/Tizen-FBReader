@@ -4,7 +4,23 @@
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
 <Reference URI="bin%2Ftizen-fbreader">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>cU75s7jDXNDxpxMnBNemZv5xtLEHZlHFbS17Nm6EIfI=</DigestValue>
+<DigestValue>XvUNNyvWcpOvxmbn+z979T8+KPKeun3xiTkWSSFD9bg=</DigestValue>
+</Reference>
+<Reference URI="res%2Fedje%2Falignment.edj">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>ru1beBnZscZ9BdG9DSBSW7UbtzAFtJcpwgQKtFH+iHM=</DigestValue>
+</Reference>
+<Reference URI="res%2Fedje%2Ffbr.edj">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>5KTJmFMQkARx2DYnY2eIiuDhdocHSl8ElfFVsJqtkg0=</DigestValue>
+</Reference>
+<Reference URI="res%2Fedje%2Ffbreader.edj">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>1RV05/+IXbREjcpYYnO0dDiA7qiCMb+lt67qC1O1GPA=</DigestValue>
+</Reference>
+<Reference URI="res%2Fedje%2Fui.ed%D1%81">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>Z3QxFrzQHJ3VVSp4vBQeMuJy/yG6F0dY2K0mnDmdbjc=</DigestValue>
 </Reference>
 <Reference URI="shared%2Fres%2FFBReader-type1.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -12,7 +28,7 @@
 </Reference>
 <Reference URI="shared%2Fres%2FFBReader%2Fdefault%2Fconfig.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>Y0zKeE4vDNWtNb4oNAA65P83s4oYx4d/HQHevxj8ZAs=</DigestValue>
+<DigestValue>Img5GEn6ilcQ5GvqO8YVuY856SpkKpJgBOvB55Z5U/s=</DigestValue>
 </Reference>
 <Reference URI="shared%2Fres%2FFBReader%2Fdefault%2Fexternal.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -129,6 +145,10 @@
 <Reference URI="shared%2Fres%2Ftizen-fbreader.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>1d0oEZHqPn+QzNzGIHwj9ODby6x9ggFs9uOsav6jPNs=</DigestValue>
+</Reference>
+<Reference URI="shared%2Fres%2Fui.edj">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>Z3QxFrzQHJ3VVSp4vBQeMuJy/yG6F0dY2K0mnDmdbjc=</DigestValue>
 </Reference>
 <Reference URI="shared%2Fres%2Fzlibrary%2Fdefault%2Fconfig.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -304,7 +324,7 @@
 </Reference>
 <Reference URI="tizen-manifest.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>PEXIuU/cGlLwY26NjCtRSKVinOTBxedySqX+G99xjuE=</DigestValue>
+<DigestValue>zd6w6oQEKHTj0tka5xuFrWdfZAaUZwRnrgLjTGVU3EY=</DigestValue>
 </Reference>
 <Reference URI="#prop">
 <Transforms>
@@ -315,9 +335,9 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-NVBj0h56gpKD4wIP4awttD4LWVR2sDdDKECH7rnE+IbB/WxNfbgC5reEN4SAs7c8KVlnHaYibVcG
-bXh8WAz9q44fx3luRIDMQicmB/uvCXWvn27kXWaOfPmqdIR22SjrBQgMSUf/dtvoaYKwaIvEAMQm
-uGkhwGfVOsrdyxeeVgo=
+OAU/SnkL/yMivLxj6z0wfUCwpx25TudbK68KlP8WZUUXFWGrPrG3LiUIKO42LJ2wu+ou2FGsG/5v
+r2C4LydeIqJRmD4DCimChEKkJDFw6D+Wdmzr1X/zne3Ipf2qb/npjOlySOaVRysiWQBDLK2tCGP3
+iiKmkQIGxZuBL9FY/OQ=
 </SignatureValue>
 <KeyInfo>
 <X509Data>

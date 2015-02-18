@@ -113,11 +113,9 @@ void ZLTizenPaintContext::setFont(const std::string &family, int size, bool bold
 }
 
 int ZLTizenPaintContext::stringWidth(const char *str, int len, bool rtl) const{
-//	DBG("stringWidth len = %d str =%s",len, str);
-
-	xmlChar *utf8 = xmlUTF8Strndup((xmlChar *)str,len);
-
-//	DBG("utf8 str=%s", utf8);
+	//DBG("stringWidth len = %d str =%s",len, str);
+	char *utf8 = strndup(str,len);
+	//DBG("stringWidth utf8 len=%d str=%s",len, utf8);
 	cairo_text_extents_t extents;
 	cairo_text_extents (cairo, (char* )utf8, &extents);
 	delete utf8;
@@ -148,7 +146,7 @@ void ZLTizenPaintContext::drawString(int x, int y, const char *str, int len, boo
 	cairo_set_source_rgb(cairo, myPenColor.Red / 255.0, myPenColor.Green /255.0, myPenColor.Blue / 255.0);
 	cairo_move_to (cairo, x,y);
 
-	xmlChar *utf8 = xmlUTF8Strndup((xmlChar *) str, len);
+	char *utf8 = strndup(str,len);
 	cairo_show_text (cairo, (char*)utf8);
 	delete utf8;
 }
