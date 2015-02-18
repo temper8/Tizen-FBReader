@@ -69,7 +69,7 @@ void FB2BookReader::startElementHandler(int tag, const char **xmlattributes) {
 	}
 	switch (tag) {
 		case _PP:
-			DBG("_PP");
+		//	DBG("_PP");
 			if (mySectionStarted) {
 				mySectionStarted = false;
 			} else if (myInsideTitle) {

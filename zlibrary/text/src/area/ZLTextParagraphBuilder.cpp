@@ -115,7 +115,7 @@ void ZLTextParagraphCursor::Builder::fill() {
 				break;
 			case ZLTextParagraphEntry::RESET_BIDI_ENTRY:
 			//	AppLog("entryKind RESET_BIDI_ENTRY");
-				updateBidiLevel(myBaseBidiLevel);
+			//	updateBidiLevel(myBaseBidiLevel);
 				myLatestBidiLevel = myBaseBidiLevel;
 				break;
 		}
@@ -126,7 +126,7 @@ void ZLTextParagraphCursor::Builder::fill() {
 
 void ZLTextParagraphCursor::Builder::processTextEntry(const ZLTextEntry &textEntry) {
 	const size_t dataLength = textEntry.dataLength();
-//	AppLog("dataLength %d", dataLength);
+DBG("dataLength %d", dataLength);
 	if (dataLength == 0) {
 		return;
 	}
@@ -159,7 +159,7 @@ void ZLTextParagraphCursor::Builder::processTextEntry(const ZLTextEntry &textEnt
 	myBreaksTable.assign(dataLength, 0);
 	const char *start = textEntry.data();
 	const char *end = start + dataLength;
-//	DBG("set_linebreaks_utf8 start %s", start);
+	DBG("set_linebreaks_utf8 start %s", start);
 	set_linebreaks_utf8((const utf8_t*)start, dataLength, myLanguage.c_str(), &myBreaksTable[0]);
 
 	ZLUnicodeUtil::Ucs4Char ch = 0, previousCh;

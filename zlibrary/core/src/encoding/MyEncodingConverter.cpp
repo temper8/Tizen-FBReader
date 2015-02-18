@@ -28,6 +28,8 @@
 
 #include "MyEncodingConverter.h"
 
+#include "logger.h"
+
 class MyOneByteEncodingConverter : public ZLEncodingConverter {
 
 private:
@@ -113,24 +115,25 @@ private:
 };
 
 MyEncodingConverterProvider::MyEncodingConverterProvider() {
-//	AppLog("MyEncodingConverterProvider()");
-//	AppLog("My encodingDescriptionPath %s",ZLEncodingCollection::encodingDescriptionPath().c_str());
+//	DBG("MyEncodingConverterProvider()");
+//	DBG("My encodingDescriptionPath %s",ZLEncodingCollection::encodingDescriptionPath().c_str());
 
 	shared_ptr<ZLDir> dir =
 		ZLFile(ZLEncodingCollection::encodingDescriptionPath()).directory();
 	//ZLFile(ZLEncodingCollection::encodingDescriptionPath(), ZLMimeType::EMPTY).directory();
 //	AppLog("shared_ptr<ZLDir> dir");
 	if (!dir.isNull()) {
+	//	DBG("dir not NULL");
 		std::vector<std::string> files;
 		dir->collectFiles(files, false);
-	//	AppLog("dir->collectFiles");
+	//	DBG("dir->collectFiles %d",files.size());
 		myProvidedEncodings.insert(files.begin(), files.end());
 	//	AppLog("myProvidedEncodings.insert");
 	}
 }
 
 bool MyEncodingConverterProvider::providesConverter(const std::string &encoding) {
-//	AppLog("MyEncodingConverterProvider::providesConverter %s",encoding.c_str());
+//	DBG("MyEncodingConverterProvider::providesConverter %s",encoding.c_str());
 	return myProvidedEncodings.find(encoding) != myProvidedEncodings.end();
 }
 
@@ -167,7 +170,7 @@ MyOneByteEncodingConverter::~MyOneByteEncodingConverter() {
 }
 
 void MyOneByteEncodingConverter::convert(std::string &dst, const char *srcStart, const char *srcEnd) {
-//	AppLog("MyOneByteEncodingConverter::convert ");
+//	DBG("MyOneByteEncodingConverter::convert ");
 
 	size_t oldLength = dst.length();
 	dst.append(3 * (srcEnd - srcStart), '\0');

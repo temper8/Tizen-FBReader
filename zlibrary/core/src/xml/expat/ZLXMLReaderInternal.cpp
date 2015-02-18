@@ -369,16 +369,16 @@ void ZLXMLReaderInternal::init(const char *encoding) {
 
 		//parseDTD(ctxt, *it);
 	}
-//	XML_SetUserData(myParser, &myReader);
-	AppLog("XML_SetUserData");
+//	XML_SetUserData(myParser, &myReader);*/
+	DBG("XML_SetUserData");
 	if (encoding != 0) {
-		AppLog("encoding %s",encoding);
+		DBG("encoding %s",encoding);
 		encodingInfo = ZLEncodingCollection::Instance().info(encoding);
 		if (!encodingInfo.isNull()) converter = encodingInfo->createConverter();
 
-		xmlNewCharEncodingHandler(encoding,fxmlCharEncodingInputFunc,fxmlCharEncodingOutputFunc);
-		AppLog("xmlNewCharEncodingHandler encoding %s",encoding);
-	    }
+		//xmlNewCharEncodingHandler(encoding,fxmlCharEncodingInputFunc,fxmlCharEncodingOutputFunc);
+		DBG("xmlNewCharEncodingHandler encoding %s",encoding);
+	    };
 	//if (encoding != 0) {
 		//XML_SetEncoding(myParser, encoding);
 //	XML_SetEncoding(myParser, "");
@@ -386,7 +386,6 @@ void ZLXMLReaderInternal::init(const char *encoding) {
 //	AppLog("xmlSAXVersion %d",xmlSAXVersion(&MySaxhandler,2));
 	//xmlInitCharEncodingHandlers	();
 
-*/
 //	AppLog("XML_SetEncoding");
 
 }

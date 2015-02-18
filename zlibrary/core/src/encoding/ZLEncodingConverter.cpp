@@ -19,6 +19,7 @@
 
 #include "ZLEncodingConverter.h"
 #include "ZLEncodingConverterProvider.h"
+#include "logger.h"
 
 ZLEncodingConverterProvider::ZLEncodingConverterProvider() {
 	//AppLog("ZLEncodingConverterProvider()");
@@ -30,7 +31,7 @@ ZLEncodingConverterProvider::~ZLEncodingConverterProvider() {
 bool ZLEncodingConverterInfo::canCreateConverter() const {
 //	AppLog("ZLEncodingConverterInfo::canCreateConverter()");
 	ZLEncodingCollection &collection = ZLEncodingCollection::Instance();
-	//AppLog("ZLEncodingCollection::Instance()");
+	DBG("ZLEncodingCollection::Instance()");
 	const std::vector<shared_ptr<ZLEncodingConverterProvider> > &providers = collection.providers();
 	//AppLog("collection.providers()");
 	for (std::vector<shared_ptr<ZLEncodingConverterProvider> >::const_iterator it = providers.begin(); it != providers.end(); ++it) {
@@ -38,12 +39,12 @@ bool ZLEncodingConverterInfo::canCreateConverter() const {
 		for (std::vector<std::string>::const_iterator jt = myAliases.begin(); jt != myAliases.end(); ++jt) {
 		//	AppLog("for2 myAliases=%s",jt->c_str());
 			if ((*it)->providesConverter(*jt)) {
-				//AppLog("return true; ");
+				DBG("return true; ");
 				return true;
 			}
 		}
 	}
-	//AppLog("return false; ");
+	DBG("return false; ");
 	return false;
 }
 
