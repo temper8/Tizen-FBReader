@@ -101,11 +101,11 @@ void ZLTextParagraphCursor::Builder::fill() {
 				ImageEntry &imageEntry = (ImageEntry&)*it.entry();
 				shared_ptr<const ZLImage> image = imageEntry.image();
 				if (!image.isNull()) {
-				//	AppLog("!image.isNull()");
-				//	shared_ptr<ZLImageData> data = ZLImageManager::Instance().imageData(*image);
-				//	if (!data.isNull()) {
-					//	myElements.push_back(new ZLTextImageElement(imageEntry.id(), data));
-				//	}
+					DBG("!image.isNull()");
+					shared_ptr<ZLImageData> data = ZLImageManager::Instance().imageData(*image);
+					if (!data.isNull()) {
+						myElements.push_back(new ZLTextImageElement(imageEntry.id(), data));
+					}
 				}
 				break;
 			}
@@ -126,7 +126,7 @@ void ZLTextParagraphCursor::Builder::fill() {
 
 void ZLTextParagraphCursor::Builder::processTextEntry(const ZLTextEntry &textEntry) {
 	const size_t dataLength = textEntry.dataLength();
-DBG("dataLength %d", dataLength);
+//DBG("dataLength %d", dataLength);
 	if (dataLength == 0) {
 		return;
 	}
@@ -159,7 +159,7 @@ DBG("dataLength %d", dataLength);
 	myBreaksTable.assign(dataLength, 0);
 	const char *start = textEntry.data();
 	const char *end = start + dataLength;
-	DBG("set_linebreaks_utf8 start %s", start);
+	//DBG("set_linebreaks_utf8 start %s", start);
 	set_linebreaks_utf8((const utf8_t*)start, dataLength, myLanguage.c_str(), &myBreaksTable[0]);
 
 	ZLUnicodeUtil::Ucs4Char ch = 0, previousCh;

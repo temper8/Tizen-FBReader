@@ -24,7 +24,7 @@
 #include <string>
 
 #include <ZLOptions.h>
-//#include <ZLImageManager.h>
+#include <ZLImageManager.h>
 #include <ZLImage.h>
 #include <ZLRunnable.h>
 //#include <ZLTreeTitledNode.h>

@@ -159,3 +159,11 @@ void ZLTizenPaintContext::fillFamiliesList(std::vector<std::string> &families) c
 
 
 }
+
+void ZLTizenPaintContext::drawImage(int x, int y, const ZLImageData &image){
+	DBG("drawImage ");
+}
+
+void ZLTizenPaintContext::drawImage(int x, int y, const ZLImageData &image, int width, int height, ScalingType type){
+	DBG("drawImage ");
+}

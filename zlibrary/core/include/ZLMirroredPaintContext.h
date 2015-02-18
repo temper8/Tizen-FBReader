@@ -50,8 +50,8 @@ private:
 	int descent() const;
 	void drawString(int x, int y, const char *str, int len, bool rtl);
 
-//	void drawImage(int x, int y, const ZLImageData &image);
-//	void drawImage(int x, int y, const ZLImageData &image, int width, int height, ScalingType type);
+	void drawImage(int x, int y, const ZLImageData &image);
+	void drawImage(int x, int y, const ZLImageData &image, int width, int height, ScalingType type);
 
 	void drawLine(int x0, int y0, int x1, int y1);
 	void fillRectangle(int x0, int y0, int x1, int y1);

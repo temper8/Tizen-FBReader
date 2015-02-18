@@ -93,7 +93,7 @@ int ZLTextArea::Style::elementWidth(const ZLTextElement &element, unsigned int c
 		case ZLTextElement::WORD_ELEMENT:
 			return wordWidth((const ZLTextWord&)element, charIndex, -1, false);
 		case ZLTextElement::IMAGE_ELEMENT:
-			return 100;//myArea.context().imageWidth(*((const ZLTextImageElement&)element).image(), myArea.width(), myArea.height(), ZLPaintContext::SCALE_REDUCE_SIZE);
+			return myArea.context().imageWidth(*((const ZLTextImageElement&)element).image(), myArea.width(), myArea.height(), ZLPaintContext::SCALE_REDUCE_SIZE);
 		case ZLTextElement::INDENT_ELEMENT:
 			return textStyle()->firstLineIndentDelta(metrics);
 		case ZLTextElement::HSPACE_ELEMENT:
@@ -124,8 +124,8 @@ int ZLTextArea::Style::elementHeight(const ZLTextElement &element, const ZLTextS
 			return myWordHeight;
 		case ZLTextElement::IMAGE_ELEMENT:
 			return
-				100;//myArea.context().imageHeight(*((const ZLTextImageElement&)element).image(), myArea.width(), myArea.height(), ZLPaintContext::SCALE_REDUCE_SIZE) +
-				//std::max(myArea.context().stringHeight() * (textStyle()->lineSpacePercent() - 100) / 100, 3);
+				myArea.context().imageHeight(*((const ZLTextImageElement&)element).image(), myArea.width(), myArea.height(), ZLPaintContext::SCALE_REDUCE_SIZE) +
+				std::max(myArea.context().stringHeight() * (textStyle()->lineSpacePercent() - 100) / 100, 3);
 		case ZLTextElement::BEFORE_PARAGRAPH_ELEMENT:
 			return - textStyle()->spaceAfter(metrics);
 		case ZLTextElement::AFTER_PARAGRAPH_ELEMENT:

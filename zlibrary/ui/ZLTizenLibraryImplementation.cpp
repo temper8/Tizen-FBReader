@@ -13,8 +13,8 @@
 #include "ZLTizenFSManager.h"
 #include "time/ZLTizenTime.h"
 #include "dialogs/ZLTizenDialogManager.h"
+#include "image/ZLTizenImageManager.h"
 
-//#include "../image/ZLbadaImageManager.h"
 #include "../../core/src/unix/iconv/IConvEncodingConverter.h"
 #include "../../core/src/unix/xmlconfig/XMLConfig.h"
 //#include "../../../../core/src/unix/curl/ZLCurlNetworkManager.h"
@@ -67,7 +67,7 @@ void ZLTizenLibraryImplementation::init(int &argc, char **&argv){
 	//ZLUnixCommunicationManager::createInstance();
 	DBG("ZLUnixCommunicationManager::createInstance();");
 
-	//ZLbadaImageManager::createInstance();
+	ZLTizenImageManager::createInstance();
 	DBG("ZLbadaImageManager::createInstance();");
 
 	ZLEncodingCollection::Instance().registerProvider(new IConvEncodingConverterProvider());

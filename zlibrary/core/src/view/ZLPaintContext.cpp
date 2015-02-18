@@ -32,7 +32,7 @@ const std::vector<std::string> &ZLPaintContext::fontFamilies() const {
 	}
 	return myFamilies;
 }
-/*
+
 int ZLPaintContext::imageWidth(const ZLImageData &image, int width, int height, ScalingType type) const {
 	const int origWidth = image.width();
 	const int origHeight = image.height();
@@ -74,4 +74,4 @@ int ZLPaintContext::imageHeight(const ZLImageData &image, int width, int height,
 	}
 	return height;
 }
-*/
+
