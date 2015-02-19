@@ -78,20 +78,41 @@ shared_ptr<ZLImageData> ZLTizenImageManager::createData() const {
 	DBG("ZLTizenImageManager::createData() ");
 	return new ZLTizenImageData();
 }
+typedef struct closure_data
+{
+	 const  unsigned char *buff;
+	 int length;
+	 int pos;
+} closure_data_s;
+
+static cairo_status_t  cairo_read_func(void *closure,  unsigned char *data,    unsigned int length){
+	closure_data_s* c = (closure_data_s *)closure;
+//	DBG("cairo_read_func %d", length);
+	if (c->pos + length > c->length)
+	    return CAIRO_STATUS_READ_ERROR;
+    memcpy (data, c->buff + c->pos, length);
+	  c->pos += length;
+	return CAIRO_STATUS_SUCCESS;
+}
 
 bool ZLTizenImageManager::convertImageDirect(const std::string &stringData, ZLImageData &data) const {
 	DBG("convertImageDirect");
 	int imageWidth=100;
 	int imageHeight=100;
-//    AppLog("SetArray %d",  stringData.length());
-  //  ImageFormat iformat;
     if (strncmp(stringData.data()+1, "PNG", 3) == 0) {
-    	DBG("iformat = IMG_FORMAT_PNG" );
-  //  	iformat = IMG_FORMAT_PNG;
+    	DBG("format = IMG_FORMAT_PNG" );
+    	closure_data_s c;
+    	c.buff = (unsigned char *) stringData.data();
+    	c.pos = 0;
+    	c.length = stringData.length();
+    	((ZLTizenImageData&)data).surface = cairo_image_surface_create_from_png_stream(cairo_read_func, (void *)&c);
+		if (((ZLTizenImageData&)data).surface!=NULL) DBG("surface created");
+												else DBG("surface error");
+		return true;
     }
     else
     if (strncmp(stringData.data(), "GIF", 3) == 0) {
-        	DBG("iformat = IMG_FORMAT_GIF" );
+        	DBG("format = IMG_FORMAT_GIF" );
     //    	iformat = IMG_FORMAT_GIF;
         }
     else {
@@ -107,7 +128,7 @@ bool ZLTizenImageManager::convertImageDirect(const std::string &stringData, ZLIm
 		int stride = cairo_format_stride_for_width(CAIRO_FORMAT_RGB24,imageWidth);
 		DBG("stride =%d", stride);
 		// оказалось что IMAGE_UTIL_COLORSPACE_BGRA8888 == CAIRO_FORMAT_RGB24
-		((ZLTizenImageData&)data).surface =cairo_image_surface_create_for_data(*imageBuffer, CAIRO_FORMAT_RGB24, imageWidth, imageHeight, stride);
+		((ZLTizenImageData&)data).surface = cairo_image_surface_create_for_data(*imageBuffer, CAIRO_FORMAT_RGB24, imageWidth, imageHeight, stride);
 		if (((ZLTizenImageData&)data).surface!=NULL) DBG("surface created");
 												else DBG("surface error");
 		return true;
