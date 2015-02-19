@@ -14,6 +14,8 @@
 
 #include <libxml/parser.h>
 
+#include "image/ZLTizenImageManager.h"
+
 ZLTizenPaintContext::ZLTizenPaintContext() : ZLPaintContext() {
 	// TODO Auto-generated constructor stub
 	mySpaceWidth = -1;
@@ -162,8 +164,21 @@ void ZLTizenPaintContext::fillFamiliesList(std::vector<std::string> &families) c
 
 void ZLTizenPaintContext::drawImage(int x, int y, const ZLImageData &image){
 	DBG("drawImage ");
+	cairo_surface_t *surface = 	((ZLTizenImageData&)image).surface;
+    int imageWidth = image.width();
+    int imageHeight = image.height();
+	DBG("draw image w = %d, h = %d", imageWidth, imageHeight);
+	cairo_set_source_surface (cairo, surface, x, y);
+	cairo_paint (cairo);
 }
 
 void ZLTizenPaintContext::drawImage(int x, int y, const ZLImageData &image, int width, int height, ScalingType type){
-	DBG("drawImage ");
+	DBG("drawImage with scaling");
+	cairo_surface_t *surface = 	((ZLTizenImageData&)image).surface;
+    int imageWidth = image.width();
+    int imageHeight = image.height();
+	DBG("draw image x = %d, y = %d", x, y);
+	DBG("draw image w = %d, h = %d", imageWidth, imageHeight);
+	cairo_set_source_surface (cairo, surface, 50, 50);
+	cairo_paint (cairo);
 }
