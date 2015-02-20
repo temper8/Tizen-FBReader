@@ -53,6 +53,11 @@ void ZLTizenApplicationWindow::onMenuItemSelected(void *data, Evas_Object *obj, 
 //	elm_panel_hidden_set(drawer_panel, EINA_TRUE);
 
 	//std::string *id = (std::string *)data;
+
+	Elm_Object_Item *it = (Elm_Object_Item *)event_info;
+	/* Unhighlight item */
+	elm_list_item_selected_set(it, EINA_FALSE);
+
 	menu_data_s *md = (menu_data_s *)data;
 
 	DBG("selected item %s", md->id->c_str());
@@ -280,22 +285,12 @@ static void nf_more_cb(void *data, Evas_Object *obj, void *event_info)
  DBG("menu button event");
  ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
  tw->createTestDialog();
- /*
-	if (!tw->popup)
-		tw->popup = create_menu_popup(tw);
-	else {
-		evas_object_del(tw->popup);
-		tw->popup = NULL;
-	}
-	*/
 }
 
 static void drawer_panel_Show(void *data, Evas_Object *obj, void *event_info)
 {
-	DBG("btn_cb");
 	ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
 	if (!elm_object_disabled_get(tw->drawer_panel)){
-		DBG("elm_panel_toggle");
 		elm_panel_toggle(tw->drawer_panel);
 	}
 }
@@ -495,7 +490,7 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 		}
 
 
-	elm_object_item_part_content_set(myTizenViewWidget->naviframe_item, "title_right_btn", btn);
+	elm_object_item_part_content_set(myTizenViewWidget->naviframe_item, "title_left_btn", btn);
 
 	/* Show window after base gui is set up */
 	evas_object_show(win);
