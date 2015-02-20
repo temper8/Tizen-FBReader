@@ -175,10 +175,18 @@ void ZLTizenPaintContext::drawImage(int x, int y, const ZLImageData &image){
 void ZLTizenPaintContext::drawImage(int x, int y, const ZLImageData &image, int width, int height, ScalingType type){
 	DBG("drawImage with scaling");
 	cairo_surface_t *surface = 	((ZLTizenImageData&)image).surface;
-    int imageWidth = image.width();
-    int imageHeight = image.height();
+//    int imageWidth = image.width();
+  //  int imageHeight = image.height();
 	DBG("draw image x = %d, y = %d", x, y);
-	DBG("draw image w = %d, h = %d", imageWidth, imageHeight);
-	cairo_set_source_surface (cairo, surface, 50, 50);
+//	DBG("draw image iw = %d, ih = %d", imageWidth, imageHeight);
+	DBG("draw image w = %d, h = %d", width, height);
+	cairo_save(cairo);
+	int w =	imageWidth(image, width, height, type);
+	int h = imageHeight(image, width, height, type);
+	//cairo_scale(cairo, (double)width/(double)imageWidth, (double)height/(double)imageHeight);
+	cairo_translate(cairo,x,y-h);
+	cairo_scale(cairo, (double)image.width()/(double)w, (double)image.height()/(double)h);
+	cairo_set_source_surface (cairo, surface, 0, 0);
 	cairo_paint (cairo);
+	cairo_restore(cairo);
 }
