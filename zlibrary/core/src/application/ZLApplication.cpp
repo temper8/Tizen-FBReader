@@ -134,7 +134,7 @@ void ZLApplication::addAction(const std::string &actionId, shared_ptr<Action> ac
 }
 
 void ZLApplication::setView(shared_ptr<ZLView> view) {
-//	AppLog("ZLApplication::setView");
+	DBG("ZLApplication::setView");
 	if (view.isNull()) {
 		return;
 	}

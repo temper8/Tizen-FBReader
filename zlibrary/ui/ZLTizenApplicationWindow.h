@@ -52,8 +52,8 @@ public:
 	static void onMenuItemSelected(void *data, Evas_Object *obj, void *event_info);
 
 	void AddMenuItem(const std::string &name, const  std::string &id);
-	void prevPage();
-	void nextPage();
+	void gotoPrevPage();
+	void gotoNextPage();
 	void mouseDown(int x, int y);
 
 	void createTestDialog();

@@ -292,17 +292,17 @@ static void drawer_panel_Show(void *data, Evas_Object *obj, void *event_info)
 	}
 }
 void ZLTizenApplicationWindow::mouseDown(int x,int y){
-if (x<200) prevPage();
-else nextPage();
+	if (x<200) gotoPrevPage();
+	else gotoNextPage();
 }
 
-void ZLTizenApplicationWindow::prevPage(){
+void ZLTizenApplicationWindow::gotoPrevPage(){
 	 DBG("PrevPage");
 	 FBReader &fbreader = FBReader::Instance();
 	 fbreader.doAction(ActionCode::PAGE_SCROLL_BACKWARD);
 }
 
-void ZLTizenApplicationWindow::nextPage(){
+void ZLTizenApplicationWindow::gotoNextPage(){
 	 DBG("NextPage");
 	 FBReader &fbreader = FBReader::Instance();
 	 fbreader.doAction(ActionCode::PAGE_SCROLL_FORWARD);
