@@ -4,7 +4,7 @@
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
 <Reference URI="bin%2Ftizen-fbreader">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>XvUNNyvWcpOvxmbn+z979T8+KPKeun3xiTkWSSFD9bg=</DigestValue>
+<DigestValue>4W1ObJcO3jHn6+A7llzL/y8vdc9bpSPhglOVxLcN/rY=</DigestValue>
 </Reference>
 <Reference URI="res%2Fedje%2Falignment.edj">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -44,7 +44,7 @@
 </Reference>
 <Reference URI="shared%2Fres%2FFBReader%2Fdefault%2Fmenubar.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>p55dg49wozTsb7SkxZgTDWN/07I8yMy9zt3DnaisnX4=</DigestValue>
+<DigestValue>ON8k+kI36Ee6W9Rj0odM8kB14+aRay+FTWgHPfqffX0=</DigestValue>
 </Reference>
 <Reference URI="shared%2Fres%2FFBReader%2Fdefault%2Fmenubar_net.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -335,9 +335,9 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-OAU/SnkL/yMivLxj6z0wfUCwpx25TudbK68KlP8WZUUXFWGrPrG3LiUIKO42LJ2wu+ou2FGsG/5v
-r2C4LydeIqJRmD4DCimChEKkJDFw6D+Wdmzr1X/zne3Ipf2qb/npjOlySOaVRysiWQBDLK2tCGP3
-iiKmkQIGxZuBL9FY/OQ=
+PWSdQTyH8s69g9m/gxggF5UcMX0iPZOQeIfdaMCvIq7c9NQufAVhySkW47j9Gso6RyaW6YIy6t5Q
+BPRVB9da2Jszf9gAjpKaKWEKeltUSisi5/8ioju+mSJ+kypyrL194d8cZ6FbY0ZIJlbpYz8XYtFa
+sjOE23WEWYEk2g+XE0c=
 </SignatureValue>
 <KeyInfo>
 <X509Data>

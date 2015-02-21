@@ -11,11 +11,11 @@ const ZLTypeId &AuthorTreeNode::typeId() const {
 
 AuthorTreeNode::AuthorTreeNode() {
         //TODO may be add lazy initialization here
- /*       const AuthorList &authors = Library::Instance().authors();
+        const AuthorList &authors = Library::Instance().authors();
         size_t index = 0;
         for (AuthorList::const_iterator it=authors.begin(); it!=authors.end(); ++it) {
                 insert(new AuthorNode(*it), index++);
-        }*/
+        }
 }
 
 std::string AuthorTreeNode::title() const {
