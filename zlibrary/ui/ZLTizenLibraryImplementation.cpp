@@ -62,13 +62,13 @@ void ZLTizenLibraryImplementation::init(int &argc, char **&argv){
 	DBG("ZLTizenFSManager::createInstance();");
 
 	ZLTizenDialogManager::createInstance();
-	DBG("ZLbadaDialogManager::createInstance();");
+	DBG("ZLTizenDialogManager::createInstance();");
 
 	//ZLUnixCommunicationManager::createInstance();
 	DBG("ZLUnixCommunicationManager::createInstance();");
 
 	ZLTizenImageManager::createInstance();
-	DBG("ZLbadaImageManager::createInstance();");
+	DBG("ZLTizenImageManager::createInstance();");
 
 	ZLEncodingCollection::Instance().registerProvider(new IConvEncodingConverterProvider());
 	DBG("ZLEncodingCollection::Instance().registerProvider");
@@ -111,6 +111,7 @@ void ZLTizenLibraryImplementation::app_resume(void *data)
 void ZLTizenLibraryImplementation::app_terminate(void *data)
 {
 	/* Release all resources. */
+	DBG("app_terminate");
 }
 
 

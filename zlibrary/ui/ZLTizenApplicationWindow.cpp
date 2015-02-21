@@ -15,6 +15,11 @@
 #include "dialogs/ZLTizenTreeDialog.h"
 #include "dialogs/ZLTizenOptionsDialog.h"
 
+void ZLTizenApplicationWindow::close(){
+	DBG("ZLTizenApplicationWindow::close() ");
+	ui_app_exit();
+}
+
 void ZLTizenApplicationWindow::initMenu() {
 	DBG("ZLbadaApplicationWindow::initMenu() ");
 	MenuBuilder(*this).processMenu(application());
@@ -37,23 +42,15 @@ void ZLTizenApplicationWindow::MenuBuilder::processItem(ZLMenubar::PlainItem &it
 	DBG("MenuBuilder::processItem actionId=%s name=%s",item.actionId().c_str(),item.name().c_str());
 	const std::string &id = item.actionId();
 	const std::string &name = item.name();
-
-	//shared_ptr<ZLApplication::Action> action = myWindow.application().action(id);
-	//myWindow.myViewWidget->mybadaForm->AddMenuItem(name, id);
 	myWindow.AddMenuItem(name, id);
-
 }
-typedef struct menu_data
-{
+
+typedef struct menu_data  {
 	 const  std::string *id;
 	 ZLTizenApplicationWindow *windows;
 } menu_data_s;
 
 void ZLTizenApplicationWindow::onMenuItemSelected(void *data, Evas_Object *obj, void *event_info){
-//	elm_panel_hidden_set(drawer_panel, EINA_TRUE);
-
-	//std::string *id = (std::string *)data;
-
 	Elm_Object_Item *it = (Elm_Object_Item *)event_info;
 	/* Unhighlight item */
 	elm_list_item_selected_set(it, EINA_FALSE);

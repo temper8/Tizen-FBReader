@@ -315,7 +315,7 @@ void ZLApplication::setFullscreen(bool fullscreen) {
 
 void ZLApplication::quit() {
 	if (!myWindow.isNull()) {
-	//	myWindow->close();
+		myWindow->close();
 	}
 }
 

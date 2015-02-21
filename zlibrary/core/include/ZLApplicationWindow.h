@@ -79,7 +79,7 @@ protected:
 	// TODO: change to pure virtual
 	virtual void present() {}
 
-	//virtual void close() = 0;
+	virtual void close() = 0;
 
 	virtual void setCaption(const std::string &caption) = 0;
 
