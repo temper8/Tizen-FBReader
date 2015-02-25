@@ -247,13 +247,12 @@ static Evas_Object * create_menu_popup(ZLTizenApplicationWindow *tw)
 
 void ZLTizenApplicationWindow::deleteOptionsDialog(){
 	DBG("ZLTizenApplicationWindow::deleteOptionsDialog");
+	myOptionsDialog = 0;
 }
 
 void ZLTizenApplicationWindow::deleteTreeDialog(){
 	DBG("ZLTizenApplicationWindow::deleteTreeDialog");
 	elm_naviframe_item_promote(myTizenViewWidget->naviframe_item);
-	myTizenTreeDialog->deleteObjects();
-	myTizenTreeDialog = NULL;
 	myTreeDialog = 0;
 }
 
@@ -424,7 +423,7 @@ shared_ptr<ZLOptionsDialog> ZLTizenApplicationWindow::createTizenOptionsDialog(c
 
 shared_ptr<ZLTreeDialog> ZLTizenApplicationWindow::createTizenTreeDialog(const ZLResource &resource){
 	DBG("createTizenTreeDialog");
-	myTizenTreeDialog = new ZLTizenTreeDialog(this, resource);
+	ZLTizenTreeDialog* myTizenTreeDialog = new ZLTizenTreeDialog(this, resource);
 	myTreeDialog = (ZLTreeDialog*) myTizenTreeDialog;
 	//tizenTreeDialog->myWindows = this;
 	//tizenTreeDialog->createItemsList(naviframe);

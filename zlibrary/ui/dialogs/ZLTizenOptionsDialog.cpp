@@ -19,6 +19,8 @@
 
 ZLTizenOptionsDialog::~ZLTizenOptionsDialog() {
 	// TODO Auto-generated destructor stub
+	DBG("delete ZLTizenOptionsDialog");
+	deleteObjects();
 }
 
 ZLTizenOptionsDialog::ZLTizenOptionsDialog(ZLTizenApplicationWindow *windows, const ZLResource &resource, shared_ptr<ZLRunnable> applyAction) :  ZLOptionsDialog(resource, applyAction), myWindows(windows) {//,myMenuView(0){
@@ -111,7 +113,7 @@ void ZLTizenOptionsDialog::createOptionsDialogObject(Evas_Object *nf){
 	app_get_resource(EDJ_FBREADER_FILE, edj_path, (int)PATH_MAX);
 
 	myScroller = create_scroller(nf);
-	elm_naviframe_item_push(nf, caption().c_str(), NULL, NULL, myScroller, NULL);
+	elmObjectsOptionsDialog = elm_naviframe_item_push(nf, caption().c_str(), NULL, NULL, myScroller, NULL);
 
 	myBox = elm_box_add(myScroller);
 	evas_object_size_hint_weight_set(myBox, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -123,6 +125,11 @@ void ZLTizenOptionsDialog::createOptionsDialogObject(Evas_Object *nf){
 	//Evas_Object * layout = create_labels(myBox);
 	//evas_object_show(layout);
 	//elm_box_pack_end(myBox, layout);
+}
+
+void ZLTizenOptionsDialog::deleteObjects(){
+	DBG("ZLTizenOptionsDialog::deleteObjects");
+	elm_object_item_del(elmObjectsOptionsDialog);
 }
 
 void ZLTizenOptionsDialog::addEvasViewItem(Evas_Object* viewItem){

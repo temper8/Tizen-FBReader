@@ -22,8 +22,8 @@ TizenPictureView::TizenPictureView(const std::string &name, const std::string &t
 static void button_clicked(void *data, Evas_Object *btn, void *ev){
 	TizenPictureView* tv = (TizenPictureView*)data;
 	tv->myActions[1]->run();
-	ZLTizenViewWidget* v = (ZLTizenViewWidget*)tv->myTab->myTizenOptionsDialog->myWindows->myTizenViewWidget;
-	elm_naviframe_item_promote(v->naviframe_item);
+//	ZLTizenViewWidget* v = (ZLTizenViewWidget*)tv->myTab->myTizenOptionsDialog->myWindows->myTizenViewWidget;
+//	elm_naviframe_item_promote(v->naviframe_item);
 }
 
 Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){

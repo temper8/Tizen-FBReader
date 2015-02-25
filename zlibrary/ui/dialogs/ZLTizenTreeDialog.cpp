@@ -32,6 +32,7 @@ ZLTizenTreeDialog::ZLTizenTreeDialog(ZLTizenApplicationWindow* windows, const ZL
 ZLTizenTreeDialog::~ZLTizenTreeDialog() {
 	// TODO Auto-generated destructor stub
 	DBG("ZLTizenTreeDialog::destructor");
+	deleteObjects();
 }
 
 void ZLTizenTreeDialog::onNodeBeginInsert(ZLTreeNode *parent, size_t index) {
@@ -92,6 +93,7 @@ void ZLTizenTreeDialog::onUpdated(){
 
 bool ZLTizenTreeDialog::back() {
 	DBG("ZLbadaTreeDialog::back()");
+	elmObjectsList.pop_back();
 	if (myCurrentNode == &rootNode()) {
 		return false;
 	}

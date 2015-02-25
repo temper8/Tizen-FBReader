@@ -39,7 +39,9 @@ public:
 	void addEvasViewItem(Evas_Object* viewItem);
 	Evas_Object *myScroller;
 	Evas_Object *myBox;
+	Elm_Object_Item* elmObjectsOptionsDialog;
 	char edj_path[PATH_MAX] = {0, };
+	void deleteObjects();
 };
 
 #endif /* ZLTIZENOPTIONSDIALOG_H_ */

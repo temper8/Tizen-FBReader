@@ -63,7 +63,6 @@ public:
 	shared_ptr<ZLTreeDialog> myTreeDialog;
 	shared_ptr<ZLOptionsDialog> myOptionsDialog;
 	ZLTizenViewWidget* myTizenViewWidget;
-	ZLTizenTreeDialog* myTizenTreeDialog;
 	void deleteOptionsDialog();
 	void deleteTreeDialog();
 

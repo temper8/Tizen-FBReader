@@ -57,6 +57,8 @@ void BookReadAction::run() {
 	FBReader &fbreader = FBReader::Instance();
 	fbreader.openBook(myBook);
 	fbreader.showBookTextView();
+	ZLDialogManager::Instance().deleteOptionsDialog();
+	ZLDialogManager::Instance().deleteTreeDialog();
 }
 
 ZLResourceKey BookReadAction::key() const {
