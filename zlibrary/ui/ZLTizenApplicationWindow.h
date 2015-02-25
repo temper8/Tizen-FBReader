@@ -32,6 +32,7 @@ class ZLTreeDialog;
 class ZLOptionsDialog;
 class ZLRunnable;
 class ZLTizenViewWidget;
+class ZLTizenTreeDialog;
 
 class ZLTizenApplicationWindow : public ZLApplicationWindow {
 public:
@@ -62,6 +63,10 @@ public:
 	shared_ptr<ZLTreeDialog> myTreeDialog;
 	shared_ptr<ZLOptionsDialog> myOptionsDialog;
 	ZLTizenViewWidget* myTizenViewWidget;
+	ZLTizenTreeDialog* myTizenTreeDialog;
+	void deleteOptionsDialog();
+	void deleteTreeDialog();
+
 protected:
 	virtual ZLViewWidget *createViewWidget();
 

@@ -41,6 +41,7 @@ void GotoParagraphAction::run() {
 	if (paragraphReference >= 0) {
 		fbreader.bookTextView().gotoParagraph(paragraphReference);
 		fbreader.showBookTextView();
+		ZLDialogManager::Instance().deleteTreeDialog();
 	}
 }
 

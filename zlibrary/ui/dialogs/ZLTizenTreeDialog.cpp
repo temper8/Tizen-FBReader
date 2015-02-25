@@ -212,7 +212,14 @@ void ZLTizenTreeDialog::createItemsList(const char* title) {
 //	evas_object_smart_callback_add(genlist, "longpressed", gl_longpressed_cb, NULL);
 
 	Elm_Object_Item *nf_it = elm_naviframe_item_push(myWindows->naviframe, title, NULL, NULL,	itemsList, NULL);
+	elmObjectsList.push_back(nf_it);
 	elm_naviframe_item_pop_cb_set(nf_it, tree_dialog_pop_cb, myWindows);
+}
+
+void ZLTizenTreeDialog::deleteObjects(){
+	for (std::vector<Elm_Object_Item*>::const_iterator it = elmObjectsList.begin(); it != elmObjectsList.end(); ++it) {
+			 	 elm_object_item_del((Elm_Object_Item*)*it);
+			}
 }
 
 void ZLTizenTreeDialog::updateContent(){

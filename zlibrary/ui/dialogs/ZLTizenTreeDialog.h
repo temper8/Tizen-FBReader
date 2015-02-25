@@ -37,9 +37,13 @@ public:
 public:
 	void createItemsList(const char* title);
 	void updateContent();
+	void deleteObjects();
 	Evas_Object *itemsList;
+	std::vector<Elm_Object_Item*> elmObjectsList;
 	int ItemCount;
 	ZLTizenApplicationWindow* myWindows;
+
+
 };
 
 #endif /* ZLTIZENTREEDIALOG_H_ */

@@ -47,7 +47,13 @@ shared_ptr<ZLOptionsDialog> ZLTizenDialogManager::createOptionsDialog(const ZLRe
 	return myApplicationWindow->createTizenOptionsDialog(resource()[key], applyAction);
 }
 
-
+void ZLTizenDialogManager::deleteOptionsDialog(){
+	DBG("ZLTizenDialogManager::deleteOptionsDialog");
+}
+void ZLTizenDialogManager::deleteTreeDialog(){
+	DBG("ZLTizenDialogManager::deleteTreeDialog");
+	myApplicationWindow->deleteTreeDialog();
+}
 
 void ZLTizenDialogManager::informationBox(const std::string &title, const std::string &message) const {
 
@@ -117,10 +123,6 @@ shared_ptr<ZLProgressDialog> ZLTizenDialogManager::createProgressDialog(const ZL
 
 //shared_ptr<ZLTreeDialog> ZLbadaDialogManager::myTreeDialog = 0;
 
-void 	ZLTizenDialogManager::deleteTreeDialog(){
-	//delete myTreeDialog;
-	//myTreeDialog = 0;
-}
 
 shared_ptr<ZLDialogContent> ZLTizenDialogManager::createContent(const ZLResourceKey &key) const {
 	DBG("ZLbadaDialogManager::createTreeDialog");

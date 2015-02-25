@@ -29,9 +29,10 @@ public:
 	shared_ptr<ZLOptionsDialog> createOptionsDialog(const ZLResourceKey &key, shared_ptr<ZLRunnable> applyAction) const;
 //	shared_ptr<ZLOpenFileDialog> createOpenFileDialog(const ZLResourceKey &key, const std::string &directoryPath, const std::string &filePath, const ZLOpenFileDialog::Filter &filter) const;
 //	void startOpenFileDialog() const;
+	virtual void deleteOptionsDialog();
+	virtual void deleteTreeDialog();
 
 	shared_ptr<ZLTreeDialog> createTreeDialog(const ZLResourceKey &key) const;
-	static void deleteTreeDialog();
 	shared_ptr<ZLDialogContent> createContent(const ZLResourceKey &key) const;
 
 	void informationBox(const std::string &title, const std::string &message) const;

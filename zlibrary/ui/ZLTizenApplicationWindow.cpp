@@ -87,6 +87,7 @@ void ZLTizenApplicationWindow::win_back_cb(void *data, Evas_Object *obj, void *e
 	/* Let window go to hide state. */
 	elm_win_lower(tw->win);
 }
+
 static void
 anim_stop_cb(void *data, Evas_Object *obj, void *event_info)
 {
@@ -242,6 +243,18 @@ static Evas_Object * create_menu_popup(ZLTizenApplicationWindow *tw)
 	evas_object_show(popup);
 
 	return popup;
+}
+
+void ZLTizenApplicationWindow::deleteOptionsDialog(){
+	DBG("ZLTizenApplicationWindow::deleteOptionsDialog");
+}
+
+void ZLTizenApplicationWindow::deleteTreeDialog(){
+	DBG("ZLTizenApplicationWindow::deleteTreeDialog");
+	elm_naviframe_item_promote(myTizenViewWidget->naviframe_item);
+	myTizenTreeDialog->deleteObjects();
+	myTizenTreeDialog = NULL;
+	myTreeDialog = 0;
 }
 
 Evas_Object * ZLTizenApplicationWindow::createDrawerPanel(Evas_Object *parent)
@@ -411,8 +424,8 @@ shared_ptr<ZLOptionsDialog> ZLTizenApplicationWindow::createTizenOptionsDialog(c
 
 shared_ptr<ZLTreeDialog> ZLTizenApplicationWindow::createTizenTreeDialog(const ZLResource &resource){
 	DBG("createTizenTreeDialog");
-	ZLTizenTreeDialog* tizenTreeDialog = new ZLTizenTreeDialog(this, resource);
-	myTreeDialog = (ZLTreeDialog*) tizenTreeDialog;
+	myTizenTreeDialog = new ZLTizenTreeDialog(this, resource);
+	myTreeDialog = (ZLTreeDialog*) myTizenTreeDialog;
 	//tizenTreeDialog->myWindows = this;
 	//tizenTreeDialog->createItemsList(naviframe);
 	return  myTreeDialog;
