@@ -1,669 +1,814 @@
 #define LABEL_WIDTH 450.0
 #define LABEL_HEIGHT 50.0
 #define LABEL_GAP 5.0
-   collections {
-    base_scale: 1.8;
+collections {
+   base_scale: 1.8;
    group {  name: "picture_layout";
       images {
          image: "logo.png" COMP;
       }
-      	parts{
-			part {
-				name: "top_padding";
-				type: RECT;
-				scale: 1; //allow scaling
-				description {
-					state: "default" 0.0;
-                                        min: 400 350;
-					fixed: 0 1;
-					rel1 { relative: 0 0; }
-					rel2 { relative: 1 0.4; }
-                                	color: 0 125 255 128;
-					align: 0 0;
-					visible: 1;
-				}
-			}
-			part {
-				name: "picture_bg";
-				type: RECT;
-				description {
-					color: 145 0 255 127;
-					rel1.to:"picture";
-					rel2.to:"picture";
-				}
-			}
-         		part {
-				name: "picture_image";
-				type: IMAGE;
-				description {
-					rel1.to:"picture";
-					rel2.to:"picture";
-                               image
-                                       {
-                                        normal: "logo.png";
-                                       }
-				}
-                        
-			}
-			part {
-				name: "picture";
-				type: SWALLOW;
-				scale: 1;
-				description {
-					fixed: 1 1;
-               	                 color: 255 0 0 255;
-                                        min: 200 300;
-					state: "default" 0.0;
-					rel1 { relative: 0.02 0.1; to: "top_padding"; }
-               	                 rel2 { relative: 0.45 0.85; to: "top_padding"; }
-					align: 0 0;
-					}
-			}
-			part {
-				name: "picture_bottom_padding";
-				type: RECT;
-				scale: 1;
-				description {
-					state: "default" 0.0;
-					min : LABEL_WIDTH LABEL_GAP;
-					fixed: 0 1;
-					rel1 { relative: 0 1.0; to_y: "picture"; }
-					rel2 { relative: 1 1.2; to_y: "picture"; }
-					visible: 1;
-				}
-			}
-			part {
-				name: "button1_bg";
-				type: RECT;
-				description {
-					color: 200 200 200 127;
-					rel1.to:"button1";
-					rel2.to:"button1";
-				}
-			}
-			part {
-				name: "button1";
-				type: SWALLOW;
-				scale: 1;
-				description {
-					fixed: 1 0;
-					min: 200 LABEL_HEIGHT;
-					max: 200  LABEL_HEIGHT;
-					state: "default" 0.0;
-					rel1 { relative: 0.5 0.1; to_y: "top_padding"; }
-					align: 0.1 0;
-				}
-			}
-			part {
-				name: "button1_bottom_padding";
-				type: RECT;
-				scale: 1;
-				description {
-					state: "default" 0.0;
-					min : 450 LABEL_GAP;
-					fixed: 0 1;
-					rel1 { relative: 0 1.0; to_y: "button1"; }
-					rel2 { relative: 1 1.0; to_y: "button1"; }
-					visible: 0;
-				}
-   			}
-         
-         			part {
-				name: "button2_bg";
-				type: RECT;
-				description {
-					color: 200 200 200 127;
-					rel1.to:"button2";
-					rel2.to:"button2";
-				}
-			}
-			part {
-				name: "button2";
-				type: SWALLOW;
-				scale: 1;
-				description {
-					fixed: 1 0;
-					min: 200 LABEL_HEIGHT;
-					max: 200  LABEL_HEIGHT;
-					state: "default" 0.0;
-					rel1 { relative: 0.5 1.3; to_y: "button1"; }
-					align: 0.1 0;
-				}
-			}
-			part {
-				name: "button2_bottom_padding";
-				type: RECT;
-				scale: 1;
-				description {
-					state: "default" 0.0;
-					min : 450 LABEL_GAP;
-					fixed: 0 1;
-					rel1 { relative: 0 1.0; to_y: "button2"; }
-					rel2 { relative: 1 1.0; to_y: "button2"; }
-					visible: 0;
-				}
-   			}
-			part {
-				name: "button3";
-				type: SWALLOW;
-				scale: 1;
-				description {
-					fixed: 1 0;
-					min: 200 LABEL_HEIGHT;
-					max: 200  LABEL_HEIGHT;
-					state: "default" 0.0;
-					rel1 { relative: 0.5 1.4; to_y: "button2"; }
-					align: 0.1 0;
-				}
+      parts{
+         part {
+            name: "top_padding";
+            type: RECT;
+            scale: 1;
+            //allow scaling
+            description {
+               state: "default" 0.0;
+               min: 400 350;
+               fixed: 0 1;
+               rel1 {
+                  relative: 0 0;
+               }
+               rel2 {
+                  relative: 1 0.4;
+               }
+               color: 0 125 255 128;
+               align: 0 0;
+               visible: 1;
+            }
          }
-            	    part {
-				name: "button4";
-				type: SWALLOW;
-				scale: 1;
-				description {
-					fixed: 1 0;
-					min: 200 LABEL_HEIGHT;
-					max: 200  LABEL_HEIGHT;
-					state: "default" 0.0;
-					rel1 { relative: 0.5 1.4; to_y: "button3"; }
-					align: 0.1 0;
-                                         visible: 0;    
-				}
-			}         
+         part {
+            name: "picture_bg";
+            type: RECT;
+            description {
+               color: 145 0 255 127;
+               rel1.to:"picture";
+               rel2.to:"picture";
+            }
          }
-      }
-   
-group {  name: "test_layout";
-      	parts{
-			part {
-				name: "top_padding";
-				type: RECT;
-				scale: 1; //allow scaling
-				description {
-					state: "default" 0.0;
-					min : 450 40; //minimum size for gap filler
-					fixed: 0 0;
-					rel1 { relative: 0 0; }
-					rel2 { relative: 0 0; }
-					align: 0 0;
-					visible: 1;
-				}
-			}
-			part {
-				name: "title_bg";
-				type: RECT;
-				description {
-					color: 255 255 255 127;
-					rel1.to:"title";
-					rel2.to:"title";
-				}
-			}                        
-		
-			part {
-				name: "title";
-				type: SWALLOW;
-				scale: 1;
-				description {
-					fixed: 1 1;
-               	                 color: 255 0 0 255;
-					min: LABEL_WIDTH 40;
-					max: LABEL_WIDTH LABEL_HEIGHT;
-					state: "default" 0.0;
-					rel1 { relative: 0 1; to_y: "top_padding"; }
-					align: 0.1 0.0;
-					}
-			}
-			part {
-				name: "title_bottom_padding";
-				type: RECT;
-				scale: 1;
-				description {
-					state: "default" 0.0;
-					min : LABEL_WIDTH 1;
-					fixed: 0 1;
-					rel1 { relative: 0 1.0; to_y: "title"; }
-					rel2 { relative: 1 1.0; to_y: "title"; }
-					visible: 0;
-				}
-			}
-			part {
-				name: "text_string_bg";
-				type: RECT;
-				description {
-					color: 255 255 255 127;
-					rel1.to:"text_string";
-					rel2.to:"text_string";
-				}
-			}
-			part {
-				name: "text_string";
-				type: SWALLOW;
-				scale: 1;
-				description {
-					fixed: 1 0;
-					min: LABEL_WIDTH LABEL_HEIGHT;
-					max: LABEL_WIDTH LABEL_HEIGHT;
-					state: "default" 0.0;
-					rel1 { relative: 0 0.1; to_y: "title_bottom_padding"; }
-					align: 0.1 0;
-				}
-			}
-			part {
-				name: "text_string_bottom_padding";
-				type: RECT;
-				scale: 1;
-				description {
-					state: "default" 0.0;
-					min : 450 LABEL_GAP;
-					fixed: 0 1;
-					rel1 { relative: 0 1.0; to_y: "text_string"; }
-					rel2 { relative: 1 1.0; to_y: "text_string"; }
-					visible: 0;
-				}
-   			}
+         part {
+            name: "picture_image";
+            type: IMAGE;
+            description {
+               rel1.to:"picture";
+               rel2.to:"picture";
+               image
+               {
+                  normal: "logo.png";
+               }
+            }
+         }
+         part {
+            name: "picture";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               fixed: 1 1;
+               color: 255 0 0 255;
+               min: 200 300;
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0.02 0.1;
+                  to: "top_padding";
+               }
+               rel2 {
+                  relative: 0.45 0.85;
+                  to: "top_padding";
+               }
+               align: 0 0;
+            }
+         }
+         part {
+            name: "picture_bottom_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : LABEL_WIDTH LABEL_GAP;
+               fixed: 0 1;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "picture";
+               }
+               rel2 {
+                  relative: 1 1.2;
+                  to_y: "picture";
+               }
+               visible: 1;
+            }
+         }
+         part {
+            name: "button1_bg";
+            type: RECT;
+            description {
+               color: 200 200 200 127;
+               rel1.to:"button1";
+               rel2.to:"button1";
+            }
+         }
+         part {
+            name: "button1";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               fixed: 1 0;
+               min: 200 LABEL_HEIGHT;
+               max: 200  LABEL_HEIGHT;
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0.5 0.1;
+                  to_y: "top_padding";
+               }
+               align: 0.1 0;
+            }
+         }
+         part {
+            name: "button1_bottom_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : 450 LABEL_GAP;
+               fixed: 0 1;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "button1";
+               }
+               rel2 {
+                  relative: 1 1.0;
+                  to_y: "button1";
+               }
+               visible: 0;
+            }
+         }
+         part {
+            name: "button2_bg";
+            type: RECT;
+            description {
+               color: 200 200 200 127;
+               rel1.to:"button2";
+               rel2.to:"button2";
+            }
+         }
+         part {
+            name: "button2";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               fixed: 1 0;
+               min: 200 LABEL_HEIGHT;
+               max: 200  LABEL_HEIGHT;
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0.5 1.3;
+                  to_y: "button1";
+               }
+               align: 0.1 0;
+            }
+         }
+         part {
+            name: "button2_bottom_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : 450 LABEL_GAP;
+               fixed: 0 1;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "button2";
+               }
+               rel2 {
+                  relative: 1 1.0;
+                  to_y: "button2";
+               }
+               visible: 0;
+            }
+         }
+         part {
+            name: "button3";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               fixed: 1 0;
+               min: 200 LABEL_HEIGHT;
+               max: 200  LABEL_HEIGHT;
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0.5 1.4;
+                  to_y: "button2";
+               }
+               align: 0.1 0;
+            }
+         }
+         part {
+            name: "button4";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               fixed: 1 0;
+               min: 200 LABEL_HEIGHT;
+               max: 200  LABEL_HEIGHT;
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0.5 1.4;
+                  to_y: "button3";
+               }
+               align: 0.1 0;
+               visible: 0;
+            }
          }
       }
-   
-   
-group {  name: "spinner_layout";
-      	parts{
-			part {
-				name: "top_padding";
-				type: RECT;
-				scale: 1; //allow scaling
-				description {
-					state: "default" 0.0;
-					min : 450 40; //minimum size for gap filler
-					fixed: 0 0;
-					rel1 { relative: 0 0; }
-					rel2 { relative: 0 0; }
-					align: 0 0;
-					visible: 1;
-				}
-			}
-			part {
-				name: "title_bg";
-				type: RECT;
-				description {
-					color: 255 255 255 127;
-					rel1.to:"title";
-					rel2.to:"title";
-				}
-			}                        
-		
-			part {
-				name: "title";
-				type: SWALLOW;
-				scale: 1;
-				description {
-					fixed: 1 1;
-               	                 color: 255 0 0 255;
-					min: LABEL_WIDTH 40;
-					max: LABEL_WIDTH LABEL_HEIGHT;
-					state: "default" 0.0;
-					rel1 { relative: 0 1; to_y: "top_padding"; }
-					align: 0.1 0.0;
-					}
-			}
-			part {
-				name: "title_bottom_padding";
-				type: RECT;
-				scale: 1;
-				description {
-					state: "default" 0.0;
-					min : LABEL_WIDTH 1;
-					fixed: 0 1;
-					rel1 { relative: 0 1.0; to_y: "title"; }
-					rel2 { relative: 1 1.0; to_y: "title"; }
-					visible: 0;
-				}
-			}
-			part {
-				name: "text_string_bg";
-				type: RECT;
-				description {
-					color: 255 255 255 127;
-					rel1.to:"text_string";
-					rel2.to:"text_string";
-				}
-			}
-			part {
-				name: "text_string";
-				type: SWALLOW;
-				scale: 1;
-				description {
-					fixed: 1 0;
-					min: LABEL_WIDTH LABEL_HEIGHT;
-					max: LABEL_WIDTH LABEL_HEIGHT;
-					state: "default" 0.0;
-					rel1 { relative: 0 0.1; to_y: "title_bottom_padding"; }
-					align: 0.1 0;
-				}
-			}
-			part {
-				name: "text_string_bottom_padding";
-				type: RECT;
-				scale: 1;
-				description {
-					state: "default" 0.0;
-					min : 450 LABEL_GAP;
-					fixed: 0 1;
-					rel1 { relative: 0 1.0; to_y: "text_string"; }
-					rel2 { relative: 1 1.0; to_y: "text_string"; }
-					visible: 0;
-				}
-   			}
+   }
+   group {  name: "test_layout";
+      parts{
+         part {
+            name: "top_padding";
+            type: RECT;
+            scale: 1;
+            //allow scaling
+            description {
+               state: "default" 0.0;
+               min : 450 40;
+               //minimum size for gap filler
+               fixed: 0 0;
+               rel1 {
+                  relative: 0 0;
+               }
+               rel2 {
+                  relative: 0 0;
+               }
+               align: 0 0;
+               visible: 1;
+            }
+         }
+         part {
+            name: "title_bg";
+            type: RECT;
+            description {
+               color: 255 255 255 127;
+               rel1.to:"title";
+               rel2.to:"title";
+            }
+         }
+         part {
+            name: "title";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               fixed: 1 1;
+               color: 255 0 0 255;
+               min: LABEL_WIDTH 40;
+               max: LABEL_WIDTH LABEL_HEIGHT;
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0 1;
+                  to_y: "top_padding";
+               }
+               align: 0.1 0.0;
+            }
+         }
+         part {
+            name: "title_bottom_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : LABEL_WIDTH 1;
+               fixed: 0 1;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "title";
+               }
+               rel2 {
+                  relative: 1 1.0;
+                  to_y: "title";
+               }
+               visible: 0;
+            }
+         }
+         part {
+            name: "text_string_bg";
+            type: RECT;
+            description {
+               color: 255 255 255 127;
+               rel1.to:"text_string";
+               rel2.to:"text_string";
+            }
+         }
+         part {
+            name: "text_string";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               fixed: 1 0;
+               min: LABEL_WIDTH LABEL_HEIGHT;
+               max: LABEL_WIDTH LABEL_HEIGHT;
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0 0.1;
+                  to_y: "title_bottom_padding";
+               }
+               align: 0.1 0;
+            }
+         }
+         part {
+            name: "text_string_bottom_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : 450 LABEL_GAP;
+               fixed: 0 1;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "text_string";
+               }
+               rel2 {
+                  relative: 1 1.0;
+                  to_y: "text_string";
+               }
+               visible: 0;
+            }
          }
       }
-   
-   group { 
-      name: "textOptionView_layout";
+   }
+   group {  name: "spinner_layout";
+      parts{
+         part {
+            name: "top_padding";
+            type: RECT;
+            scale: 1;
+            //allow scaling
+            description {
+               state: "default" 0.0;
+               min : 450 40;
+               //minimum size for gap filler
+               fixed: 0 0;
+               rel1 {
+                  relative: 0 0;
+               }
+               rel2 {
+                  relative: 0 0;
+               }
+               align: 0 0;
+               visible: 1;
+            }
+         }
+         part {
+            name: "title_bg";
+            type: RECT;
+            description {
+               color: 255 255 255 127;
+               rel1.to:"title";
+               rel2.to:"title";
+            }
+         }
+         part {
+            name: "title";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               fixed: 1 1;
+               color: 255 0 0 255;
+               min: LABEL_WIDTH 40;
+               max: LABEL_WIDTH LABEL_HEIGHT;
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0 1;
+                  to_y: "top_padding";
+               }
+               align: 0.1 0.0;
+            }
+         }
+         part {
+            name: "title_bottom_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : LABEL_WIDTH 1;
+               fixed: 0 1;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "title";
+               }
+               rel2 {
+                  relative: 1 1.0;
+                  to_y: "title";
+               }
+               visible: 0;
+            }
+         }
+         part {
+            name: "text_string_bg";
+            type: RECT;
+            description {
+               color: 255 255 255 127;
+               rel1.to:"text_string";
+               rel2.to:"text_string";
+            }
+         }
+         part {
+            name: "text_string";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               fixed: 1 0;
+               min: LABEL_WIDTH LABEL_HEIGHT;
+               max: LABEL_WIDTH LABEL_HEIGHT;
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0 0.1;
+                  to_y: "title_bottom_padding";
+               }
+               align: 0.1 0;
+            }
+         }
+         part {
+            name: "text_string_bottom_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : 450 LABEL_GAP;
+               fixed: 0 1;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "text_string";
+               }
+               rel2 {
+                  relative: 1 1.0;
+                  to_y: "text_string";
+               }
+               visible: 0;
+            }
+         }
+      }
+   }
+   group { name: "textOptionView_layout";
       parts {
-        	part {
-				name: "top_padding";
-				type: RECT;
-				scale: 1; 
-				description {
-					state: "default" 0.0;
-					min : 400 10;
-					fixed: 1 1;
-					rel1 { relative: 0 0; }
-					rel2 { relative: 1 0; }
-                                	color: 0 255 0 127;
-					align: 0 0;
-					visible: 0;
-				}
-			}
-          part {
-                  name: "title_text";
-                  type: TEXT;
-                  description {
-                          state: "default" 0.0;
-                          color: 0 0 255 255; /* blue */
-			  rel1.to:"title";
-			  rel2.to:"title";
-                          text {
-                                 text: "Hello World";
-                                 font: "Sans";
-                                 size: 40;
-                        }
+         part {
+            name: "top_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : 400 10;
+               fixed: 1 1;
+               rel1 {
+                  relative: 0 0;
+               }
+               rel2 {
+                  relative: 1 0;
+               }
+               color: 0 255 0 127;
+               align: 0 0;
+               visible: 0;
             }
+         }
+         part {
+            name: "title_text";
+            type: TEXT;
+            description {
+               state: "default" 0.0;
+               color: 0 0 255 255;
+               /* blue */
+               rel1.to:"title";
+               rel2.to:"title";
+               text {
+                  text: "Hello World";
+                  font: "Sans";
+                  size: 40;
+               }
             }
+         }
          part { name: "title";
             type: SWALLOW;
             scale: 1;
             description { state: "default" 0.0;
-               	
-               	        color: 255 0 0 255;
-		       	min: LABEL_WIDTH LABEL_HEIGHT;
-		       	max: LABEL_WIDTH LABEL_HEIGHT;
-		      	rel1 { relative: 0 0.5; to_y: "top_padding"; }
-	              
-		      	align: 0.02 0;
+               color: 255 0 0 255;
+               min: LABEL_WIDTH LABEL_HEIGHT;
+               max: LABEL_WIDTH LABEL_HEIGHT;
+               rel1 {
+                  relative: 0 0.5;
+                  to_y: "top_padding";
+               }
+               align: 0.02 0;
             }
          }
-         
-         			part {
-				name: "title_bottom_padding";
-				type: RECT;
-				scale: 1;
-				description {
-					state: "default" 0.0;
-					min : 400 LABEL_GAP;
-					fixed: 1 1;
-					rel1 { relative: 0 1.0; to_y: "title"; }
-					rel2 { relative: 1 1.0; to_y: "title"; }
-					visible: 0;
-				}
-			}
-                  part {
-		name: "text_bg";
-		type: RECT;
-		description {
-			color: 200 200 200 200;
-			rel1.to:"text";
-			rel2.to:"text";
-			}
-		}    
-            part { name: "text";
+         part {
+            name: "title_bottom_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : 400 LABEL_GAP;
+               fixed: 1 1;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "title";
+               }
+               rel2 {
+                  relative: 1 1.0;
+                  to_y: "title";
+               }
+               visible: 0;
+            }
+         }
+         part {
+            name: "text_bg";
+            type: RECT;
+            description {
+               color: 200 200 200 200;
+               rel1.to:"text";
+               rel2.to:"text";
+            }
+         }
+         part { name: "text";
             type: SWALLOW;
             scale: 1;
             description { state: "default" 0.0;
-               	
-               	        color: 255 0 0 255;
-		       	min: LABEL_WIDTH LABEL_HEIGHT;
-		       	max: LABEL_WIDTH LABEL_HEIGHT;
-			       rel1 { relative: 0 0.6;  to_y: "title_bottom_padding"; }
-
-		      	align: 0.1 0;
+               color: 255 0 0 255;
+               min: LABEL_WIDTH LABEL_HEIGHT;
+               max: LABEL_WIDTH LABEL_HEIGHT;
+               rel1 {
+                  relative: 0 0.6;
+                  to_y: "title_bottom_padding";
+               }
+               align: 0.1 0;
             }
          }
-        			part {
-				name: "text_bottom_padding";
-				type: RECT;
-				scale: 1;
-				description {
-					state: "default" 0.0;
-					min : 400 LABEL_GAP;
-					fixed:1 1;
-					rel1 { relative: 0 1.0; to_y: "text"; }
-					rel2 { relative: 1 1.5; to_y: "text"; }
-               		         color: 255 0 0 64;
-					visible: 0;
-				}
-			}         
+         part {
+            name: "text_bottom_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : 400 LABEL_GAP;
+               fixed:1 1;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "text";
+               }
+               rel2 {
+                  relative: 1 1.5;
+                  to_y: "text";
+               }
+               color: 255 0 0 64;
+               visible: 0;
+            }
+         }
       }
    }
-   
-group {    
-		name: "label_layout";
-		parts{
-			part {
-				name: "top_padding";
-				type: RECT;
-				scale: 1; //allow scaling
-				description {
-					state: "default" 0.0;
-					min : 450 280; //minimum size for gap filler
-					fixed: 0 0;
-					rel1 { relative: 0 0; }
-					rel2 { relative: 1 0; }
-					align: 0 0;
-					visible: 1;
-				}
-			}
-			part {
-				name: "label1_bg";
-				type: RECT;
-				description {
-					color: 145 0 255 127;
-					rel1.to:"label1";
-					rel2.to:"label1";
-				}
-			}
-         		part {
-				name: "label1_text";
-				type: TEXT;
-				description {
-					color: 255 0 0 255;
-					rel1.to:"label1";
-					rel2.to:"label1";
-				}
-                        
-			}
-			part {
-				name: "label1";
-				type: SWALLOW;
-				scale: 1;
-				description {
-					fixed: 1 1;
-               	                 color: 255 0 0 255;
-					min: LABEL_WIDTH LABEL_HEIGHT;
-					max: LABEL_WIDTH LABEL_HEIGHT;
-					state: "default" 0.0;
-					rel1 { relative: 0 0.1; to_y: "top_padding"; }
-					align: 0.1 0;
-					}
-			}
-			part {
-				name: "label1_bottom_padding";
-				type: RECT;
-				scale: 1;
-				description {
-					state: "default" 0.0;
-					min : LABEL_WIDTH LABEL_GAP;
-					fixed: 0 1;
-					rel1 { relative: 0 1.0; to_y: "label1"; }
-					rel2 { relative: 1 1.0; to_y: "label1"; }
-					visible: 0;
-				}
-			}
-			part {
-				name: "label2_bg";
-				type: RECT;
-				description {
-					color: 200 200 200 127;
-					rel1.to:"label2";
-					rel2.to:"label2";
-				}
-			}
-			part {
-				name: "label2";
-				type: SWALLOW;
-				scale: 1;
-				description {
-					fixed: 1 0;
-					min: LABEL_WIDTH LABEL_HEIGHT;
-					max: LABEL_WIDTH LABEL_HEIGHT;
-					state: "default" 0.0;
-					rel1 { relative: 0 1.0; to_y: "label1_bottom_padding"; }
-					align: 0.5 0;
-				}
-			}
-			part {
-				name: "label2_bottom_padding";
-				type: RECT;
-				scale: 1;
-				description {
-					state: "default" 0.0;
-					min : 0 LABEL_GAP;
-					fixed: 0 1;
-					rel1 { relative: 0 1.0; to_y: "label2"; }
-					rel2 { relative: 1 1.0; to_y: "label2"; }
-					visible: 0;
-				}
-			}
-			part {
-				name: "label3_bg";
-				type: RECT;
-				description {
-					color: 200 200 200 127;
-					rel1.to:"label3";
-					rel2.to:"label3";
-				}
-			}
-			part {
-				name: "label3";
-				type: SWALLOW;
-				scale: 1;
-				description {
-					fixed: 1 1;
-					min: LABEL_WIDTH LABEL_HEIGHT;
-					max: LABEL_WIDTH LABEL_HEIGHT;
-					state: "default" 0.0;
-					rel1 { relative: 0 1.0; to_y: "label2_bottom_padding"; }
-					align: 0.5 0;
-				}
-			}
-			part {
-				name: "label3_bottom_padding";
-				type: RECT;
-				scale: 1;
-				description {
-					state: "default" 0.0;
-					min : 0 LABEL_GAP;
-					fixed: 0 1;
-					rel1 { relative: 0 1.0; to_y: "label3"; }
-					rel2 { relative: 1 1.0; to_y: "label3"; }
-					visible: 0;
-				}
-			}
-			part {
-				name: "label4_bg";
-				type: RECT;
-				description {
-					color: 200 200 200 127;
-					rel1.to:"label4";
-					rel2.to:"label4";
-				}
-			}
-			part {
-				name: "label4";
-				type: SWALLOW;
-				scale: 1;
-				description {
-					fixed: 1 1;
-					min: LABEL_WIDTH LABEL_HEIGHT;
-					max: LABEL_WIDTH LABEL_HEIGHT;
-					state: "default" 0.0;
-					rel1 { relative: 0 1.0; to_y: "label3_bottom_padding"; }
-					align: 0.5 0;
-				}
-			}
-			part {
-				name: "label4_bottom_padding";
-				type: RECT;
-				scale: 1;
-				description {
-					state: "default" 0.0;
-					min : 0 LABEL_GAP;
-					fixed: 0 1;
-					rel1 { relative: 0 1.0; to_y: "label4"; }
-					rel2 { relative: 1 1.0; to_y: "label4"; }
-					visible: 0;
-				}
-			}
-			part {
-				name: "label5_bg";
-				type: RECT;
-				description {
-					color: 200 200 200 127;
-					rel1.to:"label5";
-					rel2.to:"label5";
-				}
-			}
-			part {
-				name: "label5";
-				type: SWALLOW;
-				scale: 1;
-				description {
-					fixed: 1 1;
-					min: LABEL_WIDTH LABEL_HEIGHT;
-					max: LABEL_WIDTH LABEL_HEIGHT;
-					state: "default" 0.0;
-					rel1 { relative: 0 1.0; to_y: "label4_bottom_padding"; }
-					align: 0.5 0;
-				}
-			}
-			part {
-				name: "label5_bottom_padding";
-				type: RECT;
-				scale: 1;
-				description {
-					state: "default" 0.0;
-					min : 0 30;
-					rel1 { relative: 0 1.0; to_y: "label5"; }
-					rel2 { relative: 1 1.0; }
-					visible: 0;
-					align: 0.5 1.0;
-				}
-			}
-		}//end parts
-#undef LABEL_WIDTH
-#undef LABEL_HEIGHT
-#undef LABEL_GAP
-} //end group
-   
-   
-   
- }
+   group {
+      name: "label_layout";
+      parts{
+         part {
+            name: "top_padding";
+            type: RECT;
+            scale: 1;
+            //allow scaling
+            description {
+               state: "default" 0.0;
+               min : 450 280;
+               //minimum size for gap filler
+               fixed: 0 0;
+               rel1 {
+                  relative: 0 0;
+               }
+               rel2 {
+                  relative: 1 0;
+               }
+               align: 0 0;
+               visible: 1;
+            }
+         }
+         part {
+            name: "label1_bg";
+            type: RECT;
+            description {
+               color: 145 0 255 127;
+               rel1.to:"label1";
+               rel2.to:"label1";
+            }
+         }
+         part {
+            name: "label1_text";
+            type: TEXT;
+            description {
+               color: 255 0 0 255;
+               rel1.to:"label1";
+               rel2.to:"label1";
+            }
+         }
+         part {
+            name: "label1";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               fixed: 1 1;
+               color: 255 0 0 255;
+               min: LABEL_WIDTH LABEL_HEIGHT;
+               max: LABEL_WIDTH LABEL_HEIGHT;
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0 0.1;
+                  to_y: "top_padding";
+               }
+               align: 0.1 0;
+            }
+         }
+         part {
+            name: "label1_bottom_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : LABEL_WIDTH LABEL_GAP;
+               fixed: 0 1;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "label1";
+               }
+               rel2 {
+                  relative: 1 1.0;
+                  to_y: "label1";
+               }
+               visible: 0;
+            }
+         }
+         part {
+            name: "label2_bg";
+            type: RECT;
+            description {
+               color: 200 200 200 127;
+               rel1.to:"label2";
+               rel2.to:"label2";
+            }
+         }
+         part {
+            name: "label2";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               fixed: 1 0;
+               min: LABEL_WIDTH LABEL_HEIGHT;
+               max: LABEL_WIDTH LABEL_HEIGHT;
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "label1_bottom_padding";
+               }
+               align: 0.5 0;
+            }
+         }
+         part {
+            name: "label2_bottom_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : 0 LABEL_GAP;
+               fixed: 0 1;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "label2";
+               }
+               rel2 {
+                  relative: 1 1.0;
+                  to_y: "label2";
+               }
+               visible: 0;
+            }
+         }
+         part {
+            name: "label3_bg";
+            type: RECT;
+            description {
+               color: 200 200 200 127;
+               rel1.to:"label3";
+               rel2.to:"label3";
+            }
+         }
+         part {
+            name: "label3";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               fixed: 1 1;
+               min: LABEL_WIDTH LABEL_HEIGHT;
+               max: LABEL_WIDTH LABEL_HEIGHT;
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "label2_bottom_padding";
+               }
+               align: 0.5 0;
+            }
+         }
+         part {
+            name: "label3_bottom_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : 0 LABEL_GAP;
+               fixed: 0 1;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "label3";
+               }
+               rel2 {
+                  relative: 1 1.0;
+                  to_y: "label3";
+               }
+               visible: 0;
+            }
+         }
+         part {
+            name: "label4_bg";
+            type: RECT;
+            description {
+               color: 200 200 200 127;
+               rel1.to:"label4";
+               rel2.to:"label4";
+            }
+         }
+         part {
+            name: "label4";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               fixed: 1 1;
+               min: LABEL_WIDTH LABEL_HEIGHT;
+               max: LABEL_WIDTH LABEL_HEIGHT;
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "label3_bottom_padding";
+               }
+               align: 0.5 0;
+            }
+         }
+         part {
+            name: "label4_bottom_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : 0 LABEL_GAP;
+               fixed: 0 1;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "label4";
+               }
+               rel2 {
+                  relative: 1 1.0;
+                  to_y: "label4";
+               }
+               visible: 0;
+            }
+         }
+         part {
+            name: "label5_bg";
+            type: RECT;
+            description {
+               color: 200 200 200 127;
+               rel1.to:"label5";
+               rel2.to:"label5";
+            }
+         }
+         part {
+            name: "label5";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               fixed: 1 1;
+               min: LABEL_WIDTH LABEL_HEIGHT;
+               max: LABEL_WIDTH LABEL_HEIGHT;
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "label4_bottom_padding";
+               }
+               align: 0.5 0;
+            }
+         }
+         part {
+            name: "label5_bottom_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : 0 30;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "label5";
+               }
+               rel2 {
+                  relative: 1 1.0;
+               }
+               visible: 0;
+               align: 0.5 1.0;
+            }
+         }
+      }
+      //end parts
+      #undef LABEL_WIDTH
+      #undef LABEL_HEIGHT
+      #undef LABEL_GAP
+   }
+   //end group
+}
