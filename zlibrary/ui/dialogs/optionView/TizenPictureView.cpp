@@ -18,6 +18,15 @@ TizenPictureView::TizenPictureView(const std::string &name, const std::string &t
 	 myTab->myTizenOptionsDialog->addEvasViewItem(createViewItem(tab->myTizenOptionsDialog->myBox));
 }
 
+static void
+app_get_resource(const char *edj_file_in, char *edj_path_out, int edj_path_max)
+{
+	char *res_path = app_get_resource_path();
+	if (res_path) {
+		snprintf(edj_path_out, edj_path_max, "%s%s", res_path, edj_file_in);
+		free(res_path);
+	}
+}
 
 static void button_clicked(void *data, Evas_Object *btn, void *ev){
 	TizenPictureView* tv = (TizenPictureView*)data;
@@ -25,14 +34,19 @@ static void button_clicked(void *data, Evas_Object *btn, void *ev){
 //	ZLTizenViewWidget* v = (ZLTizenViewWidget*)tv->myTab->myTizenOptionsDialog->myWindows->myTizenViewWidget;
 //	elm_naviframe_item_promote(v->naviframe_item);
 }
+#define EDJ_FILE "edje/test.edj"
 
 Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
+	char edj_path[PATH_MAX] = {0, };
 	Evas_Object *image, *label, *label2;
 	Evas_Object *button1, *button2, *button3, *button4;
 	Evas_Object *layout = elm_layout_add(parent);
 
-	if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "picture_layout") == 0)
-			DBG("error set layout ");
+	app_get_resource(EDJ_FILE, edj_path, (int)PATH_MAX);
+	if (elm_layout_file_set(layout, edj_path, "picture_layout") == 0)
+		//		DBG("error set layout ");
+	//if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "picture_layout") == 0)
+	//		DBG("error set layout ");
 
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	//evas_object_resize(layout, 400, 400);
