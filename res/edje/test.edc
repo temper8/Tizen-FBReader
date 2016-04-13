@@ -8,8 +8,9 @@ collections {
          part { name: "bg";
             type: RECT;
             description { state: "default" 0.0;
+               //min: 400 350;
                rel1.relative: 0.0 0.0;
-               rel2.relative: 1.0 1.0;
+               rel2.relative: 1.0 0.72;
                color: 0 125 255 128;
             }
          }
@@ -41,24 +42,23 @@ collections {
             type: SWALLOW;
             description { state: "default" 0.0;
                rel1.relative: 0.52 0.18;
-               rel2.relative: 1.0 0.32;
+               rel2.relative: 0.98 0.32;
             }
          }
          part { name: "button3";
             type: SWALLOW;
             description { state: "default" 0.0;
                rel1.relative: 0.52 0.34;
-               rel2.relative: 1.0 0.48;
+               rel2.relative: 0.98 0.48;
             }
          }
          part { name: "button4";
             type: SWALLOW;
             description { state: "default" 0.0;
                rel1.relative: 0.52 0.50;
-               rel2.relative: 1.0 0.64;
+               rel2.relative: 0.98 0.64;
             }
          }
-   
       }
    }
 }
