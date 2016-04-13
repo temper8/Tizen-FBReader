@@ -1,3 +1,10 @@
 /Debug
 /SA_Report
 /crash-info
+/comp.bat
+/link.bat
+.checkers
+.sdk_delta.info
+.rds_delta
+.sign/
+.settings/
