@@ -47,12 +47,15 @@ Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 				DBG("error set layout ");
 	//if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "picture_layout") == 0)
 	//		DBG("error set layout ");
-	elm_entry_line_wrap_set(layout, ELM_WRAP_NONE);
-	elm_entry_single_line_set(layout, EINA_TRUE);
-	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.5);
+	//elm_entry_line_wrap_set(layout, ELM_WRAP_NONE);
+	//elm_entry_single_line_set(layout, EINA_TRUE);
+	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, 0.0);
+	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	//evas_object_size_hint_min_set(layout, -1, -1);
+	//evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	//evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.5);
 	//evas_object_resize(layout, 400, 400);
-	//evas_object_size_hint_aspect_set(layout, EVAS_ASPECT_CONTROL_BOTH, 200, 200);
+	evas_object_size_hint_aspect_set(layout, EVAS_ASPECT_CONTROL_VERTICAL, 100, 200);
 
 	image = elm_image_add(layout);
 	elm_object_part_content_set(layout, "picture", image);
