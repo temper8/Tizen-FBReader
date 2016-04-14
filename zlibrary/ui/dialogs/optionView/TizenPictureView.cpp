@@ -34,7 +34,7 @@ static void button_clicked(void *data, Evas_Object *btn, void *ev){
 //	ZLTizenViewWidget* v = (ZLTizenViewWidget*)tv->myTab->myTizenOptionsDialog->myWindows->myTizenViewWidget;
 //	elm_naviframe_item_promote(v->naviframe_item);
 }
-#define EDJ_FILE "edje/test.edj"
+#define EDJ_FILE "edje/pictureView_layout.edj"
 
 Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 	char edj_path[PATH_MAX] = {0, };
