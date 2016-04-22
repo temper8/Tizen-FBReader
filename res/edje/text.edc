@@ -1,0 +1,122 @@
+#define LABEL_WIDTH 250.0
+#define LABEL_HEIGHT 50.0
+#define LABEL_GAP 5.0
+collections {
+   base_scale: 1.8;
+   group { name: "textOptionView_layout";
+      parts {
+         part {
+            name: "top_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : LABEL_WIDTH 10;
+               fixed: 1 1;
+               rel1 {
+                  relative: 0 0;
+               }
+               rel2 {
+                  relative: 1 0;
+               }
+               color: 0 255 0 127;
+               align: 0 0;
+               visible: 0;
+            }
+         }
+         part {
+            name: "title_text";
+            type: TEXT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               color: 0 0 255 255;
+               /* blue */
+               rel1.to:"title";
+               rel2.to:"title";
+               text {
+                  text: "Hello World";
+                  font: "Sans";
+                  size: 40;
+               }
+            }
+         }
+         part { name: "title";
+            type: SWALLOW;
+            scale: 1;
+            description { state: "default" 0.0;
+               color: 255 0 0 255;
+               min: LABEL_WIDTH LABEL_HEIGHT;
+               max: 800 LABEL_HEIGHT;
+               rel1 {
+                  relative: 0 0.5;
+                  to_y: "top_padding";
+               }
+               align: 0.02 0;
+            }
+         }
+         part {
+            name: "title_bottom_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : LABEL_WIDTH LABEL_GAP;
+               fixed: 1 1;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "title";
+               }
+               rel2 {
+                  relative: 1 1.0;
+                  to_y: "title";
+               }
+               visible: 0;
+            }
+         }
+         part {
+            name: "text_bg";
+            type: RECT;
+            description {
+               color: 200 200 200 200;
+               rel1.to:"text";
+               rel2.to:"text";
+            }
+         }
+         part { name: "text";
+            type: SWALLOW;
+            scale: 1;
+            description { state: "default" 0.0;
+               color: 255 0 0 255;
+               min: LABEL_WIDTH LABEL_HEIGHT;
+               max: LABEL_WIDTH LABEL_HEIGHT;
+               rel1 {
+                  relative: 0 0.6;
+                  to_y: "title_bottom_padding";
+               }
+               align: 0.1 0;
+            }
+         }
+         part {
+            name: "text_bottom_padding";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min : LABEL_WIDTH LABEL_GAP;
+               fixed:1 1;
+               rel1 {
+                  relative: 0 1.0;
+                  to_y: "text";
+               }
+               rel2 {
+                  relative: 1 1.5;
+                  to_y: "text";
+               }
+               color: 255 0 0 64;
+               visible: 0;
+            }
+         }
+      }
+   }
+}

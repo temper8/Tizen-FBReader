@@ -10,7 +10,7 @@
 
 #include "logger.h"
 
-#define EDJ_FILE "/opt/usr/apps/org.tizen.tizen-fbreader/res/edje/alignment.edj"
+
 
 TizenTextOptionView::TizenTextOptionView(const std::string &name, const std::string &tooltip, ZLOptionEntry *option, ZLTizenDialogContent *tab, int row, int fromColumn, int toColumn) :
 										ZLTizenOptionView(name, tooltip, option, tab, row, fromColumn, toColumn) {
@@ -19,16 +19,36 @@ TizenTextOptionView::TizenTextOptionView(const std::string &name, const std::str
 //	 myTab->myTizenOptionsDialog->addEvasViewItem(createTestAlignment(tab->myTizenOptionsDialog->myBox));
 }
 
+static void app_get_resource(const char *edj_file_in, char *edj_path_out, int edj_path_max)
+{
+	char *res_path = app_get_resource_path();
+	if (res_path) {
+		snprintf(edj_path_out, edj_path_max, "%s%s", res_path, edj_file_in);
+		free(res_path);
+	}
+}
 
+
+#define EDJ_FILE "edje/text.edj"
 
 Evas_Object* TizenTextOptionView::createViewItem(Evas_Object *parent){
+	char edj_path[PATH_MAX] = {0, };
+
 	Evas_Object * label, *label2;
 	Evas_Object *layout = elm_layout_add(parent);
 
-	if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "textOptionView_layout") == 0)
-			DBG("error set layout ");
 
-	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	app_get_resource(EDJ_FILE, edj_path, (int)PATH_MAX);
+	if (elm_layout_file_set(layout, edj_path, "textOptionView_layout") == 0)
+				DBG("error set layout ");
+
+//	if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "textOptionView_layout") == 0)
+//			DBG("error set layout ");
+
+	//evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+
+	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, 0.0);
+	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.5);
 
 	label = elm_label_add(layout);
 	elm_object_part_content_set(layout, "title", label);
