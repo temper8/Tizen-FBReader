@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<manifest xmlns="http://tizen.org/ns/packages" api-version="2.3.1" package="org.tizen.t-fbreader" version="0.0.1">
+<manifest xmlns="http://tizen.org/ns/packages" api-version="2.4" package="org.tizen.t-fbreader" version="0.0.1">
     <author email="temper8@gmail.com">Alex</author>
     <profile name="mobile"/>
     <ui-application appid="org.tizen.t-fbreader" exec="t-fbreader" multiple="false" nodisplay="false" taskmanage="true" type="capp">
-        <label>t-fbreader</label>
+        <label>FBReader</label>
         <icon>FBReader-type1.png</icon>
     </ui-application>
     <privileges>
