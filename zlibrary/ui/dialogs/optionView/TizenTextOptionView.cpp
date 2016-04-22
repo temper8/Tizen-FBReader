@@ -56,6 +56,7 @@ Evas_Object* TizenTextOptionView::createViewItem(Evas_Object *parent){
 //	evas_object_resize(label, 300, 45);
 	std::string titleText = "<font_size=35><color=#000000FF>" + name() + "</color></font_size>";
 	elm_object_text_set(label, _(titleText.c_str()));
+	elm_object_part_text_set(layout, "title_text", "Hello Tizen");
 	//elm_object_part_text_set(label, "textOptionView_layout.title",_(name().c_str()));
 	//elm_object_part_text_set(label, "title_text", _("one"));
 //	evas_object_show(label);
