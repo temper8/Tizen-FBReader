@@ -34,7 +34,7 @@ static void app_get_resource(const char *edj_file_in, char *edj_path_out, int ed
 Evas_Object* TizenTextOptionView::createViewItem(Evas_Object *parent){
 	char edj_path[PATH_MAX] = {0, };
 
-	Evas_Object * label, *label2;
+//	Evas_Object * label, *label2;
 	Evas_Object *layout = elm_layout_add(parent);
 
 
