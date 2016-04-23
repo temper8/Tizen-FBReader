@@ -1,6 +1,18 @@
-#define LABEL_WIDTH 250.0
-#define LABEL_HEIGHT 50.0
-#define LABEL_GAP 5.0
+#define LABEL_WIDTH 450.0
+#define LABEL_HEIGHT 40.0
+#define LABEL_G
+styles 
+{
+   style 
+   {
+      name: "textblock_style1";
+      base: "font=Sans:style=Regular font_size=30";
+   }
+   style { name: "text_style";
+      base: "font="Sans" font_size=30 text_class=entry color=#0088AA style=shadow,bottom shadow_color=#00000080 valign=0.5 ellipsis=1.0 wrap=none align=left";
+   }
+ 
+}
 collections {
    base_scale: 1.8;
    group { name: "textOptionView_layout";
@@ -30,91 +42,61 @@ collections {
             scale: 1;
             description {
                state: "default" 0.0;
-               color: 0 0 255 255;
-               /* blue */
-               rel1.to:"title";
-               rel2.to:"title";
-               text {
-                  text: "Hello World";
-                  font: "Sans";
-                  size: 40;
-               }
-            }
-         }
-         part { name: "title";
-            type: SWALLOW;
-            scale: 1;
-            description { state: "default" 0.0;
-               color: 255 0 0 255;
-               min: LABEL_WIDTH LABEL_HEIGHT;
-               max: 800 LABEL_HEIGHT;
+               color: 64 64 64 255;
+               //* blue 
                rel1 {
                   relative: 0 0.5;
                   to_y: "top_padding";
                }
-               align: 0.02 0;
-            }
-         }
-         part {
-            name: "title_bottom_padding";
-            type: RECT;
-            scale: 1;
-            description {
-               state: "default" 0.0;
-               min : LABEL_WIDTH LABEL_GAP;
-               fixed: 1 1;
-               rel1 {
-                  relative: 0 1.0;
-                  to_y: "title";
-               }
                rel2 {
-                  relative: 1 1.0;
-                  to_y: "title";
+                  relative: 1 0.3;
                }
-               visible: 0;
+               text {
+                  text: "Title text";
+                  //font: "Sans";
+                  font: "Tizen:style=regular";
+                  size: 25;
+                  //  min: 1 1;
+                  align: 0.05 0;
+               }
             }
          }
          part {
             name: "text_bg";
             type: RECT;
             description {
-               color: 200 200 200 200;
-               rel1.to:"text";
-               rel2.to:"text";
+               color: 230 230 230 100;
+               rel1 {
+                  relative: 0 0;
+               }
+               rel2 {
+                  relative: 1 1;
+               }
             }
          }
          part { name: "text";
-            type: SWALLOW;
+            type: TEXTBLOCK;
             scale: 1;
             description { state: "default" 0.0;
-               color: 255 0 0 255;
-               min: LABEL_WIDTH LABEL_HEIGHT;
-               max: LABEL_WIDTH LABEL_HEIGHT;
+             //  align: 0.5 0.5;
+               fixed: 0 0;
+               min: 0 0;
+               visible: 1;
+               color: 0 0 0 255;
                rel1 {
-                  relative: 0 0.6;
-                  to_y: "title_bottom_padding";
-               }
-               align: 0.1 0;
-            }
-         }
-         part {
-            name: "text_bottom_padding";
-            type: RECT;
-            scale: 1;
-            description {
-               state: "default" 0.0;
-               min : LABEL_WIDTH LABEL_GAP;
-               fixed:1 1;
-               rel1 {
-                  relative: 0 1.0;
-                  to_y: "text";
+                  relative: 0.05 0.4;
+                  to_y: "text_bg";
                }
                rel2 {
-                  relative: 1 1.5;
-                  to_y: "text";
+                  relative: 1 1;
                }
-               color: 255 0 0 64;
-               visible: 0;
+               text {
+                  style: "text_style";
+                  text: "Text text";
+                  // font: "Sans:style=bold";
+                  // size: 30;
+                  align: 0.05 0.05;
+               }
             }
          }
       }
