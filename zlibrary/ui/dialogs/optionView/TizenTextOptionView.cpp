@@ -29,7 +29,8 @@ static void app_get_resource(const char *edj_file_in, char *edj_path_out, int ed
 }
 
 
-#define EDJ_FILE "edje/text.edj"
+//#define EDJ_FILE "edje/text.edj"
+#define EDJ_FILE "edje/textOptionView_layout.edj"
 
 Evas_Object* TizenTextOptionView::createViewItem(Evas_Object *parent){
 	char edj_path[PATH_MAX] = {0, };
@@ -37,6 +38,10 @@ Evas_Object* TizenTextOptionView::createViewItem(Evas_Object *parent){
 //	Evas_Object * label, *label2;
 	Evas_Object *layout = elm_layout_add(parent);
 
+	Evas_Object *label = elm_label_add(layout);
+
+	//evas_object_move(label, 1, 1);
+	//	evas_object_resize(label, 300, 45);
 
 	app_get_resource(EDJ_FILE, edj_path, (int)PATH_MAX);
 	if (elm_layout_file_set(layout, edj_path, "textOptionView_layout") == 0)
@@ -45,13 +50,19 @@ Evas_Object* TizenTextOptionView::createViewItem(Evas_Object *parent){
 //	if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "textOptionView_layout") == 0)
 //			DBG("error set layout ");
 
-	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, 0.0);
+	evas_object_size_hint_align_set(label, EVAS_HINT_FILL, 0.0);
+
+	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND,  0.0);
+	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.0);
 
 	elm_object_part_text_set(layout, "title_text", _(name().c_str()));
-
+	elm_label_line_wrap_set(label, ELM_WRAP_MIXED);
 	std::string text = ((ZLStaticTextOptionEntry&)*myOption).initialValue();
+	elm_object_text_set(label,_(text.c_str()));
 	elm_object_part_text_set(layout, "text", _(text.c_str()));
+
+	elm_object_part_content_set(layout, "YShYCZgm", label);
 
 //	label2 = elm_label_add(layout);
 //	elm_object_part_content_set(layout, "text", label2);
@@ -64,6 +75,7 @@ Evas_Object* TizenTextOptionView::createViewItem(Evas_Object *parent){
 //	evas_object_show(label);
 
 	return layout;
+//	return label;
 }
 
 void TizenTextOptionView::_createItem() {
