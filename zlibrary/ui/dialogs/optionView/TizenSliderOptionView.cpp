@@ -20,24 +20,6 @@ TizenSliderOptionView::TizenSliderOptionView(const std::string &name, const std:
 //	 myTab->myTizenOptionsDialog->addEvasViewItem(createTestAlignment(tab->myTizenOptionsDialog->myBox));
 }
 
-Evas_Object* TizenSliderOptionView::createTestAlignment(Evas_Object *parent){
-/* Base Layout */
-
-	Evas_Object *layout = elm_layout_add(parent);
-	if (elm_layout_file_set(layout, EDJ_FILE, "main") == 0) DBG("createTestAlignment error set layout ");
-	evas_object_size_hint_min_set(layout, 400,400);
-	//evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	//elm_object_content_set(parent, layout);
-	Evas_Object *label = elm_label_add(layout);
-	elm_object_part_content_set(layout, "button1", label);
-	//evas_object_move(label, 1, 1);
-	//	evas_object_resize(label, 300, 45);
-	elm_object_text_set(label, _("<align=left><b>TestTizenOptionView</b></align>"));
-	//	evas_object_show(label);
-
-return layout;
-}
-
 static Evas_Object
 *create_slider(Evas_Object *parent, Eina_Bool is_center_point)
 {
@@ -54,34 +36,6 @@ static Evas_Object
 	return slider;
 }
 
-static Evas_Object
-*create_scroller(Evas_Object* parent)
-{
-	Evas_Object* scroller = elm_scroller_add(parent);
-	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF,ELM_SCROLLER_POLICY_AUTO);
-	evas_object_show(scroller);
-
-	return scroller;
-}
-
-static Evas_Object
-*create_box(Evas_Object *parent, Eina_Bool hor)
-{
-	Evas_Object *box;
-	box = elm_box_add(parent);
-	elm_box_horizontal_set(box, hor);
-	if (hor) {
-		evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		evas_object_size_hint_align_set(box, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	} else {
-		evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, 0.0);
-		evas_object_size_hint_align_set(box, EVAS_HINT_FILL, 0.0);
-	}
-	evas_object_show(box);
-
-	return box;
-}
 static void app_get_resource(const char *edj_file_in, char *edj_path_out, int edj_path_max)
 {
 	char *res_path = app_get_resource_path();
@@ -90,7 +44,6 @@ static void app_get_resource(const char *edj_file_in, char *edj_path_out, int ed
 		free(res_path);
 	}
 }
-
 
 //#define EDJ_FILE "edje/text.edj"
 #define EDJ_FILE "edje/sliderOptionView_layout.edj"
