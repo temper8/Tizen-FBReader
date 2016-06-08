@@ -63,6 +63,7 @@ Evas_Object* TizenTextOptionView::createViewItem(Evas_Object *parent){
 	elm_object_part_text_set(layout, "text", _(text.c_str()));
 
 	elm_label_line_wrap_set(label, ELM_WRAP_MIXED);
+	text = "<font_size=40>" + text + "</font_size>";
 	elm_object_text_set(label,_(text.c_str()));
 	elm_object_part_content_set(layout, "YShYCZgm", label);
 

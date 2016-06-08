@@ -1,5 +1,5 @@
 collections {
-   base_scale: 1.8;
+   base_scale: 1.6;
    group { name: "textOptionView_layout";
       styles {
          style { name: "vjbeGToB";
@@ -44,34 +44,41 @@ collections {
                color2: 0 136 170 50;
                color3: 0 136 170 25;
                text {
-                  size: 30;
+                  size: 25;
                   font: "Sans";
                   text: "title";
                   align: 0.0 0.0;
                }
             }
          }
-         
          part { name: "text";
             type: TEXTBLOCK;
             scale: 1;
+            multiline: 1;
+            
             description { state: "default" 0.0;
                align: 0.0 0.0;
                fixed: 1 1;
                min: 0 30;
                visible: 1;
                text {
-                  size: 30;
+                  size: 25;
                   font: "Sans";
                   text: "TEXTBLOCK text block text block";
                   style: "vjbeGToB";
                   align: 0.0 0.0;
+                  fit: 0 0;
+                  
                }
                rel1.to: "spacer1";
                rel1.relative: 1.0 1.0;
                rel2.to: "spacer2";
-               rel2.relative: 0.0 0.0;
+               rel2.relative: 0.0 0.0;               
+               visible: 0;
+               
             }
+            
+            
          }
          part { name: "YShYCZgm";
             type: SWALLOW;
