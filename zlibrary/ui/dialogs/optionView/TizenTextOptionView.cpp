@@ -57,11 +57,13 @@ Evas_Object* TizenTextOptionView::createViewItem(Evas_Object *parent){
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.0);
 
 	elm_object_part_text_set(layout, "title_text", _(name().c_str()));
-	elm_label_line_wrap_set(label, ELM_WRAP_MIXED);
+
 	std::string text = ((ZLStaticTextOptionEntry&)*myOption).initialValue();
-	elm_object_text_set(label,_(text.c_str()));
+
 	elm_object_part_text_set(layout, "text", _(text.c_str()));
 
+	elm_label_line_wrap_set(label, ELM_WRAP_MIXED);
+	elm_object_text_set(label,_(text.c_str()));
 	elm_object_part_content_set(layout, "YShYCZgm", label);
 
 //	label2 = elm_label_add(layout);
