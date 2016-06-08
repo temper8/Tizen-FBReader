@@ -10,6 +10,7 @@
 #include "optionView/TestTizenOptionView.h"
 #include "optionView/TizenTextOptionView.h"
 #include "optionView/TizenSpinnerOptionView.h"
+#include "optionView/TizenSliderOptionView.h"
 #include "optionView/TizenPictureView.h"
 #include "logger.h"
 
@@ -68,7 +69,7 @@ void ZLTizenDialogContent::createViewByEntry(const std::string &name, const std:
 		    break;
 		case ZLOptionEntry::SPIN:
 			DBG("ZLOptionEntry::SPIN:");
-			view = new TizenSpinnerOptionView(name, tooltip, (ZLSpinOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
+			view = new TizenSliderOptionView(name, tooltip, (ZLSpinOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
 			break;
 	/*	case ZLOptionEntry::COMBO:
 			DBG("ZLOptionEntry::COMBO:");
