@@ -20,8 +20,18 @@ TizenSliderOptionView::TizenSliderOptionView(const std::string &name, const std:
 //	 myTab->myTizenOptionsDialog->addEvasViewItem(createTestAlignment(tab->myTizenOptionsDialog->myBox));
 }
 
-static Evas_Object
-*create_slider(Evas_Object *parent, Eina_Bool is_center_point)
+
+static void slider_changed_cb(void *data, Evas_Object *obj, void *event_info)
+{
+//appdata_s *ad = data;
+Evas_Object *layout = (Evas_Object *)data;
+char buf[5];
+double value = elm_slider_value_get(obj);
+sprintf(buf, "%d", (int)value);
+elm_object_part_text_set(layout, "Value", _(buf));
+}
+
+static Evas_Object *create_slider(Evas_Object *parent, Eina_Bool is_center_point)
 {
 	Evas_Object *slider;
 
@@ -29,6 +39,7 @@ static Evas_Object
 	elm_slider_indicator_show_set(slider, EINA_TRUE);
 	evas_object_size_hint_weight_set(slider, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(slider, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_smart_callback_add(slider, "changed", slider_changed_cb, parent);
 	elm_slider_indicator_format_set(slider, "%1.0f");
 	if (is_center_point)
 		elm_object_style_set(slider, "center_point");
