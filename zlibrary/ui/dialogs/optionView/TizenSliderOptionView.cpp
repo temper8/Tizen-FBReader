@@ -116,7 +116,10 @@ Evas_Object* TizenSliderOptionView::createViewItem(Evas_Object *parent){
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.0);
 
 	elm_object_part_text_set(layout, "Caption", _(myCaption.c_str()));
-	elm_object_part_text_set(layout, "Value", _("22"));
+
+	char value[5] = {0, };
+	snprintf(value, 5, "%d", ((ZLSpinOptionEntry&)*myOption).initialValue());
+	elm_object_part_text_set(layout, "Value", _(value));
 
 
 //	label = elm_label_add(layout);
