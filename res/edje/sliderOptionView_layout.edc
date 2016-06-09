@@ -65,7 +65,7 @@ collections {
             mouse_events: 1;
             effect: FAR_SOFT_SHADOW;
             description { state: "default" 0.0;
-               align: 0.0 0.5;
+               align: 0.0 0.0;
                fixed: 0 0;
                min: 0 0;
                color: 0 136 170 255;
@@ -73,13 +73,13 @@ collections {
                color3: 0 136 170 25;
                visible: 1;
                text {
-                  size: 30;
+                  size: 25;
                   font: "Sans";
                   text: "Caption";
-                  align: 0.0 0.5;
+                  align: 0.0 0.3;
                   min: 0 0;
                }
-               rel1.relative: 0.0 0.06;
+               rel1.relative: 0.0 0.00;
                rel2.relative: 1.0 0.32;
             }
          }

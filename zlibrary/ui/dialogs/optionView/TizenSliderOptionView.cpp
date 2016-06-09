@@ -20,7 +20,6 @@ TizenSliderOptionView::TizenSliderOptionView(const std::string &name, const std:
 //	 myTab->myTizenOptionsDialog->addEvasViewItem(createTestAlignment(tab->myTizenOptionsDialog->myBox));
 }
 
-
 static void slider_changed_cb(void *data, Evas_Object *obj, void *event_info)
 {
 //appdata_s *ad = data;
