@@ -8,6 +8,7 @@
 #include "ZLTizenDialogContent.h"
 #include "optionView/ZLTizenOptionView.h"
 #include "optionView/TestTizenOptionView.h"
+#include "optionView/TizenComboOptionView.h"
 #include "optionView/TizenBooleanOptionView.h"
 #include "optionView/TizenTextOptionView.h"
 #include "optionView/TizenSpinnerOptionView.h"
@@ -63,7 +64,7 @@ void ZLTizenDialogContent::createViewByEntry(const std::string &name, const std:
 			break;
 		case ZLOptionEntry::STATIC:
 			DBG("ZLOptionEntry::STATIC:");
-			  view = new TizenTextOptionView(name, tooltip, (ZLStaticTextOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
+			view = new TizenTextOptionView(name, tooltip, (ZLStaticTextOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
 			break;
     	case ZLOptionEntry::PICTURE:
 		    view = new TizenPictureView(name, tooltip, (ZLPictureOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
@@ -72,11 +73,11 @@ void ZLTizenDialogContent::createViewByEntry(const std::string &name, const std:
 			DBG("ZLOptionEntry::SPIN:");
 			view = new TizenSliderOptionView(name, tooltip, (ZLSpinOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
 			break;
-	/*	case ZLOptionEntry::COMBO:
+		case ZLOptionEntry::COMBO:
 			DBG("ZLOptionEntry::COMBO:");
 			view = new TizenComboOptionView(name, tooltip, (ZLComboOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
 			break;
-		case ZLOptionEntry::COLOR:
+	/*	case ZLOptionEntry::COLOR:
 			DBG("ZLOptionEntry::COLOR:");
 			view = new TizenColorOptionView(name, tooltip, (ZLColorOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
 			break;
