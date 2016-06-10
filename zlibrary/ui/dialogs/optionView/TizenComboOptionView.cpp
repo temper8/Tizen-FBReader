@@ -59,6 +59,7 @@ gl_sel_cb(void *data, Evas_Object *obj, void *event_info)
 static void
 list_it_list_cb(void *data, Evas_Object *obj, void *event_info)
 {
+	DBG("TizenComboOptionView---createViewItem");
 	static Elm_Genlist_Item_Class itc;
 	Evas_Object *popup;
 	Evas_Object *box;
@@ -92,7 +93,7 @@ list_it_list_cb(void *data, Evas_Object *obj, void *event_info)
 	}
 	evas_object_show(genlist);
 	elm_box_pack_end(box, genlist);
-	evas_object_size_hint_min_set(box, -1, 192);
+	evas_object_size_hint_min_set(box, -1, 392);
 	elm_object_content_set(popup, box);
 
 	evas_object_show(popup);
@@ -102,7 +103,7 @@ list_it_list_cb(void *data, Evas_Object *obj, void *event_info)
 #define EDJ_FILE "edje/combo.edj"
 
 Evas_Object* TizenComboOptionView::createViewItem(Evas_Object *parent){
-
+	DBG("TizenComboOptionView::createViewItem");
 	char edj_path[PATH_MAX] = {0, };
 
 	Evas_Object *check;
@@ -120,7 +121,8 @@ Evas_Object* TizenComboOptionView::createViewItem(Evas_Object *parent){
 
 	elm_object_part_text_set(layout, "caption", _(name().c_str()));
 
-	Evas_Object *label = elm_label_add(layout);
+	//Evas_Object *label = elm_label_add(layout);
+	Evas_Object *label = elm_button_add(layout);
 	evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, 0.0);
 	evas_object_size_hint_align_set(label, EVAS_HINT_FILL, 0.0);
 
@@ -133,7 +135,7 @@ Evas_Object* TizenComboOptionView::createViewItem(Evas_Object *parent){
 	elm_object_text_set(label,_(text.c_str()));
 	elm_object_part_content_set(layout, "label", label);
 	ZLTizenApplicationWindow *tw =  myTab->myTizenOptionsDialog->myWindows;
-	evas_object_smart_callback_add(layout, "clicked", list_it_list_cb,tw->win);
+	evas_object_smart_callback_add(label, "clicked", list_it_list_cb,tw->win);
 
 
 /*	check = elm_check_add(layout);
