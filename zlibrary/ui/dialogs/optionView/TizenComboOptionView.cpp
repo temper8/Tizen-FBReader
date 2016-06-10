@@ -30,7 +30,7 @@ static void app_get_resource(const char *edj_file_in, char *edj_path_out, int ed
 
 
 //#define EDJ_FILE "edje/text.edj"
-#define EDJ_FILE "edje/xxx.edj"
+#define EDJ_FILE "edje/combo.edj"
 
 Evas_Object* TizenComboOptionView::createViewItem(Evas_Object *parent){
 
@@ -49,6 +49,21 @@ Evas_Object* TizenComboOptionView::createViewItem(Evas_Object *parent){
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.0);
 
+	elm_object_part_text_set(layout, "caption", _(name().c_str()));
+
+	Evas_Object *label = elm_label_add(layout);
+	evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, 0.0);
+	evas_object_size_hint_align_set(label, EVAS_HINT_FILL, 0.0);
+
+	std::string text = ((ZLStaticTextOptionEntry&)*myOption).initialValue();
+
+	//elm_object_part_text_set(layout, "text", _(text.c_str()));
+
+	elm_label_line_wrap_set(label, ELM_WRAP_MIXED);
+	text = "<font_size=30>" + text + "</font_size>";
+	elm_object_text_set(label,_(text.c_str()));
+	elm_object_part_content_set(layout, "label", label);
+
 /*	check = elm_check_add(layout);
 	//elm_object_text_set(check, "Default");
 	elm_object_style_set(check, "on&off");
@@ -56,7 +71,7 @@ Evas_Object* TizenComboOptionView::createViewItem(Evas_Object *parent){
 
 	elm_object_part_content_set(layout, "check", check);
 */
-	elm_object_part_text_set(layout, "caption", _(name().c_str()));
+
 
 
 //	elm_object_text_set(label, _("<align=left><b>TizenBooleanOptionView</b></align>"));
