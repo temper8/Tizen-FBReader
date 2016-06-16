@@ -10,6 +10,8 @@
 #include "../ZLTizenOptionsDialog.h"
 #include "../../ZLTizenApplicationWindow.h"
 
+#include "ZLOptionEntry.h"
+
 #include "logger.h"
 
 //#define EDJ_FILE "/opt/usr/apps/org.tizen.tizen-fbreader/res/edje/alignment.edj"
@@ -29,17 +31,10 @@ static void app_get_resource(const char *edj_file_in, char *edj_path_out, int ed
 	}
 }
 
-static char *items[] = {
-	"Text 1line", "Text 2line", "Text 3line",
-	"Text 4line", "Text 5line", "Text 6line",
-	"Text 7line", "Text 8line"
-};
-
-static char*
-gl_text_get_cb(void *data, Evas_Object *obj, const char *part)
+static char* gl_text_get_cb(void *data, Evas_Object *obj, const char *part)
 {
-	int index = (int) data;
-	return strdup(items[index]);
+	char *text = (char*) data;
+	return strdup(text);
 }
 
 
@@ -51,7 +46,7 @@ gl_sel_cb(void *data, Evas_Object *obj, void *event_info)
 	Elm_Object_Item *item = (Elm_Object_Item *)event_info;
 
 	index = (int)elm_object_item_data_get(item);
-	printf("selected text %s\n",items[index]);
+//	printf("selected text %s\n",items[index]);
 	printf("Index of the list=%d\n", index);
 	evas_object_del(popup);
 }
@@ -90,12 +85,31 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	itc.func.state_get = NULL;
 	itc.func.del = NULL;
 
-	for (i = 0; i < 8; i++) {
-		elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, gl_sel_cb, popup);
-	}
+	//for (i = 0; i < 8; i++) {
+//		elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, gl_sel_cb, popup);
+//	}
+
+	const ZLComboOptionEntry &comboOption = (ZLComboOptionEntry&)*myCombo->option();
+	const std::vector<std::string> &values = comboOption.values();
+	//const std::string &initial = comboOption.initialValue();
+	//	int selectedIndex = -1;
+		int index = 0;
+
+	for (std::vector<std::string>::const_iterator it = values.begin(); it != values.end(); ++it, ++index) {
+			//String itemText((*it).c_str());
+			elm_genlist_item_append(genlist, &itc, (void *)(*it).c_str(), NULL, ELM_GENLIST_ITEM_NONE, gl_sel_cb, popup);
+			//__pComboList->AddItem(&itemText, null, null, null );
+		//	if (*it == initial) {
+		//		selectedIndex = index;
+		//	}
+		}
+
+
+
+
 	evas_object_show(genlist);
 	elm_box_pack_end(box, genlist);
-	evas_object_size_hint_min_set(box, -1, 392);
+	evas_object_size_hint_min_set(box, -1, 492);
 	elm_object_content_set(popup, box);
 
 	evas_object_show(popup);
