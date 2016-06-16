@@ -37,6 +37,39 @@ static char* gl_text_get_cb(void *data, Evas_Object *obj, const char *part)
 	return strdup(text);
 }
 
+static char*
+gl_radio_text_get_cb(void *data, Evas_Object *obj, const char *part)
+{
+	if (!strcmp(part,"elm.text"))
+	{
+		char *text = (char*) data;
+		return strdup(text);
+	}
+	else return NULL;
+}
+
+static Evas_Object* gl_radio_content_get_cb(void *data, Evas_Object *obj, const char *part)
+{
+	int index = (int) data;
+	Elm_Object_Item *it = elm_genlist_nth_item_get(obj, index);
+
+	if (!strcmp(part, "elm.swallow.end")) {
+		Evas_Object *radio;
+		Evas_Object *radio_main = (Evas_Object *)evas_object_data_get(obj, "radio");
+		radio = elm_radio_add(obj);
+		elm_radio_group_add(radio, radio_main);
+		elm_radio_state_value_set(radio, index + 1);
+		if (index == 1) elm_radio_value_set(radio, 1);
+		evas_object_size_hint_weight_set(radio, EVAS_HINT_EXPAND,EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(radio, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_propagate_events_set(radio, EINA_FALSE);
+		elm_atspi_accessible_relationship_append(it, ELM_ATSPI_RELATION_DESCRIBED_BY, radio);
+		elm_atspi_accessible_relationship_append(radio, ELM_ATSPI_RELATION_CONTROLLED_BY, it);
+		return radio;
+	}
+	return NULL;
+}
+
 
 static void
 gl_sel_cb(void *data, Evas_Object *obj, void *event_info)
@@ -59,6 +92,8 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	Evas_Object *popup;
 	Evas_Object *box;
 	Evas_Object *genlist;
+	Evas_Object *radio;
+
 	int i;
 	//Evas_Object *win = (Evas_Object *)data;
 	TizenComboOptionView *myCombo = (TizenComboOptionView *)data;
@@ -79,9 +114,15 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	evas_object_size_hint_weight_set(genlist, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(genlist, EVAS_HINT_FILL, EVAS_HINT_FILL);
 
+	/* radio */
+	radio = elm_radio_add(genlist);
+	elm_radio_state_value_set(radio, 0);
+	elm_radio_value_set(radio, 0);
+	evas_object_data_set(genlist, "radio", radio);
+
 	itc.item_style = "default";
-	itc.func.text_get = gl_text_get_cb;
-	itc.func.content_get = NULL;
+	itc.func.text_get = gl_radio_text_get_cb;
+	itc.func.content_get = gl_radio_content_get_cb;
 	itc.func.state_get = NULL;
 	itc.func.del = NULL;
 
@@ -91,22 +132,17 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 
 	const ZLComboOptionEntry &comboOption = (ZLComboOptionEntry&)*myCombo->option();
 	const std::vector<std::string> &values = comboOption.values();
-	//const std::string &initial = comboOption.initialValue();
-	//	int selectedIndex = -1;
-		int index = 0;
+	const std::string &initial = comboOption.initialValue();
+	int selectedIndex = -1;
+	int index = 0;
 
 	for (std::vector<std::string>::const_iterator it = values.begin(); it != values.end(); ++it, ++index) {
-			//String itemText((*it).c_str());
 			elm_genlist_item_append(genlist, &itc, (void *)(*it).c_str(), NULL, ELM_GENLIST_ITEM_NONE, gl_sel_cb, popup);
 			//__pComboList->AddItem(&itemText, null, null, null );
-		//	if (*it == initial) {
-		//		selectedIndex = index;
-		//	}
+			if (*it == initial) {
+				selectedIndex = index;
+			}
 		}
-
-
-
-
 	evas_object_show(genlist);
 	elm_box_pack_end(box, genlist);
 	evas_object_size_hint_min_set(box, -1, 492);

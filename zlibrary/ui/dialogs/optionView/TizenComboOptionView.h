@@ -17,7 +17,6 @@ public:
 
 	shared_ptr<ZLOptionEntry> option() const 	{ return  myOption;};
 
-//	virtual Tizen::Ui::Controls::TableViewItem* createTableViewItem(int itemWidth, int defaultItemHeight);
 	virtual Evas_Object* createViewItem(Evas_Object *parent);
 
 protected:
