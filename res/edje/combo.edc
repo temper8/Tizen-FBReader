@@ -2,6 +2,8 @@ collections {
    base_scale: 1.0;
    group { name: "comboOptionView";
       parts {
+         
+         
          part { name: "spacer1";
             type: SPACER;
             scale: 1;
@@ -57,7 +59,6 @@ collections {
                rel1.relative: 0.0 0.0;
                rel1.offset: 5 0;
                rel2.relative: 1.0 0.0;
-
             }
          }
          part { name: "label";
@@ -73,9 +74,37 @@ collections {
                rel1.relative: 1.0 1.0;
                rel2.to: "spacer2";
                rel2.relative: 0.0 0.0;
-
             }
          }
+         part { name: "bg";
+            type: RECT;
+            description { state: "default" 0.0;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
+               color: 0 136 170 155;
+            }
+            description { state: "clicked" 0.0;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
+               color: 170 136 0 055;
+            }
+         }
+         
       }
+      programs {
+         program { name: "mouse_down";
+            signal: "mouse,down,1";
+            source: "bg";
+            action: STATE_SET "clicked" 0.0;
+            target: "bg";
+         }
+         program { name: "mouse_up";
+            signal: "mouse,up,1";
+            source: "bg";
+            action: STATE_SET "default" 0.0;
+            target: "bg";
+         }
+      }
+      
    }
 }
