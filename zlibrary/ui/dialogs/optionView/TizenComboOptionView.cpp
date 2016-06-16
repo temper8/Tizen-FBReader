@@ -55,6 +55,7 @@ gl_sel_cb(void *data, Evas_Object *obj, void *event_info)
 	printf("Index of the list=%d\n", index);
 	evas_object_del(popup);
 }
+
 static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 //static void list_it_list_cb(void *data, Evas_Object *obj, void *event_info)
 {
@@ -107,7 +108,6 @@ Evas_Object* TizenComboOptionView::createViewItem(Evas_Object *parent){
 	DBG("TizenComboOptionView::createViewItem");
 	char edj_path[PATH_MAX] = {0, };
 
-	Evas_Object *check;
 	Evas_Object *layout = elm_layout_add(parent);
 
 	app_get_resource(EDJ_FILE, edj_path, (int)PATH_MAX);
@@ -139,14 +139,6 @@ Evas_Object* TizenComboOptionView::createViewItem(Evas_Object *parent){
 //	evas_object_smart_callback_add(label, "clicked", list_it_list_cb,tw->win);
 	evas_object_event_callback_add(layout, EVAS_CALLBACK_MOUSE_UP, up_callback, this);
 
-
-/*	check = elm_check_add(layout);
-	//elm_object_text_set(check, "Default");
-	elm_object_style_set(check, "on&off");
-	elm_check_state_set(check, EINA_TRUE);
-
-	elm_object_part_content_set(layout, "check", check);
-*/
 	return layout;
 }
 
