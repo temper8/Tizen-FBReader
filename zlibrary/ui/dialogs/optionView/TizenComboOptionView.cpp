@@ -64,12 +64,14 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	Evas_Object *box;
 	Evas_Object *genlist;
 	int i;
-	Evas_Object *win = (Evas_Object *)data;
-
+	//Evas_Object *win = (Evas_Object *)data;
+	TizenComboOptionView *myCombo = (TizenComboOptionView *)data;
+	ZLTizenApplicationWindow *tw =  myCombo->myTab->myTizenOptionsDialog->myWindows;
+	Evas_Object *win = tw->win;
 	popup = elm_popup_add(win);
 	elm_popup_align_set(popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
 	eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
-	elm_object_part_text_set(popup, "title,text", "Title");
+	elm_object_part_text_set(popup, "title,text", _(myCombo->name().c_str()));
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
 	/* box */
@@ -133,9 +135,9 @@ Evas_Object* TizenComboOptionView::createViewItem(Evas_Object *parent){
 	text = "<font_size=30>" + text + "</font_size>";
 	elm_object_text_set(label,_(text.c_str()));
 	elm_object_part_content_set(layout, "label", label);
-	ZLTizenApplicationWindow *tw =  myTab->myTizenOptionsDialog->myWindows;
+//	ZLTizenApplicationWindow *tw =  myTab->myTizenOptionsDialog->myWindows;
 //	evas_object_smart_callback_add(label, "clicked", list_it_list_cb,tw->win);
-	evas_object_event_callback_add(layout, EVAS_CALLBACK_MOUSE_UP, up_callback, tw->win);
+	evas_object_event_callback_add(layout, EVAS_CALLBACK_MOUSE_UP, up_callback, this);
 
 
 /*	check = elm_check_add(layout);
@@ -145,13 +147,6 @@ Evas_Object* TizenComboOptionView::createViewItem(Evas_Object *parent){
 
 	elm_object_part_content_set(layout, "check", check);
 */
-
-
-
-//	elm_object_text_set(label, _("<align=left><b>TizenBooleanOptionView</b></align>"));
-
-
-
 	return layout;
 }
 
