@@ -39,6 +39,8 @@ public:
 	void setActive(bool active);
 	void onAccept() const;
 
+	const std::string &name() const;
+
 protected:
 	virtual void _createItem() = 0;
 	virtual void _hide() = 0;
@@ -47,7 +49,6 @@ protected:
 	virtual void _setActive(bool active) {}
 	virtual void _onAccept() const = 0;
 
-	const std::string &name() const;
 	const std::string &tooltip() const;
 
 protected:
