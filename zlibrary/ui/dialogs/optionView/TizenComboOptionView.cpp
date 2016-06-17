@@ -42,8 +42,9 @@ gl_radio_text_get_cb(void *data, Evas_Object *obj, const char *part)
 {
 	if (!strcmp(part,"elm.text"))
 	{
-		char *text = (char*) data;
-		return strdup(text);
+		const std::vector<std::string> *values = (std::vector<std::string> *)evas_object_data_get(obj, "values");
+		int index = (int) data;
+		return strdup((*values)[index].c_str());
 	}
 	else return NULL;
 }
@@ -52,7 +53,8 @@ static Evas_Object* gl_radio_content_get_cb(void *data, Evas_Object *obj, const 
 {
 	int index = (int) data;
 	Elm_Object_Item *it = elm_genlist_nth_item_get(obj, index);
-
+	DBG("gl_radio_content_get_cb %d", index);
+	DBG("gl_radio_content_get_cb part %s", part);
 	if (!strcmp(part, "elm.swallow.end")) {
 		Evas_Object *radio;
 		Evas_Object *radio_main = (Evas_Object *)evas_object_data_get(obj, "radio");
@@ -133,11 +135,16 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	const ZLComboOptionEntry &comboOption = (ZLComboOptionEntry&)*myCombo->option();
 	const std::vector<std::string> &values = comboOption.values();
 	const std::string &initial = comboOption.initialValue();
+
+	evas_object_data_set(genlist, "values", (const void *)&values);
 	int selectedIndex = -1;
 	int index = 0;
 
+
+
 	for (std::vector<std::string>::const_iterator it = values.begin(); it != values.end(); ++it, ++index) {
-			elm_genlist_item_append(genlist, &itc, (void *)(*it).c_str(), NULL, ELM_GENLIST_ITEM_NONE, gl_sel_cb, popup);
+
+			elm_genlist_item_append(genlist, &itc, (void *) index, NULL, ELM_GENLIST_ITEM_NONE, gl_sel_cb, (void *) index);
 			//__pComboList->AddItem(&itemText, null, null, null );
 			if (*it == initial) {
 				selectedIndex = index;
