@@ -73,17 +73,15 @@ static Evas_Object* gl_radio_content_get_cb(void *data, Evas_Object *obj, const 
 }
 
 
-static void
-gl_sel_cb(void *data, Evas_Object *obj, void *event_info)
+static void gl_sel_cb(void *data, Evas_Object *obj, void *event_info)
 {
-	Evas_Object *popup = (Evas_Object *)data;
-	int index = 0;
-	Elm_Object_Item *item = (Elm_Object_Item *)event_info;
+	Elm_Object_Item *it = (Elm_Object_Item *)event_info;
+	int index = (int) data;
+	Evas_Object *radio;
+	elm_genlist_item_selected_set(it, EINA_FALSE);
+	radio = elm_object_item_part_content_get(it, "elm.swallow.end");
+	elm_radio_value_set(radio, index + 1);
 
-	index = (int)elm_object_item_data_get(item);
-//	printf("selected text %s\n",items[index]);
-	printf("Index of the list=%d\n", index);
-	evas_object_del(popup);
 }
 
 static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
