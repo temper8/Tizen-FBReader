@@ -72,7 +72,7 @@ static Evas_Object* gl_radio_content_get_cb(void *data, Evas_Object *obj, const 
 	return NULL;
 }
 
-
+// обработчик выбора элемента списока
 static void gl_sel_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	Elm_Object_Item *it = (Elm_Object_Item *)event_info;
@@ -82,6 +82,8 @@ static void gl_sel_cb(void *data, Evas_Object *obj, void *event_info)
 	radio = elm_object_item_part_content_get(it, "elm.swallow.end");
 	elm_radio_value_set(radio, index + 1);
 
+	Evas_Object *popup = (Evas_Object *)evas_object_data_get(obj, "popup");
+	evas_object_del(popup);
 }
 
 static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
@@ -138,7 +140,7 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	int selectedIndex = -1;
 	int index = 0;
 
-
+	evas_object_data_set(genlist, "popup", popup);
 
 	for (std::vector<std::string>::const_iterator it = values.begin(); it != values.end(); ++it, ++index) {
 
