@@ -12,6 +12,7 @@
 
 #include "ZLOptionEntry.h"
 
+#include "../ZLTizen.h"
 #include "logger.h"
 
 //#define EDJ_FILE "/opt/usr/apps/org.tizen.tizen-fbreader/res/edje/alignment.edj"
@@ -86,6 +87,8 @@ static void gl_sel_cb(void *data, Evas_Object *obj, void *event_info)
 	evas_object_del(popup);
 }
 
+
+// создание popup содержащим genlist с radio
 static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 //static void list_it_list_cb(void *data, Evas_Object *obj, void *event_info)
 {
@@ -152,24 +155,23 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 		}
 	evas_object_show(genlist);
 	elm_box_pack_end(box, genlist);
+
+
+
+
 	evas_object_size_hint_min_set(box, -1, 492);
 	elm_object_content_set(popup, box);
 
 	evas_object_show(popup);
 }
 
-//#define EDJ_FILE "edje/text.edj"
-#define EDJ_FILE "edje/combo.edj"
 
 Evas_Object* TizenComboOptionView::createViewItem(Evas_Object *parent){
 	DBG("TizenComboOptionView::createViewItem");
-	char edj_path[PATH_MAX] = {0, };
 
 	Evas_Object *layout = elm_layout_add(parent);
 
-	app_get_resource(EDJ_FILE, edj_path, (int)PATH_MAX);
-	if (elm_layout_file_set(layout, edj_path, "comboOptionView") == 0)
-				DBG("error set layout ");
+	ZLTizenUtil::layout_edj_set(layout, "fbr.ComboOptionView");
 
 	//if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "booleantOptionView") == 0)
 	//		DBG("error set layout ");

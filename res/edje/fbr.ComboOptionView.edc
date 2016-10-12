@@ -1,9 +1,7 @@
 collections {
    base_scale: 1.0;
-   group { name: "comboOptionView";
+   group { name: "fbr.ComboOptionView";
       parts {
-         
-         
          part { name: "spacer1";
             type: SPACER;
             scale: 1;
@@ -89,7 +87,6 @@ collections {
                color: 170 136 0 055;
             }
          }
-         
       }
       programs {
          program { name: "mouse_down";
@@ -105,6 +102,5 @@ collections {
             target: "bg";
          }
       }
-      
    }
 }
