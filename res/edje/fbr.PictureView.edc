@@ -1,0 +1,64 @@
+collections {
+   images {
+      image: "logo.png" COMP;
+   }
+   base_scale: 1.0;
+   group { name: "fbr.PictureView";
+      parts {
+         part { name: "bg";
+            type: RECT;
+            description { state: "default" 0.0;
+               //min: 400 350;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
+               color: 0 125 255 128;
+            }
+         }
+         part { name: "image_bg";
+            type: RECT;
+            description { state: "default" 0.0;
+               rel1.relative: 0.02 0.02;
+               rel2.relative: 0.48 0.98;
+               color: 0 136 170 255;
+            }
+         }
+         part { name: "picture";
+            type: IMAGE;
+            description { state: "default" 0.0;
+               rel1.relative: 0.02 0.02;
+               rel2.relative: 0.48 0.98;
+               color: 0 136 170 255;
+               image.normal: "logo.png";
+            }
+         }
+         part { name: "button1";
+            type: SWALLOW;
+            description { state: "default" 0.0;
+               rel1.relative: 0.52 0.04;
+               rel2.relative: 0.98 0.22;
+            }
+         }
+         part { name: "button2";
+            type: SWALLOW;
+            description { state: "default" 0.0;
+               rel1.relative: 0.52 0.28;
+               rel2.relative: 0.98 0.46;
+            }
+         }
+         part { name: "button3";
+            type: SWALLOW;
+            description { state: "default" 0.0;
+               rel1.relative: 0.52 0.52;
+               rel2.relative: 0.98 0.70;
+            }
+         }
+         part { name: "button4";
+            type: SWALLOW;
+            description { state: "default" 0.0;
+               rel1.relative: 0.52 0.76;
+               rel2.relative: 0.98 0.96;
+            }
+         }
+      }
+   }
+}

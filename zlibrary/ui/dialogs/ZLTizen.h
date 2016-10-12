@@ -21,7 +21,8 @@
 class ZLTizenUtil {
 
 public:
-	static void app_get_resource2(const char *edj_file_in, char *edj_path_out, int edj_path_max);
+	static void app_get_resource(const char *edj_file_in, char *edj_path_out, int edj_path_max);
+	static void layout_edj_set(Evas_Object *obj, const char *edj_name);
 
 };
 

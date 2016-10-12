@@ -26,17 +26,14 @@ static void button_clicked(void *data, Evas_Object *btn, void *ev){
 //	ZLTizenViewWidget* v = (ZLTizenViewWidget*)tv->myTab->myTizenOptionsDialog->myWindows->myTizenViewWidget;
 //	elm_naviframe_item_promote(v->naviframe_item);
 }
-#define EDJ_FILE "edje/pictureView_layout.edj"
 
 Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
-	char edj_path[PATH_MAX] = {0, };
 	Evas_Object *image, *label, *label2;
 	Evas_Object *button1, *button2, *button3, *button4;
 	Evas_Object *layout = elm_layout_add(parent);
 
-	ZLTizenUtil::app_get_resource2(EDJ_FILE, edj_path, (int)PATH_MAX);
-	if (elm_layout_file_set(layout, edj_path, "picture_layout") == 0)
-				DBG("error set layout ");
+	ZLTizenUtil::layout_edj_set(layout, "fbr.PictureView");
+
 	//if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "picture_layout") == 0)
 	//		DBG("error set layout ");
 	//elm_entry_line_wrap_set(layout, ELM_WRAP_NONE);
