@@ -5,6 +5,7 @@
  *      Author: alex
  */
 
+#include "../ZLTizen.h"
 #include "TizenPictureView.h"
 #include "../ZLTizenOptionsDialog.h"
 #include "../../ZLTizenApplicationWindow.h"
@@ -18,15 +19,6 @@ TizenPictureView::TizenPictureView(const std::string &name, const std::string &t
 	 myTab->myTizenOptionsDialog->addEvasViewItem(createViewItem(tab->myTizenOptionsDialog->myBox));
 }
 
-static void
-app_get_resource(const char *edj_file_in, char *edj_path_out, int edj_path_max)
-{
-	char *res_path = app_get_resource_path();
-	if (res_path) {
-		snprintf(edj_path_out, edj_path_max, "%s%s", res_path, edj_file_in);
-		free(res_path);
-	}
-}
 
 static void button_clicked(void *data, Evas_Object *btn, void *ev){
 	TizenPictureView* tv = (TizenPictureView*)data;
@@ -42,7 +34,7 @@ Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 	Evas_Object *button1, *button2, *button3, *button4;
 	Evas_Object *layout = elm_layout_add(parent);
 
-	app_get_resource(EDJ_FILE, edj_path, (int)PATH_MAX);
+	ZLTizenUtil::app_get_resource2(EDJ_FILE, edj_path, (int)PATH_MAX);
 	if (elm_layout_file_set(layout, edj_path, "picture_layout") == 0)
 				DBG("error set layout ");
 	//if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "picture_layout") == 0)
