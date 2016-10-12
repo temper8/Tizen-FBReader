@@ -95,6 +95,7 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	DBG("TizenComboOptionView---createViewItem");
 	static Elm_Genlist_Item_Class itc;
 	Evas_Object *popup;
+	Evas_Object *layout;
 	Evas_Object *box;
 	Evas_Object *genlist;
 	Evas_Object *radio;
@@ -110,8 +111,16 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	elm_object_part_text_set(popup, "title,text", _(myCombo->name().c_str()));
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
+
+	layout = elm_layout_add(popup);
+	ZLTizenUtil::layout_edj_set(layout, "fbr.RadioList");
+	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	elm_object_content_set(popup, layout);
+
+
+
 	/* box */
-	box = elm_box_add(popup);
+	box = elm_box_add(layout);
 	evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
 	/* genlist */
@@ -156,12 +165,9 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	evas_object_show(genlist);
 	elm_box_pack_end(box, genlist);
 
-
-
-
 	evas_object_size_hint_min_set(box, -1, 492);
-	elm_object_content_set(popup, box);
-
+//	elm_object_content_set(popup, box);
+	elm_object_part_content_set(layout,  "fbr.RadioList.sw", box);
 	evas_object_show(popup);
 }
 

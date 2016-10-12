@@ -1,0 +1,36 @@
+collections {
+   group {
+      name: "fbr.RadioList";
+      parts {
+         part {
+            name: "fbr.RadioList.bg";
+            type: RECT;
+            description {
+               state: "default" 0.0;
+               color: 125 147 00 255;
+               rel1 {
+                  relative: 0.0 0.0;
+               }
+               rel2 {
+                  relative: 1.0 1.0;
+               }
+            }
+         }
+         part {
+            name: "fbr.RadioList.sw";
+            type: SWALLOW;
+            description {
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0.0 0.0;
+                  to: "fbr.RadioList.bg";
+               }
+               rel2 {
+                  relative: 1.0 1.0;
+                  to: "fbr.RadioList.bg";
+               }
+            }
+         }
+      }
+   }
+}
