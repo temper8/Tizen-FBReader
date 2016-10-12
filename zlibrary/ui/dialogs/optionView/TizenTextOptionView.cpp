@@ -19,14 +19,6 @@ TizenTextOptionView::TizenTextOptionView(const std::string &name, const std::str
 //	 myTab->myTizenOptionsDialog->addEvasViewItem(createTestAlignment(tab->myTizenOptionsDialog->myBox));
 }
 
-static void app_get_resource(const char *edj_file_in, char *edj_path_out, int edj_path_max)
-{
-	char *res_path = app_get_resource_path();
-	if (res_path) {
-		snprintf(edj_path_out, edj_path_max, "%s%s", res_path, edj_file_in);
-		free(res_path);
-	}
-}
 
 Evas_Object* TizenTextOptionView::createViewItem(Evas_Object *parent){
 
