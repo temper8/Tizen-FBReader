@@ -1,6 +1,6 @@
 collections {
    base_scale: 1.6;
-   group { name: "textOptionView_layout";
+   group { name: "fbr.TextOptionView";
       styles {
          style { name: "vjbeGToB";
             base: "font="Sans" font_size=30 text_class=entry color=#0088AA style=shadow,bottom shadow_color=#00000080 valign=top ellipsis= -1.0 wrap=mixed align=left";
@@ -55,7 +55,6 @@ collections {
             type: TEXTBLOCK;
             scale: 1;
             multiline: 1;
-            
             description { state: "default" 0.0;
                align: 0.0 0.0;
                fixed: 1 1;
@@ -68,17 +67,13 @@ collections {
                   style: "vjbeGToB";
                   align: 0.0 0.0;
                   fit: 0 0;
-                  
                }
                rel1.to: "spacer1";
                rel1.relative: 1.0 1.0;
                rel2.to: "spacer2";
-               rel2.relative: 0.0 0.0;               
+               rel2.relative: 0.0 0.0;
                visible: 0;
-               
             }
-            
-            
          }
          part { name: "YShYCZgm";
             type: SWALLOW;

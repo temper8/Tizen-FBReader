@@ -9,9 +9,8 @@
 
 #include "../ZLTizenOptionsDialog.h"
 
+#include "../ZLTizen.h"
 #include "logger.h"
-
-#define EDJ_FILE "/opt/usr/apps/org.tizen.tizen-fbreader/res/edje/alignment.edj"
 
 TizenSliderOptionView::TizenSliderOptionView(const std::string &name, const std::string &tooltip, ZLOptionEntry *option, ZLTizenDialogContent *tab, int row, int fromColumn, int toColumn) :
 										ZLTizenOptionView(name, tooltip, option, tab, row, fromColumn, toColumn) {
@@ -46,32 +45,14 @@ static Evas_Object *create_slider(Evas_Object *parent, Eina_Bool is_center_point
 	return slider;
 }
 
-static void app_get_resource(const char *edj_file_in, char *edj_path_out, int edj_path_max)
-{
-	char *res_path = app_get_resource_path();
-	if (res_path) {
-		snprintf(edj_path_out, edj_path_max, "%s%s", res_path, edj_file_in);
-		free(res_path);
-	}
-}
-
-//#define EDJ_FILE "edje/text.edj"
-#define EDJ_FILE "edje/sliderOptionView_layout.edj"
 
 Evas_Object* TizenSliderOptionView::createViewItem(Evas_Object *parent){
-
-	char edj_path[PATH_MAX] = {0, };
 
 	Evas_Object * label, *label2;
 	Evas_Object *slider;
 	Evas_Object *layout = elm_layout_add(parent);
 
-//	if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "test_layout") == 0)
-//			DBG("error set layout ");
-	app_get_resource(EDJ_FILE, edj_path, (int)PATH_MAX);
-	if (elm_layout_file_set(layout, edj_path, "sliderOptionView") == 0)
-				DBG("error set layout ");
-
+	ZLTizenUtil::layout_edj_set(layout, "fbr.SliderOptionView");
 
 //	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
