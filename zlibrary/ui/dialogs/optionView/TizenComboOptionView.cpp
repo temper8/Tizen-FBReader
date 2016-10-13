@@ -117,8 +117,6 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	elm_object_content_set(popup, layout);
 
-
-
 	/* box */
 	box = elm_box_add(layout);
 	evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
