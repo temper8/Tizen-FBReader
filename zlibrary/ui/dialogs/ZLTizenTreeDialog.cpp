@@ -27,7 +27,7 @@ ZLTizenTreeDialog::ZLTizenTreeDialog(ZLTizenApplicationWindow* windows, const ZL
 	const char *title = myResource["title"].value().c_str();
 	DBG("Dialog title %s", title);
 	//createItemsList(title);
-	createTreDialog(title);
+	new_naviframe(title);
 }
 
 ZLTizenTreeDialog::~ZLTizenTreeDialog() {
@@ -65,7 +65,7 @@ void ZLTizenTreeDialog::onNodeUpdated(ZLTreeNode *node) {
 void ZLTizenTreeDialog::run() {
 	DBG("ZLTizenTreeDialog::run");
 	myCurrentNode = &rootNode();
-	updateContent();
+	//updateContent();
 	DBG("ZLTizenTreeDialog::run end");
 }
 
@@ -81,8 +81,8 @@ bool ZLTizenTreeDialog::enter(ZLTreeNode* node) {
 		 myCurrentNode = node;
 		 const char *title = ((ZLTreeTitledNode*)myCurrentNode)->title().c_str();
 		 DBG("enter node title %s", title);
-		 createItemsList(title);
-		 updateContent();
+		// createItemsList(title);
+		// updateContent();
 	 }
 	  else DBG("Empty List!");
 	 return true;
@@ -192,7 +192,7 @@ static void gl_selected_cb(void *data, Evas_Object *obj, void *event_info)
 
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 }
-void ZLTizenTreeDialog::createTreDialog(const char* title){
+void ZLTizenTreeDialog::new_naviframe(const char* title){
 	Evas_Object *layout = ZLTizenUtil::create_layout(myWindows->naviframe, "fbr.RadioList");
 	Elm_Object_Item *nf_it = elm_naviframe_item_push(myWindows->naviframe, title, NULL, NULL,	layout, NULL);
 	elmObjectsList.push_back(nf_it);
