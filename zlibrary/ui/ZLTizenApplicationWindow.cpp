@@ -417,7 +417,7 @@ shared_ptr<ZLOptionsDialog> ZLTizenApplicationWindow::createTizenOptionsDialog(c
 	DBG("createTizenOptionsDialog");
 	ZLTizenOptionsDialog* tizenOptionsDialog = new ZLTizenOptionsDialog(this, resource, applyAction);
 	myOptionsDialog = (ZLOptionsDialog*) tizenOptionsDialog;
-	tizenOptionsDialog->createOptionsDialogObject(naviframe);
+//	tizenOptionsDialog->createOptionsDialogObject(naviframe);
 	return  myOptionsDialog;
 }
 

@@ -1,0 +1,37 @@
+collections {
+   base_scale: 1.0;
+   group {
+      name: "fbr.opdionsdialog";
+      parts {
+         part {
+            name: "fbr.opdionsdialog.bg";
+            type: RECT;
+            description {
+               state: "default" 0.0;
+               color: 127 0 0 255;
+               rel1 {
+                  relative: 0.0 0.0;
+               }
+               rel2 {
+                  relative: 1.0 1.0;
+               }
+            }
+         }
+         part {
+            name: "fbr.opdionsdialog.sw";
+            type: SWALLOW;
+            description {
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0.0 0.0;
+                  to: "fbr.opdionsdialog.bg";
+               }
+               rel2 {
+                  relative: 1.0 1.0;
+                  to: "fbr.opdionsdialog.bg";
+               }
+            }
+         }
+      }
+   }
+}
