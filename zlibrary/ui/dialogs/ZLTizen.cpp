@@ -35,6 +35,6 @@ Evas_Object* ZLTizenUtil::create_layout(Evas_Object *parent, const char *edj_nam
 	Evas_Object *layout = elm_layout_add(parent);
 	ZLTizenUtil::layout_edj_set(layout, edj_name);
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_object_content_set(parent, layout);
+	//elm_object_content_set(parent, layout);
 	return layout;
 }
