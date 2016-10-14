@@ -9,7 +9,7 @@
 #include "ZLTreeTitledNode.h"
 #include "logger.h"
 #include "../ZLTizenApplicationWindow.h"
-
+#include "ZLTizen.h"
 
 class item_data	{
 	public:
@@ -26,7 +26,8 @@ ZLTizenTreeDialog::ZLTizenTreeDialog(ZLTizenApplicationWindow* windows, const ZL
 	// TODO Auto-generated constructor stub
 	const char *title = myResource["title"].value().c_str();
 	DBG("Dialog title %s", title);
-	createItemsList(title);
+	//createItemsList(title);
+	createTreDialog(title);
 }
 
 ZLTizenTreeDialog::~ZLTizenTreeDialog() {
@@ -190,6 +191,13 @@ static void gl_selected_cb(void *data, Evas_Object *obj, void *event_info)
 			}
 
 	elm_genlist_item_selected_set(it, EINA_FALSE);
+}
+void ZLTizenTreeDialog::createTreDialog(const char* title){
+	Evas_Object *layout = ZLTizenUtil::create_layout(myWindows->naviframe, "fbr.RadioList");
+	Elm_Object_Item *nf_it = elm_naviframe_item_push(myWindows->naviframe, title, NULL, NULL,	layout, NULL);
+	elmObjectsList.push_back(nf_it);
+	elm_naviframe_item_pop_cb_set(nf_it, tree_dialog_pop_cb, myWindows);
+
 }
 
 void ZLTizenTreeDialog::createItemsList(const char* title) {

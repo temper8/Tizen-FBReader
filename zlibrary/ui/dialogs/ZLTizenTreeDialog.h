@@ -36,6 +36,7 @@ public:
 	//virtual bool exitThread();
 public:
 	void createItemsList(const char* title);
+	void createTreDialog(const char* title);
 	void updateContent();
 	void deleteObjects();
 	Evas_Object *itemsList;
