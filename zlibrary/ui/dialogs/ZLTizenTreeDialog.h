@@ -39,7 +39,7 @@ public:
 	void new_naviframe(const char* title);
 	void updateContent();
 	void deleteObjects();
-	Evas_Object *itemsList;
+	Evas_Object *genList;
 	std::vector<Elm_Object_Item*> elmObjectsList;
 	int ItemCount;
 	ZLTizenApplicationWindow* myWindows;
