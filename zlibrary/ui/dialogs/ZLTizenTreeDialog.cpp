@@ -194,7 +194,7 @@ static void gl_selected_cb(void *data, Evas_Object *obj, void *event_info)
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 }
 void ZLTizenTreeDialog::new_naviframe(const char* title){
-	Evas_Object *layout = ZLTizenUtil::create_layout(myWindows->naviframe, "fbr.RadioList");
+	Evas_Object *layout = ZLTizenUtil::create_layout(myWindows->naviframe, "fbr.genlist");
 	Elm_Object_Item *nf_it = elm_naviframe_item_push(myWindows->naviframe, title, NULL, NULL,	layout, NULL);
 	elmObjectsList.push_back(nf_it);
 	elm_naviframe_item_pop_cb_set(nf_it, tree_dialog_pop_cb, myWindows);
@@ -212,7 +212,7 @@ void ZLTizenTreeDialog::new_naviframe(const char* title){
 		evas_object_smart_callback_add(genList, "selected", gl_selected_cb, this);
 	//	evas_object_smart_callback_add(genlist, "longpressed", gl_longpressed_cb, NULL);
 
-		elm_object_part_content_set(layout,  "fbr.RadioList.sw", genList);
+		elm_object_part_content_set(layout,  "fbr.genlist.sw", genList);
 		evas_object_show(genList);
 }
 
