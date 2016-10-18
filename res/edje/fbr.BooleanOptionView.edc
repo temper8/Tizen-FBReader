@@ -1,6 +1,6 @@
 collections {
    base_scale: 1.0;
-   group { name: "booleanOptionView";
+   group { name: "fbr.BooleanOptionView";
       parts {
          part { name: "spacer1";
             type: SPACER;
