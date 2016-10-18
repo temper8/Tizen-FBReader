@@ -180,7 +180,7 @@ Evas_Object* TizenComboOptionView::createViewItem(Evas_Object *parent){
 	//if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "booleantOptionView") == 0)
 	//		DBG("error set layout ");
 
-	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, 0.0);
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.0);
 
 	elm_object_part_text_set(layout, "caption", _(name().c_str()));
