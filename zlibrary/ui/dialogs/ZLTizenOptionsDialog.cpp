@@ -62,6 +62,7 @@ void ZLTizenOptionsDialog::createOptionsDialogObject(Evas_Object *nf){
 	evas_object_size_hint_align_set(myBox, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	elm_box_homogeneous_set(myBox, EINA_FALSE);
 	//elm_box_padding_set(myBox, 0, 5 * elm_config_scale_get());
+	elm_box_align_set(myBox, 0.0, 0.0);
 	evas_object_show(myBox);
 	elm_object_content_set(myScroller, myBox);
 	//Evas_Object * layout = create_labels(myBox);
