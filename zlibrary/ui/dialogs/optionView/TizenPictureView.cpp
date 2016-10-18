@@ -34,8 +34,6 @@ Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 
 	ZLTizenUtil::layout_edj_set(layout, "fbr.PictureView");
 
-	//if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "picture_layout") == 0)
-	//		DBG("error set layout ");
 	//elm_entry_line_wrap_set(layout, ELM_WRAP_NONE);
 	//elm_entry_single_line_set(layout, EINA_TRUE);
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, 0.0);

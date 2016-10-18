@@ -15,22 +15,12 @@
 #include "../ZLTizen.h"
 #include "logger.h"
 
-//#define EDJ_FILE "/opt/usr/apps/org.tizen.tizen-fbreader/res/edje/alignment.edj"
-
 TizenComboOptionView::TizenComboOptionView(const std::string &name, const std::string &tooltip, ZLOptionEntry *option, ZLTizenDialogContent *tab, int row, int fromColumn, int toColumn) :
 										ZLTizenOptionView(name, tooltip, option, tab, row, fromColumn, toColumn) {
 	 DBG("TizenComboOptionView %s", name.c_str());
 	 myTab->myTizenOptionsDialog->addEvasViewItem(createViewItem(tab->myTizenOptionsDialog->myBox));
 }
 
-static void app_get_resource(const char *edj_file_in, char *edj_path_out, int edj_path_max)
-{
-	char *res_path = app_get_resource_path();
-	if (res_path) {
-		snprintf(edj_path_out, edj_path_max, "%s%s", res_path, edj_file_in);
-		free(res_path);
-	}
-}
 
 static char* gl_text_get_cb(void *data, Evas_Object *obj, const char *part)
 {
@@ -176,9 +166,6 @@ Evas_Object* TizenComboOptionView::createViewItem(Evas_Object *parent){
 	Evas_Object *layout = elm_layout_add(parent);
 
 	ZLTizenUtil::layout_edj_set(layout, "fbr.ComboOptionView");
-
-	//if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "booleantOptionView") == 0)
-	//		DBG("error set layout ");
 
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, 0.0);
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.0);

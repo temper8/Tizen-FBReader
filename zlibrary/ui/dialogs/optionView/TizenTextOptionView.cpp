@@ -66,16 +66,4 @@ void TizenTextOptionView::_createItem() {
 
 void TizenTextOptionView::_onAccept() const { }
 
-/*
-TableViewItem* TestTizenOptionView::createTableViewItem(int itemWidth, int defaultItemHeight) {
-	TableViewAnnexStyle style = TABLE_VIEW_ANNEX_STYLE_NORMAL;
-	TableViewItem* pItem = new TableViewItem();
-	pItem->Construct(Dimension(itemWidth, defaultItemHeight), style);
 
-	Label* pLabel = new Label();
-	pLabel->Construct(Rectangle(0, 0, itemWidth, defaultItemHeight), myCaption);
-
-	pItem->AddControl(pLabel);
-
-	return pItem;
-}*/
