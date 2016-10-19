@@ -27,10 +27,7 @@ static void slider_changed_cb(void *data, Evas_Object *obj, void *event_info)
 	TizenSliderOptionView* myTizenSlider = (TizenSliderOptionView*)data;
 	Evas_Object *layout = myTizenSlider->layout;
 
-	char buf[5];
 	double value = elm_slider_value_get(obj);
-	sprintf(buf, "%d", (int)value);
-	elm_object_part_text_set(layout, "Value", _(buf));
 
 	char cap[50] = {0, };
 	snprintf(cap, 50,  "%s : %d",_(myTizenSlider->myCaption.c_str()), (int)value);
@@ -56,34 +53,24 @@ static Evas_Object *create_slider(Evas_Object *parent, Eina_Bool is_center_point
 
 Evas_Object* TizenSliderOptionView::createViewItem(Evas_Object *parent){
 
-	Evas_Object * label, *label2;
-	Evas_Object *slider;
-
 	layout = elm_layout_add(parent);
 
 	ZLTizenUtil::layout_edj_set(layout, "fbr.SliderOptionView");
-
-//	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND,  0.0);
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.0);
 	char cap[50] = {0, };
 	snprintf(cap, 50,  "%s : %d",_(myCaption.c_str()), ((ZLSpinOptionEntry&)*myOption).initialValue());
 	elm_object_part_text_set(layout, "Caption", cap);
-	char value[5] = {0, };
-	snprintf(value, 5, "%d", ((ZLSpinOptionEntry&)*myOption).initialValue());
-	elm_object_part_text_set(layout, "Value", _(value));
 
+	char buf[5] = {0, };
+	snprintf(buf, 5, "%d", minValue);
+	elm_object_part_text_set(layout, "minValue", _(buf));
 
-//	label = elm_label_add(layout);
-////	evas_object_size_hint_align_set(label, 0.0, 0.5);
-//	elm_object_part_content_set(layout, "title", label);
-//	elm_object_text_set(label, _(myCaption.c_str()));
-//	elm_object_content_set(layout,label);
-//	//elm_box_pack_end(main_box, label);
-//	evas_object_show(label);
+	snprintf(buf, 5, "%d", maxValue);
+	elm_object_part_text_set(layout, "maxValue", _(buf));
 
-	slider = create_slider(layout, EINA_FALSE);
+	Evas_Object * slider = create_slider(layout, EINA_FALSE);
 	evas_object_smart_callback_add(slider, "changed", slider_changed_cb, this);
 	elm_object_part_content_set(layout, "Slider", slider);
 	elm_slider_horizontal_set(slider, EINA_TRUE);
@@ -91,8 +78,6 @@ Evas_Object* TizenSliderOptionView::createViewItem(Evas_Object *parent){
 	elm_slider_value_set(slider, ((ZLSpinOptionEntry&)*myOption).initialValue());
 	evas_object_show(slider);
 	elm_object_content_set(layout,slider);
-//	elm_box_pack_end(main_box, slider);
-
 
 	return layout;
 }
