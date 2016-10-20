@@ -358,6 +358,9 @@ ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): 
 
 	/* Naviframe */
 	naviframe = elm_naviframe_add(conform);
+	/* Push a previous button to naviframe item automatically */
+	elm_naviframe_prev_btn_auto_pushed_set(naviframe, EINA_TRUE);
+
 	eext_object_event_callback_add(naviframe, EEXT_CALLBACK_BACK, naviframe_back_cb, this);
 	eext_object_event_callback_add(naviframe, EEXT_CALLBACK_MORE, drawer_panel_Show, this);
 	evas_object_size_hint_weight_set(naviframe, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);

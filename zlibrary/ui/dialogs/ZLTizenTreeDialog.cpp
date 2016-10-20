@@ -199,7 +199,6 @@ void ZLTizenTreeDialog::new_naviframe(const char* title){
 	elmObjectsList.push_back(nf_it);
 	elm_naviframe_item_pop_cb_set(nf_it, tree_dialog_pop_cb, myWindows);
 
-
 	genList = elm_genlist_add(layout);
 	evas_object_size_hint_weight_set(genList, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(genList, EVAS_HINT_FILL, EVAS_HINT_FILL);
