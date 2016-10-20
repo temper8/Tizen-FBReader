@@ -57,6 +57,7 @@ collections {
                   min: 0 0;
                }
                rel1.to: "bg_rect";
+               rel1.offset: 0 5;
                rel2.to: "bg_rect";
             }
          }
