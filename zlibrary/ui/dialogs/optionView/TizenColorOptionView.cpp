@@ -20,20 +20,18 @@ TizenColorOptionView::TizenColorOptionView(const std::string &name, const std::s
 
 Evas_Object* TizenColorOptionView::createViewItem(Evas_Object *parent){
 
-	Evas_Object *check;
 	Evas_Object *layout = elm_layout_add(parent);
 
 	ZLTizenUtil::layout_edj_set(layout, "fbr.ColorOptionView");
 
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, 0.0);
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.0);
-/*
-	check = elm_check_add(layout);
-	elm_object_style_set(check, "on&off");
-	elm_check_state_set(check, EINA_TRUE);
 
-	elm_object_part_content_set(layout, "check", check);
-*/
+	Evas_Object *bg = elm_bg_add(layout);
+	ZLColor myColor = ((ZLColorOptionEntry&)*myOption).color();
+	elm_bg_color_set(bg, myColor.Red, myColor.Green, myColor.Blue);
+	elm_object_part_content_set(layout, "color", bg);
+
 	elm_object_part_text_set(layout, "caption", _(name().c_str()));
 
 	return layout;
@@ -44,6 +42,7 @@ void TizenColorOptionView::_createItem() {
 //	 myCaption.Format(30, L"%s", ZLOptionView::name().c_str());
 	 DBG("_createItem %s", name().c_str());
 	 myCaption = ZLOptionView::name();
+
 }
 
 void TizenColorOptionView::_onAccept() const { }
