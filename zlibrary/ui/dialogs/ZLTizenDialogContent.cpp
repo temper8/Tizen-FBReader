@@ -14,6 +14,7 @@
 #include "optionView/TizenSpinnerOptionView.h"
 #include "optionView/TizenSliderOptionView.h"
 #include "optionView/TizenPictureView.h"
+#include "optionView/TizenColorOptionView.h"
 #include "logger.h"
 
 ZLTizenDialogContent::	ZLTizenDialogContent(ZLTizenOptionsDialog *dialog, const ZLResource &resource): ZLDialogContent(resource), myTizenOptionsDialog(dialog) {
@@ -77,7 +78,7 @@ void ZLTizenDialogContent::createViewByEntry(const std::string &name, const std:
 			DBG("ZLOptionEntry::COMBO:");
 			view = new TizenComboOptionView(name, tooltip, (ZLComboOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
 			break;
-	/*	case ZLOptionEntry::COLOR:
+		case ZLOptionEntry::COLOR:
 			DBG("ZLOptionEntry::COLOR:");
 			view = new TizenColorOptionView(name, tooltip, (ZLColorOptionEntry*)option, this, myRowCounter, fromColumn, toColumn);
 			break;
