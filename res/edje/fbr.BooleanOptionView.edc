@@ -41,7 +41,7 @@ collections {
             description { state: "default" 0.0;
                align: 1.0 0.5;
                fixed: 0 0;
-               min: 0 0;
+               min: 0 30;
                visible: 1;
                rel1.to: "rect";
                rel1.relative: 0.85 0.0;
