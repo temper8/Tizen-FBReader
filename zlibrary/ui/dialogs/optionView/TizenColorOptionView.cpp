@@ -28,8 +28,10 @@ Evas_Object* TizenColorOptionView::createViewItem(Evas_Object *parent){
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.0);
 
 	Evas_Object *bg = elm_bg_add(layout);
-	ZLColor myColor = ((ZLColorOptionEntry&)*myOption).color();
-	elm_bg_color_set(bg, myColor.Red, myColor.Green, myColor.Blue);
+
+	ZLColor сolor = ((ZLColorOptionEntry&)*myOption).color();
+	elm_bg_color_set(bg, сolor.Red, сolor.Green, сolor.Blue);
+
 	elm_object_part_content_set(layout, "color", bg);
 
 	elm_object_part_text_set(layout, "caption", _(name().c_str()));
