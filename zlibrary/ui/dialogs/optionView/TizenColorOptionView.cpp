@@ -59,7 +59,6 @@ static void colorselector_callback(void *data, Evas *e, Evas_Object *obj, void *
 	DBG("TizenComboOptionView---createViewItem");
 	TizenColorOptionView *myOptionView = (TizenColorOptionView *)data;
 	ZLTizenApplicationWindow *tw =  myOptionView->myTab->myTizenOptionsDialog->myWindows;
-	Evas_Object *win = tw->win;
 
 	Evas_Object *colorselector, *scroller, *layout;
 	Evas_Object *nf = tw->naviframe;

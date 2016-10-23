@@ -25,9 +25,9 @@
 #include "ZLTextPositionIndicator.h"
 
 void ZLTextView::paint() {
-//	context().clear(backgroundColor());
+	context().clear(backgroundColor());
 	DBG("ZLTextView::paint()");
-    context().clear(ZLColor(255, 0, 255));
+//    context().clear(ZLColor(255, 0, 255));
 
 // Тестовый крест
 //	context().setColor(ZLColor(127, 127, 127));

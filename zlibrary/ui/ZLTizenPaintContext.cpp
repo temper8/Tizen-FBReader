@@ -52,7 +52,7 @@ int ZLTizenPaintContext::height() const{
 }
 
 void ZLTizenPaintContext::clear(ZLColor color){
-	 cairo_set_source_rgb(cairo, 0.5, 0.5, 1.0);
+	 cairo_set_source_rgb(cairo, (double)color.Red / 255.0, (double)color.Green / 255.0, (double)color.Blue / 255.0);
 	 cairo_paint(cairo);
 }
 

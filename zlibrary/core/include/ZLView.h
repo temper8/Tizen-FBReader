@@ -68,9 +68,9 @@ public:
 */
 protected:
 	const ZLTypeId &typeId() const;
-/*
-	virtual ZLColor backgroundColor() const = 0;
 
+	virtual ZLColor backgroundColor() const = 0;
+/*
 	void setScrollbarEnabled(Direction direction, bool enabled);
 	void setScrollbarParameters(Direction direction, size_t full, size_t from, size_t to);
 	virtual void onScrollbarMoved(Direction direction, size_t full, size_t from, size_t to);
