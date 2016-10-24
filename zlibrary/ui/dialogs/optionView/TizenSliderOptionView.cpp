@@ -22,6 +22,10 @@ TizenSliderOptionView::TizenSliderOptionView(const std::string &name, const std:
 //	 myTab->myTizenOptionsDialog->addEvasViewItem(createTestAlignment(tab->myTizenOptionsDialog->myBox));
 }
 
+void TizenSliderOptionView::accept(int value){
+	((ZLSpinOptionEntry&)*myOption).onAccept(value);
+}
+
 static void slider_changed_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	TizenSliderOptionView* myTizenSlider = (TizenSliderOptionView*)data;
@@ -32,6 +36,8 @@ static void slider_changed_cb(void *data, Evas_Object *obj, void *event_info)
 	char cap[50] = {0, };
 	snprintf(cap, 50,  "%s : %d",_(myTizenSlider->myCaption.c_str()), (int)value);
 	elm_object_part_text_set(layout, "Caption", cap);
+
+	myTizenSlider->accept((int)value);
 
 }
 

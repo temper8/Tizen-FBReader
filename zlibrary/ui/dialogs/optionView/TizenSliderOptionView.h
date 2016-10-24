@@ -18,11 +18,14 @@ public:
 	virtual Evas_Object* createViewItem(Evas_Object *parent);
 	//Evas_Object* createTestAlignment(Evas_Object *parent);
 
+	void accept(int value);
+
 protected:
 	int minValue;
 	int maxValue;
 	void _createItem();
 	void _onAccept() const;
+
 };
 
 #endif /* TIZENSLIDEROPTIONVIEW_H_ */
