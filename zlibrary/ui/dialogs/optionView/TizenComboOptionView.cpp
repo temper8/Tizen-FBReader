@@ -62,16 +62,25 @@ static Evas_Object* gl_radio_content_get_cb(void *data, Evas_Object *obj, const 
 	}
 	return NULL;
 }
-
+void TizenComboOptionView::onSelected(int index){
+	const std::vector<std::string> &values = ((ZLComboOptionEntry&)*myOption).values();
+	std::string v = values[index];
+	((ZLComboOptionEntry&)*myOption).onAccept(v.c_str());
+//	comboValue.Format(30, L"%s", v.c_str());
+}
 // обработчик выбора элемента списока
 static void gl_sel_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	Elm_Object_Item *it = (Elm_Object_Item *)event_info;
 	int index = (int) data;
+	DBG("gl_sel_cb %d", index);
 	Evas_Object *radio;
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 	radio = elm_object_item_part_content_get(it, "elm.swallow.end");
 	elm_radio_value_set(radio, index + 1);
+
+	TizenComboOptionView *myCombo = (TizenComboOptionView *)evas_object_data_get(obj, "combo");
+	myCombo->onSelected(index);
 
 	Evas_Object *popup = (Evas_Object *)evas_object_data_get(obj, "popup");
 	evas_object_del(popup);
@@ -121,6 +130,7 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	elm_radio_state_value_set(radio, 0);
 	elm_radio_value_set(radio, 0);
 	evas_object_data_set(genlist, "radio", radio);
+	evas_object_data_set(genlist, "combo", myCombo);
 
 	itc.item_style = "default";
 	itc.func.text_get = gl_radio_text_get_cb;

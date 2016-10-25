@@ -18,7 +18,7 @@ public:
 	shared_ptr<ZLOptionEntry> option() const 	{ return  myOption;};
 
 	virtual Evas_Object* createViewItem(Evas_Object *parent);
-
+	void onSelected(int index);
 protected:
 	void _createItem();
 	void _onAccept() const;
