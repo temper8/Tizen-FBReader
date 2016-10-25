@@ -182,21 +182,11 @@ Evas_Object* TizenComboOptionView::createViewItem(Evas_Object *parent){
 
 	elm_object_part_text_set(layout, "caption", _(name().c_str()));
 
-	Evas_Object *label = elm_label_add(layout);
-	//Evas_Object *label = elm_button_add(layout);
-	evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, 0.0);
-	evas_object_size_hint_align_set(label, EVAS_HINT_FILL, 0.0);
 
 	std::string text = ((ZLStaticTextOptionEntry&)*myOption).initialValue();
 
-	//elm_object_part_text_set(layout, "text", _(text.c_str()));
+	elm_object_part_text_set(layout, "value", _(text.c_str()));
 
-	elm_label_line_wrap_set(label, ELM_WRAP_MIXED);
-	text = "<font_size=36>" + text + "</font_size>";
-	elm_object_text_set(label,_(text.c_str()));
-	elm_object_part_content_set(layout, "label", label);
-//	ZLTizenApplicationWindow *tw =  myTab->myTizenOptionsDialog->myWindows;
-//	evas_object_smart_callback_add(label, "clicked", list_it_list_cb,tw->win);
 	evas_object_event_callback_add(layout, EVAS_CALLBACK_MOUSE_UP, up_callback, this);
 
 	return layout;
