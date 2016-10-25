@@ -17,6 +17,8 @@ public:
 //	virtual Tizen::Ui::Controls::TableViewItem* createTableViewItem(int itemWidth, int defaultItemHeight);
 	virtual Evas_Object* createViewItem(Evas_Object *parent);
 
+	void setOptionValue(bool state);
+	bool getOptionValue();
 protected:
 	void _createItem();
 	void _onAccept() const;

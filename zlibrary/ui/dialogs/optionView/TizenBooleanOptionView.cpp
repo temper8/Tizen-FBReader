@@ -17,6 +17,35 @@ TizenBooleanOptionView::TizenBooleanOptionView(const std::string &name, const st
 	 myTab->myTizenOptionsDialog->addEvasViewItem(createViewItem(tab->myTizenOptionsDialog->myBox));
 }
 
+
+static void check_changed_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	TizenBooleanOptionView *myBoolean = (TizenBooleanOptionView *)data;
+
+	Eina_Bool state = elm_check_state_get(obj);
+
+	switch(state){
+	case EINA_TRUE :
+		myBoolean->setOptionValue(true);
+		break;
+	case EINA_FALSE :
+		myBoolean->setOptionValue(false);
+		break;
+	default:
+		break;
+	}
+
+}
+
+bool TizenBooleanOptionView::getOptionValue(){
+	return ((ZLBooleanOptionEntry&)*myOption).initialState();
+}
+
+void TizenBooleanOptionView::setOptionValue(bool state){
+
+	((ZLBooleanOptionEntry&)*myOption).onAccept(state);
+}
+
 Evas_Object* TizenBooleanOptionView::createViewItem(Evas_Object *parent){
 
 	Evas_Object *check;
@@ -29,9 +58,11 @@ Evas_Object* TizenBooleanOptionView::createViewItem(Evas_Object *parent){
 
 	check = elm_check_add(layout);
 	elm_object_style_set(check, "on&off");
-	elm_check_state_set(check, EINA_TRUE);
+	elm_check_state_set(check, (getOptionValue())?EINA_TRUE:EINA_FALSE);
 
 	elm_object_part_content_set(layout, "check", check);
+	evas_object_smart_callback_add(check, "changed", check_changed_cb, this);
+
 
 	elm_object_part_text_set(layout, "caption", _(name().c_str()));
 
@@ -39,8 +70,6 @@ Evas_Object* TizenBooleanOptionView::createViewItem(Evas_Object *parent){
 }
 
 void TizenBooleanOptionView::_createItem() {
-//	 myCaption.Format(30, L"%s", ZLOptionView::name().c_str());
-	 DBG("_createItem %s", name().c_str());
 	 myCaption = ZLOptionView::name();
 }
 
