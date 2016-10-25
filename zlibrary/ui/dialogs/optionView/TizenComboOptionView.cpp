@@ -62,12 +62,7 @@ static Evas_Object* gl_radio_content_get_cb(void *data, Evas_Object *obj, const 
 	}
 	return NULL;
 }
-void TizenComboOptionView::onSelected(int index){
-	const std::vector<std::string> &values = ((ZLComboOptionEntry&)*myOption).values();
-	std::string v = values[index];
-	((ZLComboOptionEntry&)*myOption).onAccept(v.c_str());
-//	comboValue.Format(30, L"%s", v.c_str());
-}
+
 // обработчик выбора элемента списока
 static void gl_sel_cb(void *data, Evas_Object *obj, void *event_info)
 {
@@ -163,17 +158,27 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	evas_object_show(genlist);
 	elm_box_pack_end(box, genlist);
 
-	evas_object_size_hint_min_set(box, -1, 492);
+	evas_object_size_hint_min_set(box, -1, 500);
 //	elm_object_content_set(popup, box);
 	elm_object_part_content_set(layout,  "fbr.RadioList.sw", box);
 	evas_object_show(popup);
 }
 
+void TizenComboOptionView::onSelected(int index){
+	const std::vector<std::string> &values = ((ZLComboOptionEntry&)*myOption).values();
+	std::string v = values[index];
+	((ZLComboOptionEntry&)*myOption).onAccept(v.c_str());
+	setValue(v.c_str());
+}
+
+void TizenComboOptionView::setValue(const char* value){
+	elm_object_part_text_set(layout, "value", _(value));
+}
 
 Evas_Object* TizenComboOptionView::createViewItem(Evas_Object *parent){
 	DBG("TizenComboOptionView::createViewItem");
 
-	Evas_Object *layout = elm_layout_add(parent);
+	layout= elm_layout_add(parent);
 
 	ZLTizenUtil::layout_edj_set(layout, "fbr.ComboOptionView");
 
@@ -184,8 +189,9 @@ Evas_Object* TizenComboOptionView::createViewItem(Evas_Object *parent){
 
 
 	std::string text = ((ZLStaticTextOptionEntry&)*myOption).initialValue();
+	setValue(text.c_str());
 
-	elm_object_part_text_set(layout, "value", _(text.c_str()));
+	//elm_object_part_text_set(layout, "value", _(text.c_str()));
 
 	evas_object_event_callback_add(layout, EVAS_CALLBACK_MOUSE_UP, up_callback, this);
 

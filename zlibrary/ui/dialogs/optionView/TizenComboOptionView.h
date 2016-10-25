@@ -19,7 +19,10 @@ public:
 
 	virtual Evas_Object* createViewItem(Evas_Object *parent);
 	void onSelected(int index);
+	void setValue(const char* value);
+
 protected:
+	Evas_Object *layout;
 	void _createItem();
 	void _onAccept() const;
 };
