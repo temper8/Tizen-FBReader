@@ -19,7 +19,24 @@ TizenColorOptionView::TizenColorOptionView(const std::string &name, const std::s
 	 myTab->myTizenOptionsDialog->addEvasViewItem(createViewItem(tab->myTizenOptionsDialog->myBox));
 }
 
-static Evas_Object* create_colorselector(Evas_Object *parent)
+void TizenColorOptionView::setOptionColor(int r,int g,int b){
+	((ZLColorOptionEntry&)*myOption).onAccept(ZLColor(r,b,g));
+	elm_bg_color_set(bg, r, g, b);
+}
+
+static void change_color_cb(void *data, Evas_Object *obj, void *event_info)
+{
+   TizenColorOptionView *myOptionView = (TizenColorOptionView *)data;
+   int r, g, b, a;
+   elm_colorselector_color_get(obj, &r, &g, &b, &a);
+   myOptionView->setOptionColor(r,g,b);
+
+   // ensure colors are pre-multiplied by alpha
+  // evas_color_argb_premul(a, &r, &g, &b);
+ //  evas_object_color_set(data, r, g, b, a);
+}
+
+Evas_Object* TizenColorOptionView::create_colorselector(Evas_Object *parent)
 {
 	/* add color palette widget */
 	Evas_Object *colorselector;
@@ -35,12 +52,14 @@ static Evas_Object* create_colorselector(Evas_Object *parent)
 	color_list = elm_colorselector_palette_items_get(colorselector);
 	it = (Elm_Object_Item*)eina_list_nth(color_list, 3);
 
+	evas_object_smart_callback_add(colorselector, "changed", change_color_cb, this);
+
 	elm_object_item_signal_emit(it, "elm,state,selected", "elm");
 
 	return colorselector;
 }
 
-static Evas_Object* create_scroller(Evas_Object *parent)
+Evas_Object* TizenColorOptionView::create_scroller(Evas_Object *parent)
 {
 	Evas_Object *scroller = elm_scroller_add(parent);
 	elm_object_style_set(scroller, "dialogue");
@@ -63,13 +82,13 @@ static void colorselector_callback(void *data, Evas *e, Evas_Object *obj, void *
 	Evas_Object *colorselector, *scroller, *layout;
 	Evas_Object *nf = tw->naviframe;
 
-	scroller = create_scroller(nf);
+	scroller = myOptionView->create_scroller(nf);
 	layout = elm_layout_add(scroller);
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 //	elm_layout_file_set(layout, ELM_DEMO_EDJ, "white_bg_layout");
 	ZLTizenUtil::layout_edj_set(layout, "fbr.white_bg_layout");
 
-	colorselector = create_colorselector(layout);
+	colorselector = myOptionView->create_colorselector(layout);
 	elm_object_part_content_set(layout, "elm.swallow.content", colorselector);
 	elm_object_content_set(scroller, layout);
 
@@ -87,7 +106,7 @@ Evas_Object* TizenColorOptionView::createViewItem(Evas_Object *parent){
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, 0.0);
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.0);
 
-	Evas_Object *bg = elm_bg_add(layout);
+	bg = elm_bg_add(layout);
 
 	ZLColor сolor = ((ZLColorOptionEntry&)*myOption).color();
 	elm_bg_color_set(bg, сolor.Red, сolor.Green, сolor.Blue);
