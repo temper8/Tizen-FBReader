@@ -20,7 +20,6 @@ TizenColorOptionView::TizenColorOptionView(const std::string &name, const std::s
 }
 
 void TizenColorOptionView::setOptionColor(int r,int g,int b){
-	((ZLColorOptionEntry&)*myOption).onAccept(ZLColor(r,b,g));
 	elm_bg_color_set(bg, r, g, b);
 }
 
@@ -31,9 +30,6 @@ static void change_color_cb(void *data, Evas_Object *obj, void *event_info)
    elm_colorselector_color_get(obj, &r, &g, &b, &a);
    myOptionView->setOptionColor(r,g,b);
 
-   // ensure colors are pre-multiplied by alpha
-  // evas_color_argb_premul(a, &r, &g, &b);
- //  evas_object_color_set(data, r, g, b, a);
 }
 
 Evas_Object* TizenColorOptionView::create_colorselector(Evas_Object *parent)
