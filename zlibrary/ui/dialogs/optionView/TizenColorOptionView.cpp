@@ -20,6 +20,7 @@ TizenColorOptionView::TizenColorOptionView(const std::string &name, const std::s
 }
 
 void TizenColorOptionView::setOptionColor(int r,int g,int b){
+	((ZLColorOptionEntry&)*myOption).onAccept(ZLColor((unsigned char) r,(unsigned char)g, (unsigned char)b));
 	elm_bg_color_set(bg, r, g, b);
 }
 
