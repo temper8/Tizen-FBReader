@@ -17,15 +17,16 @@ public:
 //	virtual Tizen::Ui::Controls::TableViewItem* createTableViewItem(int itemWidth, int defaultItemHeight);
 	virtual Evas_Object* createViewItem(Evas_Object *parent);
 
-	Evas_Object* create_scroller(Evas_Object *parent);
-	Evas_Object* create_colorselector(Evas_Object *parent);
-
-	void setOptionColor(int r, int g, int b);
-
 protected:
 	Evas_Object *bg;
 	void _createItem();
 	void _onAccept() const;
+
+public:
+	Elm_Object_Item* nf_it_colorselector;
+	Evas_Object* create_scroller(Evas_Object *parent);
+	Evas_Object* create_colorselector(Evas_Object *parent);
+	void setOptionColor(int r, int g, int b);
 };
 
 

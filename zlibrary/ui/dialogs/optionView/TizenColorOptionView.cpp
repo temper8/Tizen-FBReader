@@ -24,13 +24,13 @@ void TizenColorOptionView::setOptionColor(int r,int g,int b){
 	elm_bg_color_set(bg, r, g, b);
 }
 
-static void change_color_cb(void *data, Evas_Object *obj, void *event_info)
+static void selected_color_cb(void *data, Evas_Object *obj, void *event_info)
 {
    TizenColorOptionView *myOptionView = (TizenColorOptionView *)data;
    int r, g, b, a;
    elm_colorselector_color_get(obj, &r, &g, &b, &a);
    myOptionView->setOptionColor(r,g,b);
-
+   elm_object_item_del(myOptionView->nf_it_colorselector);
 }
 
 Evas_Object* TizenColorOptionView::create_colorselector(Evas_Object *parent)
@@ -49,9 +49,9 @@ Evas_Object* TizenColorOptionView::create_colorselector(Evas_Object *parent)
 	color_list = elm_colorselector_palette_items_get(colorselector);
 	it = (Elm_Object_Item*)eina_list_nth(color_list, 3);
 
-	evas_object_smart_callback_add(colorselector, "changed", change_color_cb, this);
+	evas_object_smart_callback_add(colorselector, "color,item,selected", selected_color_cb, this);
 
-	elm_object_item_signal_emit(it, "elm,state,selected", "elm");
+//	elm_object_item_signal_emit(it, "elm,state,selected", "elm");
 
 	return colorselector;
 }
@@ -89,7 +89,9 @@ static void colorselector_callback(void *data, Evas *e, Evas_Object *obj, void *
 	elm_object_part_content_set(layout, "elm.swallow.content", colorselector);
 	elm_object_content_set(scroller, layout);
 
-	elm_naviframe_item_push(nf, "Colorselector", NULL, NULL, scroller, NULL);
+
+	Elm_Object_Item *nf_it = elm_naviframe_item_push(nf, "Colorselector", NULL, NULL, scroller, NULL);
+	myOptionView->nf_it_colorselector = nf_it;
 
 }
 
