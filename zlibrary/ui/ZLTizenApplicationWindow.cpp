@@ -317,6 +317,10 @@ void ZLTizenApplicationWindow::gotoPrevPage(){
 	 doAppAction(ActionCode::PAGE_SCROLL_BACKWARD);
 }
 
+void ZLTizenApplicationWindow::refreshPage(){
+	doAppAction(ActionCode::PAGE_REFRESH);
+}
+
 void ZLTizenApplicationWindow::gotoNextPage(){
 	 DBG("NextPage");
 	 //FBReader &fbreader = FBReader::Instance();

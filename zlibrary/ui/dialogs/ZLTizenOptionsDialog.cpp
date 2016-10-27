@@ -20,7 +20,8 @@
 ZLTizenOptionsDialog::~ZLTizenOptionsDialog() {
 	// TODO Auto-generated destructor stub
 	DBG("delete ZLTizenOptionsDialog");
-	deleteObjects();
+	myWindows->refreshPage();
+	//deleteObjects();
 }
 
 ZLTizenOptionsDialog::ZLTizenOptionsDialog(ZLTizenApplicationWindow *windows, const ZLResource &resource, shared_ptr<ZLRunnable> applyAction) :  ZLOptionsDialog(resource, applyAction), myWindows(windows) {//,myMenuView(0){
@@ -44,10 +45,21 @@ void ZLTizenOptionsDialog::new_naviframe(){
 	createOptionsDialogObject(myWindows->naviframe);
 }
 
+static Eina_Bool TizenOptionsDialog_destuctor_cb(void *data, Elm_Object_Item *it) {
+	DBG("OptionsDialog_destuctor_cb");
+	ZLTizenOptionsDialog *tg = (ZLTizenOptionsDialog*)data;
+	//if (!tg)
+	//delete tg;
+	tg->myWindows->refreshPage();
+//	 elm_naviframe_item_pop(it);
+	return EINA_TRUE;//EINA_FALSE;
+}
+
 void ZLTizenOptionsDialog::createOptionsDialogObject(Evas_Object *nf){
 	DBG("createOptionsDialogObject");
 	Evas_Object *layout = ZLTizenUtil::create_layout(myWindows->naviframe, "fbr.optionsdialog");
 	Elm_Object_Item *nf_it = elm_naviframe_item_push(myWindows->naviframe, caption().c_str(), NULL, NULL,	layout, NULL);
+	elm_naviframe_item_pop_cb_set(nf_it, TizenOptionsDialog_destuctor_cb, this);
 	elmObjectsOptionsDialog = nf_it;
 	//elmObjectsList.push_back(nf_it);
 //	elm_naviframe_item_pop_cb_set(nf_it, tree_dialog_pop_cb, myWindows);

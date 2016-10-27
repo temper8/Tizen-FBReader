@@ -56,6 +56,7 @@ public:
 	void gotoPrevPage();
 	void gotoNextPage();
 	void mouseDown(int x, int y);
+	void refreshPage();
 
 	void createTestDialog();
 	shared_ptr<ZLTreeDialog> createTizenTreeDialog(const ZLResource &resource);
