@@ -41,7 +41,7 @@ Evas_Object* TestTizenOptionView::createViewItem(Evas_Object *parent){
 	Evas_Object * label, *label2;
 	Evas_Object *layout = elm_layout_add(parent);
 
-	if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "test_layout") == 0)
+	// old if (elm_layout_file_set(layout, myTab->myTizenOptionsDialog->edj_path, "test_layout") == 0)
 			DBG("error set layout ");
 
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);

@@ -41,7 +41,7 @@ public:
 	Evas_Object *myScroller;
 	Evas_Object *myBox;
 	Elm_Object_Item* elmObjectsOptionsDialog;
-	char edj_path[PATH_MAX] = {0, };
+//	char edj_path[PATH_MAX] = {0, };
 	void deleteObjects();
 };
 
