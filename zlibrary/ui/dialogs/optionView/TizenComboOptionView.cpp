@@ -150,7 +150,6 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	for (std::vector<std::string>::const_iterator it = values.begin(); it != values.end(); ++it, ++index) {
 
 			elm_genlist_item_append(genlist, &itc, (void *) index, NULL, ELM_GENLIST_ITEM_NONE, gl_sel_cb, (void *) index);
-			//__pComboList->AddItem(&itemText, null, null, null );
 			if (*it == initial) {
 				selectedIndex = index;
 			}

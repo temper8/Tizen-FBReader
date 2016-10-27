@@ -70,7 +70,6 @@ Evas_Object* TizenColorOptionView::create_scroller(Evas_Object *parent)
 
 // создание colorselector
 static void colorselector_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
-//static void list_it_list_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	DBG("TizenComboOptionView---createViewItem");
 	TizenColorOptionView *myOptionView = (TizenColorOptionView *)data;
@@ -82,7 +81,7 @@ static void colorselector_callback(void *data, Evas *e, Evas_Object *obj, void *
 	scroller = myOptionView->create_scroller(nf);
 	layout = elm_layout_add(scroller);
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-//	elm_layout_file_set(layout, ELM_DEMO_EDJ, "white_bg_layout");
+
 	ZLTizenUtil::layout_edj_set(layout, "fbr.white_bg_layout");
 
 	colorselector = myOptionView->create_colorselector(layout);
@@ -121,7 +120,6 @@ Evas_Object* TizenColorOptionView::createViewItem(Evas_Object *parent){
 
 
 void TizenColorOptionView::_createItem() {
-//	 myCaption.Format(30, L"%s", ZLOptionView::name().c_str());
 	 DBG("_createItem %s", name().c_str());
 	 myCaption = ZLOptionView::name();
 

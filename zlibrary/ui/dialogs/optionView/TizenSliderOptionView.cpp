@@ -89,7 +89,6 @@ Evas_Object* TizenSliderOptionView::createViewItem(Evas_Object *parent){
 }
 
 void TizenSliderOptionView::_createItem() {
-//	 myCaption.Format(30, L"%s", ZLOptionView::name().c_str());
 	 DBG("_createItem %s", name().c_str());
 	 myCaption = ZLOptionView::name();
 	 minValue = ((ZLSpinOptionEntry&)*myOption).minValue();
