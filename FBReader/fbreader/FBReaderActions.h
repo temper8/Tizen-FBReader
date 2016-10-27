@@ -52,6 +52,7 @@ public:
 	static const std::string FIND_NEXT;
 	static const std::string PAGE_SCROLL_FORWARD;
 	static const std::string PAGE_SCROLL_BACKWARD;
+	static const std::string PAGE_REFRESH;
 	static const std::string LINE_SCROLL_FORWARD;
 	static const std::string LINE_SCROLL_BACKWARD;
 	static const std::string MOUSE_SCROLL_FORWARD;
@@ -110,6 +111,9 @@ public:
 private:
 	FBReader::ViewMode myModeToSet;
 };
+
+
+
 
 class ShowHelpAction : public ZLApplication::Action {
 
@@ -295,6 +299,12 @@ class FindPreviousAction : public SearchAction {
 
 public:
 	bool isEnabled() const;
+	void run();
+};
+
+class PageRefreshAction : public ZLApplication::Action {
+
+public:
 	void run();
 };
 

@@ -162,6 +162,7 @@ bool FBReader::createApplication(){
 	addAction(ActionCode::SCROLL_TO_END_OF_TEXT, new ScrollToEndOfTextAction());
 	addAction(ActionCode::PAGE_SCROLL_FORWARD, new PageScrollingAction(true));
 	addAction(ActionCode::PAGE_SCROLL_BACKWARD, new PageScrollingAction(false));
+	addAction(ActionCode::PAGE_REFRESH, new PageRefreshAction());
 	addAction(ActionCode::LINE_SCROLL_FORWARD, new LineScrollingAction(true));
 	addAction(ActionCode::LINE_SCROLL_BACKWARD, new LineScrollingAction(false));
 	addAction(ActionCode::MOUSE_SCROLL_FORWARD, new MouseWheelScrollingAction(true));

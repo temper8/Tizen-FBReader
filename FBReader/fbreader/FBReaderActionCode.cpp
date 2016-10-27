@@ -43,6 +43,7 @@ const std::string ActionCode::FIND_PREVIOUS = "findPrevious";
 const std::string ActionCode::FIND_NEXT = "findNext";
 const std::string ActionCode::PAGE_SCROLL_FORWARD = "pageForward";
 const std::string ActionCode::PAGE_SCROLL_BACKWARD = "pageBackward";
+const std::string ActionCode::PAGE_REFRESH = "pageRefresh";
 const std::string ActionCode::LINE_SCROLL_FORWARD = "lineForward";
 const std::string ActionCode::LINE_SCROLL_BACKWARD = "lineBackward";
 const std::string ActionCode::MOUSE_SCROLL_FORWARD = "mouseScrollForward";

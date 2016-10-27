@@ -360,6 +360,18 @@ void ChangeFontSizeAction::run() {
 	DBG("ChangeFontSizeAction 3 ");
 }
 
+//PageRefreshAction::PageRefreshAction() { }
+
+void PageRefreshAction::run() {
+	FBReader &fbreader = FBReader::Instance();
+	DBG("PageRefreshAction 1 ");
+	fbreader.clearTextCaches();
+	DBG("PageRefreshAction 2 ");
+	fbreader.refreshWindow();
+	DBG("PageRefreshAction 3 ");
+}
+
+
 bool OpenPreviousBookAction::isVisible() const {
 	const FBReader &fbreader = FBReader::Instance();
 	if ((fbreader.mode() != FBReader::BOOK_TEXT_MODE) &&

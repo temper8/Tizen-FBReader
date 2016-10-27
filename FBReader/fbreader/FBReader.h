@@ -217,6 +217,7 @@ friend class AdvancedSearchOnNetworkAction;
 friend class FBFullscreenAction;
 friend class BooksOrderAction;
 friend class LogOutAction;
+friend class PageRefreshAction;
 };
 
 #endif /* __FBREADER_H__ */
