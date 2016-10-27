@@ -48,6 +48,8 @@ public:
 
 	virtual void init();
 
+	void doAppAction(const std::string &actionId);
+
 	enum ToolbarType {
 		WINDOW_TOOLBAR,
 		FULLSCREEN_TOOLBAR

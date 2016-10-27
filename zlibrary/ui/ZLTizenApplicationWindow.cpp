@@ -9,7 +9,7 @@
 #include "ZLTizenApplicationWindow.h"
 #include "ZLTizenViewWidget.h"
 #include "ZLView.h"
-#include "../../FBReader/fbreader/FBReader.h"
+//#include "../../FBReader/fbreader/FBReader.h"
 #include "../../FBReader/fbreader/FBReaderActions.h"
 
 #include "dialogs/ZLTizenTreeDialog.h"
@@ -58,8 +58,10 @@ void ZLTizenApplicationWindow::onMenuItemSelected(void *data, Evas_Object *obj, 
 	menu_data_s *md = (menu_data_s *)data;
 
 	DBG("selected item %s", md->id->c_str());
-	FBReader &fbreader = FBReader::Instance();
-	fbreader.doAction(*(md->id));
+	//FBReader &fbreader = FBReader::Instance();
+	//fbreader.doAction(*(md->id));
+	md->windows->doAppAction(*(md->id));
+
 	elm_panel_hidden_set(md->windows->drawer_panel, EINA_TRUE);
 }
 
@@ -310,14 +312,16 @@ void ZLTizenApplicationWindow::mouseDown(int x,int y){
 
 void ZLTizenApplicationWindow::gotoPrevPage(){
 	 DBG("PrevPage");
-	 FBReader &fbreader = FBReader::Instance();
-	 fbreader.doAction(ActionCode::PAGE_SCROLL_BACKWARD);
+	// FBReader &fbreader = FBReader::Instance();
+	// fbreader.doAction(ActionCode::PAGE_SCROLL_BACKWARD);
+	 doAppAction(ActionCode::PAGE_SCROLL_BACKWARD);
 }
 
 void ZLTizenApplicationWindow::gotoNextPage(){
 	 DBG("NextPage");
-	 FBReader &fbreader = FBReader::Instance();
-	 fbreader.doAction(ActionCode::PAGE_SCROLL_FORWARD);
+	 //FBReader &fbreader = FBReader::Instance();
+	 //fbreader.doAction(ActionCode::PAGE_SCROLL_FORWARD);
+	 doAppAction(ActionCode::PAGE_SCROLL_FORWARD);
 }
 
 static void naviframe_back_cb(void *data, Evas_Object *obj, void *event_info) {
@@ -385,8 +389,7 @@ static void image_resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_i
 }
 
 
-static void
-_on_mousedown(void *data, // evas object event EVAS_CALLBACK_MOUSE_DOWN callback function.
+static void _on_mousedown(void *data, // evas object event EVAS_CALLBACK_MOUSE_DOWN callback function.
                  Evas *evas,
                  Evas_Object *o,
                  void *event_info)
@@ -480,7 +483,7 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	myTizenViewWidget->image = img;
 
 	// Add a callback function to a given Evas object event.
-	evas_object_event_callback_add(img, EVAS_CALLBACK_MOUSE_DOWN, _on_mousedown, NULL);
+	evas_object_event_callback_add(img, EVAS_CALLBACK_MOUSE_DOWN, _on_mousedown, this);
 
 	/* Drawer bg */
 	Evas_Object *bg = create_bg(layout);

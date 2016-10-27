@@ -41,6 +41,11 @@ void ZLApplicationWindow::init() {
 	initMenu();
 }
 
+void ZLApplicationWindow::doAppAction(const std::string &actionId){
+	myApplication->doAction(actionId);
+}
+
+
 void ZLApplicationWindow::initToolbar(ToolbarType type) {
 //	const ZLToolbar::ItemVector &toolbarItems = myApplication->toolbar(type).items();
 //	for (ZLToolbar::ItemVector::const_iterator it = toolbarItems.begin(); it != toolbarItems.end(); ++it) {
