@@ -425,9 +425,9 @@ void ZLTextSelectionModel::createData() const {
 					break;
 				}
 				case ZLTextElement::IMAGE_ELEMENT:
-				//	if (myImage.isNull()) {
-				//		myImage = ((const ZLTextImageElement&)element).image();
-				//	}
+					if (myImage.isNull()) {
+						myImage = ((const ZLTextImageElement&)element).image();
+					}
 					break;
 				case ZLTextElement::HSPACE_ELEMENT:
 				case ZLTextElement::NB_HSPACE_ELEMENT:
@@ -441,7 +441,7 @@ void ZLTextSelectionModel::createData() const {
 		if ((cursor == end) && !cursor.isEndOfParagraph() && myImage.isNull()) {
 			const ZLTextElement &element = cursor.element();
 			if (element.kind() == ZLTextElement::IMAGE_ELEMENT) {
-			//	myImage = ((const ZLTextImageElement&)element).image();
+				myImage = ((const ZLTextImageElement&)element).image();
 			}
 		}
 
