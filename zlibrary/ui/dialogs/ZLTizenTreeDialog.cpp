@@ -82,7 +82,7 @@ bool ZLTizenTreeDialog::enter(ZLTreeNode* node) {
 		 const char *title = ((ZLTreeTitledNode*)myCurrentNode)->title().c_str();
 		 DBG("enter node title %s", title);
 		// createItemsList(title);
-		 new_naviframe(title);
+		 new_naviframe(strdup(title));
 		 updateContent();
 	 }
 	  else DBG("Empty List!");
@@ -141,6 +141,7 @@ static void gl_del_cb(void *data, Evas_Object *obj) {
 	//item_data_s *id = data;
 	//free(id);
 }
+
 static char* gl_text_get_cb(void *data, Evas_Object *obj, const char *part) {
 //	DBG("gl_text_get_cb %s", part);
 	item_data *id = (item_data *)data;
@@ -155,6 +156,7 @@ static char* gl_text_get_cb(void *data, Evas_Object *obj, const char *part) {
 	}
 
 }
+
 static void gl_selected_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	ZLTizenTreeDialog* myTreeDialog = (ZLTizenTreeDialog* )data;
@@ -195,7 +197,7 @@ static void gl_selected_cb(void *data, Evas_Object *obj, void *event_info)
 }
 void ZLTizenTreeDialog::new_naviframe(const char* title){
 	Evas_Object *layout = ZLTizenUtil::create_layout(myWindows->naviframe, "fbr.genlist");
-	Elm_Object_Item *nf_it = elm_naviframe_item_push(myWindows->naviframe, title, NULL, NULL,	layout, NULL);
+	Elm_Object_Item *nf_it = elm_naviframe_item_push(myWindows->naviframe, (title), NULL, NULL,	layout, NULL);
 	elmObjectsList.push_back(nf_it);
 	elm_naviframe_item_pop_cb_set(nf_it, tree_dialog_pop_cb, myWindows);
 
