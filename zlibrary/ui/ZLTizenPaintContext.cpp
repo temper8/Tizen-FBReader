@@ -179,10 +179,11 @@ void ZLTizenPaintContext::drawImage(int x, int y, const ZLImageData &image, int 
   //  int imageHeight = image.height();
 	DBG("draw image x = %d, y = %d", x, y);
 //	DBG("draw image iw = %d, ih = %d", imageWidth, imageHeight);
-	DBG("draw image w = %d, h = %d", width, height);
+	DBG("draw image width = %d, height = %d", width, height);
 	cairo_save(cairo);
 	int w =	imageWidth(image, width, height, type);
 	int h = imageHeight(image, width, height, type);
+	DBG("draw image w = %d, h = %d", w, h);
 	//cairo_scale(cairo, (double)width/(double)imageWidth, (double)height/(double)imageHeight);
 	cairo_translate(cairo,x,y-h);
 	cairo_scale(cairo, (double)image.width()/(double)w, (double)image.height()/(double)h);
