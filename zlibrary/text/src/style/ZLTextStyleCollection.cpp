@@ -140,9 +140,9 @@ void ZLTextStyleReader::startElementHandler(const char *tag, const char **attrib
 ZLTextStyleCollection::ZLTextStyleCollection() :
 	AutoHyphenationOption(ZLCategoryKey::LOOK_AND_FEEL, "Options", "AutoHyphenation", true),
 	OverrideSpecifiedFontsOption(ZLCategoryKey::LOOK_AND_FEEL, "Style", "UseCustomFonts", false) {
-//	ZLTextStyleReader(*this).readDocument(ZLFile(
-//		ZLibrary::DefaultFilesPathPrefix() + "styles.xml"
-//	));
+	ZLTextStyleReader(*this).readDocument(ZLFile(
+		ZLibrary::DefaultFilesPathPrefix() + "styles.xml"
+	));
 }
 
 ZLTextStyleCollection::~ZLTextStyleCollection() {
