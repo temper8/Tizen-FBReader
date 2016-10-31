@@ -12,6 +12,7 @@
 #include "../ZLTizenViewWidget.h"
 #include "ZLTizenDialog.h"
 //#include "ZLbadaOpenFileDialog.h"
+#include "ZLTizenProgressDialog.h"
 #include "ZLTizenOptionsDialog.h"
 #include "ZLTizenTreeDialog.h"
 #include "ZLTypeId.h"
@@ -117,7 +118,7 @@ int ZLTizenDialogManager::questionBox(const ZLResourceKey &key, const std::strin
 }
 
 shared_ptr<ZLProgressDialog> ZLTizenDialogManager::createProgressDialog(const ZLResourceKey &key) const {
-	return NULL;//new ZLbadaProgressDialog(key);
+	return new ZLTizenProgressDialog(key);
 }
 
 
