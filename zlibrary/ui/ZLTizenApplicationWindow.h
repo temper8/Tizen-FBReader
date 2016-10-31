@@ -30,6 +30,7 @@
 
 class ZLTreeDialog;
 class ZLOptionsDialog;
+class ZLProgressDialog;
 class ZLRunnable;
 class ZLTizenViewWidget;
 class ZLTizenTreeDialog;
@@ -61,8 +62,10 @@ public:
 	void createTestDialog();
 	shared_ptr<ZLTreeDialog> createTizenTreeDialog(const ZLResource &resource);
 	shared_ptr<ZLOptionsDialog> createTizenOptionsDialog(const ZLResource &resource, shared_ptr<ZLRunnable> applyAction);
+	shared_ptr<ZLProgressDialog> createTizenProgressDialog(const ZLResourceKey &key);
 	shared_ptr<ZLTreeDialog> myTreeDialog;
 	shared_ptr<ZLOptionsDialog> myOptionsDialog;
+	shared_ptr<ZLProgressDialog> myProgressDialog;
 	ZLTizenViewWidget* myTizenViewWidget;
 	void deleteOptionsDialog();
 	void deleteTreeDialog();

@@ -12,13 +12,16 @@
 #include <ZLProgressDialog.h>
 #include <ZLRunnable.h>
 
+#include <Elementary.h>
+
+class ZLTizenApplicationWindow;
 
 class ZLTizenProgressDialog : public ZLProgressDialog
 						//	 public Tizen::Base::Runtime::IRunnable,
 						//	 Tizen::Ui::IProgressPopupEventListener
 							 {
 public:
-		ZLTizenProgressDialog(const ZLResourceKey &key);
+		ZLTizenProgressDialog(ZLTizenApplicationWindow* windows, const ZLResourceKey &key);
 
         void run(ZLRunnable &runnable);
                // void run(TreeActionListener* listener); // for wait dialog while loading book
@@ -31,6 +34,7 @@ private:
 		bool theWorkIsDone;
 		bool showProgress;
 		ZLRunnable* myRunnable;
+		ZLTizenApplicationWindow* myWindows;
 
 	//    Tizen::Ui::Controls::ProgressPopup*			__pProgressPopup;
 	 	int   modalResult;

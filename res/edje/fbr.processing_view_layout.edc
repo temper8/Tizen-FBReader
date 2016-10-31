@@ -1,0 +1,111 @@
+#define POPUP_CONTENT_DEFAULT_PADDING_TOP_MIN_INC 27
+#define POPUP_CONTENT_DEFAULT_PADDING_LEFT_MIN_INC 15
+#define POPUP_CONTENT_DEFAULT_PADDING_RIGHT_MIN_INC 15
+#define POPUP_CONTENT_DEFAULT_PADDING_BOTTOM_MIN_INC 27
+
+#define POPUP_PROCESSING_SWALLOW_VIEW_LAYOUT_MIN_INC 36 36
+#define POPUP_PROCESSING_SWALLOW_VIEW_LAYOUT_MAX_INC 36 36
+#define POPUP_PROCESSING_SWALLOW_VIEW_LAYOUT_PADDING_AFTER_INC 15 90
+#define POPUP_PROCESSING_SWALLOW_VIEW_LAYOUT_TEXT_MIN_INC 0 90
+#define POPUP_PROCESSING_VIEW_LAYOUT_BG_MIN_INC 0 90
+
+#define POPUP_TEXT_FONT_SIZE1 30
+#define POPUP_TEXT_FONT_SIZE2 24
+#define POPUP_TEXT_FONT_SIZE3 27
+
+collections {
+   base_scale: 1.0;
+   group { name: "fbr.processing_view_layout";
+      styles {
+         style { name: "popup_processing_style";
+            base: "font=Tizen:style=Regular align=left font_size="POPUP_TEXT_FONT_SIZE1" color=#000000 wrap=mixed ellipsis=1.0 text_class=tizen";
+            tag:  "br" "\n";
+            tag:  "tab" "\t";
+         }
+      }
+      parts {
+         part { name: "bg";
+            type: SPACER;
+            scale: 1;
+            description { state: "default" 0.0;
+               min: POPUP_PROCESSING_VIEW_LAYOUT_BG_MIN_INC;
+               fixed: 1 0;
+            }
+         }
+         part { name: "pad_l";
+            type: SPACER;
+            scale: 1;
+            description { state: "default" 0.0;
+               min: POPUP_CONTENT_DEFAULT_PADDING_LEFT_MIN_INC 0;
+               fixed: 1 0;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 0.0 1.0;
+               align: 0.0 0.0;
+            }
+         }
+         part { name: "pad_r";
+            type: SPACER;
+            scale: 1;
+            description { state: "default" 0.0;
+               min: POPUP_CONTENT_DEFAULT_PADDING_LEFT_MIN_INC 0;
+               fixed: 1 0;
+               rel1.relative: 1.0 0.0;
+               rel2.relative: 1.0 1.0;
+               align: 1.0 0.0;
+            }
+         }
+         part { name: "processing";
+            type: SWALLOW;
+            scale: 1;
+            description { state: "default" 0.0;
+               fixed: 1 1;
+               min: POPUP_PROCESSING_SWALLOW_VIEW_LAYOUT_MIN_INC;
+               max: POPUP_PROCESSING_SWALLOW_VIEW_LAYOUT_MAX_INC;
+               rel1 {
+                  relative: 1.0 0.0;
+                  to_x: "pad_l";
+               }
+               rel2 {
+                  relative: 0.0 1.0;
+                  to_x: "pad_r";
+               }
+               align: 0.0 0.5;
+            }
+         }
+         part { name: "pad_after_processing";
+            type: SPACER;
+            scale: 1;
+            description { state: "default" 0.0;
+               fixed: 1 1;
+               min: POPUP_PROCESSING_SWALLOW_VIEW_LAYOUT_PADDING_AFTER_INC;
+               rel1 {
+                  relative: 1.0 0.0;
+                  to: "processing";
+               }
+               rel2.to: "processing";
+               align: 0.0 0.5;
+            }
+         }
+         part { name: "elm.text";
+            type: TEXTBLOCK;
+            scale: 1;
+            description { state: "default" 0.0;
+               min: POPUP_PROCESSING_SWALLOW_VIEW_LAYOUT_TEXT_MIN_INC;
+               fixed: 0 1;
+               rel1 {
+                  relative: 1.0 0.0;
+                  to: "pad_after_processing";
+               }
+               rel2 {
+                  relative: 0.0 1.0;
+                  to_x: "pad_r";
+               }
+               align: 0.0 0.5;
+               text {
+                  style: "popup_processing_style";
+                  min: 0 1;
+               }
+            }
+         }
+      }
+   }

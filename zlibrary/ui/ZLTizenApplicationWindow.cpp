@@ -14,6 +14,7 @@
 
 #include "dialogs/ZLTizenTreeDialog.h"
 #include "dialogs/ZLTizenOptionsDialog.h"
+#include "dialogs/ZLTizenProgressDialog.h"
 
 void ZLTizenApplicationWindow::close(){
 	DBG("ZLTizenApplicationWindow::close() ");
@@ -439,6 +440,15 @@ shared_ptr<ZLTreeDialog> ZLTizenApplicationWindow::createTizenTreeDialog(const Z
 	//tizenTreeDialog->createItemsList(naviframe);
 	return  myTreeDialog;
 }
+
+shared_ptr<ZLProgressDialog> ZLTizenApplicationWindow::createTizenProgressDialog(const ZLResourceKey &key){
+	DBG("create ZLTizenProgressDialog");
+	ZLTizenProgressDialog* myTizenProgressDialog = new ZLTizenProgressDialog(this, key);
+	myProgressDialog = (ZLProgressDialog*) myTizenProgressDialog;
+
+	return  myProgressDialog;
+}
+
 
 ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
