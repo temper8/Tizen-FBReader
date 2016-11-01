@@ -127,6 +127,10 @@ void ZLTizenProgressDialog::run(ZLRunnable &runnable) {
 	Evas_Object *win = myWindows->win;
 	Evas_Object *popup = create_processing_popup(win);
 
+	// DO NOT use this function unless you are the person God comes to ask for advice when He has trouble managing the Universe.
+	ecore_main_loop_iterate();
+	//ecore_main_loop_glib_integrate();
+
 /*
 	if (__pProgressPopup) {
 		    __pMonitor = new Monitor;
