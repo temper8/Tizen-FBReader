@@ -53,7 +53,7 @@ static void popup_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 	Evas_Object *popup = (Evas_Object *)data;
 	evas_object_del(popup);
 }
-static void create_processing_popup(Evas_Object *win)//(void *data, Evas_Object *obj, void *event_info)
+static Evas_Object * create_processing_popup(Evas_Object *win)//(void *data, Evas_Object *obj, void *event_info)
 {
 	Evas_Object *popup;
 	Evas_Object *layout;
@@ -99,6 +99,7 @@ static void create_processing_popup(Evas_Object *win)//(void *data, Evas_Object 
 	//evas_object_event_callback_add(popup, EVAS_CALLBACK_DEL, progressbar_popup_del_cb, timer);
 
 	evas_object_show(popup);
+	return popup;
 }
 
 
@@ -124,7 +125,7 @@ void ZLTizenProgressDialog::run(ZLRunnable &runnable) {
 	DBG("ZLTizenProgressDialog run");
 	myRunnable = &runnable;
 	Evas_Object *win = myWindows->win;
-	create_processing_popup(win);
+	Evas_Object *popup = create_processing_popup(win);
 
 /*
 	if (__pProgressPopup) {
@@ -161,7 +162,7 @@ void ZLTizenProgressDialog::run(ZLRunnable &runnable) {
 		runnable.run();
 		DBG("ZLTizenProgressDialog end run");
 	}
-
+	evas_object_del(popup);
 }
 
 
