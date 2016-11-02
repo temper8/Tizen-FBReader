@@ -253,7 +253,7 @@ void FBReader::initWindow() {
 
 	refreshWindow();
 
-	//ZLTimeManager::Instance().addTask(new TimeUpdater(), 5000);
+	ZLTimeManager::Instance().addTask(new TimeUpdater(), 5000);
 
 	if (ConfigAutoSavingOption.value()) {
  	//ZLOption::startAutoSave(ConfigAutoSaveTimeoutOption.value());

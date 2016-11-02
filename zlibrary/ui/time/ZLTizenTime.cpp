@@ -17,6 +17,10 @@
  * 02110-1301, USA.
  */
 
+
+
+
+
 #include "ZLTizenTime.h"
 
 #include "logger.h"
@@ -24,7 +28,7 @@
 
 
 ZLTizenTimeManager::ZLTizenTimeManager(): ZLUnixTimeManager() {
-	DBG("ZLbadaTimeManager::ZLbadaTimeManager()" );
+	DBG("ZLTizenTimeManager()" );
 }
 /*
 void ZLTizenTimeManager::OnTimerExpired(Timer& timer){
@@ -38,12 +42,25 @@ void ZLTizenTimeManager::OnTimerExpired(Timer& timer){
 
 }*/
 
+static Eina_Bool _timer_cb(void *data EINA_UNUSED) {
+	DBG("Timer expired ");
+	ZLRunnable* task = (ZLRunnable*) data;
+	task->run();
+	return ECORE_CALLBACK_RENEW;
+}
+
 void ZLTizenTimeManager::addTask(shared_ptr<ZLRunnable> task, int interval) {
 	DBG("ZLbadaTimeManager::addTask interval=%d",interval );
-	/*
+
 	removeTask(task);
 	if ((interval > 0) && !task.isNull()) {
-		AppLog("ZLbadaTimeManager::addTask new Timer");
+		DBG("ZLTizenTimeManager::addTask new Timer");
+		Ecore_Timer *timer = ecore_timer_add((double)interval/1000.0, _timer_cb, &*task);
+
+		myTimers[task] = timer;
+		//myTasks[timer] = task;
+		//myInterval[timer] = interval;
+		/*
 		Timer* _pTimer = new Timer;
 		_pTimer->Construct(*this);
 		//int id = startTimer(interval);
@@ -51,23 +68,21 @@ void ZLTizenTimeManager::addTask(shared_ptr<ZLRunnable> task, int interval) {
 		myTasks[_pTimer] = task;
 		myInterval[_pTimer] = interval;
 		_pTimer->Start(interval);
-
+		*/
 	}
-*/
+
 }
 
 void ZLTizenTimeManager::removeTaskInternal(shared_ptr<ZLRunnable> task) {
-	DBG("ZLbadaTimeManager::removeTaskInternal" );
-/*	std::map<shared_ptr<ZLRunnable>,Timer*>::iterator it = myTimers.find(task);
+	DBG("ZLTizenTimeManager::removeTaskInternal" );
+	std::map<shared_ptr<ZLRunnable>,Ecore_Timer*>::iterator it = myTimers.find(task);
 	if (it != myTimers.end()) {
-		AppLog("ZLbadaTimeManager::removeTaskInternal erase" );
-		myTasks.erase(myTasks.find(it->second));
-		Timer* _pTimer = it->second;
-		_pTimer->Cancel();
+		DBG("ZLTizenTimeManager::removeTaskInternal erase" );
+		//myTasks.erase(myTasks.find(it->second));
+		Ecore_Timer* timer = it->second;
+	    ecore_timer_del(timer);
 		myTimers.erase(it);
-		myInterval.erase(_pTimer);
-		delete it->second;
+		//myInterval.erase(timer);
 	}
-*/
 }
 

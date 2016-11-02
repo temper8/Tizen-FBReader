@@ -22,6 +22,8 @@
 
 #include <map>
 
+#include <Ecore.h>
+
 #include "../../core/src/unix/time/ZLUnixTime.h"
 //#include "../../core/unix/time/ZLUnixTime.h"
 
@@ -42,9 +44,9 @@ protected:
 	ZLTizenTimeManager();
 
 private:
-//	std::map<shared_ptr<ZLRunnable>,Tizen::Base::Runtime::Timer*> myTimers;
-//	std::map<Tizen::Base::Runtime::Timer*,shared_ptr<ZLRunnable> > myTasks;
-//	std::map< Tizen::Base::Runtime::Timer*, int  > myInterval;
+	std::map<shared_ptr<ZLRunnable>, Ecore_Timer*> myTimers;
+//	std::map<Ecore_Timer*, shared_ptr<ZLRunnable> > myTasks;
+//	std::map<Ecore_Timer*, int  > myInterval;
 };
 
 #endif /* __ZLQTTIME_H__ */
