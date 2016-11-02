@@ -30,17 +30,6 @@
 ZLTizenTimeManager::ZLTizenTimeManager(): ZLUnixTimeManager() {
 	DBG("ZLTizenTimeManager()" );
 }
-/*
-void ZLTizenTimeManager::OnTimerExpired(Timer& timer){
-	DBG("OnTimerExpired");
-
-	shared_ptr<ZLRunnable> task = myTasks.find(&timer)->second;
-	int interval = myInterval.find(&timer)->second;
-	AppLog("interval =%d",interval);
-	task->run();
-	timer.Start(interval);
-
-}*/
 
 static Eina_Bool _timer_cb(void *data EINA_UNUSED) {
 	DBG("Timer expired ");
@@ -58,19 +47,7 @@ void ZLTizenTimeManager::addTask(shared_ptr<ZLRunnable> task, int interval) {
 		Ecore_Timer *timer = ecore_timer_add((double)interval/1000.0, _timer_cb, &*task);
 
 		myTimers[task] = timer;
-		//myTasks[timer] = task;
-		//myInterval[timer] = interval;
-		/*
-		Timer* _pTimer = new Timer;
-		_pTimer->Construct(*this);
-		//int id = startTimer(interval);
-		myTimers[task] = _pTimer;
-		myTasks[_pTimer] = task;
-		myInterval[_pTimer] = interval;
-		_pTimer->Start(interval);
-		*/
 	}
-
 }
 
 void ZLTizenTimeManager::removeTaskInternal(shared_ptr<ZLRunnable> task) {
@@ -78,11 +55,9 @@ void ZLTizenTimeManager::removeTaskInternal(shared_ptr<ZLRunnable> task) {
 	std::map<shared_ptr<ZLRunnable>,Ecore_Timer*>::iterator it = myTimers.find(task);
 	if (it != myTimers.end()) {
 		DBG("ZLTizenTimeManager::removeTaskInternal erase" );
-		//myTasks.erase(myTasks.find(it->second));
 		Ecore_Timer* timer = it->second;
 	    ecore_timer_del(timer);
 		myTimers.erase(it);
-		//myInterval.erase(timer);
 	}
 }
 

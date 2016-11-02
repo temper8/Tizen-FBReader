@@ -29,7 +29,6 @@
 
 
 class ZLTizenTimeManager : public ZLUnixTimeManager {
-						  //public Tizen::Base::Runtime::ITimerEventListener {
 
 public:
 	static void createInstance() { ourInstance = (ZLTimeManager*) new ZLTizenTimeManager(); }
@@ -38,15 +37,12 @@ public:
 	void removeTaskInternal(shared_ptr<ZLRunnable> task);
 
 private:
-//	void OnTimerExpired(Tizen::Base::Runtime::Timer& timer);
 
 protected:
 	ZLTizenTimeManager();
 
 private:
 	std::map<shared_ptr<ZLRunnable>, Ecore_Timer*> myTimers;
-//	std::map<Ecore_Timer*, shared_ptr<ZLRunnable> > myTasks;
-//	std::map<Ecore_Timer*, int  > myInterval;
 };
 
 #endif /* __ZLQTTIME_H__ */
