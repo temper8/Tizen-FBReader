@@ -23,12 +23,12 @@
 #include "logger.h"
 
 ZLTime::ZLTime() {
-	DBG("ZLTime::ZLTime()" );
+	//DBG("ZLTime::ZLTime()" );
 	*this = ZLTimeManager::Instance().currentTime();
 }
 
 ZLTime::ZLTime(long seconds, long milliseconds) : mySeconds(seconds), myMilliseconds(milliseconds) {
-	//AppLog("ZLTime::ZLTime(long seconds, long milliseconds)" );
+	//DBG("ZLTime::ZLTime sec = %d, msec = %d)" , mySeconds, myMilliseconds );
 }
 
 ZLTime::~ZLTime() {
