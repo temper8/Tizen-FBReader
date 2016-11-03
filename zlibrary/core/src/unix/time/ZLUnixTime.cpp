@@ -23,22 +23,26 @@
 #include <ZLTime.h>
 
 #include "ZLUnixTime.h"
-
+#include "logger.h"
 
 ZLUnixTimeManager::ZLUnixTimeManager(): ZLTimeManager(){
 	//AppLog("ZLUnixTimeManager::ZLUnixTimeManager()" );
 }
 
 ZLTime ZLUnixTimeManager::currentTime() const {
+	struct timeb timeB;
+	ftime(&timeB);
+	return ZLTime((long)timeB.time, timeB.millitm);
+
 	//AppLog("ZLUnixTimeManager::currentTime()" );
 	//struct timeb timeB;
 	//ftime(&timeB);
-	time_t t;
+	//time_t t;
 	//AppLog("ftime(&timeB)" );
-	time(&t);
+	//time(&t);
 	//TODO как жить без миллисекунд??
 //	return ZLTime((long)timeB.time, timeB.millitm);
-	return ZLTime((long)t, 0);
+	//return ZLTime((long)t, 0);
 }
 
 short ZLUnixTimeManager::hoursBySeconds(long seconds) const {
