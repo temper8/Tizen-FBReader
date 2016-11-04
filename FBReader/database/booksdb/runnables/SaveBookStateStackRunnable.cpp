@@ -20,7 +20,7 @@
 #include "../DBRunnables.h"
 #include "../../sqldb/implsqlite/SQLiteFactory.h"
 
-
+#include "logger.h"
 SaveBookStateStackRunnable::SaveBookStateStackRunnable(DBConnection &connection) {
 	myTrimBookStateStack = SQLiteFactory::createCommand(BooksDBQuery::TRIM_BOOK_STATE_STACK, connection, "@book_id", DBValue::DBINT, "@stackSize", DBValue::DBINT);
 	mySetBookStateStack = SQLiteFactory::createCommand(BooksDBQuery::SET_BOOK_STATE_STACK, connection, "@book_id", DBValue::DBINT, "@position", DBValue::DBINT, "@paragraph", DBValue::DBINT, "@word", DBValue::DBINT, "@char", DBValue::DBINT);
@@ -47,6 +47,7 @@ bool SaveBookStateStackRunnable::run() {
 		saveParagraph = pos.Paragraph;
 		saveWord = pos.Word;
 		saveChar = pos.Character;
+		DBG("BooksDB::save Paragraph %d", pos.Paragraph);
 		if (!mySetBookStateStack->execute()) {
 			return false;
 		}

@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  */
-
+#include "logger.h"
 #include <ZLibrary.h>
 #include <ZLFile.h>
 #include <ZLDir.h>
@@ -370,15 +370,18 @@ bool BooksDB::loadBookStateStack(const Book &book, std::deque<ReadingState> &sta
 		const int paragraph = reader->intValue(0);
 		const int word = reader->intValue(1);
 		const int character = reader->intValue(2);
+		DBG("BooksDB::paragraph = %d", paragraph);
+		DBG("BooksDB::word = %d", word);
+		DBG("BooksDB::character = %d", character);
 		stack.push_back(ReadingState(paragraph, word, character));
-	}
+	}DBG("BooksDB::loadBookStateStack");
 	return true;
 }
 
 bool BooksDB::saveBookStateStack(const Book &book, const std::deque<ReadingState> &stack) {
-	if (!isInitialized() || book.bookId() == 0) {
+	if (!isInitialized() || book.bookId() == 0) {DBG("BooksDB::saveBookStateStack false");
 		return false;
-	}
+	}DBG("BooksDB::saveBookStateStack");
 	mySaveBookStateStack->setState(book.bookId(), stack);
 	return executeAsTransaction(*mySaveBookStateStack);
 }
