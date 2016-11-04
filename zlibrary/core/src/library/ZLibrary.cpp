@@ -23,8 +23,8 @@
 
 
 #include <ZLTimeManager.h>
-//#include <ZLDialogManager.h>
-//#include <ZLImageManager.h>
+#include <ZLDialogManager.h>
+#include <ZLImageManager.h>
 #include <ZLMessage.h>
 #include <ZLUnicodeUtil.h>
 #include <ZLLogger.h>
@@ -37,6 +37,7 @@
 #include "../options/ZLConfig.h"
 
 //#include "../../../../FBreader/src/database/booksdb/BooksDB.h"
+#include "../../../FBreader/database/booksdb/BooksDB.h"
 //#include "../network/ZLNetworkManager.h"
 
 const std::string ZLibrary::FileNameDelimiter("/");
@@ -131,19 +132,18 @@ void ZLibrary::parseArguments(int &argc, char **&argv) {
 }
 
 void ZLibrary::shutdown() {
-//	AppLog("ZLibrary::shutdown()");
+	DBG("ZLibrary::shutdown()");
 //	ZLNetworkManager::deleteInstance();
-//	ZLImageManager::deleteInstance();
-//	AppLog("ZLImageManager::deleteInstance()");
+	ZLImageManager::deleteInstance();
 	ZLCommunicationManager::deleteInstance();
-//	ZLDialogManager::deleteInstance();
+	ZLDialogManager::deleteInstance();
 	ZLFSManager::deleteInstance();
 
 	ZLTimeManager::deleteInstance();
-//	ZLConfigManager::deleteInstance();
-//	AppLog("ZLConfigManager::deleteInstance()");
+	ZLConfigManager::deleteInstance();
+	DBG("ZLConfigManager::deleteInstance()");
 
-//	BooksDB::deleteInstance();
+	//BooksDB::deleteInstance();
 }
 
 std::string ZLibrary::replaceRegExps(const std::string &pattern) {
@@ -177,9 +177,10 @@ void ZLibrary::initApplication(const std::string &name) {
 	ourApplicationDirectory = BaseDirectory + "FBReader";//ourApplicationName;
 
 
-	char *data_path = app_get_data_path();
-		if (data_path) {
-			ourApplicationWritableDirectory = std::string(data_path)+"write";
+	//char *data_path = app_get_data_path();
+	 char *data_path = app_get_shared_data_path();
+	if (data_path) {
+			ourApplicationWritableDirectory = std::string(data_path);//+"write";
 			delete data_path;
 		}
 
