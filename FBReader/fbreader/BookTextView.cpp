@@ -79,7 +79,7 @@ void BookTextView::readBookState(const Book &book) {
 		DBG("BooksDB::Instance().loadBookState");
 		BooksDB::Instance().loadBookState(book, state);
 	}
-	state.Paragraph = state.Word = state.Character = 0;
+	//state.Paragraph = state.Word = state.Character = 0;
 	gotoPosition(state.Paragraph, state.Word, state.Character);
 	DBG("end readBookState");
 }
@@ -162,7 +162,7 @@ void BookTextView::saveState() {
 		ZLIntegerOption(ZLCategoryKey::STATE, LAST_STATE_GROUP, POSITION_IN_BUFFER, 0).setValue(myCurrentPointInStack);
 		ZLBooleanOption(ZLCategoryKey::STATE, LAST_STATE_GROUP, STATE_VALID, false).setValue(true);
 
-		if (myStackChanged) {
+		if (myStackChanged)		{ 	DBG("saveState saveBookStateStack");
 			BooksDB::Instance().saveBookStateStack(*myBook, myPositionStack);
 			myStackChanged = false;
 		}
