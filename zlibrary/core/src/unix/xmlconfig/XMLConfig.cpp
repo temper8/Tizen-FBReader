@@ -101,7 +101,7 @@ void ConfigSaveTask::run() {
 XMLConfig::XMLConfig() : myDelta(0) {
 	DBG("XMLConfig load(); ");
 	load();
-//	mySaver = new ConfigSaveTask(*this);
+	mySaver = new ConfigSaveTask(*this);
 }
 
 XMLConfig::~XMLConfig() {
