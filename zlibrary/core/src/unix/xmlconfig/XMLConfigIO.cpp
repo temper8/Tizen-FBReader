@@ -104,20 +104,15 @@ void XMLConfig::saveAll() {
 	//AppLog("changesFile.remove()");
 }
 
-void XMLConfig::saveDelta() {
+void XMLConfig::saveDelta() {DBG("XMLConfig::saveDelta()");
 	if ((myDelta == 0) || (myDelta->myIsUpToDate)) {
 		return;
 	}
 	shared_ptr<ZLDir> configDir = ZLFile(ZLibrary::ApplicationWritableDirectory()).directory(true);
-//	AppLog("configDir");
 	shared_ptr<ZLOutputStream> stream = ZLFile(configDir->itemPath(CHANGES_FILE)).outputStream();
-//	AppLog("ZLOutputStream");
 	if (!stream.isNull() && stream->open()) {
-		//AppLog("f (!stream.isNull() && stream->open())");
 		XMLConfigDeltaWriter(*myDelta, *stream).write();
-		//AppLog("XMLConfigDeltaWriter");
 		stream->close();
-		//AppLog("stream->close();");
 	}
 	myDelta->myIsUpToDate = true;
 }
