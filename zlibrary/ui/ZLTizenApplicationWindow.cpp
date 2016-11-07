@@ -306,9 +306,32 @@ static void drawer_panel_Show(void *data, Evas_Object *obj, void *event_info)
 		elm_panel_toggle(tw->drawer_panel);
 	}
 }
+
+void ZLTizenApplicationWindow::showTitle(){
+	if (elm_naviframe_item_title_enabled_get(myTizenViewWidget->naviframe_item) == EINA_TRUE)
+		elm_naviframe_item_title_enabled_set(myTizenViewWidget->naviframe_item, EINA_FALSE,	EINA_TRUE);
+	else
+		elm_naviframe_item_title_enabled_set(myTizenViewWidget->naviframe_item, EINA_TRUE,	EINA_TRUE);
+
+}
+
 void ZLTizenApplicationWindow::mouseDown(int x,int y){
+	//showTitle();
+	if (checkCenterZone(x, y)) {
+		showTitle();
+		return;
+	}
 	if (x<200) gotoPrevPage();
 	else gotoNextPage();
+}
+
+bool ZLTizenApplicationWindow::checkCenterZone(int x,int y){
+	if ((abs(2*y-1000)<500)&&(abs(2*x-700)<300))
+				{ DBG("CenterZone");
+					return true;
+				}
+	else
+		return false;
 }
 
 void ZLTizenApplicationWindow::gotoPrevPage(){

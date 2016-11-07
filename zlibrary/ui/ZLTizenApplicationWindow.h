@@ -54,9 +54,12 @@ public:
 	static void onMenuItemSelected(void *data, Evas_Object *obj, void *event_info);
 
 	void AddMenuItem(const std::string &name, const  std::string &id);
+
 	void gotoPrevPage();
 	void gotoNextPage();
 	void mouseDown(int x, int y);
+	bool checkCenterZone(int x,int y);
+	void showTitle();
 	void refreshPage();
 
 	void createTestDialog();
