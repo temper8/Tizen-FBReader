@@ -420,7 +420,6 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
 	Evas_Object *layout, *box;
 
-	//ZLTizenViewWidget *viewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
 	myTizenViewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
 	layout = create_drawer_layout(naviframe);
 
@@ -435,12 +434,10 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	evas_object_size_hint_align_set(myTizenViewWidget->scroller, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	elm_box_pack_end(box, myTizenViewWidget->scroller);
 
-	// Adds a callback function to a given canvas event.
-//	evas_event_callback_add(viewWidget->scroller, EVAS_CALLBACK_RENDER_FLUSH_PRE, _render_flush_cb, NULL);
-	//Elm_Object_Item *nf_it =elm_naviframe_item_push(naviframe, "main navi", NULL, NULL, viewWidget->scroller, NULL);
+
 	myTizenViewWidget->naviframe_item = elm_naviframe_item_push(naviframe, "FBReader", NULL, NULL, layout, NULL);
 	elm_naviframe_item_title_enabled_set(myTizenViewWidget->naviframe_item, EINA_FALSE,	EINA_TRUE);
-	//nf_it = elm_naviframe_item_push(ad->nf, "Layout Samples", NULL, NULL, main_list, NULL);
+
 	elm_naviframe_item_pop_cb_set(myTizenViewWidget->naviframe_item, naviframe_pop_cb, win);
 
 	Evas* canvas = evas_object_evas_get(myTizenViewWidget->scroller);
@@ -480,7 +477,6 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 		elm_object_style_set(btn, "naviframe/drawers");
 		evas_object_smart_callback_add(btn, "clicked", drawer_panel_Show, this);
 		}
-
 
 	elm_object_item_part_content_set(myTizenViewWidget->naviframe_item, "title_left_btn", btn);
 
