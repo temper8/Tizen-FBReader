@@ -170,39 +170,6 @@ static void move_menu_popup(Evas_Object *parent, Evas_Object *obj)
 	}
 }
 
-static void popup_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	 ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
-	 /*
-	appdata_s *ad = (appdata_s *)data;
-	Evas_Object *label;
-	Elm_Object_Item *nf_it = elm_naviframe_top_item_get(ad->nf);
-	const char *text = elm_object_item_text_get((Elm_Object_Item *) event_info);
-	const char *title = elm_object_item_text_get(nf_it);
-
-	evas_object_del(ad->popup);
-	ad->popup = NULL;
-
-	if (text && !strcmp(text, "Second View")) {
-		if (title && strcmp(title, text)) {
-
-			label = create_label(ad->nf, "Second View");
-			elm_naviframe_item_push(ad->nf, "Second View", NULL, NULL, label, NULL);
-		}
-	} else if (text && !strcmp(text, "Settings")) {
-		if (title && strcmp(title, text)) {
-			elm_naviframe_item_pop(ad->nf);
-		}
-	}*/
-}
-
-static void
-dismissed_popup_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
-	evas_object_del(obj);
-	tw->popup = NULL;
-}
 static Evas_Object *
 create_bg(Evas_Object *parent)
 {
@@ -230,24 +197,6 @@ static void panel_scroll_cb(void *data, Evas_Object *obj, void *event_info)
 	evas_object_color_set(bg, 0, 0, 0, col);
 }
 
-static Evas_Object * create_menu_popup(ZLTizenApplicationWindow *tw)
-{
-	Evas_Object *popup;
-
-	popup = elm_ctxpopup_add(tw->win);
-	elm_object_style_set(popup, "more/default");
-	elm_ctxpopup_auto_hide_disabled_set(popup, EINA_TRUE);
-	evas_object_smart_callback_add(popup, "dismissed", dismissed_popup_cb, tw);
-
-	elm_ctxpopup_item_append(popup, "Settings", NULL, popup_cb, tw);
-	elm_ctxpopup_item_append(popup, "Second View", NULL, popup_cb, tw);
-
-	move_menu_popup(tw->win, popup);
-	evas_object_show(popup);
-
-	return popup;
-}
-
 void ZLTizenApplicationWindow::deleteOptionsDialog(){
 	DBG("ZLTizenApplicationWindow::deleteOptionsDialog");
 	myOptionsDialog = 0;
@@ -262,8 +211,6 @@ void ZLTizenApplicationWindow::deleteTreeDialog(){
 Evas_Object * ZLTizenApplicationWindow::createDrawerPanel(Evas_Object *parent)
 {
 	Evas_Object *panel;
-	int i;
-	char buf[64];
 
 	/* Panel */
 	panel = elm_panel_add(parent);
@@ -278,11 +225,7 @@ Evas_Object * ZLTizenApplicationWindow::createDrawerPanel(Evas_Object *parent)
 	menuList = elm_list_add(panel);
 	evas_object_size_hint_weight_set(menuList, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(menuList, EVAS_HINT_FILL, EVAS_HINT_FILL);
-/*	for (i = 0; i < 5; i++) {
-		sprintf(buf, "элемент %d", i);
-		elm_list_item_append(menuList, buf, NULL, NULL, NULL, NULL);
-	}
-*/
+
 	evas_object_show(menuList);
 
 	elm_object_content_set(panel, menuList);
@@ -492,14 +435,6 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	evas_object_size_hint_align_set(myTizenViewWidget->scroller, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	elm_box_pack_end(box, myTizenViewWidget->scroller);
 
-	/* Label*/
-	label = elm_label_add(myTizenViewWidget->scroller);
-	elm_object_text_set(label, "Hello EFL and FBReader!");
-	evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_object_content_set(myTizenViewWidget->scroller, label);
-	evas_object_show(label);
-
-
 	// Adds a callback function to a given canvas event.
 //	evas_event_callback_add(viewWidget->scroller, EVAS_CALLBACK_RENDER_FLUSH_PRE, _render_flush_cb, NULL);
 	//Elm_Object_Item *nf_it =elm_naviframe_item_push(naviframe, "main navi", NULL, NULL, viewWidget->scroller, NULL);
@@ -509,7 +444,11 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
 	Evas* canvas = evas_object_evas_get(myTizenViewWidget->scroller);
 
-	Evas_Object *img = evas_object_image_add(canvas);
+	//Evas_Object *img = evas_object_image_add(canvas);
+	Evas_Object *img = evas_object_image_filled_add(canvas);
+
+	evas_object_image_border_set(img, 90, 90, 30, 30);
+
 	evas_object_image_colorspace_set(img, EVAS_COLORSPACE_ARGB8888);
 	evas_object_event_callback_add(img, EVAS_CALLBACK_RESIZE, image_resize_cb, myTizenViewWidget);
 	evas_object_size_hint_weight_set(img, EVAS_HINT_FILL, 0.5);
@@ -546,7 +485,7 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
 	/* Show window after base gui is set up */
 	evas_object_show(win);
-
+	//evas_object_image_filled_set(img, EINA_FALSE);
 	return myTizenViewWidget;
 
 }
