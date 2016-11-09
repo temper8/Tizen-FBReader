@@ -112,15 +112,15 @@ anim_stop_cb(void *data, Evas_Object *obj, void *event_info)
 static Evas_Object* create_scroller(Evas_Object *parent, ZLTizenApplicationWindow *tw)
 {
 	Evas_Object *scroller = elm_scroller_add(parent);
-	elm_object_style_set(scroller, "dialogue");
-//	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
+	//elm_object_style_set(scroller, "dialogue");
+	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
 	//elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF,ELM_SCROLLER_POLICY_AUTO);
 
-	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_ON, ELM_SCROLLER_POLICY_OFF);
-	elm_scroller_page_size_set(scroller, 0, 0);
-	elm_scroller_page_scroll_limit_set(scroller, 1, 0);
-	elm_scroller_single_direction_set(scroller, ELM_SCROLLER_SINGLE_DIRECTION_HARD);
-	evas_object_smart_callback_add(scroller, "scroll,anim,stop", anim_stop_cb, tw);
+	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
+	//elm_scroller_page_size_set(scroller, 500, 500);
+	//elm_scroller_page_scroll_limit_set(scroller, 1, 0);
+	//elm_scroller_single_direction_set(scroller, ELM_SCROLLER_SINGLE_DIRECTION_HARD);
+	//evas_object_smart_callback_add(scroller, "scroll,anim,stop", anim_stop_cb, tw);
 
 	evas_object_show(scroller);
 
@@ -207,6 +207,30 @@ void ZLTizenApplicationWindow::deleteTreeDialog(){
 	elm_naviframe_item_promote(myTizenViewWidget->naviframe_item);
 	myTreeDialog = 0;
 }
+Evas_Object * ZLTizenApplicationWindow::createTopPanel(Evas_Object *parent)
+{
+	Evas_Object *panel;
+
+	/* Panel */
+	panel = elm_panel_add(parent);
+	elm_panel_scrollable_set(panel, EINA_TRUE);
+
+	/* Default is visible, hide the content in default. */
+	elm_panel_hidden_set(panel, EINA_FALSE);
+	elm_panel_orient_set(panel, ELM_PANEL_ORIENT_TOP);
+	evas_object_show(panel);
+
+	/* Panel content */
+	Evas_Object *btn = elm_button_add(panel);
+	evas_object_size_hint_weight_set(btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
+
+	evas_object_show(btn);
+
+	elm_object_content_set(panel, btn);
+
+	return panel;
+}
 
 Evas_Object * ZLTizenApplicationWindow::createDrawerPanel(Evas_Object *parent)
 {
@@ -245,16 +269,24 @@ static void nf_more_cb(void *data, Evas_Object *obj, void *event_info)
 static void drawer_panel_Show(void *data, Evas_Object *obj, void *event_info)
 {
 	ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
-	if (!elm_object_disabled_get(tw->drawer_panel)){
-		elm_panel_toggle(tw->drawer_panel);
-	}
+	tw->showDrawerPanel();
+	//tw->showTitle();
 }
 
+void ZLTizenApplicationWindow::showDrawerPanel(){
+	if (!elm_object_disabled_get(drawer_panel)){
+		elm_panel_toggle(drawer_panel);
+	}
+}
 void ZLTizenApplicationWindow::showTitle(){
 	if (elm_naviframe_item_title_enabled_get(myTizenViewWidget->naviframe_item) == EINA_TRUE)
-		elm_naviframe_item_title_enabled_set(myTizenViewWidget->naviframe_item, EINA_FALSE,	EINA_TRUE);
-	else
-		elm_naviframe_item_title_enabled_set(myTizenViewWidget->naviframe_item, EINA_TRUE,	EINA_TRUE);
+		elm_naviframe_item_title_enabled_set(myTizenViewWidget->naviframe_item, EINA_FALSE,	EINA_FALSE);
+	else {
+		elm_naviframe_item_title_enabled_set(myTizenViewWidget->naviframe_item, EINA_TRUE,	EINA_FALSE);
+	//	elm_scroller_region_bring_in(myTizenViewWidget->scroller, 0, 50, 500,100);
+
+	}
+
 
 }
 
@@ -418,40 +450,53 @@ shared_ptr<ZLProgressDialog> ZLTizenApplicationWindow::createTizenProgressDialog
 
 ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
-	Evas_Object *layout, *box;
+	Evas_Object *layout;//, *box;
 
 	myTizenViewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
 	layout = create_drawer_layout(naviframe);
 
 	/* Box */
-	box = elm_box_add(layout);
-	evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(box, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	elm_object_part_content_set(layout, "elm.swallow.content", box);
+	//box = elm_box_add(layout);
+	//evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	//evas_object_size_hint_align_set(box, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	//elm_object_part_content_set(layout, "elm.swallow.content", box);
 
-	myTizenViewWidget->scroller = create_scroller(box, this);
-	evas_object_size_hint_weight_set(myTizenViewWidget->scroller, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(myTizenViewWidget->scroller, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	elm_box_pack_end(box, myTizenViewWidget->scroller);
+	//myTizenViewWidget->scroller = create_scroller(layout, this);
+	//evas_object_size_hint_weight_set(myTizenViewWidget->scroller, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	//evas_object_size_hint_align_set(myTizenViewWidget->scroller, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	//elm_object_part_content_set(layout, "elm.swallow.content", myTizenViewWidget->scroller);
+
+	/* Image Layout */
+//	myTizenViewWidget->scroller = elm_layout_add(layout);
+//	evas_object_size_hint_weight_set(myTizenViewWidget->scroller, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+//	elm_layout_theme_set(myTizenViewWidget->scroller, "layout", "application", "default");
+//	elm_object_part_content_set(layout, "elm.swallow.content", myTizenViewWidget->scroller);
+//	evas_object_show(myTizenViewWidget->scroller);
+
+
+
 
 
 	myTizenViewWidget->naviframe_item = elm_naviframe_item_push(naviframe, "FBReader", NULL, NULL, layout, NULL);
-	elm_naviframe_item_title_enabled_set(myTizenViewWidget->naviframe_item, EINA_FALSE,	EINA_TRUE);
+	elm_naviframe_item_title_enabled_set(myTizenViewWidget->naviframe_item, EINA_FALSE,	EINA_FALSE);
 
 	elm_naviframe_item_pop_cb_set(myTizenViewWidget->naviframe_item, naviframe_pop_cb, win);
 
-	Evas* canvas = evas_object_evas_get(myTizenViewWidget->scroller);
+	//Evas* canvas = evas_object_evas_get(myTizenViewWidget->scroller);
+	Evas* canvas = evas_object_evas_get(layout);
 
-	//Evas_Object *img = evas_object_image_add(canvas);
-	Evas_Object *img = evas_object_image_filled_add(canvas);
+	Evas_Object *img = evas_object_image_add(canvas);
+	//Evas_Object *img = evas_object_image_filled_add(canvas);
+	evas_object_image_size_set	(img, 400,800);
 
-	evas_object_image_border_set(img, 90, 90, 30, 30);
+	//evas_object_image_border_set(img, 90, 90, 30, 30);
 
 	evas_object_image_colorspace_set(img, EVAS_COLORSPACE_ARGB8888);
 	evas_object_event_callback_add(img, EVAS_CALLBACK_RESIZE, image_resize_cb, myTizenViewWidget);
 	evas_object_size_hint_weight_set(img, EVAS_HINT_FILL, 0.5);
 	evas_object_size_hint_align_set(img, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	elm_object_content_set(myTizenViewWidget->scroller, img);
+	//elm_object_content_set(myTizenViewWidget->scroller, img);
+	elm_object_part_content_set(layout, "elm.swallow.content", img);
 	evas_object_show(img);							// Make the given Evas object visible
 
 	myTizenViewWidget->image = img;
@@ -463,12 +508,15 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	Evas_Object *bg = create_bg(layout);
 	elm_object_part_content_set(layout, "elm.swallow.bg", bg);
 
+
+	Evas_Object *panel = createTopPanel(layout);
+	elm_object_part_content_set(layout, "elm.swallow.top", panel);
 	/* create_panel */
 	drawer_panel = createDrawerPanel(layout);
 	//eext_object_event_callback_add(drawer, EEXT_CALLBACK_BACK, drawer_back_cb, ad);
 //	eext_object_event_callback_add(drawer_panel, EEXT_CALLBACK_BACK, drawer_back_cb, this);
 	evas_object_smart_callback_add(drawer_panel, "scroll", panel_scroll_cb, bg);
-	elm_object_part_content_set(layout, "elm.swallow.right", drawer_panel);
+	elm_object_part_content_set(layout, "elm.swallow.left", drawer_panel);
 
 	/* Drawers Button */
 	//btn = create_drawers_btn(ad->nf, btn_cb, drawer);

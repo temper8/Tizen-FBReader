@@ -50,10 +50,12 @@ public:
 
 
 	static void win_back_cb(void *data, Evas_Object *obj, void *event_info);
-	Evas_Object * createDrawerPanel(Evas_Object *parent);
 	static void onMenuItemSelected(void *data, Evas_Object *obj, void *event_info);
 
 	void AddMenuItem(const std::string &name, const  std::string &id);
+
+	Evas_Object * createDrawerPanel(Evas_Object *parent);
+	Evas_Object * createTopPanel(Evas_Object *parent);
 
 	void gotoPrevPage();
 	void gotoNextPage();
@@ -61,6 +63,7 @@ public:
 	bool checkCenterZone(int x,int y);
 	void showTitle();
 	void refreshPage();
+	void showDrawerPanel();
 
 	void createTestDialog();
 	shared_ptr<ZLTreeDialog> createTizenTreeDialog(const ZLResource &resource);

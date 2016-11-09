@@ -24,7 +24,7 @@ public:
 	ZLApplication *myApplication;
 
 	//ZLTizenPaintContext *tizenContext;
-	Evas_Object *scroller;
+	//Evas_Object *scroller;
 	Evas_Object *image;
 	Elm_Object_Item *naviframe_item;
 	void draw();
