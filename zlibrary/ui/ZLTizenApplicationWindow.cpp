@@ -283,7 +283,11 @@ void ZLTizenApplicationWindow::showDrawerPanel(){
 
 void ZLTizenApplicationWindow::showToolBar(){
 	//edje_object_signal_emit(sub_layout, "toolbar,hide", "app");
-	elm_layout_signal_emit(sub_layout, "toolbar,hide", "app");
+	if(ToolBarVisible)
+		elm_layout_signal_emit(sub_layout, "toolbar,hide", "app");
+	else
+		elm_layout_signal_emit(sub_layout, "toolbar,show", "app");
+	ToolBarVisible = !ToolBarVisible;
 }
 
 

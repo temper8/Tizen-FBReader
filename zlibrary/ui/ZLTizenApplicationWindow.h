@@ -58,6 +58,7 @@ public:
 	Evas_Object * createTopPanel(Evas_Object *parent);
 
 	Evas_Object *sub_layout;
+	bool ToolBarVisible;
 
 	void gotoPrevPage();
 	void gotoNextPage();
