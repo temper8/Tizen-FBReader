@@ -16,6 +16,8 @@
 #include "dialogs/ZLTizenOptionsDialog.h"
 #include "dialogs/ZLTizenProgressDialog.h"
 
+#include "dialogs/ZLTizen.h"
+
 void ZLTizenApplicationWindow::close(){
 	DBG("ZLTizenApplicationWindow::close() ");
 	ui_app_exit();
@@ -278,6 +280,15 @@ void ZLTizenApplicationWindow::showDrawerPanel(){
 		elm_panel_toggle(drawer_panel);
 	}
 }
+
+void ZLTizenApplicationWindow::showToolBar(){
+	//edje_object_signal_emit(sub_layout, "toolbar,hide", "app");
+	elm_layout_signal_emit(sub_layout, "toolbar,hide", "app");
+}
+
+
+
+
 void ZLTizenApplicationWindow::showTitle(){
 	if (elm_naviframe_item_title_enabled_get(myTizenViewWidget->naviframe_item) == EINA_TRUE)
 		elm_naviframe_item_title_enabled_set(myTizenViewWidget->naviframe_item, EINA_FALSE,	EINA_FALSE);
@@ -293,7 +304,7 @@ void ZLTizenApplicationWindow::showTitle(){
 void ZLTizenApplicationWindow::mouseDown(int x,int y){
 	//showTitle();
 	if (checkCenterZone(x, y)) {
-		showTitle();
+		showToolBar();
 		return;
 	}
 	if (x<200) gotoPrevPage();
@@ -476,18 +487,20 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
 
 
-
 	myTizenViewWidget->naviframe_item = elm_naviframe_item_push(naviframe, "FBReader", NULL, NULL, layout, NULL);
 	elm_naviframe_item_title_enabled_set(myTizenViewWidget->naviframe_item, EINA_FALSE,	EINA_FALSE);
 
 	elm_naviframe_item_pop_cb_set(myTizenViewWidget->naviframe_item, naviframe_pop_cb, win);
 
+	sub_layout = ZLTizenUtil::create_layout(layout, "fbr.main");
+
+
 	//Evas* canvas = evas_object_evas_get(myTizenViewWidget->scroller);
-	Evas* canvas = evas_object_evas_get(layout);
+	Evas* canvas = evas_object_evas_get(sub_layout);
 
 	Evas_Object *img = evas_object_image_add(canvas);
 	//Evas_Object *img = evas_object_image_filled_add(canvas);
-	evas_object_image_size_set	(img, 400,800);
+	//evas_object_image_size_set	(img, 400,800);
 
 	//evas_object_image_border_set(img, 90, 90, 30, 30);
 
@@ -496,7 +509,10 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	evas_object_size_hint_weight_set(img, EVAS_HINT_FILL, 0.5);
 	evas_object_size_hint_align_set(img, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	//elm_object_content_set(myTizenViewWidget->scroller, img);
-	elm_object_part_content_set(layout, "elm.swallow.content", img);
+
+	elm_object_part_content_set(sub_layout,  "fbr.main.content", img);
+	elm_object_part_content_set(layout, "elm.swallow.content", sub_layout);
+
 	evas_object_show(img);							// Make the given Evas object visible
 
 	myTizenViewWidget->image = img;

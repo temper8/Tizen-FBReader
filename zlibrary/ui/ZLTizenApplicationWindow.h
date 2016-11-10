@@ -57,11 +57,14 @@ public:
 	Evas_Object * createDrawerPanel(Evas_Object *parent);
 	Evas_Object * createTopPanel(Evas_Object *parent);
 
+	Evas_Object *sub_layout;
+
 	void gotoPrevPage();
 	void gotoNextPage();
 	void mouseDown(int x, int y);
 	bool checkCenterZone(int x,int y);
 	void showTitle();
+	void showToolBar();
 	void refreshPage();
 	void showDrawerPanel();
 
