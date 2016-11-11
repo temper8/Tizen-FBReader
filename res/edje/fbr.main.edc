@@ -1,5 +1,8 @@
 collections {
    base_scale: 1.0;
+   images {
+      image: "shadow_vert.png" COMP;
+   }
    group { name: "fbr.main";
       parts {
          part { name: "fbr.main.content";
@@ -17,35 +20,46 @@ collections {
          }
          part { name: "fbr.main.toolbar";
             type: RECT;
+            effect: SHADOW BOTTOM;
             description { state: "default" 0.0;
                rel1.relative: 0.0 0.0;
-               rel2.relative: 1.0 0.11;
-               color: 0 127 127 255;
+               rel2.relative: 1.0 0.08;
+               color: 245 245 245 255;
+               color2: 124 0 0 0;
                visible: 1;
             }
             description { state: "hidden" 0.0;
                rel1.relative: 0.0 0.0;
-               rel2.relative: 1.0 0.11;
-               color: 0 127 127 255;
+               rel2.relative: 1.0 0.08;
+               color: 245 245 245 255;
                visible: 0;
             }
          }
+         part { name: "shadow";
+            type: IMAGE;
+            description { state: "default" 0.0;
+               image.normal: "shadow_vert.png";
+               fill.smooth: 0;
+               rel1.relative: 0.0 0.08;
+               rel2.relative: 1.0 0.09;
+               color: 127 128 127 255;
+               visible: 1;
+            }
+         }
+         program {
+            /* hide toolbar */
+            name: "toolbar,hide";
+            signal: "toolbar,hide";
+            source: "app";
+            action: STATE_SET "hidden" 0.0;
+            target: "fbr.main.toolbar";
+         }
+         program {
+            name: "toolbar,show";
+            signal: "toolbar,show";
+            source: "app";
+            action: STATE_SET "default" 0.0;
+            target: "fbr.main.toolbar";
+         }
       }
-      program {
-         /* hide toolbar */
-         name: "toolbar,hide";
-         signal: "toolbar,hide";
-         source: "app";
-         action: STATE_SET "hidden" 0.0;
-         target: "fbr.main.toolbar";
-      }
-      program {
-         name: "toolbar,show";
-         signal: "toolbar,show";
-         source: "app";
-         action: STATE_SET "default" 0.0;
-         target: "fbr.main.toolbar";
-      }
-      
    }
-}
