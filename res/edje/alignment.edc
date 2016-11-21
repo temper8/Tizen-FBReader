@@ -126,7 +126,7 @@ collections {
                   max: 200  90;
                   state: "default" 0.0;
                   rel1 {
-                     relative: 0.5 1.0;
+                     relative: 0.5 2.5;
                      to_y: "top_line_base";
                   }
                   align: 0.1 0;
