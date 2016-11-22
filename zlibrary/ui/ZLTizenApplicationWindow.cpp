@@ -462,6 +462,11 @@ shared_ptr<ZLProgressDialog> ZLTizenApplicationWindow::createTizenProgressDialog
 	return  myProgressDialog;
 }
 
+void right_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission, const char *source){
+	ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
+	app->gotoNextPage();
+}
+
 
 ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
@@ -514,20 +519,23 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	evas_object_size_hint_align_set(img, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	//elm_object_content_set(myTizenViewWidget->scroller, img);
 
+
 	elm_object_part_content_set(sub_layout,  "fbr.main.content", img);
 	elm_object_part_content_set(layout, "elm.swallow.content", sub_layout);
+
+
+
 
 	evas_object_show(img);							// Make the given Evas object visible
 
 	myTizenViewWidget->image = img;
 
 	// Add a callback function to a given Evas object event.
-	evas_object_event_callback_add(img, EVAS_CALLBACK_MOUSE_DOWN, _on_mousedown, this);
+	//evas_object_event_callback_add(img, EVAS_CALLBACK_MOUSE_DOWN, _on_mousedown, this);
 
 	/* Drawer bg */
 	Evas_Object *bg = create_bg(layout);
 	elm_object_part_content_set(layout, "elm.swallow.bg", bg);
-
 
 	Evas_Object *panel = createTopPanel(layout);
 	elm_object_part_content_set(layout, "elm.swallow.top", panel);

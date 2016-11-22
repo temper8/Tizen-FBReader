@@ -150,7 +150,6 @@ collections {
                visible: 0;
             }
          }
-         
       }
       program { name: "left_tap_zone_mouse_down";
          signal: "mouse,down,1";
@@ -186,6 +185,7 @@ collections {
          signal: "mouse,up,1";
          source: "right_tap_zone";
          action: STATE_SET "default" 0.0;
+         action: SIGNAL_EMIT "click" "right_tap_zone";
          target: "right_tap_zone";
       }
       program {
