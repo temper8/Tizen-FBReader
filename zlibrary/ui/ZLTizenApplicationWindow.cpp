@@ -462,9 +462,19 @@ shared_ptr<ZLProgressDialog> ZLTizenApplicationWindow::createTizenProgressDialog
 	return  myProgressDialog;
 }
 
+void left_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission, const char *source){
+	ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
+	app->gotoPrevPage();
+}
+
 void right_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission, const char *source){
 	ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
 	app->gotoNextPage();
+}
+
+void center_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission, const char *source){
+	ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
+	app->showToolBar();
 }
 
 
@@ -518,6 +528,11 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	evas_object_size_hint_weight_set(img, EVAS_HINT_FILL, 0.5);
 	evas_object_size_hint_align_set(img, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	//elm_object_content_set(myTizenViewWidget->scroller, img);
+
+	elm_object_signal_callback_add(sub_layout, "click", "right_tap_zone",  right_tap_zone_clicked, this);
+	elm_object_signal_callback_add(sub_layout, "click", "center_tap_zone", center_tap_zone_clicked, this);
+	elm_object_signal_callback_add(sub_layout, "click", "left_tap_zone",   left_tap_zone_clicked, this);
+
 
 
 	elm_object_part_content_set(sub_layout,  "fbr.main.content", img);

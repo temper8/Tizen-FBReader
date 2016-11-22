@@ -163,6 +163,11 @@ collections {
          action: STATE_SET "default" 0.0;
          target: "left_tap_zone";
       }
+      program { name: "left_tap_zone_emit_click";
+         signal: "mouse,up,1";
+         source: "left_tap_zone";
+         action: SIGNAL_EMIT "click" "left_tap_zone";
+      }
       program { name: "center_tap_zone_mouse_down";
          signal: "mouse,down,1";
          source: "center_tap_zone";
@@ -175,6 +180,11 @@ collections {
          action: STATE_SET "default" 0.0;
          target: "center_tap_zone";
       }
+      program { name: "center_tap_zone_emit_click";
+         signal: "mouse,up,1";
+         source: "center_tap_zone";
+         action: SIGNAL_EMIT "click" "center_tap_zone";
+      }
       program { name: "right_tap_zone_mouse_down";
          signal: "mouse,down,1";
          source: "right_tap_zone";
@@ -185,8 +195,12 @@ collections {
          signal: "mouse,up,1";
          source: "right_tap_zone";
          action: STATE_SET "default" 0.0;
-         action: SIGNAL_EMIT "click" "right_tap_zone";
          target: "right_tap_zone";
+      }
+      program { name: "right_tap_zone_emit_click";
+         signal: "mouse,up,1";
+         source: "right_tap_zone";
+         action: SIGNAL_EMIT "click" "right_tap_zone";
       }
       program {
          /* hide toolbar */
