@@ -66,6 +66,7 @@ public:
 	bool checkCenterZone(int x,int y);
 	void showTitle();
 	void showToolBar();
+	void hideToolBar();
 	void refreshPage();
 	void showDrawerPanel();
 

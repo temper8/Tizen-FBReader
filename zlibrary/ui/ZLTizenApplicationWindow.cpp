@@ -280,14 +280,14 @@ void ZLTizenApplicationWindow::showDrawerPanel(){
 		elm_panel_toggle(drawer_panel);
 	}
 }
+void ZLTizenApplicationWindow::hideToolBar(){
+	elm_layout_signal_emit(sub_layout, "toolbar,hide", "app");
+	ToolBarVisible = false;
+}
 
 void ZLTizenApplicationWindow::showToolBar(){
-	//edje_object_signal_emit(sub_layout, "toolbar,hide", "app");
-	if(ToolBarVisible)
-		elm_layout_signal_emit(sub_layout, "toolbar,hide", "app");
-	else
-		elm_layout_signal_emit(sub_layout, "toolbar,show", "app");
-	ToolBarVisible = !ToolBarVisible;
+	elm_layout_signal_emit(sub_layout, "toolbar,show", "app");
+	ToolBarVisible = true;
 }
 
 void ZLTizenApplicationWindow::showTitle(){
@@ -437,17 +437,24 @@ shared_ptr<ZLProgressDialog> ZLTizenApplicationWindow::createTizenProgressDialog
 
 void left_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission, const char *source){
 	ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
+	if(app->ToolBarVisible)
+			app->hideToolBar();
 	app->gotoPrevPage();
 }
 
 void right_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission, const char *source){
 	ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
+	if(app->ToolBarVisible)
+			app->hideToolBar();
 	app->gotoNextPage();
 }
 
 void center_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission, const char *source){
 	ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
-	app->showToolBar();
+	if(app->ToolBarVisible)
+		app->hideToolBar();
+	else
+		app->showToolBar();
 }
 
 
@@ -464,7 +471,7 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	elm_naviframe_item_pop_cb_set(myTizenViewWidget->naviframe_item, naviframe_pop_cb, win);
 
 	sub_layout = ZLTizenUtil::create_layout(layout, "fbr.main");
-
+	hideToolBar();
 
 	//Evas* canvas = evas_object_evas_get(myTizenViewWidget->scroller);
 	Evas* canvas = evas_object_evas_get(sub_layout);
