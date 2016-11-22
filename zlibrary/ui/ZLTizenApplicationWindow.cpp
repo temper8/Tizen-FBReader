@@ -290,9 +290,6 @@ void ZLTizenApplicationWindow::showToolBar(){
 	ToolBarVisible = !ToolBarVisible;
 }
 
-
-
-
 void ZLTizenApplicationWindow::showTitle(){
 	if (elm_naviframe_item_title_enabled_get(myTizenViewWidget->naviframe_item) == EINA_TRUE)
 		elm_naviframe_item_title_enabled_set(myTizenViewWidget->naviframe_item, EINA_FALSE,	EINA_FALSE);
@@ -301,7 +298,6 @@ void ZLTizenApplicationWindow::showTitle(){
 	//	elm_scroller_region_bring_in(myTizenViewWidget->scroller, 0, 50, 500,100);
 
 	}
-
 
 }
 
@@ -325,9 +321,6 @@ bool ZLTizenApplicationWindow::checkCenterZone(int x,int y){
 }
 
 void ZLTizenApplicationWindow::gotoPrevPage(){
-	 DBG("PrevPage");
-	// FBReader &fbreader = FBReader::Instance();
-	// fbreader.doAction(ActionCode::PAGE_SCROLL_BACKWARD);
 	 doAppAction(ActionCode::PAGE_SCROLL_BACKWARD);
 }
 
@@ -336,9 +329,6 @@ void ZLTizenApplicationWindow::refreshPage(){
 }
 
 void ZLTizenApplicationWindow::gotoNextPage(){
-	 DBG("NextPage");
-	 //FBReader &fbreader = FBReader::Instance();
-	 //fbreader.doAction(ActionCode::PAGE_SCROLL_FORWARD);
 	 doAppAction(ActionCode::PAGE_SCROLL_FORWARD);
 }
 
@@ -406,23 +396,6 @@ static void image_resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_i
 	viewWidget->draw();
 }
 
-
-static void _on_mousedown(void *data, // evas object event EVAS_CALLBACK_MOUSE_DOWN callback function.
-                 Evas *evas,
-                 Evas_Object *o,
-                 void *event_info)
-{
-
-   Evas_Event_Mouse_Down *ev;
-
-   ev = (Evas_Event_Mouse_Down *)event_info;
-   dlog_print(DLOG_DEBUG, LOG_TAG, "We've got mouse_down x=%d y=%d",ev->output.x, ev->output.y);
-   ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
-   app->mouseDown(ev->output.x, ev->output.y);
-}
-
-
-
 void ZLTizenApplicationWindow::createTestDialog(){
 	DBG("createTizenTreeDialog");
 	Evas_Object *layout, *box;
@@ -480,31 +453,10 @@ void center_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission,
 
 ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
-	Evas_Object *layout;//, *box;
+	Evas_Object *layout;
 
 	myTizenViewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
 	layout = create_drawer_layout(naviframe);
-
-	/* Box */
-	//box = elm_box_add(layout);
-	//evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	//evas_object_size_hint_align_set(box, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	//elm_object_part_content_set(layout, "elm.swallow.content", box);
-
-	//myTizenViewWidget->scroller = create_scroller(layout, this);
-	//evas_object_size_hint_weight_set(myTizenViewWidget->scroller, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	//evas_object_size_hint_align_set(myTizenViewWidget->scroller, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	//elm_object_part_content_set(layout, "elm.swallow.content", myTizenViewWidget->scroller);
-
-	/* Image Layout */
-//	myTizenViewWidget->scroller = elm_layout_add(layout);
-//	evas_object_size_hint_weight_set(myTizenViewWidget->scroller, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-//	elm_layout_theme_set(myTizenViewWidget->scroller, "layout", "application", "default");
-//	elm_object_part_content_set(layout, "elm.swallow.content", myTizenViewWidget->scroller);
-//	evas_object_show(myTizenViewWidget->scroller);
-
-
-
 
 	myTizenViewWidget->naviframe_item = elm_naviframe_item_push(naviframe, "FBReader", NULL, NULL, layout, NULL);
 	elm_naviframe_item_title_enabled_set(myTizenViewWidget->naviframe_item, EINA_FALSE,	EINA_FALSE);
@@ -533,20 +485,12 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	elm_object_signal_callback_add(sub_layout, "click", "center_tap_zone", center_tap_zone_clicked, this);
 	elm_object_signal_callback_add(sub_layout, "click", "left_tap_zone",   left_tap_zone_clicked, this);
 
-
-
 	elm_object_part_content_set(sub_layout,  "fbr.main.content", img);
 	elm_object_part_content_set(layout, "elm.swallow.content", sub_layout);
-
-
-
 
 	evas_object_show(img);							// Make the given Evas object visible
 
 	myTizenViewWidget->image = img;
-
-	// Add a callback function to a given Evas object event.
-	//evas_object_event_callback_add(img, EVAS_CALLBACK_MOUSE_DOWN, _on_mousedown, this);
 
 	/* Drawer bg */
 	Evas_Object *bg = create_bg(layout);
