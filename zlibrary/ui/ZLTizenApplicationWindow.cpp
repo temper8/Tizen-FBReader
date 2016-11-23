@@ -457,6 +457,13 @@ void center_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission,
 		app->showToolBar();
 }
 
+void menu_icon_clicked(void *data, Evas_Object *obj, const char *emission, const char *source){
+	ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
+
+	app->gotoNextPage();
+}
+
+
 
 ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
@@ -491,6 +498,8 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	elm_object_signal_callback_add(sub_layout, "click", "right_tap_zone",  right_tap_zone_clicked, this);
 	elm_object_signal_callback_add(sub_layout, "click", "center_tap_zone", center_tap_zone_clicked, this);
 	elm_object_signal_callback_add(sub_layout, "click", "left_tap_zone",   left_tap_zone_clicked, this);
+
+	elm_object_signal_callback_add(sub_layout, "click", "menu_icon",   menu_icon_clicked, this);
 
 	elm_object_part_content_set(sub_layout,  "fbr.main.content", img);
 	elm_object_part_content_set(layout, "elm.swallow.content", sub_layout);
