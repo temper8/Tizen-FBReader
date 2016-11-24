@@ -92,12 +92,11 @@ collections {
             action: STATE_SET "default" 0.0;
             target: "title";
          }
-         program { name: "title_emit_click";
+         program { name: "tmenu_icon_emit_click";
             signal: "mouse,up,1";
-            source: "title";
+            source: "menu_icon";
             action: SIGNAL_EMIT "click" "menu_icon";
          }
       }
    }
-
 }

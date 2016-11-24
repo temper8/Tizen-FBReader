@@ -463,8 +463,7 @@ void center_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission,
 void menu_icon_clicked(void *data, Evas_Object *obj, const char *emission, const char *source){
 	DBG("menu_icon_clicked");
 	ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
-
-	app->gotoNextPage();
+	app->showDrawerPanel();
 }
 
 
@@ -483,7 +482,7 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
 	sub_layout = ZLTizenUtil::create_layout(layout, "fbr.main");
 	toolBar_layout = ZLTizenUtil::create_layout(sub_layout, "fbr.toolbar");
-	//hideToolBar();
+	hideToolBar();
 
 	//Evas* canvas = evas_object_evas_get(myTizenViewWidget->scroller);
 	Evas* canvas = evas_object_evas_get(sub_layout);
