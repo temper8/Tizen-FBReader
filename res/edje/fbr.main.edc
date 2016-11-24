@@ -1,72 +1,5 @@
 collections {
    base_scale: 1.0;
-   images {
-      image: "shadow_vert.png" COMP;
-      image: "sym_icon.png" COMP;
-   }
-   group { name: "fbr.toolbar";
-      parts {
-         part { name: "bg";
-            type: RECT;
-            effect: SHADOW BOTTOM;
-            description { state: "default" 0.0;
-               rel1.relative: 0.0 0.0;
-               rel2.relative: 1.0 0.8;
-               color: 245 245 245 255;
-               color2: 124 0 0 0;
-               visible: 1;
-            }
-         }
-         part { name: "shadow";
-            type: IMAGE;
-            description { state: "default" 0.0;
-               image.normal: "shadow_vert.png";
-               fill.smooth: 0;
-               rel1.relative: 0.0 0.8;
-               rel2.relative: 1.0 0.9;
-               visible: 1;
-            }
-         }
-         part { name: "left_rect";
-            type: RECT;
-            description { state: "default" 0.0;
-               rel1.relative: 0.0 0.0;
-               rel2.relative: 0.14 0.8;
-               color: 79 162 237 255;
-               visible: 1;
-            }
-         }
-         part { name: "icon";
-            type: IMAGE;
-            description { state: "default" 0.0;
-               image.normal: "sym_icon.png";
-               rel1.relative: 0.0 0.0;
-               rel2.relative: 0.14 0.8;
-               visible: 1;
-            }
-         }
-         part { name: "title";
-            type: TEXT;
-            scale: 1;
-            description { state: "default" 0.0;
-               align: 0.5 0.5;
-               fixed: 0 0;
-               min: 0 0;
-               color: 172 172 172 255;
-               visible: 1;
-               text {
-                  size: 25;
-                  font: "Sans";
-                  text: "FBReader";
-                  align: 0.0 0.5;
-                  min: 0 0;
-               }
-               rel1.relative: 0.18 0.1;
-               rel2.relative: 0.9 0.75;
-            }
-         }
-      }
-   }
    group { name: "fbr.main";
       parts {
          part { name: "fbr.main.content";
@@ -136,10 +69,10 @@ collections {
                rel2.relative: 1.00 1.00;
             }
          }
-         part { name: "toolbar_group";
-            type: GROUP;
-            source: "fbr.toolbar";
+         part { name: "toolbar";
+            type: SWALLOW;
             description { state: "default" 0.0;
+               color: 0 136 170 055;
                rel1.relative: 0.0 0.0;
                rel2.relative: 1.0 0.1;
                visible: 1;
@@ -151,71 +84,73 @@ collections {
             }
          }
       }
-      program { name: "left_tap_zone_mouse_down";
-         signal: "mouse,down,1";
-         source: "left_tap_zone";
-         action: STATE_SET "clicked" 0.0;
-         target: "left_tap_zone";
-      }
-      program { name: "left_tap_zone_mouse_up";
-         signal: "mouse,up,1";
-         source: "left_tap_zone";
-         action: STATE_SET "default" 0.0;
-         target: "left_tap_zone";
-      }
-      program { name: "left_tap_zone_emit_click";
-         signal: "mouse,up,1";
-         source: "left_tap_zone";
-         action: SIGNAL_EMIT "click" "left_tap_zone";
-      }
-      program { name: "center_tap_zone_mouse_down";
-         signal: "mouse,down,1";
-         source: "center_tap_zone";
-         action: STATE_SET "clicked" 0.0;
-         target: "center_tap_zone";
-      }
-      program { name: "center_tap_zone_mouse_up";
-         signal: "mouse,up,1";
-         source: "center_tap_zone";
-         action: STATE_SET "default" 0.0;
-         target: "center_tap_zone";
-      }
-      program { name: "center_tap_zone_emit_click";
-         signal: "mouse,up,1";
-         source: "center_tap_zone";
-         action: SIGNAL_EMIT "click" "center_tap_zone";
-      }
-      program { name: "right_tap_zone_mouse_down";
-         signal: "mouse,down,1";
-         source: "right_tap_zone";
-         action: STATE_SET "clicked" 0.0;
-         target: "right_tap_zone";
-      }
-      program { name: "right_tap_zone_mouse_up";
-         signal: "mouse,up,1";
-         source: "right_tap_zone";
-         action: STATE_SET "default" 0.0;
-         target: "right_tap_zone";
-      }
-      program { name: "right_tap_zone_emit_click";
-         signal: "mouse,up,1";
-         source: "right_tap_zone";
-         action: SIGNAL_EMIT "click" "right_tap_zone";
-      }
-      program {
-         /* hide toolbar */
-         name: "toolbar,hide";
-         signal: "toolbar,hide";
-         source: "app";
-         action: STATE_SET "hidden" 0.0;
-         target: "toolbar_group";
-      }
-      program {
-         name: "toolbar,show";
-         signal: "toolbar,show";
-         source: "app";
-         action: STATE_SET "default" 0.0;
-         target: "toolbar_group";
+      programs {
+         program { name: "left_tap_zone_mouse_down";
+            signal: "mouse,down,1";
+            source: "left_tap_zone";
+            action: STATE_SET "clicked" 0.0;
+            target: "left_tap_zone";
+         }
+         program { name: "left_tap_zone_mouse_up";
+            signal: "mouse,up,1";
+            source: "left_tap_zone";
+            action: STATE_SET "default" 0.0;
+            target: "left_tap_zone";
+         }
+         program { name: "left_tap_zone_emit_click";
+            signal: "mouse,up,1";
+            source: "left_tap_zone";
+            action: SIGNAL_EMIT "click" "left_tap_zone";
+         }
+         program { name: "center_tap_zone_mouse_down";
+            signal: "mouse,down,1";
+            source: "center_tap_zone";
+            action: STATE_SET "clicked" 0.0;
+            target: "center_tap_zone";
+         }
+         program { name: "center_tap_zone_mouse_up";
+            signal: "mouse,up,1";
+            source: "center_tap_zone";
+            action: STATE_SET "default" 0.0;
+            target: "center_tap_zone";
+         }
+         program { name: "center_tap_zone_emit_click";
+            signal: "mouse,up,1";
+            source: "center_tap_zone";
+            action: SIGNAL_EMIT "click" "center_tap_zone";
+         }
+         program { name: "right_tap_zone_mouse_down";
+            signal: "mouse,down,1";
+            source: "right_tap_zone";
+            action: STATE_SET "clicked" 0.0;
+            target: "right_tap_zone";
+         }
+         program { name: "right_tap_zone_mouse_up";
+            signal: "mouse,up,1";
+            source: "right_tap_zone";
+            action: STATE_SET "default" 0.0;
+            target: "right_tap_zone";
+         }
+         program { name: "right_tap_zone_emit_click";
+            signal: "mouse,up,1";
+            source: "right_tap_zone";
+            action: SIGNAL_EMIT "click" "right_tap_zone";
+         }
+         program {
+            /* hide toolbar */
+            name: "toolbar,hide";
+            signal: "toolbar,hide";
+            source: "app";
+            action: STATE_SET "hidden" 0.0;
+            target: "toolbar";
+         }
+         program {
+            name: "toolbar,show";
+            signal: "toolbar,show";
+            source: "app";
+            action: STATE_SET "default" 0.0;
+            target: "toolbar";
+         }
       }
    }
 }

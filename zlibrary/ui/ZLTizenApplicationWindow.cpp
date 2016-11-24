@@ -436,6 +436,7 @@ shared_ptr<ZLProgressDialog> ZLTizenApplicationWindow::createTizenProgressDialog
 }
 
 void left_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission, const char *source){
+	DBG("left_tap_zone_clicked");
 	ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
 	if(app->ToolBarVisible)
 			app->hideToolBar();
@@ -443,6 +444,7 @@ void left_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission, c
 }
 
 void right_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission, const char *source){
+	DBG("right_tap_zone_clicked");
 	ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
 	if(app->ToolBarVisible)
 			app->hideToolBar();
@@ -450,6 +452,7 @@ void right_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission, 
 }
 
 void center_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission, const char *source){
+	DBG("center_tap_zone_clicked");
 	ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
 	if(app->ToolBarVisible)
 		app->hideToolBar();
@@ -458,6 +461,7 @@ void center_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission,
 }
 
 void menu_icon_clicked(void *data, Evas_Object *obj, const char *emission, const char *source){
+	DBG("menu_icon_clicked");
 	ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
 
 	app->gotoNextPage();
@@ -467,7 +471,7 @@ void menu_icon_clicked(void *data, Evas_Object *obj, const char *emission, const
 
 ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
-	Evas_Object *layout;
+	Evas_Object *layout, *toolBar_layout;
 
 	myTizenViewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
 	layout = create_drawer_layout(naviframe);
@@ -478,7 +482,8 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	elm_naviframe_item_pop_cb_set(myTizenViewWidget->naviframe_item, naviframe_pop_cb, win);
 
 	sub_layout = ZLTizenUtil::create_layout(layout, "fbr.main");
-	hideToolBar();
+	toolBar_layout = ZLTizenUtil::create_layout(sub_layout, "fbr.toolbar");
+	//hideToolBar();
 
 	//Evas* canvas = evas_object_evas_get(myTizenViewWidget->scroller);
 	Evas* canvas = evas_object_evas_get(sub_layout);
@@ -499,7 +504,13 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	elm_object_signal_callback_add(sub_layout, "click", "center_tap_zone", center_tap_zone_clicked, this);
 	elm_object_signal_callback_add(sub_layout, "click", "left_tap_zone",   left_tap_zone_clicked, this);
 
-	elm_object_signal_callback_add(sub_layout, "click", "menu_icon",   menu_icon_clicked, this);
+	elm_object_signal_callback_add(toolBar_layout, "click", "menu_icon",   menu_icon_clicked, this);
+
+	evas_object_show(toolBar_layout);
+
+	//Evas_Object *panel = createTopPanel(sub_layout);
+
+	elm_object_part_content_set(sub_layout,  "toolbar", toolBar_layout);
 
 	elm_object_part_content_set(sub_layout,  "fbr.main.content", img);
 	elm_object_part_content_set(layout, "elm.swallow.content", sub_layout);
@@ -512,8 +523,8 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	Evas_Object *bg = create_bg(layout);
 	elm_object_part_content_set(layout, "elm.swallow.bg", bg);
 
-	Evas_Object *panel = createTopPanel(layout);
-	elm_object_part_content_set(layout, "elm.swallow.top", panel);
+//	Evas_Object *panel = createTopPanel(layout);
+//	elm_object_part_content_set(layout, "elm.swallow.top", panel);
 	/* create_panel */
 	drawer_panel = createDrawerPanel(layout);
 	//eext_object_event_callback_add(drawer, EEXT_CALLBACK_BACK, drawer_back_cb, ad);
