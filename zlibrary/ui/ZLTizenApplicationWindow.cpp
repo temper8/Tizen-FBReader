@@ -473,31 +473,29 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	Evas_Object *layout, *toolBar_layout;
 
 	myTizenViewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
-	layout = create_drawer_layout(naviframe);
+	//layout = create_drawer_layout(naviframe);
+	sub_layout = ZLTizenUtil::create_layout(naviframe, "fbr.main");
 
-	myTizenViewWidget->naviframe_item = elm_naviframe_item_push(naviframe, "FBReader", NULL, NULL, layout, NULL);
+
+	myTizenViewWidget->naviframe_item = elm_naviframe_item_push(naviframe, "FBReader", NULL, NULL, sub_layout, NULL);
 	elm_naviframe_item_title_enabled_set(myTizenViewWidget->naviframe_item, EINA_FALSE,	EINA_FALSE);
 
 	elm_naviframe_item_pop_cb_set(myTizenViewWidget->naviframe_item, naviframe_pop_cb, win);
 
-	sub_layout = ZLTizenUtil::create_layout(layout, "fbr.main");
+	//sub_layout = ZLTizenUtil::create_layout(layout, "fbr.main");
 	toolBar_layout = ZLTizenUtil::create_layout(sub_layout, "fbr.toolbar");
 	hideToolBar();
 
-	//Evas* canvas = evas_object_evas_get(myTizenViewWidget->scroller);
+	layout = create_drawer_layout(sub_layout);
+
 	Evas* canvas = evas_object_evas_get(sub_layout);
 
 	Evas_Object *img = evas_object_image_add(canvas);
-	//Evas_Object *img = evas_object_image_filled_add(canvas);
-	//evas_object_image_size_set	(img, 400,800);
-
-	//evas_object_image_border_set(img, 90, 90, 30, 30);
 
 	evas_object_image_colorspace_set(img, EVAS_COLORSPACE_ARGB8888);
 	evas_object_event_callback_add(img, EVAS_CALLBACK_RESIZE, image_resize_cb, myTizenViewWidget);
 	evas_object_size_hint_weight_set(img, EVAS_HINT_FILL, 0.5);
 	evas_object_size_hint_align_set(img, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	//elm_object_content_set(myTizenViewWidget->scroller, img);
 
 	elm_object_signal_callback_add(sub_layout, "click", "right_tap_zone",  right_tap_zone_clicked, this);
 	elm_object_signal_callback_add(sub_layout, "click", "center_tap_zone", center_tap_zone_clicked, this);
@@ -512,8 +510,8 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	elm_object_part_content_set(sub_layout,  "toolbar", toolBar_layout);
 
 	elm_object_part_content_set(sub_layout,  "fbr.main.content", img);
-	elm_object_part_content_set(layout, "elm.swallow.content", sub_layout);
-
+	//elm_object_part_content_set(layout, "elm.swallow.content", sub_layout);
+	elm_object_part_content_set(sub_layout, "fbr.main.drawer", layout);
 	evas_object_show(img);							// Make the given Evas object visible
 
 	myTizenViewWidget->image = img;
