@@ -209,30 +209,6 @@ void ZLTizenApplicationWindow::deleteTreeDialog(){
 	elm_naviframe_item_promote(myTizenViewWidget->naviframe_item);
 	myTreeDialog = 0;
 }
-Evas_Object * ZLTizenApplicationWindow::createTopPanel(Evas_Object *parent)
-{
-	Evas_Object *panel;
-
-	/* Panel */
-	panel = elm_panel_add(parent);
-	elm_panel_scrollable_set(panel, EINA_TRUE);
-
-	/* Default is visible, hide the content in default. */
-	elm_panel_hidden_set(panel, EINA_FALSE);
-	elm_panel_orient_set(panel, ELM_PANEL_ORIENT_TOP);
-	evas_object_show(panel);
-
-	/* Panel content */
-	Evas_Object *btn = elm_button_add(panel);
-	evas_object_size_hint_weight_set(btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
-
-	evas_object_show(btn);
-
-	elm_object_content_set(panel, btn);
-
-	return panel;
-}
 
 Evas_Object * ZLTizenApplicationWindow::createDrawerPanel(Evas_Object *parent)
 {
@@ -520,8 +496,6 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	Evas_Object *bg = create_bg(layout);
 	elm_object_part_content_set(layout, "elm.swallow.bg", bg);
 
-//	Evas_Object *panel = createTopPanel(layout);
-//	elm_object_part_content_set(layout, "elm.swallow.top", panel);
 	/* create_panel */
 	drawer_panel = createDrawerPanel(layout);
 	//eext_object_event_callback_add(drawer, EEXT_CALLBACK_BACK, drawer_back_cb, ad);
@@ -529,15 +503,6 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	evas_object_smart_callback_add(drawer_panel, "scroll", panel_scroll_cb, bg);
 	elm_object_part_content_set(layout, "elm.swallow.left", drawer_panel);
 
-	/* Drawers Button */
-	//btn = create_drawers_btn(ad->nf, btn_cb, drawer);
-	Evas_Object *btn = elm_button_add(naviframe);
-	if (btn) {
-		elm_object_style_set(btn, "naviframe/drawers");
-		evas_object_smart_callback_add(btn, "clicked", drawer_panel_Show, this);
-		}
-
-	elm_object_item_part_content_set(myTizenViewWidget->naviframe_item, "title_left_btn", btn);
 
 	/* Show window after base gui is set up */
 	evas_object_show(win);

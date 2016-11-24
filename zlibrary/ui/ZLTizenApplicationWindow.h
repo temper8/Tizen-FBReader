@@ -55,7 +55,6 @@ public:
 	void AddMenuItem(const std::string &name, const  std::string &id);
 
 	Evas_Object * createDrawerPanel(Evas_Object *parent);
-	Evas_Object * createTopPanel(Evas_Object *parent);
 
 	Evas_Object *sub_layout;
 	bool ToolBarVisible;
