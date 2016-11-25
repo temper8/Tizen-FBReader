@@ -23,8 +23,6 @@ TizenPictureView::TizenPictureView(const std::string &name, const std::string &t
 static void button_clicked(void *data, Evas_Object *btn, void *ev){
 	TizenPictureView* tv = (TizenPictureView*)data;
 	tv->myActions[1]->run();
-//	ZLTizenViewWidget* v = (ZLTizenViewWidget*)tv->myTab->myTizenOptionsDialog->myWindows->myTizenViewWidget;
-//	elm_naviframe_item_promote(v->naviframe_item);
 }
 
 Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
@@ -34,36 +32,23 @@ Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 
 	ZLTizenUtil::layout_edj_set(layout, "fbr.PictureView");
 
-	//elm_entry_line_wrap_set(layout, ELM_WRAP_NONE);
-	//elm_entry_single_line_set(layout, EINA_TRUE);
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, 0.0);
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.5);
-//	evas_object_size_hint_aspect_set(layout, EVAS_ASPECT_CONTROL_VERTICAL, 100, 250);
 
 	image = elm_image_add(layout);
 	elm_object_part_content_set(layout, "picture", image);
-	//evas_object_move(label, 1, 1);
-	//evas_object_resize(label, 300, 45);
-//	elm_object_text_set(label, _("<align=left><b>TizenPictureView</b></align>"));
-//	evas_object_show(label);
 
 	button1 = elm_button_add(layout);
 	elm_object_part_content_set(layout, "button1", button1);
-//	elm_object_text_set(button1, _(name().c_str()));
 
 	button2 = elm_button_add(layout);
 	elm_object_part_content_set(layout, "button2", button2);
-//	elm_object_text_set(button2, _(name().c_str()));
 
 	button3 = elm_button_add(layout);
 	elm_object_part_content_set(layout, "button3", button3);
-//	elm_object_text_set(button3, _(name().c_str()));
 
 	button4 = elm_button_add(layout);
 	elm_object_part_content_set(layout, "button4", button4);
-//	elm_object_text_set(button4, _(name().c_str()));
-//	elm_object_content_set(layout,label2);
-//	evas_object_show(label);
 
 	int actionsCount = myActions.size();
 	DBG("actionsCount %d", actionsCount);
