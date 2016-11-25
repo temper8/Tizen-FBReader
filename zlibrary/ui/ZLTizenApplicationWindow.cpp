@@ -246,9 +246,12 @@ static void nf_more_cb(void *data, Evas_Object *obj, void *event_info)
 
 static void drawer_panel_Show(void *data, Evas_Object *obj, void *event_info)
 {
-	ZLTizenApplicationWindow *tw = (ZLTizenApplicationWindow*)data;
-	tw->showDrawerPanel();
-	//tw->showTitle();
+	ZLTizenApplicationWindow *app_win = (ZLTizenApplicationWindow*)data;
+	if(app_win->ToolBarVisible)
+		app_win->hideToolBar();
+	else
+		app_win->showToolBar();
+	app_win->showDrawerPanel();
 }
 
 void ZLTizenApplicationWindow::showDrawerPanel(){
@@ -276,9 +279,6 @@ void ZLTizenApplicationWindow::showTitle(){
 	}
 
 }
-
-
-
 
 void ZLTizenApplicationWindow::gotoPrevPage(){
 	 doAppAction(ActionCode::PAGE_SCROLL_BACKWARD);
@@ -418,6 +418,7 @@ void center_tap_zone_clicked(void *data, Evas_Object *obj, const char *emission,
 		app->hideToolBar();
 	else
 		app->showToolBar();
+
 }
 
 void menu_icon_clicked(void *data, Evas_Object *obj, const char *emission, const char *source){
