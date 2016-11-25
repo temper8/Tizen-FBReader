@@ -32,6 +32,8 @@ public:
 
 	const cairo_surface_t *image() const { return surface; }
 	cairo_surface_t *surface;
+	const void * getImageData();
+	size_t getImageSize();
 
 private:
 

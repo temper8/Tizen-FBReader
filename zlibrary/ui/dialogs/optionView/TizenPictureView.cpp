@@ -25,6 +25,28 @@ static void button_clicked(void *data, Evas_Object *btn, void *ev){
 	tv->myActions[1]->run();
 }
 
+void TizenPictureView::createImage(Evas_Object *image_obj){
+	if (myImage.isNull())  return;
+
+	shared_ptr<ZLImage> cover = myImage;
+	if (cover.isNull()) { DBG("cover.isNull()");}
+	else
+	{
+		shared_ptr<ZLImageData> coverData = ZLImageManager::Instance().imageData(*cover);
+		if (!coverData.isNull()) {
+			ZLImageData &image = *coverData;
+			Bitmap *tmpBmp = 	((ZLbadaImageData&)image).pBitmap;
+			pBmp = makeCover(tmpBmp);
+			}
+			else
+			{	DBG("coverData.isNull()");}
+
+	}
+	elm_image_memfile_set(image_obj, const void * 	img,	size_t 	size, NULL,	NULL );
+
+
+}
+
 Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 	Evas_Object *image, *label, *label2;
 	Evas_Object *button1, *button2, *button3, *button4;
@@ -36,6 +58,8 @@ Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.5);
 
 	image = elm_image_add(layout);
+	createImage(image);
+
 	elm_object_part_content_set(layout, "picture", image);
 
 	button1 = elm_button_add(layout);

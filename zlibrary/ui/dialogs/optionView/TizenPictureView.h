@@ -18,6 +18,7 @@ public:
 protected:
 
 	virtual Evas_Object* createViewItem(Evas_Object *parent);
+	void createImage(Evas_Object *image_obj);
 	void _createItem();
 	void _onAccept() const;
 	shared_ptr<ZLImage> myImage;
