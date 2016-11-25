@@ -277,24 +277,8 @@ void ZLTizenApplicationWindow::showTitle(){
 
 }
 
-void ZLTizenApplicationWindow::mouseDown(int x,int y){
-	//showTitle();
-	if (checkCenterZone(x, y)) {
-		showToolBar();
-		return;
-	}
-	if (x<200) gotoPrevPage();
-	else gotoNextPage();
-}
 
-bool ZLTizenApplicationWindow::checkCenterZone(int x,int y){
-	if ((abs(2*y-1000)<500)&&(abs(2*x-700)<300))
-				{ DBG("CenterZone");
-					return true;
-				}
-	else
-		return false;
-}
+
 
 void ZLTizenApplicationWindow::gotoPrevPage(){
 	 doAppAction(ActionCode::PAGE_SCROLL_BACKWARD);

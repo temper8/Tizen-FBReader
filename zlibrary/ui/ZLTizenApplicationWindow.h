@@ -61,8 +61,6 @@ public:
 
 	void gotoPrevPage();
 	void gotoNextPage();
-	void mouseDown(int x, int y);
-	bool checkCenterZone(int x,int y);
 	void showTitle();
 	void showToolBar();
 	void hideToolBar();
