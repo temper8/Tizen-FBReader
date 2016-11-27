@@ -23,12 +23,12 @@ collections {
             }
          }
          part { name: "picture";
-            type: IMAGE;
+            type: SWALLOW;
             description { state: "default" 0.0;
                rel1.relative: 0.02 0.02;
                rel2.relative: 0.48 0.98;
                color: 0 136 170 255;
-               image.normal: "logo.png";
+              // image.normal: "logo.png";
             }
          }
          part { name: "button1";
