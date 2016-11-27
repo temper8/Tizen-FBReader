@@ -13,10 +13,10 @@ static void evas_resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_in
 	pe->paint();
 }
 
-ZLPaintEventHandler::ZLPaintEventHandler(Evas_Object *image): myImage(image){
+ZLPaintEventHandler::ZLPaintEventHandler(Evas_Object *obj): myEvasObj(obj){
 
 
-	evas_object_event_callback_add(image, EVAS_CALLBACK_RESIZE, evas_resize_cb, this);
+	evas_object_event_callback_add(obj, EVAS_CALLBACK_RESIZE, evas_resize_cb, this);
 }
 
 void ZLPaintEventHandler::paint(){

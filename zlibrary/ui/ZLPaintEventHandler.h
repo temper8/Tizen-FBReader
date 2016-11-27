@@ -11,12 +11,12 @@
 #include <efl_extension.h>
 class ZLPaintEventHandler {
  public:
-	ZLPaintEventHandler(Evas_Object *image);
+	ZLPaintEventHandler(Evas_Object *obj);
 	~ZLPaintEventHandler();
 
 	void paint();
 
-	Evas_Object *myImage;
+	Evas_Object *myEvasObj;
 
 };
 
