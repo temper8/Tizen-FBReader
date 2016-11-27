@@ -27,7 +27,7 @@ static void button_clicked(void *data, Evas_Object *btn, void *ev){
 
 void TizenPictureView::createImage(Evas_Object *image_obj){
 	if (myImage.isNull())  return;
-
+/*
 	shared_ptr<ZLImage> cover = myImage;
 	if (cover.isNull()) { DBG("cover.isNull()");}
 	else
@@ -43,7 +43,7 @@ void TizenPictureView::createImage(Evas_Object *image_obj){
 
 	}
 	elm_image_memfile_set(image_obj, const void * 	img,	size_t 	size, NULL,	NULL );
-
+*/
 
 }
 
@@ -56,12 +56,26 @@ Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, 0.0);
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.5);
+//-----------------------------------
+//	image = elm_image_add(layout);
+//	Evas* canvas = evas_object_evas_get(image);
+//	Evas_Object *img = evas_object_image_add(canvas);
 
-	image = elm_image_add(layout);
-	createImage(image);
+	//createImage(image);
 
-	elm_object_part_content_set(layout, "picture", image);
+	Evas* canvas = evas_object_evas_get(layout);
 
+	Evas_Object *img = evas_object_image_add(canvas);
+
+	evas_object_image_colorspace_set(img, EVAS_COLORSPACE_ARGB8888);
+	evas_object_size_hint_weight_set(img, EVAS_HINT_FILL, 0.5);
+	evas_object_size_hint_align_set(img, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	myPaintEventHandler = new ZLPaintEventHandler(img);
+	elm_object_part_content_set(layout, "picture", img);
+	evas_object_show(img);
+
+	//elm_object_part_content_set(layout, "picture", image);
+//-------------------------------
 	button1 = elm_button_add(layout);
 	elm_object_part_content_set(layout, "button1", button1);
 
