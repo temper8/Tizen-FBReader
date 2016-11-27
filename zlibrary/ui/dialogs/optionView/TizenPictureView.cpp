@@ -70,7 +70,7 @@ Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 	evas_object_image_colorspace_set(img, EVAS_COLORSPACE_ARGB8888);
 	evas_object_size_hint_weight_set(img, EVAS_HINT_FILL, 0.5);
 	evas_object_size_hint_align_set(img, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	myPaintEventHandler = new ZLPaintEventHandler(img);
+	myPaintEventHandler = new PaintEventHandler(img);
 	elm_object_part_content_set(layout, "picture", img);
 	evas_object_show(img);
 

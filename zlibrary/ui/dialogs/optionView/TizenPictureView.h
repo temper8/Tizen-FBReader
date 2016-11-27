@@ -9,7 +9,7 @@
 #define TIZENPICTUREVIEW_H_
 
 #include "ZLTizenOptionView.h"
-#include "../../ZLPaintEventHandler.h"
+#include "../../PaintEventHandler.h"
 
 
 class TizenPictureView: public ZLTizenOptionView {
@@ -24,7 +24,7 @@ protected:
 	void _createItem();
 	void _onAccept() const;
 	shared_ptr<ZLImage> myImage;
-	ZLPaintEventHandler *myPaintEventHandler;
+	PaintEventHandler *myPaintEventHandler;
 //	Tizen::Graphics::Bitmap* makeCover(Tizen::Graphics::Bitmap* srcBmp);
 //	void createActionButtons(Tizen::Ui::Controls::TableViewItem* pItem);
 
