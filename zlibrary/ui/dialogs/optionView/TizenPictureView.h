@@ -9,7 +9,7 @@
 #define TIZENPICTUREVIEW_H_
 
 #include "ZLTizenOptionView.h"
-#include "../../PaintEventHandler.h"
+#include "../../drawing/PaintEventHandler.h"
 
 
 class TizenPictureView: public ZLTizenOptionView {

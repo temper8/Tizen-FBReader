@@ -9,13 +9,16 @@
 #define PAINTEVENTHANDLER_H_
 
 #include <efl_extension.h>
+#include <functional>
+
 class PaintEventHandler {
  public:
 	PaintEventHandler(Evas_Object *obj);
 	~PaintEventHandler();
 
 	void paint();
-
+	std::function<void(int)> f_display;
+	static void print_num(int i);
 	Evas_Object *myEvasObj;
 
 };
