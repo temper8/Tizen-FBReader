@@ -55,10 +55,28 @@ static void image_resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_i
 }
 
 void TizenPictureView::drawCover() {
-	DBG("ZLPaintEventHandler::paint");
-	ZLTizenCairo *myCairo = new ZLTizenCairo(img);
-	myCairo->clear(ZLColor(255, 0, 0));
-	myCairo->flush_cairo();
+	DBG("TizenPictureView::drawCover");
+
+	if (myImage.isNull())  return;
+	DBG("TizenPictureView::drawCover myImage exist");
+	shared_ptr<ZLImage> cover = myImage;
+	if (cover.isNull()) { DBG("cover.isNull()");}
+	else
+	{
+		shared_ptr<ZLImageData> coverData = ZLImageManager::Instance().imageData(*cover);
+		if (!coverData.isNull()) {
+			ZLImageData &image = *coverData;
+			ZLTizenCairo *myCairo = new ZLTizenCairo(img);
+			myCairo->clear(ZLColor(255, 0, 0));
+			myCairo->drawImage(0,0,image);
+			myCairo->flush_cairo();
+
+			}
+			else
+			{	DBG("coverData.isNull()");}
+
+	}
+
 }
 
 Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
