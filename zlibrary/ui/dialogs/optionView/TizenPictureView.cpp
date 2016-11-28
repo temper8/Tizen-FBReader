@@ -26,27 +26,6 @@ static void button_clicked(void *data, Evas_Object *btn, void *ev){
 	tv->myActions[1]->run();
 }
 
-void TizenPictureView::createImage(Evas_Object *image_obj){
-	if (myImage.isNull())  return;
-/*
-	shared_ptr<ZLImage> cover = myImage;
-	if (cover.isNull()) { DBG("cover.isNull()");}
-	else
-	{
-		shared_ptr<ZLImageData> coverData = ZLImageManager::Instance().imageData(*cover);
-		if (!coverData.isNull()) {
-			ZLImageData &image = *coverData;
-			Bitmap *tmpBmp = 	((ZLbadaImageData&)image).pBitmap;
-			pBmp = makeCover(tmpBmp);
-			}
-			else
-			{	DBG("coverData.isNull()");}
-
-	}
-	elm_image_memfile_set(image_obj, const void * 	img,	size_t 	size, NULL,	NULL );
-*/
-
-}
 
 static void image_resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
 {

@@ -20,7 +20,6 @@ public:
 protected:
 
 	virtual Evas_Object* createViewItem(Evas_Object *parent);
-	void createImage(Evas_Object *image_obj);
 	void _createItem();
 	void _onAccept() const;
 	shared_ptr<ZLImage> myImage;
@@ -28,8 +27,6 @@ protected:
 	Evas_Object *img;
 public:
 	void drawCover();
-//	Tizen::Graphics::Bitmap* makeCover(Tizen::Graphics::Bitmap* srcBmp);
-//	void createActionButtons(Tizen::Ui::Controls::TableViewItem* pItem);
 
 };
 #endif /* TIZENPICTUREVIEW_H_ */
