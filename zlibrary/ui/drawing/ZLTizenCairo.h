@@ -33,8 +33,8 @@ public:
 //	void fillRectangle(int x0, int y0, int x1, int y1);
 //	void drawFilledCircle(int x, int y, int r);
 
-//	void drawImage(int x, int y, const ZLImageData &image);
-//	void drawImage(int x, int y, const ZLImageData &image, int width, int height, ScalingType type);
+	void drawImage(int x, int y, const ZLImageData &image);
+	void drawImage(int x, int y, const ZLImageData &image, int width, int height);
 
 
 //	int stringWidth(const char *str, int len, bool rtl) const;
