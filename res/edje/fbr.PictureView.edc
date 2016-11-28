@@ -12,51 +12,52 @@ collections {
                rel1.relative: 0.0 0.0;
                rel2.relative: 1.0 1.0;
                color: 0 125 255 128;
+               visible: 0;
             }
          }
          part { name: "image_bg";
             type: RECT;
             description { state: "default" 0.0;
                rel1.relative: 0.02 0.02;
-               rel2.relative: 0.48 0.98;
-               color: 0 136 170 255;
+               rel2.relative: 0.44 0.98;
+               color: 172 172 172 172;
             }
          }
          part { name: "picture";
             type: SWALLOW;
             description { state: "default" 0.0;
                rel1.relative: 0.02 0.02;
-               rel2.relative: 0.48 0.98;
+               rel2.relative: 0.44 0.98;
                color: 0 136 170 255;
-              // image.normal: "logo.png";
+               // image.normal: "logo.png";
             }
          }
          part { name: "button1";
             type: SWALLOW;
             description { state: "default" 0.0;
-               rel1.relative: 0.52 0.04;
-               rel2.relative: 0.98 0.22;
+               rel1.relative: 0.50 0.04;
+               rel2.relative: 0.97 0.22;
             }
          }
          part { name: "button2";
             type: SWALLOW;
             description { state: "default" 0.0;
-               rel1.relative: 0.52 0.28;
-               rel2.relative: 0.98 0.46;
+               rel1.relative: 0.50 0.28;
+               rel2.relative: 0.97 0.46;
             }
          }
          part { name: "button3";
             type: SWALLOW;
             description { state: "default" 0.0;
-               rel1.relative: 0.52 0.52;
-               rel2.relative: 0.98 0.70;
+               rel1.relative: 0.50 0.52;
+               rel2.relative: 0.97 0.70;
             }
          }
          part { name: "button4";
             type: SWALLOW;
             description { state: "default" 0.0;
-               rel1.relative: 0.52 0.76;
-               rel2.relative: 0.98 0.96;
+               rel1.relative: 0.50 0.76;
+               rel2.relative: 0.97 0.96;
             }
          }
       }
