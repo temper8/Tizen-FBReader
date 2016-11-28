@@ -10,6 +10,7 @@
 #include "../ZLTizenOptionsDialog.h"
 #include "../../ZLTizenApplicationWindow.h"
 #include "../../ZLTizenViewWidget.h"
+#include "../../drawing/ZLTizenCairo.h"
 #include "logger.h"
 
 TizenPictureView::TizenPictureView(const std::string &name, const std::string &tooltip, ZLPictureOptionEntry *option, ZLTizenDialogContent *tab, int row, int fromColumn, int toColumn) :
@@ -47,6 +48,19 @@ void TizenPictureView::createImage(Evas_Object *image_obj){
 
 }
 
+static void image_resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
+{
+	TizenPictureView *pv = (TizenPictureView*)data;
+	pv->drawCover();
+}
+
+void TizenPictureView::drawCover() {
+	DBG("ZLPaintEventHandler::paint");
+	ZLTizenCairo *myCairo = new ZLTizenCairo(img);
+	myCairo->clear(ZLColor(255, 0, 0));
+	myCairo->flush_cairo();
+}
+
 Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 	Evas_Object *image, *label, *label2;
 	Evas_Object *button1, *button2, *button3, *button4;
@@ -65,12 +79,14 @@ Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 
 	Evas* canvas = evas_object_evas_get(layout);
 
-	Evas_Object *img = evas_object_image_add(canvas);
+	img = evas_object_image_add(canvas);
 
 	evas_object_image_colorspace_set(img, EVAS_COLORSPACE_ARGB8888);
 	evas_object_size_hint_weight_set(img, EVAS_HINT_FILL, 0.5);
 	evas_object_size_hint_align_set(img, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	myPaintEventHandler = new PaintEventHandler(img);
+	evas_object_event_callback_add(img, EVAS_CALLBACK_RESIZE, image_resize_cb, this);
+
+	//myPaintEventHandler = new PaintEventHandler(img);
 	elm_object_part_content_set(layout, "picture", img);
 	evas_object_show(img);
 
