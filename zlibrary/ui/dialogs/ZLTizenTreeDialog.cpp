@@ -27,7 +27,7 @@ ZLTizenTreeDialog::ZLTizenTreeDialog(ZLTizenApplicationWindow* windows, const ZL
 	const char *title = myResource["title"].value().c_str();
 	DBG("Dialog title %s", title);
 	//createItemsList(title);
-	new_naviframe(title);
+	create_naviframe(title);
 }
 
 ZLTizenTreeDialog::~ZLTizenTreeDialog() {
@@ -81,8 +81,7 @@ bool ZLTizenTreeDialog::enter(ZLTreeNode* node) {
 		 myCurrentNode = node;
 		 const char *title = ((ZLTreeTitledNode*)myCurrentNode)->title().c_str();
 		 DBG("enter node title %s", title);
-		// createItemsList(title);
-		 new_naviframe(strdup(title));
+		 create_naviframe(strdup(title));
 		 updateContent();
 	 }
 	  else DBG("Empty List!");
@@ -195,7 +194,7 @@ static void gl_selected_cb(void *data, Evas_Object *obj, void *event_info)
 
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 }
-void ZLTizenTreeDialog::new_naviframe(const char* title){
+void ZLTizenTreeDialog::create_naviframe(const char* title){
 	Evas_Object *layout = ZLTizenUtil::create_layout(myWindows->naviframe, "fbr.genlist");
 	Elm_Object_Item *nf_it = elm_naviframe_item_push(myWindows->naviframe, (title), NULL, NULL,	layout, NULL);
 	elmObjectsList.push_back(nf_it);
@@ -210,38 +209,13 @@ void ZLTizenTreeDialog::new_naviframe(const char* title){
 	//	evas_object_event_callback_add(genlist, EVAS_CALLBACK_MOUSE_DOWN, gl_mouse_down_cb, NULL);
 	//	evas_object_smart_callback_add(genlist, "realized", gl_realized_cb, NULL);
 	//	evas_object_smart_callback_add(genlist, "loaded", gl_loaded_cb, NULL);
-		evas_object_smart_callback_add(genList, "selected", gl_selected_cb, this);
+	evas_object_smart_callback_add(genList, "selected", gl_selected_cb, this);
 	//	evas_object_smart_callback_add(genlist, "longpressed", gl_longpressed_cb, NULL);
 
-		elm_object_part_content_set(layout,  "fbr.genlist.sw", genList);
-		evas_object_show(genList);
+	elm_object_part_content_set(layout,  "fbr.genlist.sw", genList);
+	evas_object_show(genList);
 }
 
-void ZLTizenTreeDialog::createItemsList(const char* title) {
-	/* Create genlist */
-
-	genList = elm_genlist_add(myWindows->naviframe);
-
-	/* Optimize your application with appropriate genlist block size. */
-	elm_genlist_block_count_set(genList, 14);
-
-	/* COMPRESS MODE
-   	   For the Mobile view, because it has full window, compresse mode should be used.
-   	   If multiline text (multiline textblock or sliding mode)
-   	   is used, use compress mode for compressing width to fit the viewport width. */
-
-	elm_genlist_mode_set(genList, ELM_LIST_COMPRESS);
-
-//	evas_object_event_callback_add(genlist, EVAS_CALLBACK_MOUSE_DOWN, gl_mouse_down_cb, NULL);
-//	evas_object_smart_callback_add(genlist, "realized", gl_realized_cb, NULL);
-//	evas_object_smart_callback_add(genlist, "loaded", gl_loaded_cb, NULL);
-	evas_object_smart_callback_add(genList, "selected", gl_selected_cb, this);
-//	evas_object_smart_callback_add(genlist, "longpressed", gl_longpressed_cb, NULL);
-
-	Elm_Object_Item *nf_it = elm_naviframe_item_push(myWindows->naviframe, title, NULL, NULL,	genList, NULL);
-	elmObjectsList.push_back(nf_it);
-	elm_naviframe_item_pop_cb_set(nf_it, tree_dialog_pop_cb, myWindows);
-}
 
 void ZLTizenTreeDialog::deleteObjects(){
 	for (std::vector<Elm_Object_Item*>::const_iterator it = elmObjectsList.begin(); it != elmObjectsList.end(); ++it) {

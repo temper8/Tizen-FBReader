@@ -35,7 +35,7 @@ public:
 
 	void drawImage(int x, int y, const ZLImageData &image);
 	void drawImage(int x, int y, const ZLImageData &image, int width, int height);
-
+	void stretchDrawImage(int x, int y, int width, int height, const ZLImageData &image);
 
 //	int stringWidth(const char *str, int len, bool rtl) const;
 //	int spaceWidth() const;

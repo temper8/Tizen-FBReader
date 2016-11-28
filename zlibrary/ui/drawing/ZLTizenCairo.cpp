@@ -53,6 +53,23 @@ void ZLTizenCairo::drawImage(int x, int y, const ZLImageData &image){
 	cairo_paint (cairo);
 }
 
+void ZLTizenCairo::stretchDrawImage(int x, int y, int width, int height, const ZLImageData &image){
+	//DBG("stretchDraw g");
+	cairo_surface_t *surface = 	((ZLTizenImageData&)image).surface;
+	//DBG("stretchDraw x = %d, y = %d", x, y);
+	//DBG("stretchDraw width = %d, height = %d", width, height);
+
+	int origWidth = image.width();
+	int origHeight = image.height();
+
+	cairo_save(cairo);
+	cairo_translate(cairo,x,y);
+	cairo_scale(cairo, (double)width/(double)origWidth, (double)height/(double)origHeight);
+	cairo_set_source_surface (cairo, surface, 0, 0);
+	cairo_paint (cairo);
+	cairo_restore(cairo);
+}
+
 void ZLTizenCairo::drawImage(int x, int y, const ZLImageData &image, int width, int height){
 	DBG("drawImage with scaling");
 	cairo_surface_t *surface = 	((ZLTizenImageData&)image).surface;

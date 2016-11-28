@@ -35,8 +35,7 @@ public:
 	//virtual void setShowIcons(bool value) {};
 	//virtual bool exitThread();
 public:
-	void createItemsList(const char* title);
-	void new_naviframe(const char* title);
+	void create_naviframe(const char* title);
 	void updateContent();
 	void deleteObjects();
 	Evas_Object *genList;

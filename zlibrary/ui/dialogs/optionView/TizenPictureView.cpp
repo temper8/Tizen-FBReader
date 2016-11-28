@@ -46,8 +46,9 @@ void TizenPictureView::drawCover() {
 		if (!coverData.isNull()) {
 			ZLImageData &image = *coverData;
 			ZLTizenCairo *myCairo = new ZLTizenCairo(img);
-			myCairo->clear(ZLColor(255, 0, 0));
-			myCairo->drawImage(0,0,image);
+			myCairo->clear(ZLColor(128, 128, 128));
+			//myCairo->drawImage(0,0,image);
+			myCairo->stretchDrawImage(0,0,myCairo->width(),myCairo->height(),image);
 			myCairo->flush_cairo();
 
 			}
@@ -83,23 +84,8 @@ Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 	evas_object_size_hint_align_set(img, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_event_callback_add(img, EVAS_CALLBACK_RESIZE, image_resize_cb, this);
 
-	//myPaintEventHandler = new PaintEventHandler(img);
 	elm_object_part_content_set(layout, "picture", img);
 	evas_object_show(img);
-
-	//elm_object_part_content_set(layout, "picture", image);
-//-------------------------------
-	button1 = elm_button_add(layout);
-	elm_object_part_content_set(layout, "button1", button1);
-
-	button2 = elm_button_add(layout);
-	elm_object_part_content_set(layout, "button2", button2);
-
-	button3 = elm_button_add(layout);
-	elm_object_part_content_set(layout, "button3", button3);
-
-	button4 = elm_button_add(layout);
-	elm_object_part_content_set(layout, "button4", button4);
 
 	int actionsCount = myActions.size();
 	DBG("actionsCount %d", actionsCount);
@@ -113,12 +99,23 @@ Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 			//myBottonActions[actionsCount++]->SetAction(a);
 			std::string text = a->text(ZLResource::resource("networkView")["bookNode"]);
 			switch (i){
-			case	1:	elm_object_text_set(button1, _(text.c_str()));
+			case	1:	button1 = elm_button_add(layout);
+						elm_object_part_content_set(layout, "button1", button1);
+						elm_object_text_set(button1, _(text.c_str()));
 						evas_object_smart_callback_add(button1, "clicked", button_clicked, this);
 						break;
-			case	2:	elm_object_text_set(button2, _(text.c_str())); break;
-			case	3:	elm_object_text_set(button3, _(text.c_str())); break;
-			case	4:	elm_object_text_set(button3, _(text.c_str())); break;
+			case	2:	button2 = elm_button_add(layout);
+						elm_object_part_content_set(layout, "button2", button2);
+						elm_object_text_set(button2, _(text.c_str()));
+						break;
+			case	3:	button3 = elm_button_add(layout);
+						elm_object_part_content_set(layout, "button3", button3);
+						elm_object_text_set(button3, _(text.c_str()));
+						break;
+			case	4:	button4 = elm_button_add(layout);
+						elm_object_part_content_set(layout, "button4", button4);
+						elm_object_text_set(button3, _(text.c_str()));
+						break;
 			}
 		}
 		else DBG("makesSense false");
