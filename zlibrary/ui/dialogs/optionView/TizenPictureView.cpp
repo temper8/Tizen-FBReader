@@ -150,9 +150,9 @@ Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 }
 
 void TizenPictureView::_createItem() {
-//	 myCaption.Format(30, L"%s", ZLOptionView::name().c_str());
 	 DBG("_createItem %s", name().c_str());
 	 myCaption = ZLOptionView::name();
+	 myImage = ((ZLPictureOptionEntry&)*myOption).image();
 }
 
 void TizenPictureView::_onAccept() const { }
