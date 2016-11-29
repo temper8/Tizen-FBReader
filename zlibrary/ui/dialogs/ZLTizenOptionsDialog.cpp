@@ -57,16 +57,11 @@ static Eina_Bool TizenOptionsDialog_destuctor_cb(void *data, Elm_Object_Item *it
 
 void ZLTizenOptionsDialog::createOptionsDialogObject(Evas_Object *nf){
 	DBG("createOptionsDialogObject");
-	Evas_Object *layout = ZLTizenUtil::create_layout(myWindows->naviframe, "fbr.optionsdialog");
-	Elm_Object_Item *nf_it = elm_naviframe_item_push(myWindows->naviframe, caption().c_str(), NULL, NULL,	layout, NULL);
-	elm_naviframe_item_pop_cb_set(nf_it, TizenOptionsDialog_destuctor_cb, this);
-	elmObjectsOptionsDialog = nf_it;
-	//elmObjectsList.push_back(nf_it);
-//	elm_naviframe_item_pop_cb_set(nf_it, tree_dialog_pop_cb, myWindows);
+//	Evas_Object *layout = ZLTizenUtil::create_layout(myWindows->naviframe, "fbr.optionsdialog");
 
-	myScroller = create_scroller(layout);
+	myScroller = create_scroller(myWindows->naviframe);
 //	elmObjectsOptionsDialog = elm_naviframe_item_push(nf, caption().c_str(), NULL, NULL, myScroller, NULL);
-	elm_object_part_content_set(layout,  "fbr.optionsdialog.sw", myScroller);
+	//elm_object_part_content_set(layout,  "fbr.optionsdialog.sw", myScroller);
 	evas_object_show(myScroller);
 
 	myBox = elm_box_add(myScroller);
@@ -80,6 +75,9 @@ void ZLTizenOptionsDialog::createOptionsDialogObject(Evas_Object *nf){
 	//Evas_Object * layout = create_labels(myBox);
 	//evas_object_show(layout);
 	//elm_box_pack_end(myBox, layout);
+	Elm_Object_Item *nf_it = elm_naviframe_item_push(myWindows->naviframe, caption().c_str(), NULL, NULL,	myScroller, NULL);
+	elm_naviframe_item_pop_cb_set(nf_it, TizenOptionsDialog_destuctor_cb, this);
+	elmObjectsOptionsDialog = nf_it;
 }
 
 void ZLTizenOptionsDialog::deleteObjects(){
