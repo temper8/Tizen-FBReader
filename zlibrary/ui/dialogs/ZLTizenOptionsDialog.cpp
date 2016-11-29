@@ -89,7 +89,7 @@ void ZLTizenOptionsDialog::deleteObjects(){
 void ZLTizenOptionsDialog::addEvasViewItem(Evas_Object* viewItem){
 
 	Evas_Object *bg = elm_bg_add(viewItem);
-	evas_object_color_set(bg, 255, 255, 255, 178-30*(myRow++));
+	evas_object_color_set(bg, 255, 255, 255, 240-30*(myRow++));
 	elm_object_part_content_set(viewItem, "bg", bg);
 
 	evas_object_show(viewItem);
