@@ -78,6 +78,7 @@ void ZLTizenOptionsDialog::createOptionsDialogObject(Evas_Object *nf){
 	Elm_Object_Item *nf_it = elm_naviframe_item_push(myWindows->naviframe, caption().c_str(), NULL, NULL,	myScroller, NULL);
 	elm_naviframe_item_pop_cb_set(nf_it, TizenOptionsDialog_destuctor_cb, this);
 	elmObjectsOptionsDialog = nf_it;
+	myRow = 0;
 }
 
 void ZLTizenOptionsDialog::deleteObjects(){
@@ -86,6 +87,11 @@ void ZLTizenOptionsDialog::deleteObjects(){
 }
 
 void ZLTizenOptionsDialog::addEvasViewItem(Evas_Object* viewItem){
+
+	Evas_Object *bg = elm_bg_add(viewItem);
+	evas_object_color_set(bg, 255, 255, 255, 178-30*(myRow++));
+	elm_object_part_content_set(viewItem, "bg", bg);
+
 	evas_object_show(viewItem);
 	elm_box_pack_end(myBox, viewItem);
 }

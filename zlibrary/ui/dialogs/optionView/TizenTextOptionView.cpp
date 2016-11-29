@@ -15,8 +15,9 @@
 TizenTextOptionView::TizenTextOptionView(const std::string &name, const std::string &tooltip, ZLOptionEntry *option, ZLTizenDialogContent *tab, int row, int fromColumn, int toColumn) :
 										ZLTizenOptionView(name, tooltip, option, tab, row, fromColumn, toColumn) {
 	 DBG("TizenTextOptionView %s", name.c_str());
+	 DBG("TizenTextOptionView row %d", row);
+
 	 myTab->myTizenOptionsDialog->addEvasViewItem(createViewItem(tab->myTizenOptionsDialog->myBox));
-//	 myTab->myTizenOptionsDialog->addEvasViewItem(createTestAlignment(tab->myTizenOptionsDialog->myBox));
 }
 
 

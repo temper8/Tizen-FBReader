@@ -31,6 +31,7 @@ public:
 	void apply();
 
 protected:
+	int myRow = 0;
 	virtual const std::string &selectedTabKey() const;
 	virtual void selectTab(const ZLResourceKey &key);
 	virtual bool runInternal();

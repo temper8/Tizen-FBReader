@@ -60,14 +60,13 @@ void TizenPictureView::drawCover() {
 }
 
 Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
-	Evas_Object *image, *label, *label2;
 	Evas_Object *button1, *button2, *button3, *button4;
 	Evas_Object *layout = elm_layout_add(parent);
 
 	ZLTizenUtil::layout_edj_set(layout, "fbr.PictureView");
-
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, 0.0);
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, 0.5);
+
 //-----------------------------------
 //	image = elm_image_add(layout);
 //	Evas* canvas = evas_object_evas_get(image);
@@ -100,6 +99,7 @@ Evas_Object* TizenPictureView::createViewItem(Evas_Object *parent){
 			std::string text = a->text(ZLResource::resource("networkView")["bookNode"]);
 			switch (i){
 			case	1:	button1 = elm_button_add(layout);
+						//evas_object_color_set(button1, 0, 0, 255, 255);
 						elm_object_part_content_set(layout, "button1", button1);
 						elm_object_text_set(button1, _(text.c_str()));
 						evas_object_smart_callback_add(button1, "clicked", button_clicked, this);

@@ -2,6 +2,14 @@ collections {
    base_scale: 1.0;
    group { name: "fbr.ComboOptionView";
       parts {
+         part { name: "bg";
+            type: SWALLOW;
+            description { state: "default" 0.0;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
+               visible: 1;
+            }
+         }
          part { name: "spacer1";
             type: SPACER;
             scale: 1;
@@ -70,7 +78,7 @@ collections {
                rel2.to: "rect";
             }
          }
-         part { name: "bg";
+         part { name: "abg";
             type: RECT;
             description { state: "default" 0.0;
                rel1.relative: 0.0 0.0;
@@ -87,15 +95,15 @@ collections {
       programs {
          program { name: "mouse_down";
             signal: "mouse,down,1";
-            source: "bg";
+            source: "abg";
             action: STATE_SET "clicked" 0.0;
-            target: "bg";
+            target: "abg";
          }
          program { name: "mouse_up";
             signal: "mouse,up,1";
-            source: "bg";
+            source: "abg";
             action: STATE_SET "default" 0.0;
-            target: "bg";
+            target: "abg";
          }
       }
    }

@@ -6,13 +6,13 @@ collections {
    group { name: "fbr.PictureView";
       parts {
          part { name: "bg";
-            type: RECT;
+            type: SWALLOW;
             description { state: "default" 0.0;
                //min: 400 350;
                rel1.relative: 0.0 0.0;
                rel2.relative: 1.0 1.0;
-               color: 0 125 255 128;
-               visible: 0;
+              // color: 255 255 255 255;
+               visible: 1;
             }
          }
          part { name: "image_bg";

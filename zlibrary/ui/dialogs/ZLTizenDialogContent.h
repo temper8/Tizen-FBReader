@@ -33,7 +33,7 @@ public:
 private:
 	void createViewByEntry(const std::string &name, const std::string &tooltip, ZLOptionEntry *option, int fromColumn, int toColumn);
 
-	int myRowCounter;
+	int myRowCounter=0;
 };
 
 #endif /* ZLTIZENDIALOGCONTENT_H_ */
