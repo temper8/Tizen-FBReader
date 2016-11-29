@@ -17,7 +17,6 @@ TizenPictureView::TizenPictureView(const std::string &name, const std::string &t
 										ZLTizenOptionView(name, tooltip, option, tab, row, fromColumn, toColumn),
 										myActions(option->myActions) {
 	 DBG("TizenPictureView %s", name.c_str());
-	 myTab->myTizenOptionsDialog->addEvasViewItem(createViewItem(tab->myTizenOptionsDialog->myBox));
 }
 
 
@@ -129,6 +128,7 @@ void TizenPictureView::_createItem() {
 	 DBG("_createItem %s", name().c_str());
 	 myCaption = ZLOptionView::name();
 	 myImage = ((ZLPictureOptionEntry&)*myOption).image();
+	 myTab->myTizenOptionsDialog->addEvasViewItem(createViewItem(myTab->myTizenOptionsDialog->myBox));
 }
 
 void TizenPictureView::_onAccept() const { }
