@@ -78,9 +78,9 @@ collections {
                visible: 1;
             }
             description { state: "hidden" 0.0;
-               rel1.relative: 0.0 0.0;
-               rel2.relative: 1.0 0.1;
-               visible: 0;
+               rel1.relative: 0.0 -0.1;
+               rel2.relative: 1.0 0.0;
+               visible: 1;
             }
          }
          part { name: "fbr.main.drawer";
@@ -110,7 +110,7 @@ collections {
             source: "left_tap_zone";
             action: SIGNAL_EMIT "click" "left_tap_zone";
          }
-         program { name: "center_tap_zone_mouse_down";
+        /* program { name: "center_tap_zone_mouse_down";
             signal: "mouse,down,1";
             source: "center_tap_zone";
             action: STATE_SET "clicked" 0.0;
@@ -121,7 +121,7 @@ collections {
             source: "center_tap_zone";
             action: STATE_SET "default" 0.0;
             target: "center_tap_zone";
-         }
+         }*/
          program { name: "center_tap_zone_emit_click";
             signal: "mouse,up,1";
             source: "center_tap_zone";
@@ -150,6 +150,7 @@ collections {
             signal: "toolbar,hide";
             source: "app";
             action: STATE_SET "hidden" 0.0;
+            transition: ACCELERATE 0.2;
             target: "toolbar";
          }
          program {
@@ -157,6 +158,7 @@ collections {
             signal: "toolbar,show";
             source: "app";
             action: STATE_SET "default" 0.0;
+            transition: ACCELERATE 0.2;
             target: "toolbar";
          }
       }
