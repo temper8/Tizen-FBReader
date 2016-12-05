@@ -23,7 +23,7 @@ collections {
                image.normal: "shadow_vert.png";
                fill.smooth: 0;
                rel1.relative: 0.0 0.8;
-               rel2.relative: 1.0 0.9;
+               rel2.relative: 1.0 0.95;
                visible: 1;
             }
          }
@@ -68,7 +68,7 @@ collections {
                color: 255 255 255 255;
                visible: 1;
                text {
-                  size: 25;
+                  size: 22;
                   font: "Sans";
                   text: "FBReader";
                   align: 0.0 0.5;
