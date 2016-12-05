@@ -44,8 +44,8 @@ public:
 
 	const std::string realFontFamilyName(std::string &fontFamily) const;
 
-    cairo_t *cairo;
-    cairo_surface_t *surface;
+    cairo_t *cairo = 0;
+    cairo_surface_t *surface = 0;
     Evas_Object *myImage;
     void init_cairo(Evas_Object *image);
     void flush_cairo();
@@ -55,8 +55,8 @@ protected:
 
 private:
 
-    int myWidth;
-    int myHeight;
+    int myWidth = 0;
+    int myHeight = 0;
 
 
 	ZLColor myFillColor;

@@ -31,10 +31,11 @@ void ZLTizenPaintContext::init_cairo(Evas_Object *image){
 	 evas_object_geometry_get(image, NULL, NULL, &w, &h);
 	 evas_object_image_size_set(image, w, h);
 	 evas_object_image_fill_set(image, 0, 0, w, h);
+     if ((myWidth == w)&&(myHeight == h)) return;
 
 	 myWidth = w;
 	 myHeight = h;
-
+	 if (surface != NULL) cairo_surface_destroy(surface);
 	 surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, w, h);
 	 cairo = cairo_create(surface);
 }
@@ -42,6 +43,7 @@ void ZLTizenPaintContext::init_cairo(Evas_Object *image){
 void ZLTizenPaintContext::flush_cairo(){
 	 evas_object_image_data_set(myImage, cairo_image_surface_get_data(surface));
 	 evas_object_image_data_update_add(myImage, 0, 0, myWidth, myHeight);
+	// cairo_surface_destroy(surface);
 }
 
 int ZLTizenPaintContext::width() const{
