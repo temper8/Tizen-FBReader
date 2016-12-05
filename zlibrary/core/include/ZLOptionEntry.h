@@ -367,8 +367,8 @@ inline const shared_ptr<ZLRunnableWithKey> ZLButtonOptionEntry::action() const {
 inline ZLOptionEntry::ZLOptionKind ZLPictureOptionEntry::kind() const { return PICTURE; }
 inline const shared_ptr<ZLImage> ZLPictureOptionEntry::image() const { return myImage; }
 
-inline ZLPictureOptionEntry::ZLPictureOptionEntry(shared_ptr<ZLImage> image, const std::vector<shared_ptr<ZLRunnableWithKey> > &actions ): myImage(image),	myActions(actions){	}
-inline ZLPictureOptionEntry::ZLPictureOptionEntry(): myImage(NULL), myActions(bookActions){	}
+inline ZLPictureOptionEntry::ZLPictureOptionEntry(shared_ptr<ZLImage> image, const std::vector<shared_ptr<ZLRunnableWithKey> > &actions ): 	myActions(actions), myImage(image){	}
+inline ZLPictureOptionEntry::ZLPictureOptionEntry():  myActions(bookActions), myImage(NULL){	}
 
 inline ZLOptionEntry::ZLOptionKind ZLMenuOptionEntry::kind() const { return MENU; }
 inline ZLMenuOptionEntry::ZLMenuOptionEntry(const std::vector<shared_ptr<ZLRunnableWithKey> > &actions ): 	myActions(actions){	}
