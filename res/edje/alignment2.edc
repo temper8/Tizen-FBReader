@@ -47,7 +47,6 @@ collections {
                }
             }
          }
-         
          part { name: "middle_container_base";
             type: RECT;
             scale: 1;
@@ -138,22 +137,26 @@ collections {
          source: "bottom_line_base";
          script {
             set_text(PART:"label", "mouse,down");
-      }
+         }
       }
       program { name: "test mouse up";
-            signal: "mouse,up,1";
-            source: "bottom_line_base";
-            script {
-               set_text(PART:"label", "mouse,up");
-            }
-     	}
+         signal: "mouse,up,1";
+         source: "bottom_line_base";
+         script {
+            set_text(PART:"label", "mouse,up");
+         }
+      }
       program { name: "test mouse move";
          signal: "mouse,move";
          source: "bottom_line_base";
          script {
-            set_text(PART:"label", "mouse,move");
+            new mx, my;
+            get_mouse(mx, my);
+            new buf[128];
+            snprintf(buf, sizeof(buf),"mouse: %d %d", mx, my);
+            set_text(PART:"label", buf);
+            
+            
          }
       }
-     
-         
    }
