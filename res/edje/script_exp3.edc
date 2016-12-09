@@ -1,6 +1,14 @@
 collections {
    base_scale: 1.8;
    group { name: "main";
+      script {
+         public startx, starty;
+         public move_reset() {
+            set_int(startx, 0);
+            set_int(starty, 0);
+            set_text(PART:"label", "move reset");
+         }
+      }
       parts {
          part { name: "bg_rect";
             type: RECT;
@@ -70,16 +78,24 @@ collections {
             }
          }
       }
+      program { name: "top mouse down";
+         signal: "mouse,down,1";
+         source: "top_rect";
+         script {
+			move_reset();            
+         }
+      }
+      
       program { name: "test mouse down";
          signal: "mouse,down,1";
-         source: "movable_box";
+         source: "bottom_rect";
          script {
             set_text(PART:"label", "mouse,down");
          }
       }
       program { name: "test mouse up";
          signal: "mouse,up,1";
-         source: "movable_box";
+         source: "bottom_rect";
          script {
             set_text(PART:"label", "mouse,up");
          }
