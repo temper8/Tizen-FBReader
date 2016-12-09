@@ -3,10 +3,39 @@ collections {
    group { name: "main";
       script {
          public startx, starty;
+         public started;
          public move_reset() {
             set_int(startx, 0);
             set_int(starty, 0);
+            set_int(started, 0);
             set_text(PART:"label", "move reset");
+         }
+         public move_start() {
+            set_int(started,1);
+            new mx, my;
+            get_mouse(mx, my);
+            set_int(startx, mx);
+            set_int(starty, my);
+            }
+         public show_numbers(x,y) {
+            new buf[128];
+            snprintf(buf, sizeof(buf),"%d %d", x, y);
+            set_text(PART:"label", buf);
+         }
+         public move_move() {
+            new mx, my;
+            get_mouse(mx, my);
+            new dx = mx - get_int(startx);
+            new dy = my - get_int(starty);
+            
+            
+            if (get_int(started)>0) {
+               show_numbers(dx,dy);
+               custom_state(PART:"movable_box", "default", 0.0);
+               set_state_val(PART:"movable_box", STATE_REL1_OFFSET, dx, dy);
+               set_state(PART:"movable_box", "custom", 0.0);
+               
+            }
          }
       }
       parts {
@@ -59,8 +88,8 @@ collections {
                min: 50 50;
                max: 50 50;
                fixed: 1 1;
-               rel1.relative: 0.5 0.5;
-               rel1.offset: 50 50;
+               rel1.relative: 0.3 0.3;
+               rel1.offset: 0 0;
                //         rel2.relative: 0.5 0.5;
                color: 255 0 255 128;
             }
@@ -91,6 +120,8 @@ collections {
          source: "bottom_rect";
          script {
             set_text(PART:"label", "mouse,down");
+            move_start();
+           
          }
       }
       program { name: "test mouse up";
@@ -98,21 +129,15 @@ collections {
          source: "bottom_rect";
          script {
             set_text(PART:"label", "mouse,up");
+            move_reset();
+          
          }
       }
       program { name: "test mouse move";
          signal: "mouse,move";
          source: "bottom_rect";
          script {
-            new mx, my;
-            get_mouse(mx, my);
-            new buf[128];
-            snprintf(buf, sizeof(buf),"mouse: %d %d", mx, my);
-            set_text(PART:"label", buf);
-            custom_state(PART:"movable_box", "default", 0.0);
-            set_state_val(PART:"movable_box", STATE_REL1_OFFSET, mx-200,my-500);
-            //    set_state_val(PART:"right_bottom_point_base", STATE_REL2_OFFSET, 100, 150);
-            set_state(PART:"movable_box", "custom", 0.0);
+			move_move();
          }
       }
    }
