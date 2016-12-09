@@ -47,42 +47,6 @@ collections {
                }
             }
          }
-         part { name: "middle_container_base";
-            type: RECT;
-            scale: 1;
-            description { state: "default" 0.0;
-               max: 50 50;
-               fixed: 1 1;
-               rel1.to: "bg_rect";
-               rel2.to: "bg_rect";
-               align: 0.5 0.5;
-               color: 0 255 0 128;
-            }
-         }
-         part { name: "left_container_base";
-            type: RECT;
-            scale: 1;
-            description { state: "default" 0.0;
-               max: 50 50;
-               fixed: 1 1;
-               rel1.to: "bg_rect";
-               rel2.to: "bg_rect";
-               align: 0.0 0.5;
-               color: 0 255 0 128;
-            }
-         }
-         part { name: "right_container_base";
-            type: RECT;
-            scale: 1;
-            description { state: "default" 0.0;
-               max: 50 50;
-               fixed: 1 1;
-               rel1.to: "bg_rect";
-               rel2.to: "bg_rect";
-               align: 1.0 0.4;
-               color: 0 255 0 128;
-            }
-         }
          part { name: "top_line_base";
             type: RECT;
             scale: 1;
@@ -95,31 +59,16 @@ collections {
                color: 255 0 0 128;
             }
          }
-         part { name: "left_top_point_base";
-            type: RECT;
-            scale: 1;
-            description { state: "default" 0.0;
-               min: 60 60;
-               fixed: 1 1;
-               rel1.relative: 0.5 0.5;
-               rel1.offset: 50 50;
-               rel2.relative: 0.5 0.5;
-               align: 0.0 0.0;
-               color: 255 255 0 128;
-            }
-         }
-         part { name: "right_bottom_point_base";
+         part { name: "movable_box";
             type: RECT;
             scale: 1;
             description { state: "default" 0.0;
                min: 50 50;
                max: 50 50;
-               
                fixed: 1 1;
                rel1.relative: 0.5 0.5;
                rel1.offset: 50 50;
-      //         rel2.relative: 0.5 0.5;
-
+               //         rel2.relative: 0.5 0.5;
                color: 255 0 255 128;
             }
          }
@@ -135,18 +84,17 @@ collections {
                color: 255 0 0 128;
             }
          }
-         
       }
       program { name: "test mouse down";
          signal: "mouse,down,1";
-         source: "bottom_line_base";
+         source: "movable_box";
          script {
             set_text(PART:"label", "mouse,down");
          }
       }
       program { name: "test mouse up";
          signal: "mouse,up,1";
-         source: "bottom_line_base";
+         source: "movable_box";
          script {
             set_text(PART:"label", "mouse,up");
          }
@@ -160,12 +108,10 @@ collections {
             new buf[128];
             snprintf(buf, sizeof(buf),"mouse: %d %d", mx, my);
             set_text(PART:"label", buf);
-            custom_state(PART:"right_bottom_point_base", "default", 0.0);
-            set_state_val(PART:"right_bottom_point_base", STATE_REL1_OFFSET, mx-200,my-500);
-        //    set_state_val(PART:"right_bottom_point_base", STATE_REL2_OFFSET, 100, 150);
-            
-            set_state(PART:"right_bottom_point_base", "custom", 0.0);
-            
+            custom_state(PART:"movable_box", "default", 0.0);
+            set_state_val(PART:"movable_box", STATE_REL1_OFFSET, mx-200,my-500);
+            //    set_state_val(PART:"right_bottom_point_base", STATE_REL2_OFFSET, 100, 150);
+            set_state(PART:"movable_box", "custom", 0.0);
          }
       }
    }
