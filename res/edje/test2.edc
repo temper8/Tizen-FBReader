@@ -2,7 +2,7 @@ collections {
    base_scale: 1.0;
    /* TODO: Please replace embedded image files to your application image files. */
    images {
-      image: "ENVENTOR_EMBEDDED_LOGO.png" COMP;
+      image: "enventor_logo.png" COMP;
    }
    group { name: "main";
       parts {
@@ -12,7 +12,7 @@ collections {
                rel1.relative: 0.0 0.0;
                rel2.relative: 0.5 0.5;
                /* TODO: Please replace embedded image files to your application image files. */
-               image.normal: "ENVENTOR_EMBEDDED_LOGO.png";
+               image.normal: "enventor_logo.png";
                aspect: 1 1;
                aspect_preference: BOTH;
             }
