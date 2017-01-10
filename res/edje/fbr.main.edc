@@ -1,3 +1,4 @@
+#define MY_OFFSET_DEFAULT 000
 collections {
    base_scale: 1.0;
    group { name: "fbr.main";
@@ -30,10 +31,30 @@ collections {
                   return;
                }
                run_program(PROGRAM:"right_tap_zone_emit_click");
-               
-              // return 0;
             }
-
+            public mouse_move(){
+               new x0;
+               x0 = get_int(down_x);
+               if (x0 == 0) return ;
+               new mx, my, dx;
+               get_mouse(mx, my);
+               dx = mx - x0;
+               if (get_int(dir_move)==0) {
+                  if (dx>0) set_int(dir_move,1)
+                  else set_int(dir_move,-1);
+               }
+               if (get_int(dir_move) > 0)
+               	page_move(dx);
+               else 
+               	page_move(dx);
+            }
+            public page_move(dx){
+               custom_state(PART:"fbr.main.content", "default", 0.0);
+               set_state_val(PART:"fbr.main.content", STATE_REL1_OFFSET, dx+MY_OFFSET_DEFAULT,0);
+               set_state_val(PART:"fbr.main.content", STATE_REL2_OFFSET, dx+MY_OFFSET_DEFAULT,0);
+            //    set_state_val(PART:"right_bottom_point_base", STATE_REL2_OFFSET, 100, 150);
+               set_state(PART:"fbr.main.content", "custom", 0.0);   
+            }
          }
          part { name: "fbr.main.content";
             type: SWALLOW;
@@ -149,6 +170,13 @@ collections {
             source: "tap_rect";
             script {
                mouse_up();
+            }
+         }
+         program { name: "tap_rect_mouse_move";
+            signal: "mouse,move";
+            source: "tap_rect";
+            script {
+               mouse_move();
             }
          }
          program { name: "left_tap_zone_mouse_down";
