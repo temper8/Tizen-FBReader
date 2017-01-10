@@ -1,7 +1,40 @@
 collections {
    base_scale: 1.0;
    group { name: "fbr.main";
+
       parts {
+         script {
+            public down_x = 0, down_y = 0;
+            public dir_move = 0;
+            public page_width = 0;
+            public mouse_down(){
+               /* get field geometry */
+               new fx, fy, fw, fh;
+               get_geometry(PART:"tap_rect", fx, fy, fw, fh);
+               set_int(page_width,fw);
+               /* get mouse coords */
+               new mx, my;
+               get_mouse(mx, my);
+               set_int(down_x, mx);
+               set_int(down_y, my);
+            }
+            public mouse_up(){
+               new mx, my;
+               get_mouse(mx, my);
+               if (3*mx<get_int(page_width)) {  
+                  run_program(PROGRAM:"left_tap_zone_emit_click");
+                  return;
+               }
+               if (1.5*mx<get_int(page_width)) {
+                  run_program(PROGRAM:"center_tap_zone_emit_click");
+                  return;
+               }
+               run_program(PROGRAM:"right_tap_zone_emit_click");
+               
+              // return 0;
+            }
+
+         }
          part { name: "fbr.main.content";
             type: SWALLOW;
             scale: 1;
@@ -69,6 +102,17 @@ collections {
                rel2.relative: 1.00 1.00;
             }
          }
+         part { name: "tap_rect";
+            type: RECT;
+            scale: 1;
+            mouse_events: 1;
+            description { state: "default" 0.0;
+               color: 0 136 170 0;
+               visible: 1;
+               rel1.relative: 0.00 0.00;
+               rel2.relative: 1.00 1.00;
+            }
+         }
          part { name: "toolbar";
             type: SWALLOW;
             description { state: "default" 0.0;
@@ -93,6 +137,20 @@ collections {
          }
       }
       programs {
+         program { name: "tap_rect_mouse_down";
+            signal: "mouse,down,1";
+            source: "tap_rect";
+            script {
+               mouse_down();
+            }
+         }
+         program { name: "tap_rect_mouse_up";
+            signal: "mouse,up,1";
+            source: "tap_rect";
+            script {
+               mouse_up();
+            }
+         }
          program { name: "left_tap_zone_mouse_down";
             signal: "mouse,down,1";
             source: "left_tap_zone";
@@ -106,8 +164,8 @@ collections {
             target: "left_tap_zone";
          }
          program { name: "left_tap_zone_emit_click";
-            signal: "mouse,up,1";
-            source: "left_tap_zone";
+          //  signal: "mouse,up,1";
+         //   source: "left_tap_zone";
             action: SIGNAL_EMIT "click" "left_tap_zone";
          }
         /* program { name: "center_tap_zone_mouse_down";
@@ -123,8 +181,8 @@ collections {
             target: "center_tap_zone";
          }*/
          program { name: "center_tap_zone_emit_click";
-            signal: "mouse,up,1";
-            source: "center_tap_zone";
+           // signal: "mouse,up,1";
+           // source: "center_tap_zone";
             action: SIGNAL_EMIT "click" "center_tap_zone";
          }
          program { name: "right_tap_zone_mouse_down";
@@ -140,8 +198,8 @@ collections {
             target: "right_tap_zone";
          }
          program { name: "right_tap_zone_emit_click";
-            signal: "mouse,up,1";
-            source: "right_tap_zone";
+           // signal: "mouse,up,1";
+          //  source: "right_tap_zone";
             action: SIGNAL_EMIT "click" "right_tap_zone";
          }
          program {
