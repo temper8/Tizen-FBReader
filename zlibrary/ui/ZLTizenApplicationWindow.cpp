@@ -260,12 +260,12 @@ void ZLTizenApplicationWindow::showDrawerPanel(){
 	}
 }
 void ZLTizenApplicationWindow::hideToolBar(){
-	elm_layout_signal_emit(sub_layout, "toolbar,hide", "app");
+	elm_layout_signal_emit(main_layout, "toolbar,hide", "app");
 	ToolBarVisible = false;
 }
 
 void ZLTizenApplicationWindow::showToolBar(){
-	elm_layout_signal_emit(sub_layout, "toolbar,show", "app");
+	elm_layout_signal_emit(main_layout, "toolbar,show", "app");
 	ToolBarVisible = true;
 }
 
@@ -435,21 +435,21 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
 	myTizenViewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
 	//layout = create_drawer_layout(naviframe);
-	sub_layout = ZLTizenUtil::create_layout(naviframe, "fbr.main");
+	main_layout = ZLTizenUtil::create_layout(naviframe, "fbr.main");
 
 
-	myTizenViewWidget->naviframe_item = elm_naviframe_item_push(naviframe, "FBReader", NULL, NULL, sub_layout, NULL);
+	myTizenViewWidget->naviframe_item = elm_naviframe_item_push(naviframe, "FBReader", NULL, NULL, main_layout, NULL);
 	elm_naviframe_item_title_enabled_set(myTizenViewWidget->naviframe_item, EINA_FALSE,	EINA_FALSE);
 
 	elm_naviframe_item_pop_cb_set(myTizenViewWidget->naviframe_item, naviframe_pop_cb, win);
 
 	//sub_layout = ZLTizenUtil::create_layout(layout, "fbr.main");
-	toolBar_layout = ZLTizenUtil::create_layout(sub_layout, "fbr.toolbar");
+	toolBar_layout = ZLTizenUtil::create_layout(main_layout, "fbr.toolbar");
 	hideToolBar();
 
-	layout = create_drawer_layout(sub_layout);
+	layout = create_drawer_layout(main_layout);
 
-	Evas* canvas = evas_object_evas_get(sub_layout);
+	Evas* canvas = evas_object_evas_get(main_layout);
 
 	Evas_Object *img = evas_object_image_add(canvas);
 
@@ -458,9 +458,9 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	evas_object_size_hint_weight_set(img, EVAS_HINT_FILL, 0.5);
 	evas_object_size_hint_align_set(img, EVAS_HINT_FILL, EVAS_HINT_FILL);
 
-	elm_object_signal_callback_add(sub_layout, "click", "right_tap_zone",  right_tap_zone_clicked, this);
-	elm_object_signal_callback_add(sub_layout, "click", "center_tap_zone", center_tap_zone_clicked, this);
-	elm_object_signal_callback_add(sub_layout, "click", "left_tap_zone",   left_tap_zone_clicked, this);
+	elm_object_signal_callback_add(main_layout, "click", "right_tap_zone",  right_tap_zone_clicked, this);
+	elm_object_signal_callback_add(main_layout, "click", "center_tap_zone", center_tap_zone_clicked, this);
+	elm_object_signal_callback_add(main_layout, "click", "left_tap_zone",   left_tap_zone_clicked, this);
 
 	elm_object_signal_callback_add(toolBar_layout, "click", "menu_icon",   menu_icon_clicked, this);
 
@@ -468,11 +468,11 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
 	//Evas_Object *panel = createTopPanel(sub_layout);
 
-	elm_object_part_content_set(sub_layout,  "toolbar", toolBar_layout);
+	elm_object_part_content_set(main_layout,  "toolbar", toolBar_layout);
 
-	elm_object_part_content_set(sub_layout,  "fbr.main.content", img);
+	elm_object_part_content_set(main_layout,  "fbr.main.content", img);
 	//elm_object_part_content_set(layout, "elm.swallow.content", sub_layout);
-	elm_object_part_content_set(sub_layout, "fbr.main.drawer", layout);
+	elm_object_part_content_set(main_layout, "fbr.main.drawer", layout);
 	evas_object_show(img);							// Make the given Evas object visible
 
 	myTizenViewWidget->image = img;

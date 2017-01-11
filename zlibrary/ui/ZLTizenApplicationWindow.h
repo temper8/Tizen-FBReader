@@ -56,7 +56,7 @@ public:
 
 	Evas_Object * createDrawerPanel(Evas_Object *parent);
 
-	Evas_Object *sub_layout;
+	Evas_Object *main_layout;
 	bool ToolBarVisible;
 
 	void gotoPrevPage();
