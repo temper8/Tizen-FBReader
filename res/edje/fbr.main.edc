@@ -20,6 +20,10 @@ collections {
                set_int(down_y, my);
             }
             public mouse_up(){
+               if (get_int(dir_move)!=0) {
+                  set_int(dir_move,0);
+                  return;
+               }
                new mx, my;
                get_mouse(mx, my);
                if (3*mx<get_int(page_width)) {  
@@ -31,6 +35,7 @@ collections {
                   return;
                }
                run_program(PROGRAM:"right_tap_zone_emit_click");
+
             }
             public mouse_move(){
                new x0;
@@ -42,6 +47,7 @@ collections {
                if (get_int(dir_move)==0) {
                   if (dx>0) set_int(dir_move,1)
                   else set_int(dir_move,-1);
+                  run_program(PROGRAM:"emit_start_drag_page");
                }
                if (get_int(dir_move) > 0)
                page_move(dx);
@@ -137,6 +143,9 @@ collections {
                mouse_move();
             }
          }
+         program { name: "emit_start_drag_page";
+            action: SIGNAL_EMIT "start_drag" "tap_rect";
+         }         
          program { name: "left_tap_zone_emit_click";
             action: SIGNAL_EMIT "click" "left_tap_zone";
          }
