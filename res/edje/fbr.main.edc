@@ -22,6 +22,7 @@ collections {
             public mouse_up(){
                if (get_int(dir_move)!=0) {
                   set_int(dir_move,0);
+                  run_program(PROGRAM:"main_page_goto_left");
                   return;
                }
                new mx, my;
@@ -86,6 +87,11 @@ collections {
                rel1.relative: 0.0 0.0;
                rel2.relative: 1.0 1.0;
             }
+            description { state: "left" 1.0;
+               rel1.relative: -1.0 0.0;
+               rel2.relative: 0.0 1.0;
+               color: 255 255 255 128;
+            }
          }
          part { name: "tap_rect";
             type: RECT;
@@ -122,6 +128,19 @@ collections {
          }
       }
       programs {
+         program { name: "main_page_goto_left";
+            action: STATE_SET "left" 1.0;
+            target: "fbr.main.content";
+            transition: SINUSOIDAL 0.2;
+            after: "emit_after_move_page";
+         }
+         program { name: "main_page_goto_default";
+            signal: "main_page_goto_default";
+            source: "app";
+            action: STATE_SET "default" 1.0;
+            target: "fbr.main.content";
+         }
+
          program { name: "tap_rect_mouse_down";
             signal: "mouse,down,1";
             source: "tap_rect";
@@ -142,6 +161,9 @@ collections {
             script {
                mouse_move();
             }
+         }
+         program { name: "emit_after_move_page";
+            action: SIGNAL_EMIT "after_move_page" "tap_rect";
          }
          program { name: "emit_start_drag_page";
             action: SIGNAL_EMIT "start_drag" "tap_rect";
