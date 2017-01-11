@@ -143,6 +143,12 @@ void ZLTizenViewWidget::draw(){
 	tizenContext.init_cairo(image);
 	view()->paint();
 	tizenContext.flush_cairo();
+
+
+	tizenContext.init_cairo(image2);
+	view()->paint();
+	tizenContext.flush_cairo();
+
 	//updateImage();
 
 }

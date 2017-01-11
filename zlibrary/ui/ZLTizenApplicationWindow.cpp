@@ -458,6 +458,12 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	evas_object_size_hint_weight_set(img, EVAS_HINT_FILL, 0.5);
 	evas_object_size_hint_align_set(img, EVAS_HINT_FILL, EVAS_HINT_FILL);
 
+	Evas_Object *img2 = evas_object_image_add(canvas);
+	evas_object_image_colorspace_set(img2, EVAS_COLORSPACE_ARGB8888);
+	//evas_object_event_callback_add(img2, EVAS_CALLBACK_RESIZE, image_resize_cb, myTizenViewWidget);
+	evas_object_size_hint_weight_set(img2, EVAS_HINT_FILL, 0.5);
+	evas_object_size_hint_align_set(img2, EVAS_HINT_FILL, EVAS_HINT_FILL);
+
 	elm_object_signal_callback_add(main_layout, "click", "right_tap_zone",  right_tap_zone_clicked, this);
 	elm_object_signal_callback_add(main_layout, "click", "center_tap_zone", center_tap_zone_clicked, this);
 	elm_object_signal_callback_add(main_layout, "click", "left_tap_zone",   left_tap_zone_clicked, this);
@@ -471,12 +477,13 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	elm_object_part_content_set(main_layout,  "toolbar", toolBar_layout);
 
 	elm_object_part_content_set(main_layout,  "fbr.main.content", img);
+	elm_object_part_content_set(main_layout,  "fbr.main.next_page", img2);
 	//elm_object_part_content_set(layout, "elm.swallow.content", sub_layout);
 	elm_object_part_content_set(main_layout, "fbr.main.drawer", layout);
 	evas_object_show(img);							// Make the given Evas object visible
 
 	myTizenViewWidget->image = img;
-
+	myTizenViewWidget->image2 = img2;
 	/* Drawer bg */
 	Evas_Object *bg = create_bg(layout);
 	elm_object_part_content_set(layout, "elm.swallow.bg", bg);
