@@ -23,7 +23,7 @@ collections {
                set_int(down_x, 0);
                if (get_int(dir_move)!=0) {
                   set_int(dir_move,0);
-                  run_program(PROGRAM:"main_page_goto_left");
+                  run_program(PROGRAM:"main_page_slide_left");
                   return;
                }
                new mx, my;
@@ -48,17 +48,29 @@ collections {
                dx = mx - x0;
                if (get_int(dir_move)==0) {
                   if (dx*dx<200) return;
-                  if (dx>0) set_int(dir_move,1)
-                  else set_int(dir_move,-1);
-                  run_program(PROGRAM:"emit_start_drag_page");
+                  if (dx>0) {
+                     set_int(dir_move,1);
+                     run_program(PROGRAM:"main_page_goto_left");
+                  }
+                  else {
+                     set_int(dir_move,-1);
+                     run_program(PROGRAM:"emit_start_drag_page");
+                  }
                }
                if (get_int(dir_move) > 0)
-               page_move(dx);
+               page_move_left(dx);
                else 
                page_move(dx);
             }
             public page_move(dx){
                custom_state(PART:"fbr.main.content", "default", 0.0);
+               set_state_val(PART:"fbr.main.content", STATE_REL1_OFFSET, dx+MY_OFFSET_DEFAULT,0);
+               set_state_val(PART:"fbr.main.content", STATE_REL2_OFFSET, dx+MY_OFFSET_DEFAULT,0);
+            //    set_state_val(PART:"right_bottom_point_base", STATE_REL2_OFFSET, 100, 150);
+               set_state(PART:"fbr.main.content", "custom", 0.0);   
+            }
+            public page_move_left(dx){
+               custom_state(PART:"fbr.main.content", "left", 1.0);
                set_state_val(PART:"fbr.main.content", STATE_REL1_OFFSET, dx+MY_OFFSET_DEFAULT,0);
                set_state_val(PART:"fbr.main.content", STATE_REL2_OFFSET, dx+MY_OFFSET_DEFAULT,0);
             //    set_state_val(PART:"right_bottom_point_base", STATE_REL2_OFFSET, 100, 150);
@@ -130,7 +142,7 @@ collections {
          }
       }
       programs {
-         program { name: "main_page_goto_left";
+         program { name: "main_page_slide_left";
             action: STATE_SET "left" 1.0;
             target: "fbr.main.content";
             transition: SINUSOIDAL 0.2;
@@ -139,10 +151,15 @@ collections {
          program { name: "main_page_goto_default";
             signal: "main_page_goto_default";
             source: "app";
-            action: STATE_SET "default" 1.0;
+            action: STATE_SET "default" 0.0;
             target: "fbr.main.content";
          }
 
+         program { name: "main_page_goto_left";
+            action: STATE_SET "left" 1.0;
+            target: "fbr.main.content";
+            after: "emit_start_drag_prev_page";
+         }
          program { name: "tap_rect_mouse_down";
             signal: "mouse,down,1";
             source: "tap_rect";
@@ -167,6 +184,9 @@ collections {
          program { name: "emit_after_move_page";
             action: SIGNAL_EMIT "after_move_page" "tap_rect";
          }
+         program { name: "emit_start_drag_prev_page";
+            action: SIGNAL_EMIT "start_drag_prev_page" "tap_rect";
+         }      
          program { name: "emit_start_drag_page";
             action: SIGNAL_EMIT "start_drag" "tap_rect";
          }         
