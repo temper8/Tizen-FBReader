@@ -20,6 +20,7 @@ collections {
                set_int(down_y, my);
             }
             public mouse_up(){
+               set_int(down_x, 0);
                if (get_int(dir_move)!=0) {
                   set_int(dir_move,0);
                   run_program(PROGRAM:"main_page_goto_left");
@@ -46,6 +47,7 @@ collections {
                get_mouse(mx, my);
                dx = mx - x0;
                if (get_int(dir_move)==0) {
+                  if (dx*dx<200) return;
                   if (dx>0) set_int(dir_move,1)
                   else set_int(dir_move,-1);
                   run_program(PROGRAM:"emit_start_drag_page");

@@ -304,8 +304,9 @@ void ZLTizenApplicationWindow::afterMovePage(){
 	img = myTizenViewWidget->image;
 	myTizenViewWidget->image = myTizenViewWidget->image2;
 	myTizenViewWidget->image2 = img;
-	doAppAction(ActionCode::PAGE_REFRESH);
+
 	elm_layout_signal_emit(main_layout, "main_page_goto_default", "app");
+	doAppAction(ActionCode::PAGE_REFRESH);
 }
 
 static void naviframe_back_cb(void *data, Evas_Object *obj, void *event_info) {
@@ -487,6 +488,8 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	evas_object_event_callback_add(img, EVAS_CALLBACK_RESIZE, image_resize_cb, myTizenViewWidget);
 	evas_object_size_hint_weight_set(img, EVAS_HINT_FILL, 0.5);
 	evas_object_size_hint_align_set(img, EVAS_HINT_FILL, EVAS_HINT_FILL);
+
+	//Evas* canvas2 = evas_object_evas_get(main_layout);
 
 	Evas_Object *img2 = evas_object_image_add(canvas);
 	evas_object_image_colorspace_set(img2, EVAS_COLORSPACE_ARGB8888);
