@@ -292,6 +292,13 @@ void ZLTizenApplicationWindow::gotoNextPage(){
 	 doAppAction(ActionCode::PAGE_SCROLL_FORWARD);
 }
 
+void ZLTizenApplicationWindow::startDragPagePrevPage(){
+	Evas_Object *img;
+	img = myTizenViewWidget->image;
+	myTizenViewWidget->image = myTizenViewWidget->image2;
+	myTizenViewWidget->image2 = img;
+	doAppAction(ActionCode::PAGE_SCROLL_BACKWARD);
+}
 void ZLTizenApplicationWindow::startDragPage(){
 	Evas_Object *img;
 	img = myTizenViewWidget->image;
@@ -411,7 +418,12 @@ shared_ptr<ZLProgressDialog> ZLTizenApplicationWindow::createTizenProgressDialog
 
 	return  myProgressDialog;
 }
+void start_drag_page_prev_page(void *data, Evas_Object *obj, const char *emission, const char *source){
+	DBG("start_drag_page");
+	ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
 
+	app->startDragPagePrevPage();
+}
 void start_drag_page(void *data, Evas_Object *obj, const char *emission, const char *source){
 	DBG("start_drag_page");
 	ZLTizenApplicationWindow *app = (ZLTizenApplicationWindow *)data;
@@ -502,6 +514,7 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	elm_object_signal_callback_add(main_layout, "click", "left_tap_zone",   left_tap_zone_clicked, this);
 
 	elm_object_signal_callback_add(main_layout, "start_drag", "tap_rect",   start_drag_page, this);
+	elm_object_signal_callback_add(main_layout, "start_drag_prev_page", "tap_rect",   start_drag_page_prev_page, this);
 	elm_object_signal_callback_add(main_layout, "after_move_page", "tap_rect",   after_move_page, this);
 
 	elm_object_signal_callback_add(toolBar_layout, "click", "menu_icon",   menu_icon_clicked, this);
