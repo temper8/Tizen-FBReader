@@ -55,7 +55,7 @@ collections {
                   if (dx*dx<200) return;
                   if (dx>0) {
                      set_int(dir_move,1);
-                     //run_program(PROGRAM:"main_page_goto_left");
+                     run_program(PROGRAM:"emit_start_drag_prev_page");
                   }
                   else {
                      set_int(dir_move,-1);
@@ -111,7 +111,7 @@ collections {
             }
          }
          part { name: "fbr.main.prev_page";
-            type: RECT;
+            type: SWALLOW;
             scale: 1;
             description { state: "default" 0.0;
                color: 0 0 170 128;
@@ -210,6 +210,7 @@ collections {
          program { name: "emit_after_move_page";
             action: SIGNAL_EMIT "after_move_page" "tap_rect";
          }
+
          program { name: "emit_start_drag_prev_page";
             action: SIGNAL_EMIT "start_drag_prev_page" "tap_rect";
          }      
