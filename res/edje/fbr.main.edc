@@ -63,22 +63,20 @@ collections {
                   }
                }
                if (get_int(dir_move) > 0)
-               page_move_left(dx);
+               	prev_page_move(dx);
                else 
-               page_move(dx);
+               	page_move(dx);
             }
             public page_move(dx){
                custom_state(PART:"fbr.main.content", "default", 0.0);
                set_state_val(PART:"fbr.main.content", STATE_REL1_OFFSET, dx+MY_OFFSET_DEFAULT,0);
                set_state_val(PART:"fbr.main.content", STATE_REL2_OFFSET, dx+MY_OFFSET_DEFAULT,0);
-            //    set_state_val(PART:"right_bottom_point_base", STATE_REL2_OFFSET, 100, 150);
                set_state(PART:"fbr.main.content", "custom", 0.0);   
             }
-            public page_move_left(dx){
+            public prev_page_move(dx){
                custom_state(PART:"fbr.main.prev_page", "default", 0.0);
                set_state_val(PART:"fbr.main.prev_page", STATE_REL1_OFFSET, dx+MY_OFFSET_DEFAULT,0);
                set_state_val(PART:"fbr.main.prev_page", STATE_REL2_OFFSET, dx+MY_OFFSET_DEFAULT,0);
-            //    set_state_val(PART:"right_bottom_point_base", STATE_REL2_OFFSET, 100, 150);
                set_state(PART:"fbr.main.prev_page", "custom", 0.0);   
             }
          }
