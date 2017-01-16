@@ -163,16 +163,23 @@ collections {
          }
       }
       programs {
+         program { name: "prev_page_slide_center";
+            action: STATE_SET "center" 1.0;
+            target: "fbr.main.prev_page";
+            transition: SINUSOIDAL 0.2;
+            after: "emit_after_move_prev_page";
+         }
+         program { name: "prev_page_goto_default";
+            signal: "prev_page_goto_default";
+            source: "app";
+            action: STATE_SET "default" 0.0;
+            target: "fbr.main.prev_page";
+         }
          program { name: "main_page_slide_left";
             action: STATE_SET "left" 1.0;
             target: "fbr.main.content";
             transition: SINUSOIDAL 0.2;
             after: "emit_after_move_page";
-         }
-         program { name: "prev_page_slide_center";
-            action: STATE_SET "center" 1.0;
-            target: "fbr.main.prev_page";
-            transition: SINUSOIDAL 0.2;
          }
          program { name: "main_page_goto_default";
             signal: "main_page_goto_default";
@@ -180,7 +187,6 @@ collections {
             action: STATE_SET "default" 0.0;
             target: "fbr.main.content";
          }
-
          program { name: "main_page_goto_left";
             action: STATE_SET "left" 1.0;
             target: "fbr.main.content";
@@ -207,6 +213,10 @@ collections {
                mouse_move();
             }
          }
+         program { name: "emit_after_move_prev_page";
+            action: SIGNAL_EMIT "after_move_prev_page" "tap_rect";
+         }
+         
          program { name: "emit_after_move_page";
             action: SIGNAL_EMIT "after_move_page" "tap_rect";
          }

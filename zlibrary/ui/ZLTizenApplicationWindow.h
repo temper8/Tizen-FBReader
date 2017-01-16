@@ -63,6 +63,7 @@ public:
 	void gotoNextPage();
 	void startDragPage();
 	void startDragPagePrevPage();
+	void afterMovePrevPage();
 	void afterMovePage();
 	void showTitle();
 	void showToolBar();
