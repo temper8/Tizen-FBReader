@@ -22,8 +22,13 @@ collections {
             public mouse_up(){
                set_int(down_x, 0);
                if (get_int(dir_move)!=0) {
-                  set_int(dir_move,0);
+                  if (get_int(dir_move) > 0)
+                  run_program(PROGRAM:"prev_page_slide_center");
+                  else 
                   run_program(PROGRAM:"main_page_slide_left");
+                  set_int(dir_move,0);
+
+
                   return;
                }
                new mx, my;
@@ -50,7 +55,7 @@ collections {
                   if (dx*dx<200) return;
                   if (dx>0) {
                      set_int(dir_move,1);
-                     run_program(PROGRAM:"main_page_goto_left");
+                     //run_program(PROGRAM:"main_page_goto_left");
                   }
                   else {
                      set_int(dir_move,-1);
@@ -70,11 +75,11 @@ collections {
                set_state(PART:"fbr.main.content", "custom", 0.0);   
             }
             public page_move_left(dx){
-               custom_state(PART:"fbr.main.content", "left", 1.0);
-               set_state_val(PART:"fbr.main.content", STATE_REL1_OFFSET, dx+MY_OFFSET_DEFAULT,0);
-               set_state_val(PART:"fbr.main.content", STATE_REL2_OFFSET, dx+MY_OFFSET_DEFAULT,0);
+               custom_state(PART:"fbr.main.prev_page", "default", 0.0);
+               set_state_val(PART:"fbr.main.prev_page", STATE_REL1_OFFSET, dx+MY_OFFSET_DEFAULT,0);
+               set_state_val(PART:"fbr.main.prev_page", STATE_REL2_OFFSET, dx+MY_OFFSET_DEFAULT,0);
             //    set_state_val(PART:"right_bottom_point_base", STATE_REL2_OFFSET, 100, 150);
-               set_state(PART:"fbr.main.content", "custom", 0.0);   
+               set_state(PART:"fbr.main.prev_page", "custom", 0.0);   
             }
          }
          part { name: "fbr.main.next_page";
@@ -107,6 +112,24 @@ collections {
                color: 255 255 255 128;
             }
          }
+         part { name: "fbr.main.prev_page";
+            type: RECT;
+            scale: 1;
+            description { state: "default" 0.0;
+               color: 0 0 170 128;
+               align: 0.5 0.5;
+               fixed: 0 0;
+               min: 0 0;
+               visible: 1;
+               rel1.relative: -1.0 0.0;
+               rel2.relative: 0.0 1.0;
+            }
+            description { state: "center" 1.0;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
+               color: 255 255 0 128;
+            }
+         } 
          part { name: "tap_rect";
             type: RECT;
             scale: 1;
@@ -147,6 +170,11 @@ collections {
             target: "fbr.main.content";
             transition: SINUSOIDAL 0.2;
             after: "emit_after_move_page";
+         }
+         program { name: "prev_page_slide_center";
+            action: STATE_SET "center" 1.0;
+            target: "fbr.main.prev_page";
+            transition: SINUSOIDAL 0.2;
          }
          program { name: "main_page_goto_default";
             signal: "main_page_goto_default";
