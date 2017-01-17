@@ -64,7 +64,7 @@ public:
 	void startDragPage();
 	void startDragPagePrevPage();
 	void afterMovePrevPage();
-	void afterMovePage();
+	void afterMoveMainPage();
 	void showTitle();
 	void showToolBar();
 	void hideToolBar();
