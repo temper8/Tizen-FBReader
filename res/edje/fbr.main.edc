@@ -34,15 +34,18 @@ collections {
                new mx, my;
                get_mouse(mx, my);
                if (3*mx<get_int(page_width)) {  
-                  run_program(PROGRAM:"left_tap_zone_emit_click");
+                  // run_program(PROGRAM:"left_tap_zone_emit_click");
+                  run_program(PROGRAM:"emit_start_drag_prev_page");
+                  run_program(PROGRAM:"prev_page_slide_center");
                   return;
                }
                if (1.5*mx<get_int(page_width)) {
                   run_program(PROGRAM:"center_tap_zone_emit_click");
                   return;
                }
-               run_program(PROGRAM:"right_tap_zone_emit_click");
-
+              // run_program(PROGRAM:"right_tap_zone_emit_click");
+               run_program(PROGRAM:"emit_start_drag_page");
+               run_program(PROGRAM:"main_page_slide_left");
             }
             public mouse_move(){
                new x0;
@@ -216,7 +219,7 @@ collections {
          program { name: "emit_after_move_prev_page";
             action: SIGNAL_EMIT "after_move_prev_page" "tap_rect";
          }
-         
+
          program { name: "emit_after_move_page";
             action: SIGNAL_EMIT "after_move_page" "tap_rect";
          }
