@@ -96,6 +96,23 @@ collections {
                rel2.relative: 1.0 1.0;
             }
          }           
+   /*      part { name: "shadow";
+            type: RECT;
+            scale: 1;
+            mouse_events: 1;
+            description { state: "default" 0.0;
+               color: 255 255 255 128;
+               visible: 1;
+               rel1.relative: 0.00 0.00;
+               rel2.relative: 1.00 1.00;
+            }
+            description { state: "clean" 0.0;
+               color: 128 128 128 0;
+               visible: 1;
+               rel1.relative: 0.00 0.00;
+               rel2.relative: 1.00 1.00;
+            }
+         }         */
          part { name: "fbr.main.content";
             type: SWALLOW;
             scale: 1;
