@@ -59,6 +59,9 @@ public:
 	Evas_Object *main_layout;
 	bool ToolBarVisible;
 
+	bool lastPageOfBook();
+	bool firstPageOfBook();
+
 	void gotoPrevPage();
 	void gotoNextPage();
 	void startDragPage();

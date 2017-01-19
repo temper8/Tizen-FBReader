@@ -12,6 +12,12 @@
 //#include "../../FBReader/fbreader/FBReader.h"
 #include "../../FBReader/fbreader/FBReaderActions.h"
 
+//#include "../../../../../fbreader/src/fbreader/FBReader.h"
+//#include "../../../../../fbreader/src/fbreader/FBReaderActions.h"
+#include "../../fbreader/fbreader/BookTextView.h"
+
+#include "ZLTextArea.h"
+
 #include "dialogs/ZLTizenTreeDialog.h"
 #include "dialogs/ZLTizenOptionsDialog.h"
 #include "dialogs/ZLTizenProgressDialog.h"
@@ -279,7 +285,24 @@ void ZLTizenApplicationWindow::showTitle(){
 	}
 
 }
+bool ZLTizenApplicationWindow::lastPageOfBook(){
+	FBReader &fbreader = FBReader::Instance();
+	const ZLTextArea &textArea  = fbreader.bookTextView().textArea();
+	if ((!textArea.myEndCursor.paragraphCursor().isLast() || !textArea.myEndCursor.isEndOfParagraph()))
+		return false;
+	else
+		return true;
+}
 
+bool ZLTizenApplicationWindow::firstPageOfBook(){
+	FBReader &fbreader = FBReader::Instance();
+	const ZLTextArea &textArea  = fbreader.bookTextView().textArea();
+	if (!textArea.myStartCursor.paragraphCursor().isFirst() || !textArea.myStartCursor.isStartOfParagraph())
+		return false;
+	else
+		return true;
+}
+}
 void ZLTizenApplicationWindow::gotoPrevPage(){
 	 doAppAction(ActionCode::PAGE_SCROLL_BACKWARD);
 }
