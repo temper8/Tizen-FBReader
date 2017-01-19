@@ -302,7 +302,7 @@ bool ZLTizenApplicationWindow::firstPageOfBook(){
 	else
 		return true;
 }
-}
+
 void ZLTizenApplicationWindow::gotoPrevPage(){
 	 doAppAction(ActionCode::PAGE_SCROLL_BACKWARD);
 }
@@ -520,7 +520,7 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	myTizenViewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
 	//layout = create_drawer_layout(naviframe);
 	main_layout = ZLTizenUtil::create_layout(naviframe, "fbr.main");
-
+	myTizenViewWidget->main_layout = main_layout;
 
 	myTizenViewWidget->naviframe_item = elm_naviframe_item_push(naviframe, "FBReader", NULL, NULL, main_layout, NULL);
 	elm_naviframe_item_title_enabled_set(myTizenViewWidget->naviframe_item, EINA_FALSE,	EINA_FALSE);

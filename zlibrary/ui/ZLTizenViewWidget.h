@@ -25,6 +25,8 @@ public:
 
 	//ZLTizenPaintContext *tizenContext;
 	//Evas_Object *scroller;
+	Evas_Object *main_layout;
+
 	Evas_Object *image;
 	Evas_Object *image2;
 	Evas_Object *image3;
@@ -32,7 +34,8 @@ public:
 	void draw();
 
 	void test_draw_on_cairo(Evas_Object *image);
-
+	void checkFirstPageOfBook();
+	void checkLastPageOfBook();
 };
 
 #endif /* ZLTIZENVIEWWIDGET_H_ */

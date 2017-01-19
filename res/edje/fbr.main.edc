@@ -5,6 +5,8 @@ collections {
 
       parts {
          script {
+            public first_page = 1;
+            public last_page = 1;
             public down_x = 0, down_y = 0;
             public dir_move = 0;
             public page_width = 0;
@@ -48,12 +50,15 @@ collections {
                run_program(PROGRAM:"main_page_slide_left");
             }
             public mouse_move(){
+               if (get_int(last_page)) return;
+               if (get_int(first_page)) return;
                new x0;
                x0 = get_int(down_x);
                if (x0 == 0) return ;
                new mx, my, dx;
                get_mouse(mx, my);
                dx = mx - x0;
+               
                if (get_int(dir_move)==0) {
                   if (dx*dx<200) return;
                   if (dx>0) {
@@ -183,6 +188,34 @@ collections {
          }
       }
       programs {
+         program { name: "last_page";
+            signal: "last_page";
+            source: "app";
+            script {
+               set_int(last_page, 1);
+            }
+         }
+         program { name: "not_last_page";
+            signal: "not_last_page";
+            source: "app";
+            script {
+               set_int(last_page, 0);
+            }
+         }        
+         program { name: "first_page";
+            signal: "first_page";
+            source: "app";
+            script {
+               set_int(first_page, 1);
+            }
+         }
+         program { name: "not_first_page";
+            signal: "not_first_page";
+            source: "app";
+            script {
+               set_int(first_page, 0);
+            }
+         }          
          program { name: "prev_page_slide_center";
             action: STATE_SET "center" 1.0;
             target: "fbr.main.prev_page";

@@ -10,6 +10,15 @@
 #include "ZLTizenViewWidget.h"
 #include <cairo.h>
 
+#include "../../FBReader/fbreader/FBReaderActions.h"
+
+//#include "../../../../../fbreader/src/fbreader/FBReader.h"
+//#include "../../../../../fbreader/src/fbreader/FBReaderActions.h"
+#include "../../fbreader/fbreader/BookTextView.h"
+
+#include "ZLTextArea.h"
+
+
 struct _cairo_context
 {
     Evas_Object *image;
@@ -144,11 +153,34 @@ void ZLTizenViewWidget::draw(){
 	view()->paint();
 	tizenContext.flush_cairo();
 
-
+	checkFirstPageOfBook();
+	checkLastPageOfBook();
 	//tizenContext.init_cairo(image2);
 	//view()->paint();
 	//tizenContext.flush_cairo();
 
 	//updateImage();
 
+}
+
+void ZLTizenViewWidget::checkLastPageOfBook(){
+	FBReader &fbreader = FBReader::Instance();
+	const ZLTextArea &textArea  = fbreader.bookTextView().textArea();
+	if (textArea.isEmpty()) return;
+	if ((!textArea.myEndCursor.paragraphCursor().isLast() || !textArea.myEndCursor.isEndOfParagraph()))
+		//return false;
+		elm_layout_signal_emit(main_layout, "not_last_page", "app");
+	else
+		elm_layout_signal_emit(main_layout, "last_page", "app");
+		//return true;
+}
+
+void ZLTizenViewWidget::checkFirstPageOfBook(){
+	FBReader &fbreader = FBReader::Instance();
+	const ZLTextArea &textArea  = fbreader.bookTextView().textArea();
+	if (textArea.isEmpty()) return;
+	if (!textArea.myStartCursor.paragraphCursor().isFirst() || !textArea.myStartCursor.isStartOfParagraph())
+		elm_layout_signal_emit(main_layout, "not_first_page", "app");
+	else
+		elm_layout_signal_emit(main_layout, "first_page", "app");
 }
