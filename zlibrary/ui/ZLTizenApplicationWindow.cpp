@@ -117,23 +117,6 @@ anim_stop_cb(void *data, Evas_Object *obj, void *event_info)
 	*/
 }
 
-static Evas_Object* create_scroller(Evas_Object *parent, ZLTizenApplicationWindow *tw)
-{
-	Evas_Object *scroller = elm_scroller_add(parent);
-	//elm_object_style_set(scroller, "dialogue");
-	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	//elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF,ELM_SCROLLER_POLICY_AUTO);
-
-	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
-	//elm_scroller_page_size_set(scroller, 500, 500);
-	//elm_scroller_page_scroll_limit_set(scroller, 1, 0);
-	//elm_scroller_single_direction_set(scroller, ELM_SCROLLER_SINGLE_DIRECTION_HARD);
-	//evas_object_smart_callback_add(scroller, "scroll,anim,stop", anim_stop_cb, tw);
-
-	evas_object_show(scroller);
-
-	return scroller;
-}
 
 static Evas_Object *
 create_drawer_layout(Evas_Object *parent)
