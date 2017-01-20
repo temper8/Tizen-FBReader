@@ -153,8 +153,11 @@ void ZLTizenViewWidget::draw(){
 	view()->paint();
 	tizenContext.flush_cairo();
 
-	//checkFirstPageOfBook();
-	//checkLastPageOfBook();
+	if (necessaryBoundsChecking) {
+		checkFirstPageOfBook();
+		checkLastPageOfBook();
+	}
+
 	//tizenContext.init_cairo(image2);
 	//view()->paint();
 	//tizenContext.flush_cairo();

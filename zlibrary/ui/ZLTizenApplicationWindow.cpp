@@ -303,6 +303,7 @@ void ZLTizenApplicationWindow::startDragPagePrevPage(){
 	img = myTizenViewWidget->image;
 	myTizenViewWidget->image = myTizenViewWidget->image3;
 	myTizenViewWidget->image3 = img;
+	myTizenViewWidget->necessaryBoundsChecking = false;
 	doAppAction(ActionCode::PAGE_SCROLL_BACKWARD);
 }
 void ZLTizenApplicationWindow::afterMovePrevPage(){
@@ -312,9 +313,8 @@ void ZLTizenApplicationWindow::afterMovePrevPage(){
 	myTizenViewWidget->image3 = img;
 
 	elm_layout_signal_emit(main_layout, "prev_page_goto_default", "app");
+	myTizenViewWidget->necessaryBoundsChecking = true;
 	doAppAction(ActionCode::PAGE_REFRESH);
-	myTizenViewWidget->checkFirstPageOfBook();
-	myTizenViewWidget->checkLastPageOfBook();
 }
 
 void ZLTizenApplicationWindow::startDragPage(){
@@ -322,6 +322,7 @@ void ZLTizenApplicationWindow::startDragPage(){
 	img = myTizenViewWidget->image;
 	myTizenViewWidget->image = myTizenViewWidget->image2;
 	myTizenViewWidget->image2 = img;
+	myTizenViewWidget->necessaryBoundsChecking = false;
 	doAppAction(ActionCode::PAGE_SCROLL_FORWARD);
 
 }
@@ -333,9 +334,8 @@ void ZLTizenApplicationWindow::afterMoveMainPage(){
 	myTizenViewWidget->image2 = img;
 
 	elm_layout_signal_emit(main_layout, "main_page_goto_default", "app");
+	myTizenViewWidget->necessaryBoundsChecking = true;
 	doAppAction(ActionCode::PAGE_REFRESH);
-	myTizenViewWidget->checkFirstPageOfBook();
-	myTizenViewWidget->checkLastPageOfBook();
 }
 
 static void naviframe_back_cb(void *data, Evas_Object *obj, void *event_info) {

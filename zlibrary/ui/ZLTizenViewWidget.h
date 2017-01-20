@@ -25,6 +25,7 @@ public:
 
 	//ZLTizenPaintContext *tizenContext;
 	//Evas_Object *scroller;
+	bool necessaryBoundsChecking = true;
 	Evas_Object *main_layout;
 
 	Evas_Object *image;
