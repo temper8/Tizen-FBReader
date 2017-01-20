@@ -50,6 +50,7 @@ collections {
                get_mouse(mx, my);
                if (3*mx<get_int(page_width)) {  
                   // run_program(PROGRAM:"left_tap_zone_emit_click");
+                  if (get_int(first_page)) return;
                   run_program(PROGRAM:"emit_start_drag_prev_page");
                   run_program(PROGRAM:"prev_page_slide_center");
                   return;
@@ -58,6 +59,7 @@ collections {
                   run_program(PROGRAM:"center_tap_zone_emit_click");
                   return;
                }
+               if (get_int(last_page)) return;
               // run_program(PROGRAM:"right_tap_zone_emit_click");
                run_program(PROGRAM:"emit_start_drag_page");
                run_program(PROGRAM:"main_page_slide_left");
