@@ -330,6 +330,8 @@ void ZLTizenApplicationWindow::afterMovePrevPage(){
 
 	elm_layout_signal_emit(main_layout, "prev_page_goto_default", "app");
 	doAppAction(ActionCode::PAGE_REFRESH);
+	myTizenViewWidget->checkFirstPageOfBook();
+	myTizenViewWidget->checkLastPageOfBook();
 }
 
 void ZLTizenApplicationWindow::startDragPage(){
@@ -338,6 +340,7 @@ void ZLTizenApplicationWindow::startDragPage(){
 	myTizenViewWidget->image = myTizenViewWidget->image2;
 	myTizenViewWidget->image2 = img;
 	doAppAction(ActionCode::PAGE_SCROLL_FORWARD);
+
 }
 
 void ZLTizenApplicationWindow::afterMoveMainPage(){
@@ -348,6 +351,8 @@ void ZLTizenApplicationWindow::afterMoveMainPage(){
 
 	elm_layout_signal_emit(main_layout, "main_page_goto_default", "app");
 	doAppAction(ActionCode::PAGE_REFRESH);
+	myTizenViewWidget->checkFirstPageOfBook();
+	myTizenViewWidget->checkLastPageOfBook();
 }
 
 static void naviframe_back_cb(void *data, Evas_Object *obj, void *event_info) {
