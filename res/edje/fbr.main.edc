@@ -23,7 +23,13 @@ collections {
             }
             public mouse_up(){
                set_int(down_x, 0);
+
                if (get_int(dir_move)!=0) {
+                  if (get_int(first_page)) {
+                     run_program(PROGRAM:"hide_left_box");
+                     set_int(dir_move,0);
+                     return;
+                  }
                   if (get_int(dir_move) > 0)
                   run_program(PROGRAM:"prev_page_slide_center");
                   else 
@@ -50,26 +56,31 @@ collections {
                run_program(PROGRAM:"main_page_slide_left");
             }
             public mouse_move(){
-               if (get_int(last_page)) return;
-               if (get_int(first_page)) return;
                new x0;
                x0 = get_int(down_x);
                if (x0 == 0) return ;
                new mx, my, dx;
                get_mouse(mx, my);
                dx = mx - x0;
-               
+
                if (get_int(dir_move)==0) {
                   if (dx*dx<200) return;
                   if (dx>0) {
                      set_int(dir_move,1);
+                     if (get_int(first_page)) {
+                        run_program(PROGRAM:"show_left_box");
+                        return;
+                     }
                      run_program(PROGRAM:"emit_start_drag_prev_page");
                   }
                   else {
                      set_int(dir_move,-1);
+                     if (get_int(last_page)) return;
                      run_program(PROGRAM:"emit_start_drag_page");
                   }
                }
+               if (get_int(first_page))return;
+               if (get_int(last_page)) return;
                if (get_int(dir_move) > 0)
                prev_page_move(dx);
                else 
@@ -153,6 +164,23 @@ collections {
                color: 255 255 0 128;
             }
          } 
+         part { name: "left_box";
+            type: RECT;
+            scale: 1;
+            description { state: "default" 0.0;
+               color: 0 255 255 128;
+               visible: 1;
+               rel1.relative: 0.00 0.00;
+               rel2.relative: 0.10 1.00;
+            }
+            description { state: "hidden" 0.0;
+               color: 0 255 255 128;
+               visible: 1;
+               rel1.relative: 0.00 0.00;
+               rel2.relative: 0.00 1.00;
+            }
+         }         
+
          part { name: "tap_rect";
             type: RECT;
             scale: 1;
@@ -188,6 +216,22 @@ collections {
          }
       }
       programs {
+         program {
+            signal: "load"; source: "";
+            script {
+               set_state(PART:"left_box", "hidden", 0.0);
+            }
+         }
+         program { name: "show_left_box";
+            action: STATE_SET "default" 0.0;
+            target: "left_box";
+            transition: SINUSOIDAL 0.2;
+         }
+         program { name: "hide_left_box";
+            action: STATE_SET "hidden" 1.0;
+            target: "left_box";
+            transition: SINUSOIDAL 0.2;
+         }
          program { name: "last_page";
             signal: "last_page";
             source: "app";
