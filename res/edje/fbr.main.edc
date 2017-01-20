@@ -27,14 +27,19 @@ collections {
                if (get_int(dir_move)!=0) {
                   if (get_int(dir_move) > 0){
                      if (get_int(first_page)) {
-                        	run_program(PROGRAM:"hide_left_box");
-                        	set_int(dir_move,0);
-                        	return;
+                        run_program(PROGRAM:"hide_left_box");
+                        set_int(dir_move,0);
+                        return;
                      }
                      run_program(PROGRAM:"prev_page_slide_center");
                      set_int(last_page,1);
                   }
                   else {
+                     if (get_int(last_page)) {
+                        run_program(PROGRAM:"hide_right_box");
+                        set_int(dir_move,0);
+                        return;
+                     }
                      run_program(PROGRAM:"main_page_slide_left");
                      set_int(first_page,1);
                   }
@@ -77,7 +82,10 @@ collections {
                   }
                   else {
                      set_int(dir_move,-1);
-                     if (get_int(last_page)) return;
+                     if (get_int(last_page)) {
+                        run_program(PROGRAM:"show_right_box");
+                        return;
+                     }
                      run_program(PROGRAM:"emit_start_drag_page");
                   }
                }
@@ -182,7 +190,22 @@ collections {
                rel2.relative: 0.00 1.00;
             }
          }         
-
+         part { name: "right_box";
+            type: RECT;
+            scale: 1;
+            description { state: "default" 0.0;
+               color: 0 255 255 128;
+               visible: 1;
+               rel1.relative: 0.90 0.00;
+               rel2.relative: 1.00 1.00;
+            }
+            description { state: "hidden" 0.0;
+               color: 0 255 255 128;
+               visible: 1;
+               rel1.relative: 1.00 0.00;
+               rel2.relative: 1.00 1.00;
+            }
+         } 
          part { name: "tap_rect";
             type: RECT;
             scale: 1;
@@ -222,6 +245,7 @@ collections {
             signal: "load"; source: "";
             script {
                set_state(PART:"left_box", "hidden", 0.0);
+               set_state(PART:"right_box", "hidden", 0.0);
             }
          }
          program { name: "show_left_box";
@@ -232,6 +256,16 @@ collections {
          program { name: "hide_left_box";
             action: STATE_SET "hidden" 1.0;
             target: "left_box";
+            transition: SINUSOIDAL 0.2;
+         }
+         program { name: "show_right_box";
+            action: STATE_SET "default" 0.0;
+            target: "right_box";
+            transition: SINUSOIDAL 0.2;
+         }
+         program { name: "hide_right_box";
+            action: STATE_SET "hidden" 1.0;
+            target: "right_box";
             transition: SINUSOIDAL 0.2;
          }
          program { name: "last_page";
