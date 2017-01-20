@@ -25,18 +25,20 @@ collections {
                set_int(down_x, 0);
 
                if (get_int(dir_move)!=0) {
-                  if (get_int(first_page)) {
-                     run_program(PROGRAM:"hide_left_box");
-                     set_int(dir_move,0);
-                     return;
+                  if (get_int(dir_move) > 0){
+                     if (get_int(first_page)) {
+                        	run_program(PROGRAM:"hide_left_box");
+                        	set_int(dir_move,0);
+                        	return;
+                     }
+                     run_program(PROGRAM:"prev_page_slide_center");
+                     set_int(last_page,1);
                   }
-                  if (get_int(dir_move) > 0)
-                  run_program(PROGRAM:"prev_page_slide_center");
-                  else 
-                  run_program(PROGRAM:"main_page_slide_left");
+                  else {
+                     run_program(PROGRAM:"main_page_slide_left");
+                     set_int(first_page,1);
+                  }
                   set_int(dir_move,0);
-
-
                   return;
                }
                new mx, my;
@@ -79,20 +81,20 @@ collections {
                      run_program(PROGRAM:"emit_start_drag_page");
                   }
                }
-               if (get_int(first_page))return;
-               if (get_int(last_page)) return;
                if (get_int(dir_move) > 0)
                prev_page_move(dx);
                else 
                main_page_move(dx);
             }
             public main_page_move(dx){
+               if (get_int(last_page)) return;
                custom_state(PART:"fbr.main.content", "default", 0.0);
                set_state_val(PART:"fbr.main.content", STATE_REL1_OFFSET, dx+MY_OFFSET_DEFAULT,0);
                set_state_val(PART:"fbr.main.content", STATE_REL2_OFFSET, dx+MY_OFFSET_DEFAULT,0);
                set_state(PART:"fbr.main.content", "custom", 0.0);   
             }
             public prev_page_move(dx){
+               if (get_int(first_page))return;
                custom_state(PART:"fbr.main.prev_page", "default", 0.0);
                set_state_val(PART:"fbr.main.prev_page", STATE_REL1_OFFSET, dx+MY_OFFSET_DEFAULT,0);
                set_state_val(PART:"fbr.main.prev_page", STATE_REL2_OFFSET, dx+MY_OFFSET_DEFAULT,0);
