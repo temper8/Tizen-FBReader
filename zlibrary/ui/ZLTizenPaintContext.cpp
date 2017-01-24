@@ -5,6 +5,8 @@
  *      Author: Alex
  */
 
+#include <algorithm>
+
 #include "ZLTizenPaintContext.h"
 
 #include "eina_unicode.h"
@@ -105,7 +107,7 @@ void ZLTizenPaintContext::drawFilledCircle(int x, int y, int r){
 // ******************* FONT ***********
 
 void ZLTizenPaintContext::setFont(const std::string &family, int size, bool bold, bool italic){
-	cairo_select_font_face (cairo, "Sans",
+	cairo_select_font_face (cairo, "Tizen",
 			italic?CAIRO_FONT_SLANT_OBLIQUE:CAIRO_FONT_SLANT_NORMAL,
 			bold?CAIRO_FONT_WEIGHT_BOLD:CAIRO_FONT_WEIGHT_NORMAL);
 
@@ -162,12 +164,43 @@ void ZLTizenPaintContext::drawString(int x, int y, const char *str, int len, boo
 }
 
 const std::string ZLTizenPaintContext::realFontFamilyName(std::string &fontFamily) const {
-	return "Sans";
+	//return "Sans";
+	return fontFamily.c_str();
 }
 
 void ZLTizenPaintContext::fillFamiliesList(std::vector<std::string> &families) const {
-
-
+	DBG( "fontList");
+	const Eina_List *font_list;
+	const Eina_List *l;
+	//char text_class[PATH_MAX] = {0, };
+	//char *str;
+	//const char ** s;
+	void *str1;
+	char *font;
+	Evas_Font_Size size;
+	Elm_Font_Overlay *data;
+	font_list = elm_config_font_overlay_list_get();
+	EINA_LIST_FOREACH(font_list, l, str1)
+		{
+			data = (Elm_Font_Overlay*) str1;
+			 std::string s(data->font);
+			 std::size_t found = s.find(":");
+			 std::string fname = s.substr(0,found);
+			 if (std::find(families.begin(),families.end(),fname) == families.end()) {
+					families.push_back(fname.c_str());
+					DBG( "fontList = %s",fname.c_str());
+			 }
+		}
+	/*font_list = edje_text_class_list();
+	EINA_LIST_FOREACH(font_list, l, str1)
+	{
+		str = (char*) str1;
+		Eina_Bool b = edje_text_class_get(str, s, &size);
+		snprintf(text_class, PATH_MAX, "%s font{%s} size{%d}", str, *s, size);
+		//elm_object_part_text_set(ad->gui1_layout, "text_view", text_class);
+		families.push_back((char*)text_class);
+		DBG( "fontList = %s",(char*)text_class) ;
+	}*/
 }
 
 void ZLTizenPaintContext::drawImage(int x, int y, const ZLImageData &image){
