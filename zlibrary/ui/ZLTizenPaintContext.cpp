@@ -107,7 +107,7 @@ void ZLTizenPaintContext::drawFilledCircle(int x, int y, int r){
 // ******************* FONT ***********
 
 void ZLTizenPaintContext::setFont(const std::string &family, int size, bool bold, bool italic){
-	cairo_select_font_face (cairo, "Tizen",
+	cairo_select_font_face (cairo, family.c_str(),//"Tizen",
 			italic?CAIRO_FONT_SLANT_OBLIQUE:CAIRO_FONT_SLANT_NORMAL,
 			bold?CAIRO_FONT_WEIGHT_BOLD:CAIRO_FONT_WEIGHT_NORMAL);
 
