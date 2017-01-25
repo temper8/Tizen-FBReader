@@ -7,7 +7,7 @@ collections {
             type: RECT;
             description {
                state: "default" 0.0;
-               color: 125 147 00 255;
+               color: 0 0 127 255;
                rel1 {
                   relative: 0.0 0.0;
                }
