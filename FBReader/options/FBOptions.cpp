@@ -34,8 +34,8 @@ void FBOptions::setColorProfileName(const std::string& name) {
 }
 
 FBOptions::FBOptions() :
-	LeftMarginOption(ZLCategoryKey::LOOK_AND_FEEL, OPTIONS, "LeftMargin", 0, 100, 4),
-	RightMarginOption(ZLCategoryKey::LOOK_AND_FEEL, OPTIONS, "RightMargin", 0, 100, 4),
+	LeftMarginOption(ZLCategoryKey::LOOK_AND_FEEL, OPTIONS, "LeftMargin", 0, 100, 18),
+	RightMarginOption(ZLCategoryKey::LOOK_AND_FEEL, OPTIONS, "RightMargin", 0, 100, 18),
 	TopMarginOption(ZLCategoryKey::LOOK_AND_FEEL, OPTIONS, "TopMargin", 0, 100, 0),
 	BottomMarginOption(ZLCategoryKey::LOOK_AND_FEEL, OPTIONS, "BottomMargin", 0, 100, 4),
 	ColorProfileOption(ZLCategoryKey::LOOK_AND_FEEL, OPTIONS, "ColorProfile", ColorProfile::DAY),
