@@ -46,7 +46,7 @@ collections {
                visible: 1;
             }
          }
-         part { name: "title";
+         part { name: "caption";
             type: TEXT;
             scale: 1;
             mouse_events: 1;
@@ -82,15 +82,15 @@ collections {
       programs{
          program { name: "title_mouse_down";
             signal: "mouse,down,1";
-            source: "title";
+            source: "caption";
             action: STATE_SET "clicked" 0.0;
-            target: "title";
+            target: "caption";
          }
          program { name: "rtitle_zone_mouse_up";
             signal: "mouse,up,1";
-            source: "title";
+            source: "caption";
             action: STATE_SET "default" 0.0;
-            target: "title";
+            target: "caption";
          }
          program { name: "tmenu_icon_emit_click";
             signal: "mouse,up,1";

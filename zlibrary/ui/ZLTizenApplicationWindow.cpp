@@ -499,11 +499,16 @@ void menu_icon_clicked(void *data, Evas_Object *obj, const char *emission, const
 	app->showDrawerPanel();
 }
 
-
+void ZLTizenApplicationWindow::setCaption(const std::string &caption){
+	DBG("setCaption %s", caption.c_str());
+	if (toolBar_layout !=NULL) {
+		elm_object_part_text_set(toolBar_layout, "caption", caption.c_str());
+	}
+}
 
 ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
-	Evas_Object *layout, *toolBar_layout;
+	Evas_Object *layout;
 
 	myTizenViewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
 	//layout = create_drawer_layout(naviframe);

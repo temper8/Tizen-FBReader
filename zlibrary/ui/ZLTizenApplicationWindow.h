@@ -127,7 +127,8 @@ protected:
 
 	virtual void close();
 
-	void setCaption(const std::string &caption) {};
+	Evas_Object *toolBar_layout;
+	void setCaption(const std::string &caption);
 
 	//virtual void grabAllKeys(bool grab) = 0;
 
