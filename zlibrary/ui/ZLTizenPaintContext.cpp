@@ -5,6 +5,8 @@
  *      Author: Alex
  */
 
+#include <fontconfig.h>
+
 #include <algorithm>
 
 #include "ZLTizenPaintContext.h"
@@ -107,7 +109,7 @@ void ZLTizenPaintContext::drawFilledCircle(int x, int y, int r){
 // ******************* FONT ***********
 
 void ZLTizenPaintContext::setFont(const std::string &family, int size, bool bold, bool italic){
-	cairo_select_font_face (cairo, family.c_str(),//"Tizen",
+	cairo_select_font_face (cairo, family.c_str(),//"Rosemary",
 			italic?CAIRO_FONT_SLANT_OBLIQUE:CAIRO_FONT_SLANT_NORMAL,
 			bold?CAIRO_FONT_WEIGHT_BOLD:CAIRO_FONT_WEIGHT_NORMAL);
 
@@ -168,39 +170,52 @@ const std::string ZLTizenPaintContext::realFontFamilyName(std::string &fontFamil
 	return fontFamily.c_str();
 }
 
+
 void ZLTizenPaintContext::fillFamiliesList(std::vector<std::string> &families) const {
-	DBG( "fontList");
-	const Eina_List *font_list;
-	const Eina_List *l;
-	//char text_class[PATH_MAX] = {0, };
-	//char *str;
-	//const char ** s;
-	void *str1;
-	char *font;
-	Evas_Font_Size size;
-	Elm_Font_Overlay *data;
-	font_list = elm_config_font_overlay_list_get();
-	EINA_LIST_FOREACH(font_list, l, str1)
-		{
-			data = (Elm_Font_Overlay*) str1;
-			 std::string s(data->font);
-			 std::size_t found = s.find(":");
-			 std::string fname = s.substr(0,found);
-			 if (std::find(families.begin(),families.end(),fname) == families.end()) {
-					families.push_back(fname.c_str());
-					DBG( "fontList = %s",fname.c_str());
-			 }
-		}
-	/*font_list = edje_text_class_list();
-	EINA_LIST_FOREACH(font_list, l, str1)
-	{
-		str = (char*) str1;
-		Eina_Bool b = edje_text_class_get(str, s, &size);
-		snprintf(text_class, PATH_MAX, "%s font{%s} size{%d}", str, *s, size);
-		//elm_object_part_text_set(ad->gui1_layout, "text_view", text_class);
-		families.push_back((char*)text_class);
-		DBG( "fontList = %s",(char*)text_class) ;
-	}*/
+ DBG( "fontList");
+
+    FcPattern *pat = NULL;
+    FcFontSet *fontlist = NULL;
+    FcObjectSet *os = NULL;
+    FcConfig *config;
+    FcBool result;
+
+    // Initialize Fontconfig library
+    result = FcInit();
+
+    config = FcConfigGetCurrent();
+    FcConfigSetRescanInterval(config, 0);
+    pat = FcPatternCreate();
+
+    // font with given style
+    const char *style = "Regular";
+    FcPatternAddString(pat, FC_STYLE, (FcChar8*)style);
+
+	os = FcObjectSetBuild(FC_FAMILY, FC_LANG, FC_WEIGHT, FC_STYLE, FC_WIDTH, FC_SIZE, FC_CAPABILITY, FC_FULLNAME, (char *)0);
+    // Start font search and return list of results
+    fontlist = FcFontList(config, pat, os);
+
+    DBG("fontList Total fonts: %d", fontlist->nfont);
+
+    for (int i = 0; i < fontlist->nfont; i++) {
+       	FcPattern *font_object = fontlist->fonts[i];
+        FcChar8 *family_name = NULL;
+        FcChar8 *full_name = NULL;
+        FcChar8 *s = FcNameUnparse(font_object);
+        char *position = strstr((char*)s, "latn");
+        if (position == NULL) continue;
+
+        if (FcPatternGetString(font_object, FC_FULLNAME, 0, &full_name) == FcResultMatch
+                    || FcPatternGetString(font_object, FC_FAMILY, 0, &family_name) == FcResultMatch) {
+            	families.push_back((char*)(full_name ? full_name : family_name));
+            	//DBG( "fontList = %s",full_name ? full_name : family_name);
+        }
+        }
+
+    if (fontlist) {
+        FcFontSetDestroy(fontlist);
+        fontlist = NULL;
+    }
 }
 
 void ZLTizenPaintContext::drawImage(int x, int y, const ZLImageData &image){
