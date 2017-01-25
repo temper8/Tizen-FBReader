@@ -251,7 +251,8 @@ void ZLApplication::resetWindowCaption() {
 		if ((currentView() == 0) || (currentView()->caption().empty())) {
 			myWindow->setCaption(ZLibrary::ApplicationName());
 		} else {
-			myWindow->setCaption(ZLibrary::ApplicationName() + " - " + currentView()->caption());
+			//myWindow->setCaption(ZLibrary::ApplicationName() + " - " + currentView()->caption());
+			myWindow->setCaption(currentView()->caption());
 		}
 	}
 }
