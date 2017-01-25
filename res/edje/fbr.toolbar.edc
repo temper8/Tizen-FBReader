@@ -55,7 +55,7 @@ collections {
                color: 72 72 72 255;
                visible: 1;
                text {
-                  size: 25;
+                  size: 20;
                   font: "Sans";
                   text: "FBReader";
                   align: 0.0 0.5;
@@ -65,10 +65,10 @@ collections {
                rel2.relative: 0.9 0.75;
             }
             description { state: "clicked" 0.0;
-               color: 255 255 255 255;
+               color: 127 127 127 255;
                visible: 1;
                text {
-                  size: 22;
+                  size: 18;
                   font: "Sans";
                   text: "FBReader";
                   align: 0.0 0.5;
