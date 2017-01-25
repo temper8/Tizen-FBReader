@@ -39,20 +39,25 @@ gl_radio_text_get_cb(void *data, Evas_Object *obj, const char *part)
 	}
 	else return NULL;
 }
-
+static int selectedIndex;
 static Evas_Object* gl_radio_content_get_cb(void *data, Evas_Object *obj, const char *part)
 {
 	int index = (int) data;
+
 	Elm_Object_Item *it = elm_genlist_nth_item_get(obj, index);
+
 	DBG("gl_radio_content_get_cb %d", index);
-	DBG("gl_radio_content_get_cb part %s", part);
+
+
 	if (!strcmp(part, "elm.swallow.end")) {
 		Evas_Object *radio;
 		Evas_Object *radio_main = (Evas_Object *)evas_object_data_get(obj, "radio");
+		//int *selectedIndex = (int*) evas_object_data_get(obj, "selectedIndex");
+		DBG("gl_radio_content_get_cb selectedIndex %d", selectedIndex);
 		radio = elm_radio_add(obj);
 		elm_radio_group_add(radio, radio_main);
 		elm_radio_state_value_set(radio, index + 1);
-		if (index == 1) elm_radio_value_set(radio, 1);
+		if (index == selectedIndex) elm_radio_value_set(radio, index + 1);
 		evas_object_size_hint_weight_set(radio, EVAS_HINT_EXPAND,EVAS_HINT_EXPAND);
 		evas_object_size_hint_align_set(radio, EVAS_HINT_FILL, EVAS_HINT_FILL);
 		evas_object_propagate_events_set(radio, EINA_FALSE);
@@ -124,9 +129,6 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	radio = elm_radio_add(genlist);
 	elm_radio_state_value_set(radio, 0);
 	elm_radio_value_set(radio, 0);
-	evas_object_data_set(genlist, "radio", radio);
-	evas_object_data_set(genlist, "combo", myCombo);
-
 	itc.item_style = "default";
 	itc.func.text_get = gl_radio_text_get_cb;
 	itc.func.content_get = gl_radio_content_get_cb;
@@ -142,7 +144,7 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	const std::string &initial = comboOption.initialValue();
 
 	evas_object_data_set(genlist, "values", (const void *)&values);
-	int selectedIndex = -1;
+	selectedIndex = -1;
 	int index = 0;
 
 	evas_object_data_set(genlist, "popup", popup);
@@ -154,6 +156,10 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 				selectedIndex = index;
 			}
 		}
+
+	evas_object_data_set(genlist, "radio", radio);
+	evas_object_data_set(genlist, "combo", myCombo);
+//	evas_object_data_set(genlist, "selectedIndex", &selectedIndex);
 	evas_object_show(genlist);
 	elm_box_pack_end(box, genlist);
 
