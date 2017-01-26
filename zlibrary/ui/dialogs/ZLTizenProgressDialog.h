@@ -13,6 +13,7 @@
 #include <ZLRunnable.h>
 
 #include <Elementary.h>
+#include "ZLTizen.h"
 
 class ZLTizenApplicationWindow;
 
@@ -39,7 +40,7 @@ private:
 	//    Tizen::Ui::Controls::ProgressPopup*			__pProgressPopup;
 	 	int   modalResult;
 	// 	Tizen::Base::Runtime::Monitor*        __pMonitor;
-
+	 	Evas_Object * create_processing_popup(Evas_Object *win);
 		void OnStop(void);
 	//	Tizen::Base::Object* Run(void);
 };

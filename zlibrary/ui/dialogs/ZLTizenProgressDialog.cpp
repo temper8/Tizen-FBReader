@@ -17,7 +17,7 @@
 
 #include "ZLTizenDialogManager.h"
 
-#include "ZLTizen.h"
+
 #include "logger.h"
 
 ZLTizenProgressDialog::ZLTizenProgressDialog(ZLTizenApplicationWindow* windows, const ZLResourceKey &key) : ZLProgressDialog(key), myRunnable(NULL), myWindows(windows) {
@@ -53,7 +53,8 @@ static void popup_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 	Evas_Object *popup = (Evas_Object *)data;
 	evas_object_del(popup);
 }
-static Evas_Object * create_processing_popup(Evas_Object *win)//(void *data, Evas_Object *obj, void *event_info)
+//static
+Evas_Object * ZLTizenProgressDialog::create_processing_popup(Evas_Object *win)//(void *data, Evas_Object *obj, void *event_info)
 {
 	Evas_Object *popup;
 	Evas_Object *layout;
@@ -65,16 +66,16 @@ static Evas_Object * create_processing_popup(Evas_Object *win)//(void *data, Eva
 	popup = elm_popup_add(win);
 	elm_popup_align_set(popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
 	eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
-	elm_object_part_text_set(popup, "title,text", "Title");
+//	elm_object_part_text_set(popup, "title,text", "Title");
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-
-	/* ok button */
+/*
+	// ok button
 	btn = elm_button_add(popup);
 	elm_object_style_set(btn, "popup");
 	elm_object_text_set(btn, "OK");
 	elm_object_part_content_set(popup, "button1", btn);
 	evas_object_smart_callback_add(btn, "clicked", popup_btn_clicked_cb, popup);
-
+*/
 	/* layout */
 	layout = elm_layout_add(popup);
 
@@ -82,7 +83,7 @@ static Evas_Object * create_processing_popup(Evas_Object *win)//(void *data, Eva
 	//elm_layout_file_set(layout, ELM_DEMO_EDJ, "processing_view_layout");
 
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_object_part_text_set(layout, "elm.text", "Loading...");
+	elm_object_part_text_set(layout, "elm.text", messageText().c_str());
 
 	progressbar = elm_progressbar_add(layout);
 	elm_object_style_set(progressbar, "process_medium");
