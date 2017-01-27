@@ -349,6 +349,14 @@ static void naviframe_back_cb(void *data, Evas_Object *obj, void *event_info) {
   }
 }
 
+void ZLTizenApplicationWindow::setOrientation(int Angle){
+
+	DBG("orientation %d", Angle);
+	// -1 any orientation
+	elm_win_wm_rotation_preferred_rotation_set(win, Angle);
+
+}
+
 ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): ZLApplicationWindow(application),
 																				win(NULL), conform(NULL), label(NULL), popup(NULL), myTizenViewWidget(NULL)
 {
@@ -511,6 +519,7 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 	Evas_Object *layout;
 
 	myTizenViewWidget = new ZLTizenViewWidget(&application(), ZLView::DEGREES0);
+	myTizenViewWidget->myWindow = this;
 	//layout = create_drawer_layout(naviframe);
 	main_layout = ZLTizenUtil::create_layout(naviframe, "fbr.main");
 	myTizenViewWidget->main_layout = main_layout;

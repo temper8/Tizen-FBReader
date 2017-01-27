@@ -6,7 +6,7 @@
  */
 
 #include "logger.h"
-
+#include "ZLTizenApplicationWindow.h"
 #include "ZLTizenViewWidget.h"
 #include <cairo.h>
 
@@ -42,6 +42,9 @@ ZLTizenViewWidget::~ZLTizenViewWidget() {
 
 void ZLTizenViewWidget::repaint(){
 	DBG("ZLTizenViewWidget::repaint");
+	int angle = myApplication->AngleStateOption.value();
+
+	myWindow->setOrientation(angle);
 	draw();
 }
 

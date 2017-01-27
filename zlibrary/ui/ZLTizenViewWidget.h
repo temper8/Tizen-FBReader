@@ -14,6 +14,7 @@
 #include "ZLTizenPaintContext.h"
 
 class ZLApplication;
+class ZLTizenApplicationWindow;
 
 class ZLTizenViewWidget : public ZLViewWidget {
 public:
@@ -22,7 +23,7 @@ public:
 
 	virtual void repaint();
 	ZLApplication *myApplication;
-
+	ZLTizenApplicationWindow *myWindow;
 	//ZLTizenPaintContext *tizenContext;
 	//Evas_Object *scroller;
 	bool necessaryBoundsChecking = true;

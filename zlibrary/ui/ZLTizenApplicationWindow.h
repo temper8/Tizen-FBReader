@@ -74,6 +74,8 @@ public:
 	void refreshPage();
 	void showDrawerPanel();
 
+	void setOrientation(int Angle);
+
 	void createTestDialog();
 	shared_ptr<ZLTreeDialog> createTizenTreeDialog(const ZLResource &resource);
 	shared_ptr<ZLOptionsDialog> createTizenOptionsDialog(const ZLResource &resource, shared_ptr<ZLRunnable> applyAction);
