@@ -103,7 +103,7 @@ collections {
          }
          program { name: "mouse_up";
             signal: "mouse,up,1";
-            source: "bg";
+            source: "abg";
             action: STATE_SET "default" 0.0;
             target: "abg";
          }
