@@ -86,6 +86,10 @@ static void gl_sel_cb(void *data, Evas_Object *obj, void *event_info)
 	evas_object_del(popup);
 }
 
+static void popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	evas_object_del(obj);
+}
 
 // создание popup содержащим genlist с radio
 static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
@@ -109,7 +113,7 @@ static void up_callback(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
 	elm_object_part_text_set(popup, "title,text", _(myCombo->name().c_str()));
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-
+	evas_object_smart_callback_add(popup, "block,clicked", popup_block_clicked_cb, win);
 
 	layout = elm_layout_add(popup);
 	ZLTizenUtil::layout_edj_set(layout, "fbr.RadioList");
