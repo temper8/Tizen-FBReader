@@ -18,6 +18,7 @@
  */
 
 #include <app.h>
+#include <system_settings.h>
 
 #include "logger.h"
 
@@ -45,14 +46,18 @@ const std::string ZLibrary::PathDelimiter(":");
 const std::string ZLibrary::EndOfLine("\n");
 
 void ZLibrary::initLocale() {
-	/*
-	LocaleManager localeManager;
-	localeManager.Construct();
 
 	// Gets the system locale information.
-	Locale  systemLocale = localeManager.GetSystemLocale();
-	LanguageCode langCode = systemLocale.GetLanguageCode();
-	switch (langCode) {
+
+	char *locale = NULL;
+	system_settings_get_value_string(SYSTEM_SETTINGS_KEY_LOCALE_LANGUAGE, &locale);
+	DBG("locale %s", locale);
+	ourLanguage = locale;
+	ourLanguage = ourLanguage.substr(0,2);
+	free(locale);
+
+	/*
+	switch (langCode)
 			case LANGUAGE_ENG :
 				ourLanguage = "en";
 				break;
@@ -62,8 +67,8 @@ void ZLibrary::initLocale() {
 			case LANGUAGE_RUS :
 				ourLanguage = "ru";
 				break;
-	}
-	*/
+	}*/
+
 }
 
 
@@ -199,7 +204,7 @@ std::string ZLibrary::Language() {
 			ourLocaleIsInitialized = true;
 		}
 	}
-//	AppLog("ZLibrary ourLanguage =%s", ourLanguage.c_str());
+	DBG("ZLibrary ourLanguage =%s", ourLanguage.c_str());
 	if (ourLanguage.empty()) {
 		ourLanguage = "en";
 	}
@@ -212,7 +217,7 @@ std::string ZLibrary::Country() {
 		initLocale();
 		ourLocaleIsInitialized = true;
 	}
-//	AppLog("ZLibrary ourCountry =%s", ourCountry.c_str());
+	DBG("ZLibrary ourCountry =%s", ourCountry.c_str());
 //	ourCountry = "ru";
 	return ourCountry;
 }
