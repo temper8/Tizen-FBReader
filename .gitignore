@@ -4,6 +4,7 @@
 /crash-info
 /comp.bat
 /link.bat
+*.edj
 .checkers
 .sdk_delta.info
 .rds_delta
