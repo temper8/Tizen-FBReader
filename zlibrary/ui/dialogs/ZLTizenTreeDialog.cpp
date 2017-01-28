@@ -84,7 +84,10 @@ bool ZLTizenTreeDialog::enter(ZLTreeNode* node) {
 		 create_naviframe(strdup(title));
 		 updateContent();
 	 }
-	  else DBG("Empty List!");
+	  else {
+		  DBG("Empty List!");
+
+	  }
 	 return true;
 }
 
@@ -195,7 +198,7 @@ static void gl_selected_cb(void *data, Evas_Object *obj, void *event_info)
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 }
 void ZLTizenTreeDialog::create_naviframe(const char* title){
-	Evas_Object *layout = ZLTizenUtil::create_layout(myWindows->naviframe, "fbr.genlist");
+	layout = ZLTizenUtil::create_layout(myWindows->naviframe, "fbr.genlist");
 	Elm_Object_Item *nf_it = elm_naviframe_item_push(myWindows->naviframe, (title), NULL, NULL,	layout, NULL);
 	elmObjectsList.push_back(nf_it);
 	elm_naviframe_item_pop_cb_set(nf_it, tree_dialog_pop_cb, myWindows);
@@ -227,7 +230,16 @@ void ZLTizenTreeDialog::updateContent(){
 	DBG("updateContent");
 	if (myCurrentNode == NULL) return;
 	ItemCount = myCurrentNode->children().size();
-	if (ItemCount == 0) DBG("Empty List!");
+	if (ItemCount == 0) {
+		DBG("Empty List!");
+		//elm_object_part_text_set(layout, "text", "No Items");
+		elm_layout_theme_set(layout, "layout", "nocontents", "default");
+		evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		elm_object_part_text_set(layout, "elm.text", "No Items");
+		return;
+	}
+	else elm_object_part_text_set(layout, "text", "");
 	if (genList == NULL) DBG("genList == NULL!");
 
 	const char *style = "double_label";

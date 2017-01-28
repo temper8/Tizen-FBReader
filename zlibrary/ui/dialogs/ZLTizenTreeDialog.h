@@ -38,6 +38,7 @@ public:
 	void create_naviframe(const char* title);
 	void updateContent();
 	void deleteObjects();
+	Evas_Object *layout;
 	Evas_Object *genList;
 	std::vector<Elm_Object_Item*> elmObjectsList;
 	int ItemCount;
