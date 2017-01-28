@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<manifest xmlns="http://tizen.org/ns/packages" api-version="2.4" package="org.tizen.t-fbreader" version="0.0.2">
-    <author email="temper8@gmail.com">Alex</author>
+<manifest xmlns="http://tizen.org/ns/packages" api-version="2.4" package="org.tizen.fbreader" version="0.0.3">
+    <author email="temper8@gmail.com">Alexander Kryzhanovsky</author>
     <profile name="mobile"/>
-    <ui-application appid="org.tizen.t-fbreader" exec="t-fbreader" multiple="false" nodisplay="false" taskmanage="true" type="capp">
+    <ui-application appid="org.tizen.fbreader" exec="fbreader-exe" multiple="false" nodisplay="false" taskmanage="true" type="capp">
         <label>FBReader</label>
-        <icon>FBReader-type1.png</icon>
+        <icon>FBVectorIconTizen.png</icon>
     </ui-application>
     <privileges>
         <privilege>http://tizen.org/privilege/mediastorage</privilege>
         <privilege>http://tizen.org/privilege/externalstorage</privilege>
     </privileges>
+    <feature name="http://tizen.org/feature/screen.size.normal.480.800">true</feature>
+    <feature name="http://tizen.org/feature/screen.size.normal.720.1280">true</feature>
 </manifest>
