@@ -154,7 +154,7 @@ void ShowLibraryTreeAction::run() {
 	dialog->rootNode().insert(new RecentBooksTreeNode, index++);
 
 	DBG("ShowLibraryTreeAction::run()  new OpenFileSystemNode");
-	dialog->rootNode().insert(new OpenFileSystemNode, index++);
+	//dialog->rootNode().insert(new OpenFileSystemNode, index++);
 	DBG("children().size() = %d ",dialog->rootNode().children().size());
 
 //	DBG("dialog->run()");
