@@ -165,19 +165,20 @@ void ShowTOCTreeAction::run() {
 	shared_ptr<BookModel> model = FBReader::Instance().myModel;
 	bool isEnabled = !(model.isNull() || model->contentsModel().isNull() || model->contentsModel()->paragraphsNumber() == 0);
 
+	shared_ptr<ZLTreeDialog> dialog = ZLDialogManager::Instance().createTreeDialog(ZLResourceKey("TOCTreeDialog"));
+	dialog->setShowIcons(false);
+
 	if (!isEnabled) {
 	//	const std::string message = ZLStringUtil::printf(ZLDialogManager::dialogMessage(ZLResourceKey("errorLinkBox")), error);
-		ZLDialogManager::Instance().informationBox(ZLResourceKey("emptyContentBox"));
-//		AppLog("TOC not visible");
+		//ZLDialogManager::Instance().informationBox(ZLResourceKey("emptyContentBox"));
+		dialog->run();
 		return;
 	}
 
 //	AppLog("ShowTOCTreeAction::run() ");
-	shared_ptr<ZLTreeDialog> dialog = ZLDialogManager::Instance().createTreeDialog(ZLResourceKey("TOCTreeDialog"));
-//	AppLog("ShowTOCTreeAction::createTreeDialog() ");
-	dialog->setShowIcons(false);
+
+
 	shared_ptr<ZLTextModel> contentsModel = FBReader::Instance().myModel->contentsModel();
-//	AppLog("ShowTOCTreeAction::contentsModel() ");
 	const ZLTextTreeParagraph& rootParagraph = ((ContentsModel&)*contentsModel).getRootParagraph();
 //	AppLog("ShowTOCTreeAction::getRootParagraph() ");
 	const std::vector<ZLTextTreeParagraph*>& children = rootParagraph.children();
