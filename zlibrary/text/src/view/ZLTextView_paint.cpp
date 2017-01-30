@@ -36,22 +36,26 @@ void ZLTextView::paint() {
 //	context().setColor(ZLColor(0, 255, 0));
 //	context().drawLine(10, 600, 200 , 100);
 
+
+	DBG("ZLTextView::paint() textArea()");
+	if (textArea().isEmpty()) {
+		DBG("ZLTextView::paint() textArea().isEmpty()");
+		return;
+	}
+
 	myTextAreaController.area().setOffsets(
 		textArea().isRtl() ? rightMargin() : leftMargin(), topMargin()
 	);
 
 	preparePaintInfo();
-	DBG("textArea()");
-	if (textArea().isEmpty()) {
-		DBG("правда  textArea().isEmpty()");
-		return;
-	}
+
 	DBG("myTextAreaController.area().paint();");
 	myTextAreaController.area().paint();
 
 	shared_ptr<ZLTextPositionIndicatorInfo> indicatorInfo = this->indicatorInfo();
 	if (!indicatorInfo.isNull() && (indicatorInfo->type() == ZLTextPositionIndicatorInfo::FB_INDICATOR)) {
 		positionIndicator()->draw();
+		DBG("ZLTextView::paint() indicator draw");
 	}
 
 	if (myDoUpdateScrollbar && !indicatorInfo.isNull()) {
@@ -72,4 +76,5 @@ void ZLTextView::paint() {
 	}
 
 	ZLTextParagraphCursorCache::cleanup();
+	DBG("ZLTextView::paint() end");
 }
