@@ -531,7 +531,7 @@ ZLViewWidget *ZLTizenApplicationWindow::createViewWidget() {
 
 	//sub_layout = ZLTizenUtil::create_layout(layout, "fbr.main");
 	toolBar_layout = ZLTizenUtil::create_layout(main_layout, "fbr.toolbar");
-	hideToolBar();
+	//hideToolBar();
 
 	layout = create_drawer_layout(main_layout);
 
