@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<manifest xmlns="http://tizen.org/ns/packages" api-version="2.4" package="org.tizen.fbreader" version="0.0.9">
+<manifest xmlns="http://tizen.org/ns/packages" api-version="2.3" package="org.tizen.fbreader" version="0.1.0">
     <author email="temper8@gmail.com">Alexander Kryzhanovsky</author>
+    <description>FBReader is an e-book reader, it supports ePub and fb2 file formats.</description>
     <profile name="mobile"/>
     <ui-application appid="org.tizen.fbreader" exec="fbreader-exe" multiple="false" nodisplay="false" taskmanage="true" type="capp">
         <label>FBReader</label>
