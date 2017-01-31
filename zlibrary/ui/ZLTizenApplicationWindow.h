@@ -57,7 +57,7 @@ public:
 	Evas_Object * createDrawerPanel(Evas_Object *parent);
 
 	Evas_Object *main_layout;
-	bool ToolBarVisible;
+	bool ToolBarVisible = true;
 
 	bool lastPageOfBook();
 	bool firstPageOfBook();
@@ -72,7 +72,7 @@ public:
 	void showToolBar();
 	void hideToolBar();
 	void refreshPage();
-	void showDrawerPanel();
+	bool showDrawerPanel();
 
 	void setOrientation(int Angle);
 

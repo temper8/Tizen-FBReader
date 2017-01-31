@@ -236,17 +236,22 @@ static void nf_more_cb(void *data, Evas_Object *obj, void *event_info)
 static void drawer_panel_Show(void *data, Evas_Object *obj, void *event_info)
 {
 	ZLTizenApplicationWindow *app_win = (ZLTizenApplicationWindow*)data;
-	if(app_win->ToolBarVisible)
-		app_win->hideToolBar();
+
+	if (app_win->showDrawerPanel())
+			app_win->showToolBar();
 	else
-		app_win->showToolBar();
-	app_win->showDrawerPanel();
+			app_win->hideToolBar();
+
 }
 
-void ZLTizenApplicationWindow::showDrawerPanel(){
-	if (!elm_object_disabled_get(drawer_panel)){
+bool ZLTizenApplicationWindow::showDrawerPanel(){
+	if (!elm_object_disabled_get(drawer_panel))
+	{
 		elm_panel_toggle(drawer_panel);
+		return true;
 	}
+	else
+		return false;
 }
 void ZLTizenApplicationWindow::hideToolBar(){
 	elm_layout_signal_emit(main_layout, "toolbar,hide", "app");
