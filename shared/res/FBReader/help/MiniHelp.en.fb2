@@ -2,7 +2,7 @@
 <FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink"><description><title-info><author><last-name>FBReader</last-name></author> <book-title>About FBReader</book-title> <lang>en</lang></title-info></description>
 <body>
 <title><p>About FBReader</p></title>
-<p>FBReader is an e-book reader, it supports <code>ePub</code> and <code>fb2</code> file formats. Put the books you want to read into <code>Books</code> folder on the memory card or <code>Other</code> folder in your phone memory. After that you'll find those books in your Library.</p>
+<p>FBReader is an e-book reader, it supports <code>ePub</code> and <code>fb2</code> file formats. Put the books you want to read into <code>'Documents'</code> or <code>'Downloads'</code> folder in your phone memory. After that you'll find those books in your Library.</p>
 <p>To turn a page you need to tap the right side of the screen (left side if you want to turn a page back). There are also other options: you can turn pages by swiping screen from right to left or use hardware volume keys.</p>
 <p>Preferences Dialog allows you to customize FBReader to suit your reading habits: choose colors, fonts, library options, page turning options, etc.</p>
 <p>Enjoy your reading!</p>
