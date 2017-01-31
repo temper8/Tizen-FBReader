@@ -36,7 +36,7 @@ void PaintEventHandler::paint(){
 	myCairo->flush_cairo();
 
     // store a free function
-    f_display = print_num;
-    f_display(-9);
+  //  f_display = print_num;
+//    f_display(-9);
 
 }

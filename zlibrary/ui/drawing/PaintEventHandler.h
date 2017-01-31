@@ -17,7 +17,7 @@ class PaintEventHandler {
 	~PaintEventHandler();
 
 	void paint();
-	std::function<void(int)> f_display;
+//	std::function<void(int)> f_display;
 	static void print_num(int i);
 	Evas_Object *myEvasObj;
 
