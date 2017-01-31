@@ -152,9 +152,6 @@ void ZLTizenViewWidget::safe_draw(){
 		return;
 	}
 	ZLTizenPaintContext &tizenContext = (ZLTizenPaintContext&)view()->context();
-	//tizenContext = (ZLTizenPaintContext)view()->context();
-
-	//test_draw_on_cairo(image);
 	tizenContext.init_cairo(image);
 	view()->paint();
 	tizenContext.flush_cairo();
@@ -163,13 +160,6 @@ void ZLTizenViewWidget::safe_draw(){
 		checkFirstPageOfBook();
 		checkLastPageOfBook();
 	}
-
-	//tizenContext.init_cairo(image2);
-	//view()->paint();
-	//tizenContext.flush_cairo();
-
-	//updateImage();
-
 }
 void ZLTizenViewWidget::draw(){
 	ecore_main_loop_thread_safe_call_async(safe_draw_cb,this);
