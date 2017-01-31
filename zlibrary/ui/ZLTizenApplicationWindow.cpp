@@ -134,7 +134,8 @@ static Eina_Bool naviframe_pop_cb(void *data, Elm_Object_Item *it)
 	DBG("naviframe_pop_cb");
 	Evas_Object *win = (Evas_Object *)data;
 
-	elm_win_lower(win);
+	//elm_win_lower(win);
+	ui_app_exit();
 
 	return EINA_FALSE;
 }
@@ -374,7 +375,7 @@ ZLTizenApplicationWindow::ZLTizenApplicationWindow(ZLApplication *application): 
 		elm_win_wm_rotation_available_rotations_set(win, (const int *)(&rots), 4);
 	}
 
-//	evas_object_smart_callback_add(win, "delete,request", win_delete_request_cb, NULL);
+	evas_object_smart_callback_add(win, "delete,request", win_delete_request_cb, NULL);
 //	eext_object_event_callback_add(win, EEXT_CALLBACK_BACK, ZLTizenApplicationWindow::win_back_cb, this);
 //	eext_object_event_callback_add(win, EEXT_CALLBACK_MORE, nf_more_cb, this);
 
