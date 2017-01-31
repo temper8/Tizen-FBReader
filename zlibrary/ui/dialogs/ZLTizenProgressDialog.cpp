@@ -123,12 +123,16 @@ Tizen::Base::Object* ZLbadaProgressDialog::Run(void){
 }
 */
 static bool thread_work = false;
+
+void thread_work_false(void *data){
+	thread_work = false;
+}
+
 static void _short_job(void *data EINA_UNUSED, Ecore_Thread *th)
 {
-
 	ZLRunnable* runnable = (ZLRunnable*)data;
 	runnable->run();
-	thread_work = false;
+	ecore_main_loop_thread_safe_call_async(thread_work_false,NULL);
 }
 
 void ZLTizenProgressDialog::run(ZLRunnable &runnable) {
@@ -137,16 +141,17 @@ void ZLTizenProgressDialog::run(ZLRunnable &runnable) {
 	Evas_Object *win = myWindows->win;
 	Evas_Object *popup = create_processing_popup(win);
 
+	thread_work = true;
      //ecore_thread_run(_short_job, _thread_end_cb, _thread_cancel_cb, runnable);
 	Ecore_Thread* 	th = ecore_thread_run(_short_job, NULL, NULL, &runnable);
-	thread_work = true;
 
+	DBG("ZLTizenProgressDialog run2");
   //  ecore_thread_wait(th, 10000);
 	//ecore_main_loop_thread_safe_call_wait(1000);
 	// DO NOT use this function unless you are the person God comes to ask for advice when He has trouble managing the Universe.
 	//while(EINA_TRUE == ecore_thread_check(th)) {
 	while(thread_work) {
-		//DBG("ecore_main_loop_iterate");
+		DBG("ZLTizenProgressDialog ecore_main_loop_iterate");
 		ecore_main_loop_iterate();
 	}
 	//ecore_main_loop_glib_integrate();
@@ -182,10 +187,10 @@ void ZLTizenProgressDialog::run(ZLRunnable &runnable) {
 			AppLog("delete __pPopup");
 	}
 	else*/
-	{
+	//{
 	//	runnable.run();
 		DBG("ZLTizenProgressDialog end run");
-	}
+	//}
 	evas_object_del(popup);
 }
 
