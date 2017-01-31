@@ -19,7 +19,7 @@
 
 #include <app.h>
 #include <system_settings.h>
-
+#include <stdlib.h>
 #include "logger.h"
 
 
