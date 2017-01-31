@@ -140,9 +140,12 @@ void ZLTizenViewWidget::test_draw_on_cairo(Evas_Object *image){
 	 evas_object_image_data_update_add(image, 0, 0, w, h);
 
 }
+void safe_draw_cb(void *data){
+	ZLTizenViewWidget *vw = (ZLTizenViewWidget*)data;
+	vw->safe_draw();
+}
+void ZLTizenViewWidget::safe_draw(){
 
-
-void ZLTizenViewWidget::draw(){
 	DBG(" ZLTizenViewWidget::draw()");
 	if(view().isNull()) {
 		DBG(" view is Null");
@@ -167,6 +170,9 @@ void ZLTizenViewWidget::draw(){
 
 	//updateImage();
 
+}
+void ZLTizenViewWidget::draw(){
+	ecore_main_loop_thread_safe_call_async(safe_draw_cb,this);
 }
 
 void ZLTizenViewWidget::checkLastPageOfBook(){

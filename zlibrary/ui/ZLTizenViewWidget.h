@@ -34,7 +34,7 @@ public:
 	Evas_Object *image3;
 	Elm_Object_Item *naviframe_item;
 	void draw();
-
+	void safe_draw();
 	void test_draw_on_cairo(Evas_Object *image);
 	void checkFirstPageOfBook();
 	void checkLastPageOfBook();
