@@ -169,7 +169,7 @@ void ZLTizenLibraryImplementation::run(ZLApplication *application) {
 	if (ret != APP_ERROR_NONE) {
 		dlog_print(DLOG_ERROR, LOG_TAG, "app_main() is failed. err = %d", ret);
 	}
-
+    delete application;
 }
 
 

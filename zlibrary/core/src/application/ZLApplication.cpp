@@ -102,7 +102,7 @@ ZLApplication::~ZLApplication() {
 		}
 	}
 	ourInstance = 0;
-
+	DBG("ZLApplication delete");
 
 }
 
