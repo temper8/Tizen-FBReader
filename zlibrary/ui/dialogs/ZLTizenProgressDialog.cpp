@@ -24,29 +24,7 @@ ZLTizenProgressDialog::ZLTizenProgressDialog(ZLTizenApplicationWindow* windows, 
 
 	DBG("ZLTizenProgressDialog  = %s",messageText().c_str());
 
-/*
-	__pProgressPopup  = new Tizen::Ui::Controls::ProgressPopup();
-	if (__pProgressPopup) {
 
-
-			result r;
-			//__pProgressPopup = new (std::nothrow) ProgressPopup();
-
-			r = __pProgressPopup->Construct(true, Tizen::Graphics::Dimension(500,300));
-			AppLog("r = %d",r);
-			r =__pProgressPopup->SetTitleText(messageText().c_str());
-			AppLog("r = %d",r);
-			r = __pProgressPopup->SetShowState(true);
-			AppLog("r = %d",r);
-			//r = __pProgressPopup->Show();
-			if (r!=0)	{
-				delete __pProgressPopup;
-				__pProgressPopup = null;
-				AppLog("delete __pPopup");
-				}
-			}
-
-*/
 }
 static void popup_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
@@ -110,18 +88,7 @@ void ZLTizenProgressDialog::OnProgressPopupCanceled(void)
 	//__pProgressPopup->SetShowState(false);
 	//Invalidate(true);
 }
-/*
-Tizen::Base::Object* ZLbadaProgressDialog::Run(void){
-	AppLog("ZLbadaProgressDialog RRRun");
 
-	myRunnable->run();
-	theWorkIsDone = true;
-	if (showProgress)	__pProgressPopup->EndModal(0);
-
-	AppLog("ZLbadaProgressDialog RRRun end");
-	return null;
-}
-*/
 static bool thread_work = false;
 
 void thread_work_false(void *data){
@@ -142,55 +109,17 @@ void ZLTizenProgressDialog::run(ZLRunnable &runnable) {
 	Evas_Object *popup = create_processing_popup(win);
 
 	thread_work = true;
-     //ecore_thread_run(_short_job, _thread_end_cb, _thread_cancel_cb, runnable);
 	Ecore_Thread* 	th = ecore_thread_run(_short_job, NULL, NULL, &runnable);
 
 	DBG("ZLTizenProgressDialog run2");
-  //  ecore_thread_wait(th, 10000);
-	//ecore_main_loop_thread_safe_call_wait(1000);
 	// DO NOT use this function unless you are the person God comes to ask for advice when He has trouble managing the Universe.
-	//while(EINA_TRUE == ecore_thread_check(th)) {
 	while(thread_work) {
-		DBG("ZLTizenProgressDialog ecore_main_loop_iterate");
+		//DBG("ZLTizenProgressDialog ecore_main_loop_iterate");
 		ecore_main_loop_iterate();
 	}
-	//ecore_main_loop_glib_integrate();
 
-/*
-	if (__pProgressPopup) {
-		    __pMonitor = new Monitor;
-	    	__pMonitor->Construct();
+	DBG("ZLTizenProgressDialog end run");
 
-		    AppLog("ConstructAnimationFrameList");
-			theWorkIsDone = false;
-			showProgress = false;
-			Thread* runTread = new Thread;
-			runTread->Construct(*this);
-			runTread->Start();
-			__pProgressPopup->Construct(false,false);
-			__pProgressPopup->SetTitleText(messageText().c_str());
-			__pProgressPopup->SetBounds(260,260,200,500);
-			__pProgressPopup->AddProgressPopupEventListener(*this);
-			__pProgressPopup->SetShowState(true);
-			AppLog("Thread Start()");
-            if (!theWorkIsDone) {
-            	showProgress = true;
-    			 __pProgressPopup->DoModal(modalResult);
-    			__pProgressPopup->SetShowState(false);
-            }
-
-			delete runTread;
-			AppLog("delete runTread");
-			delete __pMonitor;
-			AppLog("delete __pMonitor;");
-			delete __pProgressPopup;
-			AppLog("delete __pPopup");
-	}
-	else*/
-	//{
-	//	runnable.run();
-		DBG("ZLTizenProgressDialog end run");
-	//}
 	evas_object_del(popup);
 }
 

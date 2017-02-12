@@ -17,18 +17,13 @@
 
 class ZLTizenApplicationWindow;
 
-class ZLTizenProgressDialog : public ZLProgressDialog
-						//	 public Tizen::Base::Runtime::IRunnable,
-						//	 Tizen::Ui::IProgressPopupEventListener
-							 {
+class ZLTizenProgressDialog : public ZLProgressDialog {
 public:
 		ZLTizenProgressDialog(ZLTizenApplicationWindow* windows, const ZLResourceKey &key);
 
         void run(ZLRunnable &runnable);
-               // void run(TreeActionListener* listener); // for wait dialog while loading book
 
 		void setMessage(const std::string &message);
-		//IProgressPopupEventListener
 		virtual void OnProgressPopupCanceled(void);
 private:
 
@@ -36,13 +31,9 @@ private:
 		bool showProgress;
 		ZLRunnable* myRunnable;
 		ZLTizenApplicationWindow* myWindows;
-
-	//    Tizen::Ui::Controls::ProgressPopup*			__pProgressPopup;
 	 	int   modalResult;
-	// 	Tizen::Base::Runtime::Monitor*        __pMonitor;
 	 	Evas_Object * create_processing_popup(Evas_Object *win);
 		void OnStop(void);
-	//	Tizen::Base::Object* Run(void);
 };
 
 
