@@ -17,11 +17,6 @@
 
 #include "../../core/src/application/ZLMenu.h"
 
-#ifdef  LOG_TAG
-#undef  LOG_TAG
-#endif
-#define LOG_TAG "tizen-fbreader"
-
 #if !defined(PACKAGE)
 #define PACKAGE "org.tizen.tizen-fbreader"
 #endif
