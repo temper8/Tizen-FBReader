@@ -20,7 +20,7 @@
 ZLTizenOptionsDialog::~ZLTizenOptionsDialog() {
 	// TODO Auto-generated destructor stub
 	DBG("delete ZLTizenOptionsDialog");
-	myWindows->refreshPage();
+	//myWindows->refreshPage();
 	//deleteObjects();
 }
 
@@ -49,8 +49,10 @@ static Eina_Bool TizenOptionsDialog_destuctor_cb(void *data, Elm_Object_Item *it
 	DBG("OptionsDialog_destuctor_cb");
 	ZLTizenOptionsDialog *tg = (ZLTizenOptionsDialog*)data;
 	//if (!tg)
-	//delete tg;
+
 	tg->myWindows->refreshPage();
+	tg->myWindows->deleteOptionsDialog();
+	//delete tg;
 //	 elm_naviframe_item_pop(it);
 	return EINA_TRUE;//EINA_FALSE;
 }
