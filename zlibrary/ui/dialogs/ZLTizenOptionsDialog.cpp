@@ -48,12 +48,8 @@ void ZLTizenOptionsDialog::new_naviframe(){
 static Eina_Bool TizenOptionsDialog_destuctor_cb(void *data, Elm_Object_Item *it) {
 	DBG("OptionsDialog_destuctor_cb");
 	ZLTizenOptionsDialog *tg = (ZLTizenOptionsDialog*)data;
-	//if (!tg)
-
 	tg->myWindows->refreshPage();
 	tg->myWindows->deleteOptionsDialog();
-	//delete tg;
-//	 elm_naviframe_item_pop(it);
 	return EINA_TRUE;//EINA_FALSE;
 }
 
@@ -99,7 +95,7 @@ void ZLTizenOptionsDialog::addEvasViewItem(Evas_Object* viewItem){
 }
 
 ZLDialogContent &ZLTizenOptionsDialog::createTab(const ZLResourceKey &key){
-	DBG("ZLbadaOptionsDialog::createTab = %s",key.Name.c_str());
+	DBG("ZLTizenOptionsDialog::createTab = %s",key.Name.c_str());
 	ZLTizenDialogContent *tab = new ZLTizenDialogContent(this, tabResource(key));
 	//TODO проследить за уничторежнием TABов... чувствую тут проблема возможна
 //	myDialogForm->myTabs.push_back(tab);
@@ -115,12 +111,12 @@ bool ZLTizenOptionsDialog::run(){
 }
 
 const std::string &ZLTizenOptionsDialog::selectedTabKey() const {
-	 DBG("&ZLbadaOptionsDialog::selectedTabKey()");
+	 DBG("&ZLTizenOptionsDialog::selectedTabKey()");
 	 return std::string();
 }
 
 void ZLTizenOptionsDialog::selectTab(const ZLResourceKey &key){
-	 DBG("&ZLbadaOptionsDialog::selectTab()= %s",key.Name.c_str());
+	 DBG("&ZLTizenOptionsDialog::selectTab()= %s",key.Name.c_str());
 }
 
 
@@ -129,7 +125,7 @@ void ZLTizenOptionsDialog::apply() {
 }
 
 void ZLTizenOptionsDialog::setMenuEntry(ZLMenuOptionEntry* option){
-	DBG("&ZLbadaOptionsDialog::setMenuEntry()");
+	DBG("&ZLTizenOptionsDialog::setMenuEntry()");
 //	myMenuView = new MenuView(std::string(), std::string(), (ZLMenuOptionEntry*)option, null, 0, 0, 0);
 //	myDialogForm->setMenuView(myMenuView);
 }
