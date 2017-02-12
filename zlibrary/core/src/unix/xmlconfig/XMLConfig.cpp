@@ -91,6 +91,8 @@ ConfigSaveTask::ConfigSaveTask(XMLConfig &config) : myConfig(config) {
 
 void ConfigSaveTask::run() {
 	DBG("ConfigSaveTask::run ");
+	DBG("myConfig.changesCounter = %d",myConfig.changesCounter());
+
 	if (myConfig.changesCounter() >= 500) {
 		myConfig.saveAll();
 	} else {
@@ -108,6 +110,7 @@ XMLConfig::~XMLConfig() {
 	DBG("XMLConfig::~XMLConfig() ");
 	ZLTimeManager::Instance().removeTask(mySaver);
 	//AppLog("removeTask");
+	DBG("Config.changesCounter = %d", changesCounter());
 	saveAll();
 	//AppLog("saveAll()");
 	for (std::map<std::string,XMLConfigGroup*>::const_iterator it = myGroups.begin(); it != myGroups.end(); ++it) {
