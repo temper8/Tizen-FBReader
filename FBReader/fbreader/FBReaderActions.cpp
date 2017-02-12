@@ -107,7 +107,7 @@ void ShowOptionsDialogAction::run() {
 
 	dialog->rootNode().insert(new OptionsDialogNode(new IndicatorOptionsDialogAction()), index++);
 
-	dialog->rootNode().insert(new OptionsDialogNode(new PageTurningOptionsDialogAction()), index++);
+//	dialog->rootNode().insert(new OptionsDialogNode(new PageTurningOptionsDialogAction()), index++);
 
 	dialog->rootNode().insert(new OptionsDialogNode(new ColorOptionsDialogAction()), index++);
 
