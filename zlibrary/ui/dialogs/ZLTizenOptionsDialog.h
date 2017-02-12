@@ -36,8 +36,8 @@ protected:
 	virtual void selectTab(const ZLResourceKey &key);
 	virtual bool runInternal();
 public:
-	void new_naviframe();
-	void createOptionsDialogObject(Evas_Object *nf);
+	void createOptionsElmContainer();
+	//void createOptionsDialogObject(Evas_Object *nf);
 	void addEvasViewItem(Evas_Object* viewItem);
 	Evas_Object *myScroller;
 	Evas_Object *myBox;

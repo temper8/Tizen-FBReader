@@ -28,7 +28,7 @@ ZLTizenOptionsDialog::ZLTizenOptionsDialog(ZLTizenApplicationWindow *windows, co
 	DBG("ZLTizenOptionsDialog resource name = %s",resource.name().c_str());
 	//result r = E_SUCCESS;
 	DBG("ZLTizenOptionsDialog caption() = %s",caption().c_str());
-	new_naviframe();
+	createOptionsElmContainer();
 }
 
 
@@ -41,10 +41,11 @@ static Evas_Object* create_scroller(Evas_Object *parent)
 
 	return scroller;
 }
+/*
 void ZLTizenOptionsDialog::new_naviframe(){
 	createOptionsDialogObject(myWindows->naviframe);
 }
-
+*/
 static Eina_Bool TizenOptionsDialog_destuctor_cb(void *data, Elm_Object_Item *it) {
 	DBG("OptionsDialog_destuctor_cb");
 	ZLTizenOptionsDialog *tg = (ZLTizenOptionsDialog*)data;
@@ -53,7 +54,8 @@ static Eina_Bool TizenOptionsDialog_destuctor_cb(void *data, Elm_Object_Item *it
 	return EINA_TRUE;//EINA_FALSE;
 }
 
-void ZLTizenOptionsDialog::createOptionsDialogObject(Evas_Object *nf){
+//void ZLTizenOptionsDialog::createOptionsDialogObject(Evas_Object *nf){
+void ZLTizenOptionsDialog::createOptionsElmContainer(){
 	DBG("createOptionsDialogObject");
 //	Evas_Object *layout = ZLTizenUtil::create_layout(myWindows->naviframe, "fbr.optionsdialog");
 
