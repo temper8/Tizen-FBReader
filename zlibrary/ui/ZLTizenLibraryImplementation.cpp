@@ -81,7 +81,7 @@ void ZLTizenLibraryImplementation::init(int &argc, char **&argv){
 
 //ZLTizenApplicationWindow *ZLTizenLibraryImplementation::myWindow = NULL;
 
-bool ZLTizenLibraryImplementation::app_create(void *data){
+bool app_create(void *data){
 	DBG("ZLTiLibImp-app_create");
 	ZLApplication *app = (ZLApplication*)data;
 	//myWindow = new ZLTizenApplicationWindow(app);
@@ -93,29 +93,29 @@ bool ZLTizenLibraryImplementation::app_create(void *data){
 }
 
 
-void ZLTizenLibraryImplementation::app_control(app_control_h app_control, void *data)
+void app_control(app_control_h app_control, void *data)
 {
 	/* Handle the launch request. */
 }
 
-void ZLTizenLibraryImplementation::app_pause(void *data)
+void app_pause(void *data)
 {
 	/* Take necessary actions when application becomes invisible. */
 }
 
-void ZLTizenLibraryImplementation::app_resume(void *data)
+void app_resume(void *data)
 {
 	/* Take necessary actions when application becomes visible. */
 }
 
-void ZLTizenLibraryImplementation::app_terminate(void *data)
+void app_terminate(void *data)
 {
 	/* Release all resources. */
 	DBG("app_terminate");
 }
 
 
-void ZLTizenLibraryImplementation::ui_app_lang_changed(app_event_info_h event_info, void *user_data)
+void ui_app_lang_changed(app_event_info_h event_info, void *user_data)
 {
 	/*APP_EVENT_LANGUAGE_CHANGED*/
 	char *locale = NULL;
@@ -125,23 +125,23 @@ void ZLTizenLibraryImplementation::ui_app_lang_changed(app_event_info_h event_in
 	return;
 }
 
-void ZLTizenLibraryImplementation::ui_app_orient_changed(app_event_info_h event_info, void *user_data)
+void ui_app_orient_changed(app_event_info_h event_info, void *user_data)
 {
 	/*APP_EVENT_DEVICE_ORIENTATION_CHANGED*/
 	return;
 }
 
-void ZLTizenLibraryImplementation::ui_app_region_changed(app_event_info_h event_info, void *user_data)
+void ui_app_region_changed(app_event_info_h event_info, void *user_data)
 {
 	/*APP_EVENT_REGION_FORMAT_CHANGED*/
 }
 
-void ZLTizenLibraryImplementation::ui_app_low_battery(app_event_info_h event_info, void *user_data)
+void ui_app_low_battery(app_event_info_h event_info, void *user_data)
 {
 	/*APP_EVENT_LOW_BATTERY*/
 }
 
-void ZLTizenLibraryImplementation::ui_app_low_memory(app_event_info_h event_info, void *user_data)
+void ui_app_low_memory(app_event_info_h event_info, void *user_data)
 {
 	/*APP_EVENT_LOW_MEMORY*/
 }
@@ -152,22 +152,22 @@ void ZLTizenLibraryImplementation::run(ZLApplication *application) {
 	ui_app_lifecycle_callback_s event_callback = {0,};
 	app_event_handler_h handlers[5] = {NULL, };
 
-	event_callback.create = ZLTizenLibraryImplementation::app_create;
-	event_callback.terminate = ZLTizenLibraryImplementation::app_terminate;
-	event_callback.pause = ZLTizenLibraryImplementation::app_pause;
-	event_callback.resume = ZLTizenLibraryImplementation::app_resume;
-	event_callback.app_control = ZLTizenLibraryImplementation::app_control;
+	event_callback.create = app_create;
+	event_callback.terminate = app_terminate;
+	event_callback.pause = app_pause;
+	event_callback.resume = app_resume;
+	event_callback.app_control = app_control;
 
-	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_BATTERY], APP_EVENT_LOW_BATTERY, ZLTizenLibraryImplementation::ui_app_low_battery, application);
-	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_MEMORY], APP_EVENT_LOW_MEMORY, ZLTizenLibraryImplementation::ui_app_low_memory, application);
-	ui_app_add_event_handler(&handlers[APP_EVENT_DEVICE_ORIENTATION_CHANGED], APP_EVENT_DEVICE_ORIENTATION_CHANGED, ZLTizenLibraryImplementation::ui_app_orient_changed, application);
-	ui_app_add_event_handler(&handlers[APP_EVENT_LANGUAGE_CHANGED], APP_EVENT_LANGUAGE_CHANGED, ZLTizenLibraryImplementation::ui_app_lang_changed, application);
-	ui_app_add_event_handler(&handlers[APP_EVENT_REGION_FORMAT_CHANGED], APP_EVENT_REGION_FORMAT_CHANGED, ZLTizenLibraryImplementation::ui_app_region_changed, application);
+	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_BATTERY], APP_EVENT_LOW_BATTERY, ui_app_low_battery, application);
+	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_MEMORY], APP_EVENT_LOW_MEMORY, ui_app_low_memory, application);
+	ui_app_add_event_handler(&handlers[APP_EVENT_DEVICE_ORIENTATION_CHANGED], APP_EVENT_DEVICE_ORIENTATION_CHANGED, ui_app_orient_changed, application);
+	ui_app_add_event_handler(&handlers[APP_EVENT_LANGUAGE_CHANGED], APP_EVENT_LANGUAGE_CHANGED, ui_app_lang_changed, application);
+	ui_app_add_event_handler(&handlers[APP_EVENT_REGION_FORMAT_CHANGED], APP_EVENT_REGION_FORMAT_CHANGED, ui_app_region_changed, application);
 	ui_app_remove_event_handler(handlers[APP_EVENT_LOW_MEMORY]);
 
 	int ret = ui_app_main(my_argc, my_argv, &event_callback, application);
 	if (ret != APP_ERROR_NONE) {
-		dlog_print(DLOG_ERROR, LOG_TAG, "app_main() is failed. err = %d", ret);
+		DBG("app_main() is failed. err = %d", ret);
 	}
     delete application;
 }
