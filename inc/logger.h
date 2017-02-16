@@ -17,7 +17,10 @@
 #ifndef __LOGGER_H__
 #define __LOGGER_H__
 
-#define LOG_TAG "FBReader"
+#ifdef _DEBUG
+ #define LOG_TAG "FBReader"
+#endif
+
 #include <dlog.h>
 
 #define DLOG(prio, fmt, arg...) dlog_print(prio, LOG_TAG, "%s(%d) > " fmt, __func__, __LINE__, ##arg)
