@@ -18,7 +18,7 @@
 #include "../../core/src/application/ZLMenu.h"
 
 #if !defined(PACKAGE)
-#define PACKAGE "org.tizen.tizen-fbreader"
+#define PACKAGE "org.tizen.fbreader"
 #endif
 
 #include "ZLApplicationWindow.h"
