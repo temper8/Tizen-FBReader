@@ -111,9 +111,9 @@ FBReader::FBReader(const std::string &bookToOpen) :	ZLApplication("FBReader"),
 	DBG("Создаем FBReader");
 }
 
-bool FBReader::createApplication(){
-	DBG("FBR-ZLApplication::createApplication");
-	ZLApplication::createApplication();
+bool FBReader::initializeApplication(){
+	DBG("FBR-ZLApplication::initializeApplication");
+	ZLApplication::initializeApplication();
 	DBG("createApplication FBReader");
 	myBookTextView = new BookTextView(*context());
 	DBG("new BookTextView");

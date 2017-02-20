@@ -86,7 +86,7 @@ public:
 	FBReader(const std::string &bookToOpen);
 	~FBReader();
 
-	bool createApplication();
+	bool initializeApplication();
 
 	void setMode(ViewMode mode);
 	ViewMode mode() const;

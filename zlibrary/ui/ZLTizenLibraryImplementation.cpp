@@ -87,7 +87,7 @@ bool app_create(void *data){
 	//myWindow = new ZLTizenApplicationWindow(app);
 	ZLApplicationWindow* appWindow = ZLDialogManager::Instance().createApplicationWindow(app);
 	appWindow->init();
-	app->createApplication();
+	app->initializeApplication();
 	app->initWindow();
 	return true;
 }

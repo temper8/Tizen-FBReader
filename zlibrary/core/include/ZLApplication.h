@@ -139,7 +139,7 @@ public:
 	virtual ~ZLApplication();
 	virtual void initWindow();
 
-	virtual bool createApplication();
+	virtual bool initializeApplication();
 
 	shared_ptr<ZLView> currentView() const;
 	shared_ptr<ZLPaintContext> context();

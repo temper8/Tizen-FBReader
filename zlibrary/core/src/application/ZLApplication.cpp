@@ -84,8 +84,8 @@ ZLApplication::ZLApplication(const std::string &name) : ZLApplicationBase(name),
 //	AppLog("создали ZLApplication");
 }
 
-bool ZLApplication::createApplication(){
-	DBG("ZLA-createApp");
+bool ZLApplication::initializeApplication(){
+	DBG("ZLA-initializeApplication");
 	//ZLDialogManager::Instance().createApplicationWindow(application);
 	//application->initWindow();
 
